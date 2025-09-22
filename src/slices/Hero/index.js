@@ -11,7 +11,9 @@ const Hero = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <PrismicRichText field={slice.primary.heading} />
+      <div className="text-5xl">
+        <PrismicRichText field={slice.primary.heading} />
+      </div>
     </section>
   );
 };
