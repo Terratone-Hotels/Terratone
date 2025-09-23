@@ -13,6 +13,57 @@
 						}
 					}
 				]
+			},
+			"carousel": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"image",
+								{
+									"origin": {
+										"id": "main",
+										"url": "https://images.unsplash.com/photo-1593642633279-1796119d5482",
+										"width": 4016,
+										"height": 6016
+									},
+									"url": "https://images.unsplash.com/photo-1593642633279-1796119d5482",
+									"width": 4016,
+									"height": 6016,
+									"edit": {
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 0
+										},
+										"background": "transparent"
+									},
+									"alt": "eye",
+									"credits": null,
+									"__TYPE__": "ImageContent",
+									"thumbnails": {}
+								}
+							],
+							[
+								"youtube_video_id",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "rocket",
+									"type": "Text"
+								}
+							],
+							[
+								"video",
+								{
+									"__TYPE__": "BooleanContent",
+									"value": false
+								}
+							]
+						]
+					}
+				]
 			}
 		},
 		"items": []
