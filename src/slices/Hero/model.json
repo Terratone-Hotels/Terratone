@@ -20,6 +20,39 @@
             "allowTargetBlank": true,
             "multi": "heading1"
           }
+        },
+        "carousel": {
+          "type": "Group",
+          "config": {
+            "label": "Carousel",
+            "repeat": true,
+            "fields": {
+              "image": {
+                "type": "Image",
+                "config": {
+                  "label": "Image",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              },
+              "youtube_video_id": {
+                "type": "Text",
+                "config": {
+                  "label": "YouTube Video ID",
+                  "placeholder": ""
+                }
+              },
+              "video": {
+                "type": "Boolean",
+                "config": {
+                  "label": "Video ",
+                  "placeholder_false": "false",
+                  "placeholder_true": "true",
+                  "default_value": false
+                }
+              }
+            }
+          }
         }
       },
       "items": {}

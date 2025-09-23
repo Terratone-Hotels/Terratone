@@ -137,6 +137,42 @@ export type HomepageDocument<Lang extends string = string> =
 export type AllDocumentTypes = HomepageDocument;
 
 /**
+ * Item in *Hero → Default → Primary → Carousel*
+ */
+export interface HeroSliceDefaultPrimaryCarouselItem {
+  /**
+   * Image field in *Hero → Default → Primary → Carousel*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.carousel[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * YouTube Video ID field in *Hero → Default → Primary → Carousel*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.carousel[].youtube_video_id
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  youtube_video_id: prismic.KeyTextField;
+
+  /**
+   * Video  field in *Hero → Default → Primary → Carousel*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: hero.default.primary.carousel[].video
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  video: prismic.BooleanField;
+}
+
+/**
  * Primary content in *Hero → Default → Primary*
  */
 export interface HeroSliceDefaultPrimary {
@@ -149,6 +185,16 @@ export interface HeroSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   heading: prismic.RichTextField;
+
+  /**
+   * Carousel field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.carousel[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  carousel: prismic.GroupField<Simplify<HeroSliceDefaultPrimaryCarouselItem>>;
 }
 
 /**
@@ -204,6 +250,7 @@ declare module "@prismicio/client" {
       HomepageDocumentDataSlicesSlice,
       AllDocumentTypes,
       HeroSlice,
+      HeroSliceDefaultPrimaryCarouselItem,
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
