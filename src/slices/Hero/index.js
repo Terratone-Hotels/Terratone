@@ -70,7 +70,7 @@ const Hero = ({ slice }) => {
       </Swiper>
 
       {/* Thumbnails Overlay */}
-      <div className="absolute bottom-6  xl:bottom-22 z-10 left-1/2 -translate-x-1/2  ">
+      <div className="absolute bottom-12 md:bottom-6  xl:bottom-18 z-10 left-1/2 -translate-x-1/2  ">
         <Swiper
           onSwiper={setThumbsSwiper}
           loop={true}
