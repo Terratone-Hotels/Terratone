@@ -170,6 +170,16 @@ export interface HeroSliceDefaultPrimaryCarouselItem {
    * - **Documentation**: https://prismic.io/docs/fields/boolean
    */
   video: prismic.BooleanField;
+
+  /**
+   * thumbnail field in *Hero → Default → Primary → Carousel*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.carousel[].thumbnail
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  thumbnail: prismic.ImageField<never>;
 }
 
 /**

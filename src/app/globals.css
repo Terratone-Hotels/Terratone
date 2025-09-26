@@ -1,4 +1,22 @@
 @import "tailwindcss";
+@theme inline {
+  /* Base serif stack with EB Garamond */
+  --font-serif: var(--font-eb-mono), "EB Garamond", Georgia, serif;
+
+  /* === Bold (700) === */
+  --font-bold: var(--font-eb-mono);
+  --font-bold--font-variation-settings: "wght" 700;
+
+  /* === Italic (400 italic) === */
+  --font-italic: var(--font-eb-mono);
+  --font-italic--font-variation-settings:
+    "slnt" -10, /* simulate slant if supported */ "wght" 400;
+
+  /* === Bold Italic === */
+  --font-bold-italic: var(--font-eb-mono);
+  --font-bold-italic--font-variation-settings: "wght" 700, "slnt" -10;
+}
+
 html {
   font-size: 16px; /* Tailwind’s base rem size */
   -webkit-text-size-adjust: 100%;

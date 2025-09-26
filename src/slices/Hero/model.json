@@ -18,7 +18,7 @@
             "label": "Heading",
             "placeholder": "",
             "allowTargetBlank": true,
-            "multi": "heading1"
+            "multi": "heading1,em,strong"
           }
         },
         "carousel": {
@@ -49,6 +49,14 @@
                   "placeholder_false": "false",
                   "placeholder_true": "true",
                   "default_value": false
+                }
+              },
+              "thumbnail": {
+                "type": "Image",
+                "config": {
+                  "label": "thumbnail",
+                  "constraint": {},
+                  "thumbnails": []
                 }
               }
             }
