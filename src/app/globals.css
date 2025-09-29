@@ -6,21 +6,21 @@
   --color-sand: #f4f1ed;
   --color-stone: #f4f1ed;
   --color-toiled-gold: #96703b;
-  /* Base serif stack with EB Garamond */
+  
   --font-serif: var(--font-eb-mono), "EB Garamond", Georgia, serif;
 
   /* === Bold (700) === */
-  --font-bold: var(--font-eb-mono);
-  --font-bold--font-variation-settings: "wght" 700;
+  /* --font-bold: var(--font-eb-mono);
+  --font-bold--font-variation-settings: "wght" 700; */
 
   /* === Italic (400 italic) === */
-  --font-italic: var(--font-eb-mono);
-  --font-italic--font-variation-settings:
-    "slnt" -10, /* simulate slant if supported */ "wght" 400;
+  /* --font-italic: var(--font-eb-mono);
+  --font-italic--font-variation-settings: */
+    /* "slnt" -10, simulate slant if supported "wght" 400; */
 
   /* === Bold Italic === */
-  --font-bold-italic: var(--font-eb-mono);
-  --font-bold-italic--font-variation-settings: "wght" 700, "slnt" -10;
+  /* --font-bold-italic: var(--font-eb-mono);
+  --font-bold-italic--font-variation-settings: "wght" 700, "slnt" -10; */ 
 }
 
 html {
