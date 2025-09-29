@@ -11,6 +11,21 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "tagline_hero_slice": {
+              "type": "SharedSlice"
+            },
+            "room_showcase_slice": {
+              "type": "SharedSlice"
+            },
+            "destination_highlight": {
+              "type": "SharedSlice"
+            },
+            "meeting_halls": {
+              "type": "SharedSlice"
+            },
+            "one_with_side_words": {
+              "type": "SharedSlice"
+            },
             "hero": {
               "type": "SharedSlice"
             }

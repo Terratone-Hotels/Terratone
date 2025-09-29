@@ -1,8 +1,8 @@
 {
-  "id": "hero",
+  "id": "meeting_halls",
   "type": "SharedSlice",
-  "name": "Hero",
-  "description": "Hero",
+  "name": "MeetingHalls",
+  "description": "MeetingHalls",
   "variations": [
     {
       "id": "default",
@@ -18,13 +18,22 @@
             "label": "Heading",
             "placeholder": "",
             "allowTargetBlank": true,
-            "multi": "heading1,em,strong"
+            "multi": "heading1,heading2,heading3,heading4,strong,em"
           }
         },
-        "carousel": {
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Description",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,strong,em"
+          }
+        },
+        "rooms": {
           "type": "Group",
           "config": {
-            "label": "Carousel",
+            "label": "Rooms",
             "repeat": true,
             "fields": {
               "image": {
@@ -35,28 +44,29 @@
                   "thumbnails": []
                 }
               },
-              "youtube_video_id": {
+              "card_title": {
                 "type": "Text",
                 "config": {
-                  "label": "YouTube Video ID",
+                  "label": "Card Title",
                   "placeholder": ""
                 }
               },
-              "video": {
-                "type": "Boolean",
+              "card_description": {
+                "type": "Text",
                 "config": {
-                  "label": "Video ",
-                  "placeholder_false": "false",
-                  "placeholder_true": "true",
-                  "default_value": false
+                  "label": "Card Description",
+                  "placeholder": ""
                 }
               },
-              "thumbnail": {
-                "type": "Image",
+              "room_link": {
+                "type": "Link",
                 "config": {
-                  "label": "thumbnail",
-                  "constraint": {},
-                  "thumbnails": []
+                  "label": "Room Link",
+                  "placeholder": "",
+                  "select": null,
+                  "allowTargetBlank": true,
+                  "allowText": true,
+                  "repeat": false
                 }
               }
             }

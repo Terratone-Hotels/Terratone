@@ -1,0 +1,10 @@
+# Allow all search engines
+User-agent: *
+Disallow: /api/
+Disallow: /preview/
+Disallow: /_next/
+Disallow: /static/
+Allow: /
+
+# Point crawlers to sitemap
+Sitemap: https://terratone.vercel.app/sitemap.xml
