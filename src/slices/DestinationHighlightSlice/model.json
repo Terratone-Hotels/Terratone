@@ -1,0 +1,16 @@
+{
+  "id": "destination_highlight_slice",
+  "type": "SharedSlice",
+  "name": "DestinationHighlightSlice",
+  "description": "DestinationHighlightSlice",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": ""
+    }
+  ]
+}

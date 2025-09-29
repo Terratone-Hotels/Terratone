@@ -1,0 +1,29 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"quote": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Deserunt labore irure ex eiusmod cillum Lorem exercitation est. Magna exercitation consequat et elit minim aute occaecat qui ex pariatur quis ea. Quis incididunt officia est."
+						}
+					}
+				]
+			},
+			"button": {
+				"__TYPE__": "LinkContent",
+				"key": "b8d8597b-413e-4659-b4e8-b2a3f07051ac",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://prismic.io",
+					"text": "nose"
+				}
+			}
+		},
+		"items": []
+	}
+]
