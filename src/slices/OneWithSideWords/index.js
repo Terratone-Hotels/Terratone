@@ -19,14 +19,14 @@ const OneWithSideWords = ({ slice }) => {
       </div>
 
       {/* Video + side words wrapper */}
-      <div className="relative w-full max-w-5xl flex justify-center">
+      <div className="w-full max-w-5xl flex items-center justify-center gap-4">
         {/* Left word */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 text-[1.75rem] md:text-[2.625rem] font-serif font-medium -rotate-90 origin-center">
+        <div className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium -rotate-90 md:rotate-0">
           <PrismicRichText field={slice.primary.left_word} />
         </div>
 
-        {/* Center video */}
-        <div className="w-full md:w-3/4 aspect-video flex-shrink-0">
+        {/* Video in the center */}
+        <div className="flex-shrink-0 w-3/4 md:w-3/4 aspect-video">
           <VideoComponent
             srcMp4={slice.primary.video}
             className="w-full h-full object-cover shadow-lg"
@@ -34,7 +34,7 @@ const OneWithSideWords = ({ slice }) => {
         </div>
 
         {/* Right word */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 text-[1.75rem] md:text-[2.625rem] font-serif font-medium rotate-90 origin-center">
+        <div className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium rotate-90 md:rotate-0">
           <PrismicRichText field={slice.primary.right_word} />
         </div>
       </div>
