@@ -11,6 +11,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "one_with_side_words": {
+              "type": "SharedSlice"
+            },
             "hero": {
               "type": "SharedSlice"
             }

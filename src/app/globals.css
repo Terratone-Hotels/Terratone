@@ -1,5 +1,11 @@
 @import "tailwindcss";
 @theme inline {
+  --color-terra-pink: #e4a3a2; /* Terra Pink */
+  --color-earth-green: #3e5b39;
+  --color-pitch: #000000;
+  --color-sand: #f4f1ed;
+  --color-stone: #f4f1ed;
+  --color-toiled-gold: #96703b;
   /* Base serif stack with EB Garamond */
   --font-serif: var(--font-eb-mono), "EB Garamond", Georgia, serif;
 
@@ -22,6 +28,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  background-color: var(--color-stone);
 }
 
 body {

@@ -1,0 +1,67 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"top_sentence": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Dolore esse irure cupidatat in Lorem aliqua. Minim in irure dolore occaecat nisi. Veniam veniam reprehenderit veniam velit consectetur do exercitation nisi do cillum reprehenderit."
+						}
+					}
+				]
+			},
+			"left_word": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Amet esse laboris reprehenderit ex sunt consequat laborum sunt non dolor occaecat. Veniam magna nostrud ea. Et sunt nisi proident incididunt irure ut sunt ex laborum culpa ad exercitation."
+						}
+					}
+				]
+			},
+			"right_word": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Minim est officia veniam ut nisi excepteur consectetur duis mollit cillum ad ut est et."
+						}
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "In pariatur dolore veniam consectetur adipisicing excepteur non. Incididunt ut culpa eu tempor exercitation ad mollit nostrud incididunt est Lorem."
+						}
+					}
+				]
+			},
+			"cta_button": {
+				"key": "cc6c4216-4c05-4b7c-bc00-959517c9ee34",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "http://twitter.com",
+					"text": "floor"
+				}
+			},
+			"video": {
+				"__TYPE__": "FieldContent",
+				"value": "natural",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]

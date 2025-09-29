@@ -69,7 +69,7 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
-type HomepageDocumentDataSlicesSlice = HeroSlice;
+type HomepageDocumentDataSlicesSlice = OneWithSideWordsSlice | HeroSlice;
 
 /**
  * Content for HomePage documents
@@ -234,6 +234,107 @@ type HeroSliceVariation = HeroSliceDefault;
  */
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
+/**
+ * Primary content in *OneWithSideWords → Default → Primary*
+ */
+export interface OneWithSideWordsSliceDefaultPrimary {
+  /**
+   * Top Sentence field in *OneWithSideWords → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: one_with_side_words.default.primary.top_sentence
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  top_sentence: prismic.RichTextField;
+
+  /**
+   * Left Word field in *OneWithSideWords → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: one_with_side_words.default.primary.left_word
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  left_word: prismic.RichTextField;
+
+  /**
+   * Right Word field in *OneWithSideWords → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: one_with_side_words.default.primary.right_word
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  right_word: prismic.RichTextField;
+
+  /**
+   * Description field in *OneWithSideWords → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: one_with_side_words.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * CTA Button field in *OneWithSideWords → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: one_with_side_words.default.primary.cta_button
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  cta_button: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Video field in *OneWithSideWords → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: one_with_side_words.default.primary.video
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  video: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for OneWithSideWords Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type OneWithSideWordsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<OneWithSideWordsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *OneWithSideWords*
+ */
+type OneWithSideWordsSliceVariation = OneWithSideWordsSliceDefault;
+
+/**
+ * OneWithSideWords Shared Slice
+ *
+ * - **API ID**: `one_with_side_words`
+ * - **Description**: OneWithSideWords
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type OneWithSideWordsSlice = prismic.SharedSlice<
+  "one_with_side_words",
+  OneWithSideWordsSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -264,6 +365,10 @@ declare module "@prismicio/client" {
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      OneWithSideWordsSlice,
+      OneWithSideWordsSliceDefaultPrimary,
+      OneWithSideWordsSliceVariation,
+      OneWithSideWordsSliceDefault,
     };
   }
 }
