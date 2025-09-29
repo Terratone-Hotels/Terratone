@@ -3,6 +3,13 @@
 import dynamic from "next/dynamic";
 
 export const components = {
+  destination_highlight: dynamic(() => import("./DestinationHighlight")),
+  destination_highlight_slice: dynamic(
+    () => import("./DestinationHighlightSlice"),
+  ),
   hero: dynamic(() => import("./Hero")),
+  meeting_halls: dynamic(() => import("./MeetingHalls")),
   one_with_side_words: dynamic(() => import("./OneWithSideWords")),
+  room_showcase_slice: dynamic(() => import("./RoomShowcaseSlice")),
+  tagline_hero_slice: dynamic(() => import("./TaglineHeroSlice")),
 };
