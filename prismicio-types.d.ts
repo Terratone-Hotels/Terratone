@@ -70,6 +70,7 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>["id"]];
 
 type HomepageDocumentDataSlicesSlice =
+  | BanquetHallsSlice
   | TaglineHeroSliceSlice
   | RoomShowcaseSliceSlice
   | DestinationHighlightSlice
@@ -143,6 +144,97 @@ export type HomepageDocument<Lang extends string = string> =
 export type AllDocumentTypes = HomepageDocument;
 
 /**
+ * Primary content in *BanquetHalls → Default → Primary*
+ */
+export interface BanquetHallsSliceDefaultPrimary {
+  /**
+   * Banquet Image field in *BanquetHalls → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: banquet_halls.default.primary.banquet_image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  banquet_image: prismic.ImageField<never>;
+
+  /**
+   * Heading field in *BanquetHalls → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: banquet_halls.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *BanquetHalls → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: banquet_halls.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Button Link field in *BanquetHalls → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: banquet_halls.default.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *BanquetHalls → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: banquet_halls.default.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for BanquetHalls Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BanquetHallsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<BanquetHallsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *BanquetHalls*
+ */
+type BanquetHallsSliceVariation = BanquetHallsSliceDefault;
+
+/**
+ * BanquetHalls Shared Slice
+ *
+ * - **API ID**: `banquet_halls`
+ * - **Description**: BanquetHalls
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BanquetHallsSlice = prismic.SharedSlice<
+  "banquet_halls",
+  BanquetHallsSliceVariation
+>;
+
+/**
  * Primary content in *DestinationHighlight → Default → Primary*
  */
 export interface DestinationHighlightSliceDefaultPrimary {
@@ -181,6 +273,16 @@ export interface DestinationHighlightSliceDefaultPrimary {
     prismic.FieldState,
     never
   >;
+
+  /**
+   * Button Text field in *DestinationHighlight → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.default.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
 
   /**
    * Image field in *DestinationHighlight → Default → Primary*
@@ -680,28 +782,257 @@ export type RoomShowcaseSliceSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *TaglineHeroSlice → Repeatable Field Variation → Primary → Footer CTA*
+ */
+export interface TaglineHeroSliceSliceRepeatableFieldVariationPrimaryFooterCtaItem {
+  /**
+   * TextOne field in *TaglineHeroSlice → Repeatable Field Variation → Primary → Footer CTA*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.repeatableFieldVariation.primary.footer_cta[].textone
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  textone: prismic.RichTextField;
+
+  /**
+   * ImgVidOne field in *TaglineHeroSlice → Repeatable Field Variation → Primary → Footer CTA*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.repeatableFieldVariation.primary.footer_cta[].imgvidone
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  imgvidone: prismic.ImageField<never>;
+
+  /**
+   * VideoLink field in *TaglineHeroSlice → Repeatable Field Variation → Primary → Footer CTA*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.repeatableFieldVariation.primary.footer_cta[].videolink
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  videolink: prismic.KeyTextField;
+
+  /**
+   * Video Toggle field in *TaglineHeroSlice → Repeatable Field Variation → Primary → Footer CTA*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: tagline_hero_slice.repeatableFieldVariation.primary.footer_cta[].video_toggle
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  video_toggle: prismic.BooleanField;
+
+  /**
+   * Video Thumbnail field in *TaglineHeroSlice → Repeatable Field Variation → Primary → Footer CTA*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.repeatableFieldVariation.primary.footer_cta[].video_thumbnail
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  video_thumbnail: prismic.ImageField<never>;
+
+  /**
+   * TextTwo field in *TaglineHeroSlice → Repeatable Field Variation → Primary → Footer CTA*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.repeatableFieldVariation.primary.footer_cta[].texttwo
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  texttwo: prismic.RichTextField;
+}
+
+/**
  * Primary content in *TaglineHeroSlice → Default → Primary*
  */
 export interface TaglineHeroSliceSliceDefaultPrimary {
   /**
-   * Quote field in *TaglineHeroSlice → Default → Primary*
+   * TextFieldOne field in *TaglineHeroSlice → Default → Primary*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: tagline_hero_slice.default.primary.quote
+   * - **API ID Path**: tagline_hero_slice.default.primary.textfieldone
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
-  quote: prismic.RichTextField;
+  textfieldone: prismic.RichTextField;
 
   /**
-   * Button field in *TaglineHeroSlice → Default → Primary*
+   * ImgVidOne field in *TaglineHeroSlice → Default → Primary*
    *
-   * - **Field Type**: Link
+   * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: tagline_hero_slice.default.primary.button
-   * - **Documentation**: https://prismic.io/docs/fields/link
+   * - **API ID Path**: tagline_hero_slice.default.primary.imgvidone
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
-  button: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+  imgvidone: prismic.ImageField<never>;
+
+  /**
+   * VideoLinkOne field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.videolinkone
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  videolinkone: prismic.KeyTextField;
+
+  /**
+   * Video field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: tagline_hero_slice.default.primary.video
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  video: prismic.BooleanField;
+
+  /**
+   * VideoOneThumbnail field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.videoonethumbnail
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  videoonethumbnail: prismic.ImageField<never>;
+
+  /**
+   * TextFieldTwo field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.textfieldtwo
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  textfieldtwo: prismic.RichTextField;
+
+  /**
+   * TextFieldThree field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.textfieldthree
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  textfieldthree: prismic.RichTextField;
+
+  /**
+   * ImgVidTwo field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.imgvidtwo
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  imgvidtwo: prismic.ImageField<never>;
+
+  /**
+   * VideoLinkTwo field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.videolinktwo
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  videolinktwo: prismic.KeyTextField;
+
+  /**
+   * VideoTwo field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: tagline_hero_slice.default.primary.videotwo
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  videotwo: prismic.BooleanField;
+
+  /**
+   * VideoTwoThumbnail field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.videotwothumbnail
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  videotwothumbnail: prismic.ImageField<never>;
+
+  /**
+   * TextFieldFour field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.textfieldfour
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  textfieldfour: prismic.RichTextField;
+
+  /**
+   * TextFieldFive field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.textfieldfive
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  textfieldfive: prismic.RichTextField;
+
+  /**
+   * ImgVidThree field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.imgvidthree
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  imgvidthree: prismic.ImageField<never>;
+
+  /**
+   * VideoLinkThree field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.videolinkthree
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  videolinkthree: prismic.KeyTextField;
+
+  /**
+   * VideoThree field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: tagline_hero_slice.default.primary.videothree
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  videothree: prismic.BooleanField;
+
+  /**
+   * VideoThreeThumbnail field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.videothreethumbnail
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  videothreethumbnail: prismic.ImageField<never>;
+
+  /**
+   * TextFieldSix field in *TaglineHeroSlice → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.default.primary.textfieldsix
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  textfieldsix: prismic.RichTextField;
 }
 
 /**
@@ -718,9 +1049,42 @@ export type TaglineHeroSliceSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *TaglineHeroSlice → Repeatable Field Variation → Primary*
+ */
+export interface TaglineHeroSliceSliceRepeatableFieldVariationPrimary {
+  /**
+   * Footer CTA field in *TaglineHeroSlice → Repeatable Field Variation → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tagline_hero_slice.repeatableFieldVariation.primary.footer_cta[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  footer_cta: prismic.GroupField<
+    Simplify<TaglineHeroSliceSliceRepeatableFieldVariationPrimaryFooterCtaItem>
+  >;
+}
+
+/**
+ * Repeatable Field Variation variation for TaglineHeroSlice Slice
+ *
+ * - **API ID**: `repeatableFieldVariation`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TaglineHeroSliceSliceRepeatableFieldVariation =
+  prismic.SharedSliceVariation<
+    "repeatableFieldVariation",
+    Simplify<TaglineHeroSliceSliceRepeatableFieldVariationPrimary>,
+    never
+  >;
+
+/**
  * Slice variation for *TaglineHeroSlice*
  */
-type TaglineHeroSliceSliceVariation = TaglineHeroSliceSliceDefault;
+type TaglineHeroSliceSliceVariation =
+  | TaglineHeroSliceSliceDefault
+  | TaglineHeroSliceSliceRepeatableFieldVariation;
 
 /**
  * TaglineHeroSlice Shared Slice
@@ -759,6 +1123,10 @@ declare module "@prismicio/client" {
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
       AllDocumentTypes,
+      BanquetHallsSlice,
+      BanquetHallsSliceDefaultPrimary,
+      BanquetHallsSliceVariation,
+      BanquetHallsSliceDefault,
       DestinationHighlightSlice,
       DestinationHighlightSliceDefaultPrimary,
       DestinationHighlightSliceVariation,
@@ -787,8 +1155,11 @@ declare module "@prismicio/client" {
       RoomShowcaseSliceSliceDefault,
       TaglineHeroSliceSlice,
       TaglineHeroSliceSliceDefaultPrimary,
+      TaglineHeroSliceSliceRepeatableFieldVariationPrimaryFooterCtaItem,
+      TaglineHeroSliceSliceRepeatableFieldVariationPrimary,
       TaglineHeroSliceSliceVariation,
       TaglineHeroSliceSliceDefault,
+      TaglineHeroSliceSliceRepeatableFieldVariation,
     };
   }
 }

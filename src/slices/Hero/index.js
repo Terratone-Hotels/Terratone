@@ -11,7 +11,8 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import VideoComponent from "@/app/components/VideoComponent";
+import VideoComponent from "@/components/VideoComponent";
+import Bounded from "@/components/Bounded";
 
 const Hero = ({ slice }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -32,7 +33,7 @@ const Hero = ({ slice }) => {
   };
 
   return (
-    <section
+    <Bounded full
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
       className="hero-section relative"
@@ -102,7 +103,7 @@ const Hero = ({ slice }) => {
 
 
       </div>
-    </section>
+    </Bounded>
   );
 };
 

@@ -1,5 +1,5 @@
 "use client";
-
+import Button from "@/components/Button";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -15,20 +15,20 @@ const MeetingHalls = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="py-16 bg-[#f8f6f3]"
+      
     >
       {/* Heading + description */}
-      <div className="max-w-3xl mx-auto text-center mb-12 px-4">
+      <div className="max-w-3xl mx-auto text-center mb-12 px-4 ">
         <PrismicRichText
           field={slice.primary.heading}
           components={{
             heading1: ({ children }) => (
-              <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-4">
+              <h2 className="text-3xl  md:text-4xl font-serif font-semibold mb-4">
                 {children}
               </h2>
             ),
             heading2: ({ children }) => (
-              <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-4">
+              <h2 className="text-3xl md:text-4xl  mb-4">
                 {children}
               </h2>
             ),
@@ -39,14 +39,18 @@ const MeetingHalls = ({ slice }) => {
           field={slice.primary.description}
           components={{
             paragraph: ({ children }) => (
-              <p className="text-base md:text-lg text-gray-700">{children}</p>
+              <p className="text-base font-barlow md:text-lg text-gray-700">{children}</p>
             ),
           }}
         />
+        <div>
+        <Button variant="secondary"  className="mt-5 font-barlow mr-1" >ABOUT US  </Button>
+        <Button showArrow variant="secondary"/>
+        </div>
       </div>
 
       {/* Desktop Grid (hover overlay) */}
-      <div className="hidden lg:grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+      <div className="hidden lg:grid lg:grid-cols-3 gap-20 max-w-6xl mx-auto px-4">
         {slice.primary.rooms.map((item, index) => (
           <div key={index} className="group relative">
             <div className="relative overflow-hidden">
@@ -62,10 +66,10 @@ const MeetingHalls = ({ slice }) => {
               </button>
             </div>
             <div className="mt-4">
-              <h3 className="text-lg font-semibold font-serif">
+              <h3 className="text-[1.375rem] font-medium font-serif">
                 {item.card_title}
               </h3>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-xs font-barlow text-gray-600 mt-1">
                 {item.card_description}
               </p>
             </div>
@@ -91,10 +95,10 @@ const MeetingHalls = ({ slice }) => {
                   </div>
                 </div>
                 <div className="mt-4">
-                  <h3 className="text-lg font-semibold font-serif">
+                  <h3 className="text-lg font-semibold font-serif ">
                     {item.card_title}
                   </h3>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="text-sm text-gray-600  mt-1">
                     {item.card_description}
                   </p>
                 </div>

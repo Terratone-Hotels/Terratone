@@ -1,0 +1,71 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"banquet_image": {
+				"__TYPE__": "ImageContent",
+				"provider": "imgix",
+				"url": "https://images.unsplash.com/photo-1568530873454-e4103a0b3c71?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw2fHxIYWxsfGVufDB8fHx8MTc1OTI5OTc0Mnww&ixlib=rb-4.1.0&q=85",
+				"alt": "blue and white area rug",
+				"origin": {
+					"id": "unItqGJIlRY",
+					"url": "https://images.unsplash.com/photo-1568530873454-e4103a0b3c71?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw2fHxIYWxsfGVufDB8fHx8MTc1OTI5OTc0Mnww&ixlib=rb-4.1.0&q=85",
+					"width": 6000,
+					"height": 4000
+				},
+				"width": 6000,
+				"height": 4000,
+				"edit": {
+					"background": "transparent",
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					}
+				},
+				"thumbnails": {}
+			},
+			"heading": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Gather,\nGreet, Groove.",
+							"spans": []
+						},
+						"direction": "ltr"
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "With a hall capacity for up to 100 pax, our meeting spaces are more than just walls. We help you make the most of every celebration.",
+							"spans": []
+						},
+						"direction": "ltr"
+					}
+				]
+			},
+			"button_text": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "PLAN WITH US"
+			},
+			"button_link": {
+				"__TYPE__": "LinkContent",
+				"key": "a9d11329-9ccc-4e4e-8c3e-469cf343d679",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "http://www.google.com"
+				}
+			}
+		},
+		"items": []
+	}
+]

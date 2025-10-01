@@ -1,4 +1,5 @@
-import VideoComponent from "@/app/components/VideoComponent";
+import Bounded from "@/components/Bounded";
+import VideoComponent from "@/components/VideoComponent";
 import { PrismicRichText } from "@prismicio/react";
 
 /**
@@ -8,7 +9,7 @@ import { PrismicRichText } from "@prismicio/react";
  */
 const OneWithSideWords = ({ slice }) => {
   return (
-    <section
+    <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
       className="flex flex-col items-center justify-center text-center px-4 py-12"
@@ -26,7 +27,7 @@ const OneWithSideWords = ({ slice }) => {
         </div>
 
         {/* Video in the center */}
-        <div className="flex-shrink-0 w-3/4 md:w-3/4 aspect-video">
+        <div className=" w-3/4 md:w-3/4 aspect-video">
           <VideoComponent
             srcMp4={slice.primary.video}
             className="w-full h-full object-cover shadow-lg"
@@ -40,11 +41,11 @@ const OneWithSideWords = ({ slice }) => {
       </div>
 
       {/* Description */}
-      <div className="mt-8 max-w-xl text-sm md:text-base text-gray-700">
+      <div className="mt-8 items-center font-barlow text-sm md:text-lg text-black text-center">
         <PrismicRichText field={slice.primary.description} />
       </div>
-    </section>
-  );
+    </Bounded>
+  )
 };
 
 export default OneWithSideWords;

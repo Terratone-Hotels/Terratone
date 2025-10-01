@@ -8,6 +8,8 @@
   --color-toiled-gold: #96703b;
   
   --font-serif: var(--font-eb-mono), "EB Garamond", Georgia, serif;
+  --font-barlow:var(--font-barlow), "Barlow_Semi_Condensed",sans-serif;
+  --font-barlowNormal:var(--font-barlowNormal), "Barlow",sans-serif;
 
   /* === Bold (700) === */
   /* --font-bold: var(--font-eb-mono);
@@ -28,10 +30,11 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  background-color: var(--color-stone);
+ 
 }
 
 body {
   margin: 0;
   padding: 0;
+   background-color: var(--color-stone) !important;
 }
