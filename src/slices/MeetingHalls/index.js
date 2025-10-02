@@ -59,11 +59,14 @@ const MeetingHalls = ({ slice }) => {
                 className="w-full h-64 object-cover"
               />
               {/* Hover button for desktop */}
-              <button className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                <span className="bg-white text-black px-6 py-2 text-sm font-medium shadow-md hover:bg-black hover:text-white transition">
-                  VIEW ROOM →
-                </span>
-              </button>
+
+              {/* <button className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                
+              </button> */}
+
+        <Button showArrow className={"absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex opacity-0 group-hover:opacity-100 transition duration-300"}> 
+          VIEW ROOM
+        </Button>
             </div>
             <div className="mt-4">
               <h3 className="text-[1.375rem] font-medium font-serif">
@@ -89,9 +92,10 @@ const MeetingHalls = ({ slice }) => {
                   />
 
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="bg-white text-black px-6 py-2 text-sm font-medium shadow-md">
-                      VIEW ROOM →
-                    </span>
+                    {/* <span className="bg-white text-black px-6 py-2 text-sm font-medium shadow-md">
+                      VIEW ROOM 
+                    </span> */}
+                    <Button showArrow> VIEW ROOM </Button>
                   </div>
                 </div>
                 <div className="mt-4">

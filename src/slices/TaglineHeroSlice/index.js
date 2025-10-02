@@ -29,13 +29,13 @@ const TaglineHeroSlice = ({ slice }) => {
                 {slice.primary.video ? (
                   <VideoComponent
                     srcMp4={slice.primary.videolinkone}
-                    className=" w-full h-full object-cover" //Changes were made here
+                    className=" w-full h-full object-cover" 
                   />
                 ) : (
                   <PrismicNextImage
                     field={slice.primary.imgvidone}
                     alt={slice.primary.imgvidone.alt || ""}
-                    className="w-full h-full object-cover" //And here
+                    className="w-full h-full object-cover" 
                   />
                 )}
               </div>
@@ -53,13 +53,13 @@ const TaglineHeroSlice = ({ slice }) => {
                 {slice.primary.videotwo ? (
                   <VideoComponent
                     srcMp4={slice.primary.videolinktwo}
-                    className=" w-full h-full object-cover" //Changes were made here
+                    className=" w-full h-full object-cover" 
                   />
                 ) : (
                   <PrismicNextImage
                     field={slice.primary.imgvidtwo}
                     alt={slice.primary.imgvidtwo.alt || ""}
-                    className="w-full h-full object-cover" //And here
+                    className="w-full h-full object-cover" 
                   />
                 )}
               </div>
@@ -112,13 +112,13 @@ const TaglineHeroSlice = ({ slice }) => {
                 {item.video_toggle ? (
                   <VideoComponent
                     srcMp4={item.videolink}
-                    className=" w-full h-full object-cover" //Changes were made here
+                    className=" w-full h-full object-cover" 
                   />
                 ) : (
                   <PrismicNextImage
                     field={item.imgvidone}
                     alt={item.imgvidone.alt || ""}
-                    className="w-full h-full object-cover" //And here
+                    className="w-full h-full object-cover" 
                   />
                 )}
               </div>

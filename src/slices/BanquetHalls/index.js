@@ -12,7 +12,7 @@ import { PrismicRichText } from "@prismicio/react";
  */
 const BanquetHalls = ({ slice }) => {
   return (
-    <Bounded 
+    <Bounded full
       className={"relative h-auto "}
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
