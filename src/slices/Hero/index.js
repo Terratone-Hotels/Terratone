@@ -73,7 +73,7 @@ const Hero = ({ slice }) => {
 
       {/* Bottom overlay: Heading + Thumbnails */}
       <div className="absolute bottom-0 left-0 w-full flex flex-col md:items-center z-20 pb-6 pl-6 md:pl-0">
-        <div className="font-serif leading-tight text-start md:text-center w-full text-[2.81rem] px-[2px] md:text-[3.25rem] text-white mb-4">
+        <div className="font-serif leading-tight text-start md:text-center w-full text-[2.81rem] px-[0.125rem] md:text-[3.25rem] text-white mb-4">
           <PrismicRichText field={slice.primary.heading} />
         </div>
 

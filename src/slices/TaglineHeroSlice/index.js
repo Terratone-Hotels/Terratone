@@ -21,11 +21,11 @@ const TaglineHeroSlice = ({ slice }) => {
           <div className="flex flex-col items-center justify-center leading-tight">
             {/*First Line */}
             <div className="flex flex-row gap-2 md:gap-6 items-center">
-              <div className="text-[45px] md:text-[99px] font-serif italic">
+              <div className="text-[2.813rem] md:text-[6.188rem] font-serif italic">
                 <PrismicRichText field={slice.primary.textfieldone} />
               </div>
               {/*Video/Image*/}
-              <div className=" w-[39.43px] h-[37.93px] md:w-[105px] md:h-[101px]">
+              <div className=" w-[2.464rem] h-[2.371rem] md:w-[6.563rem] md:h-[6.313rem]">
                 {slice.primary.video ? (
                   <VideoComponent
                     srcMp4={slice.primary.videolinkone}
@@ -39,17 +39,17 @@ const TaglineHeroSlice = ({ slice }) => {
                   />
                 )}
               </div>
-              <div className=" font-serif text-[45px] md:text-[99px]">
+              <div className=" font-serif text-[2.813rem] md:text-[6.188rem]">
                 <PrismicRichText field={slice.primary.textfieldtwo} />
               </div>
             </div>
             {/*Second Line */}
             <div className="flex flex-row items-center gap-2 md:gap-6">
-              <div className="font-serif text-[45px] md:text-[99px]">
+              <div className="font-serif text-[2.813rem] md:text-[6.188rem]">
                 <PrismicRichText field={slice.primary.textfieldthree} />
               </div>
               {/*Video/Image*/}
-              <div className=" w-[39.43px] h-[37.93px] md:w-[105px] md:h-[101px]">
+              <div className=" w-[2.464rem] h-[2.371rem] md:w-[6.563rem] md:h-[6.313rem]">
                 {slice.primary.videotwo ? (
                   <VideoComponent
                     srcMp4={slice.primary.videolinktwo}
@@ -63,17 +63,17 @@ const TaglineHeroSlice = ({ slice }) => {
                   />
                 )}
               </div>
-              <div className="font-serif italic text-[45px] md:text-[99px]">
+              <div className="font-serif italic text-[2.813rem] md:text-[6.188rem]">
                 <PrismicRichText field={slice.primary.textfieldfour} />
               </div>
             </div>
             {/*Third Line */}
             <div className="flex flex-row gap-2 md:gap-6 items-center">
-              <div className="font-serif text-[45px] md:text-[99px]">
+              <div className="font-serif text-[2.813rem] md:text-[6.188rem]">
                 <PrismicRichText field={slice.primary.textfieldfive} />
               </div>
               {/*Video/Image*/}
-              <div className="w-[86px] h-[37px]  md:w-[231px] md:h-[75px]">
+              <div className="w-[5.375rem] h-[2.313rem]  md:w-[14.438rem] md:h-[4.688rem]">
                 {slice.primary.videothree ? (
                   <VideoComponent
                     srcMp4={slice.primary.videolinkthree}
@@ -87,7 +87,7 @@ const TaglineHeroSlice = ({ slice }) => {
                   />
                 )}
               </div>
-              <div className="font-serif text-[45px] md:text-[99px]">
+              <div className="font-serif text-[2.813rem] md:text-[6.188rem]">
                 <PrismicRichText field={slice.primary.textfieldsix} />
               </div>
             </div>
@@ -104,10 +104,10 @@ const TaglineHeroSlice = ({ slice }) => {
               key={index}
               className="flex flex-row items-center justify-center gap-4"
             >
-              <div className="font-serif italic text-[99px]">
+              <div className="font-serif italic text-[6.188rem]">
                 <PrismicRichText field={item.textone} />
               </div>
-              <div className="w-[105px] h-[101px]">
+              <div className="w-[6.563rem] h-[6.313rem]">
                 {" "}
                 {item.video_toggle ? (
                   <VideoComponent
@@ -122,7 +122,7 @@ const TaglineHeroSlice = ({ slice }) => {
                   />
                 )}
               </div>
-              <div className="text-[99px] font-serif">
+              <div className="text-[6.188rem] font-serif">
                 <PrismicRichText field={item.texttwo} />
               </div>
             </div>

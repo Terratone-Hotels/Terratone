@@ -20,7 +20,7 @@ const DestinationHighlight = ({ slice }) => {
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 ">
         {/* Left side text */}
-        <div className="md:w-[451px]" > 
+        <div className="md:w-[28.1875rem]" > 
           <PrismicRichText
             field={slice.primary.heading}
             components={{

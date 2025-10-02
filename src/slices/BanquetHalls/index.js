@@ -19,7 +19,7 @@ const BanquetHalls = ({ slice }) => {
     >
       
 
-      <div className="flex flex-col gap-5 relative h-[651px] md:h-[744px] ">
+      <div className="flex flex-col gap-5 relative h-[40.6875rem] md:h-[46.5rem] ">
         <PrismicNextImage field={slice.primary.banquet_image} className="w-full h-full object-cover" />
         <div className="absolute top-5 left-4 md:top-26 md:left-35 text-white ">
           <PrismicRichText field={slice.primary.heading} components={{   heading1: ({ children }) => (
