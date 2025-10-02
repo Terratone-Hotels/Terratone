@@ -41,9 +41,9 @@
 									"__TYPE__": "StructuredTextContent",
 									"value": [
 										{
-											"type": "heading1",
+											"type": "heading2",
 											"content": {
-												"text": "Eleven"
+												"text": "Generally"
 											}
 										}
 									]
@@ -66,8 +66,8 @@
 							[
 								"button",
 								{
-									"__TYPE__": "LinkContent",
 									"key": "8a988711-c3e9-47d2-86e8-0e7cae2b2c00",
+									"__TYPE__": "LinkContent",
 									"value": {
 										"__TYPE__": "ExternalLink",
 										"url": "https://slicemachine.dev",

@@ -1,4 +1,5 @@
-import VideoComponent from "@/app/components/VideoComponent";
+import Bounded from "@/components/Bounded";
+import VideoComponent from "@/components/VideoComponent";
 import { PrismicRichText } from "@prismicio/react";
 
 /**
@@ -8,37 +9,43 @@ import { PrismicRichText } from "@prismicio/react";
  */
 const OneWithSideWords = ({ slice }) => {
   return (
-    <section
+    <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex flex-col items-center justify-center text-center px-4 py-12 mt-44 "
+      className="flex flex-col items-center justify-center text-center px-4 py-12"
     >
-      <div className="mb-6 text-3xl md:text-5xl font-serif ">
+      {/* Top heading */}
+      <div className="mb-6 text-[1.75rem] md:text-[2.625rem] font-serif font-medium">
         <PrismicRichText field={slice.primary.top_sentence} />
       </div>
 
-      <div className="relative flex items-center justify-center w-full max-w-5xl">
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 text-xl md:text-2xl ">
+      {/* Video + side words wrapper */}
+      <div className="w-full max-w-5xl flex items-center justify-center gap-4">
+        {/* Left word */}
+        <div className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium -rotate-90 md:rotate-0">
           <PrismicRichText field={slice.primary.left_word} />
         </div>
 
-        <div className="w-full md:w-3/4 aspect-video">
+        {/* Video in the center */}
+        <div className=" w-3/4 md:w-3/4 aspect-video">
           <VideoComponent
             srcMp4={slice.primary.video}
-            className="w-full h-full object-cover  shadow-lg"
+            className="w-full h-full object-cover shadow-lg"
           />
         </div>
 
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 text-xl md:text-2xl ">
+        {/* Right word */}
+        <div className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium rotate-90 md:rotate-0">
           <PrismicRichText field={slice.primary.right_word} />
         </div>
       </div>
 
-      <div className="mt-8 max-w-xl text-sm md:text-base text-gray-700">
+      {/* Description */}
+      <div className="mt-8 items-center font-barlow text-sm md:text-lg text-black text-center">
         <PrismicRichText field={slice.primary.description} />
       </div>
-    </section>
-  );
+    </Bounded>
+  )
 };
 
 export default OneWithSideWords;
