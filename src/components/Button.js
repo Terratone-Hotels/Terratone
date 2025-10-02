@@ -30,7 +30,7 @@ export default function Button({
     <button
       className={clsx(
         "inline-flex items-center justify-center gap-2 rounded-[.1rem] font-medium transition duration-200",
-        " px-[0.8125rem] h-[32px] font-barlowNormal text-xs md:text-sm cursor-pointer ",
+        " px-[0.8125rem] h-[2rem] font-barlowNormal text-xs md:text-sm cursor-pointer ",
         variants[variant],
         fullWidth && "w-full",
         className
@@ -38,7 +38,7 @@ export default function Button({
       {...restProps}
     >
       {children}
-      {showArrow && <ArrowIcon className="w-[11px] h-[10px]" />}
+      {showArrow && <ArrowIcon className="w-[0.688rem] h-[0.625rem]" />}
     </button>
   );
 }

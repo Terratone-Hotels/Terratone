@@ -1,6 +1,7 @@
 import Bounded from "@/components/Bounded";
 import VideoComponent from "@/components/VideoComponent";
 import { PrismicRichText } from "@prismicio/react";
+import { PrismicNextImage } from "@prismicio/next";
 import Button from "@/components/Button";
 
 /**
