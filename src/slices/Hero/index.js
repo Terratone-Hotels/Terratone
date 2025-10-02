@@ -33,7 +33,8 @@ const Hero = ({ slice }) => {
   };
 
   return (
-    <Bounded full
+    <Bounded
+      full
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
       className="hero-section relative"
@@ -72,36 +73,33 @@ const Hero = ({ slice }) => {
       </Swiper>
 
       {/* Bottom overlay: Heading + Thumbnails */}
-      <div className="absolute bottom-0 left-0 w-full flex flex-col md:items-center z-20 pb-6 pl-6 md:pl-0">
-        <div className="font-serif leading-tight text-start md:text-center w-full text-[2.81rem] px-[0.125rem] md:text-[3.25rem] text-white mb-4">
+      <div className="absolute bottom-0 w-full flex flex-col sm:items-center z-20 pb-6 md:pb-10  px-[22px]  ">
+        <div className="font-serif leading-tight text-start sm:text-center w-full text-[2.8125rem]  sm:text-[3.25rem] text-white mb-4">
           <PrismicRichText field={slice.primary.heading} />
         </div>
 
-<div className="md:w-full md:flex md:justify-center">
-  <Swiper
-    onSwiper={setThumbsSwiper}
-    loop={true}
-    spaceBetween={20}
-    slidesPerView={"auto"}
-    freeMode={true}
-    watchSlidesProgress={true}
-    modules={[FreeMode, Navigation, Thumbs]}
-    className="!w-auto"
-  >
-    {slice.primary.carousel.map((item, index) => (
-      <SwiperSlide key={index} className="!w-auto">
-        <PrismicNextImage
-          field={item.video ? item.thumbnail : item.image}
-          alt={item.image.alt || ""}
-          className="w-12 h-18 md:w-18 md:h-20 object-cover cursor-pointer border border-transparent hover:border-white"
-        />
-      </SwiperSlide>
-    ))}
-  </Swiper>
-</div>
-
-
-
+        <div className="md:w-full md:flex md:justify-center">
+          <Swiper
+            onSwiper={setThumbsSwiper}
+            loop={true}
+            spaceBetween={20}
+            slidesPerView={"auto"}
+            freeMode={true}
+            watchSlidesProgress={true}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="!w-auto"
+          >
+            {slice.primary.carousel.map((item, index) => (
+              <SwiperSlide key={index} className="!w-auto">
+                <PrismicNextImage
+                  field={item.video ? item.thumbnail : item.image}
+                  alt={item.image.alt || ""}
+                  className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer   hover:border-white"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </Bounded>
   );
