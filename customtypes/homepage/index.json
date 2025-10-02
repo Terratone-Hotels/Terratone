@@ -11,6 +11,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "banquet_halls": {
+              "type": "SharedSlice"
+            },
             "tagline_hero_slice": {
               "type": "SharedSlice"
             },

@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 
 export const components = {
+  banquet_halls: dynamic(() => import("./BanquetHalls")),
   destination_highlight: dynamic(() => import("./DestinationHighlight")),
   destination_highlight_slice: dynamic(
     () => import("./DestinationHighlightSlice"),

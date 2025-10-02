@@ -65,6 +65,11 @@
 			"video": {
 				"__TYPE__": "BooleanContent",
 				"value": true
+			},
+			"button_text": {
+				"__TYPE__": "FieldContent",
+				"value": "hunt",
+				"type": "Text"
 			}
 		},
 		"items": []
