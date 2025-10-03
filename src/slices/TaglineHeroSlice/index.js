@@ -30,13 +30,13 @@ const TaglineHeroSlice = ({ slice }) => {
                 {slice.primary.video ? (
                   <VideoComponent
                     srcMp4={slice.primary.videolinkone}
-                    className=" w-full h-full object-cover" 
+                    className=" w-full h-full object-cover"
                   />
                 ) : (
                   <PrismicNextImage
                     field={slice.primary.imgvidone}
                     alt={slice.primary.imgvidone.alt || ""}
-                    className="w-full h-full object-cover" 
+                    className="w-full h-full object-cover"
                   />
                 )}
               </div>
@@ -54,13 +54,13 @@ const TaglineHeroSlice = ({ slice }) => {
                 {slice.primary.videotwo ? (
                   <VideoComponent
                     srcMp4={slice.primary.videolinktwo}
-                    className=" w-full h-full object-cover" 
+                    className=" w-full h-full object-cover"
                   />
                 ) : (
                   <PrismicNextImage
                     field={slice.primary.imgvidtwo}
                     alt={slice.primary.imgvidtwo.alt || ""}
-                    className="w-full h-full object-cover" 
+                    className="w-full h-full object-cover"
                   />
                 )}
               </div>
@@ -109,17 +109,16 @@ const TaglineHeroSlice = ({ slice }) => {
                 <PrismicRichText field={item.textone} />
               </div>
               <div className="w-[6.563rem] h-[6.313rem]">
-                {" "}
                 {item.video_toggle ? (
                   <VideoComponent
                     srcMp4={item.videolink}
-                    className=" w-full h-full object-cover" 
+                    className=" w-full h-full object-cover"
                   />
                 ) : (
                   <PrismicNextImage
                     field={item.imgvidone}
                     alt={item.imgvidone.alt || ""}
-                    className="w-full h-full object-cover" 
+                    className="w-full h-full object-cover"
                   />
                 )}
               </div>
