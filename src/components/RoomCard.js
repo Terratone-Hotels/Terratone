@@ -9,7 +9,7 @@ export default function RoomCard({
   bookingLink,
   linkText,
   titleClassName = "text-xl font-semibold",
-  descriptionClassName = "text-xs text-gray-700",
+  descriptionClassName = "text-[18px] text-gray-700",
   buttonTextProp = {},
 }) {
   return (
@@ -35,11 +35,13 @@ export default function RoomCard({
         {/* Description */}
 
         {description && (
-          <div className={`pr-2 w-[60%] md:w-[70%] ${descriptionClassName}`}>
+          <div className={`pr-2 w-[60%] md:w-[70%]  ${descriptionClassName}`}>
             <PrismicRichText
               field={description}
               components={{
-                paragraph: ({ children }) => <p className="m-0">{children}</p>, // 👈 removes margin
+                paragraph: ({ children }) => (
+                  <p className="m-0 text-[16px]">{children}</p>
+                ),
               }}
             />
           </div>
