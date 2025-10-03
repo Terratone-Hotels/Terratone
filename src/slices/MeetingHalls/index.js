@@ -15,7 +15,6 @@ const MeetingHalls = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      
     >
       {/* Heading + description */}
       <div className="max-w-3xl mx-auto text-center mb-12 px-4 ">
@@ -28,9 +27,7 @@ const MeetingHalls = ({ slice }) => {
               </h2>
             ),
             heading2: ({ children }) => (
-              <h2 className="text-3xl md:text-4xl  mb-4">
-                {children}
-              </h2>
+              <h2 className="text-3xl md:text-4xl  mb-4">{children}</h2>
             ),
           }}
         />
@@ -39,13 +36,16 @@ const MeetingHalls = ({ slice }) => {
           field={slice.primary.description}
           components={{
             paragraph: ({ children }) => (
-              <p className="text-base font-barlow md:text-lg text-gray-700">{children}</p>
+              <p className="text-base font-barlow md:text-lg text-gray-700">
+                {children}
+              </p>
             ),
           }}
         />
         <div>
-        <Button variant="secondary"  className="mt-5 font-barlow mr-1" >ABOUT US  </Button>
-        <Button showArrow variant="secondary"/>
+          <Button variant="secondary" className="mt-5 font-barlow mr-1">
+            ABOUT US{" "}
+          </Button>
         </div>
       </div>
 
@@ -60,13 +60,14 @@ const MeetingHalls = ({ slice }) => {
               />
               {/* Hover button for desktop */}
 
-              {/* <button className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                
-              </button> */}
-
-        <Button showArrow className={"absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex opacity-0 group-hover:opacity-100 transition duration-300"}> 
-          VIEW ROOM
-        </Button>
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                <Button
+                  showArrow
+               
+                >
+                  VIEW ROOM
+                </Button>
+              </div>
             </div>
             <div className="mt-4">
               <h3 className="text-[1.375rem] font-medium font-serif">
