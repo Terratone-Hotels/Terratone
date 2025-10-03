@@ -13,9 +13,9 @@ const RoomShowcaseSlice = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="py-16 "
+      className="py-16 max-w-[90rem] mx-auto  "
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {slice.primary.room_card.map((item, index) => (
           <RoomCard
             key={index}
@@ -27,9 +27,10 @@ const RoomShowcaseSlice = ({ slice }) => {
             className="group relative"
             titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
             descriptionClassName="font-barlow text-xs"
-            showMobileButton={true} 
-            buttonProps={{className:"text-xlw-[5.924rem] h-[1.489rem] md:w-auto md:h-auto"}}
-          
+            showMobileButton={true}
+            buttonProps={{
+              className: "text-xlw-[5.924rem] h-[1.489rem] md:w-auto md:h-auto",
+            }}
           />
         ))}
       </div>
