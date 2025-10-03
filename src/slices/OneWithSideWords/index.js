@@ -34,7 +34,7 @@ const OneWithSideWords = ({ slice }) => {
 
         {/* Video in the center */}
         {/* Video in the center */}
-        <div className="w-full md:w-[60%] aspect-[4/3] md:aspect-[16/9]">
+        <div className="w-full md:w-[60%] aspect-[21/9] md:aspect-[21/9]">
           <VideoComponent
             srcMp4={slice.primary.video}
             className="w-full h-full object-cover"

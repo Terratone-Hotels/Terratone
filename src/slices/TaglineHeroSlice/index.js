@@ -14,7 +14,7 @@ const TaglineHeroSlice = ({ slice }) => {
     <>
       {slice.variation === "default" && (
         <Bounded
-          className={"mb-100"} //added width for scroll
+          className="max-w-[90rem] mx-auto my-44 " //added width for scroll
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
         >

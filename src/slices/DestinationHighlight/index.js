@@ -2,7 +2,7 @@
 
 import Bounded from "@/components/Bounded";
 import VideoComponent from "@/components/VideoComponent";
-import {PrismicNextLink,  PrismicNextImage } from "@prismicio/next";
+import { PrismicNextLink, PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 import Button from "@/components/Button";
 
@@ -13,14 +13,14 @@ import Button from "@/components/Button";
  */
 const DestinationHighlight = ({ slice }) => {
   return (
-    <Bounded 
+    <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-
+      className="max-w-[90rem] mx-auto mt-44"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 ">
         {/* Left side text */}
-        <div className="md:w-[28.1875rem]" > 
+        <div className="md:w-[28.1875rem]">
           <PrismicRichText
             field={slice.primary.heading}
             components={{
@@ -37,29 +37,28 @@ const DestinationHighlight = ({ slice }) => {
             }}
           />
 
-        <div className="my-5">
-
-          <PrismicRichText
-            field={slice.primary.description}
-            components={{
-              paragraph: ({ children }) => (
-                <p className="text-sm md:text-lg font-barlow text-black  leading-tight">
-                  {children}
-                </p>
-              ),
-            }}
-          />
-        </div>
+          <div className="my-5">
+            <PrismicRichText
+              field={slice.primary.description}
+              components={{
+                paragraph: ({ children }) => (
+                  <p className="text-sm md:text-lg font-barlow text-black  leading-tight">
+                    {children}
+                  </p>
+                ),
+              }}
+            />
+          </div>
 
           {/*RMDR- Button is not inside PrismicNextLink */}
-<Button variant="outline" showArrow>{slice.primary.button_text}</Button>
+          <Button variant="outline" showArrow>
+            {slice.primary.button_text}
+          </Button>
           {slice.primary.explore_button?.url && (
             <PrismicNextLink
               field={slice.primary.explore_button}
               className=""
-            >
-              
-            </PrismicNextLink>
+            ></PrismicNextLink>
           )}
         </div>
 

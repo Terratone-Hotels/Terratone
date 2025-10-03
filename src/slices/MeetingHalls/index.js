@@ -39,7 +39,7 @@ const MeetingHalls = ({ slice }) => {
       <Bounded
         data-slice-type={slice.slice_type}
         data-slice-variation={slice.variation}
-        full
+        className="max-w-[90rem] mx-auto full"
       >
         <div className="max-w-3xl mx-auto text-center mb-12 px-4  mt-8 md:mt-12">
           <PrismicRichText
