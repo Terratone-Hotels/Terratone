@@ -5,6 +5,7 @@ import { PrismicRichText } from "@prismicio/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Bounded from "@/components/Bounded";
+import DotWave from "@/components/DotWave";
 
 /**
  * @typedef {import("@prismicio/client").Content.MeetingHallsSlice} MeetingHallsSlice
@@ -18,22 +19,7 @@ const MeetingHalls = ({ slice }) => {
       data-slice-variation={slice.variation}
       className=" mt-20 md:mt-44"
     >
-      <div className="relative h-12  w-40 mx-auto mb-8">
-        {/* left low dot */}
-        <span className="absolute left-0 top-6 w-2 h-2 rounded-full bg-[#977161]" />
-
-        {/* left raised dot */}
-        <span className="absolute left-8 top-0 w-2 h-2 rounded-full bg-[#996353]" />
-
-        {/* center low dot */}
-        <span className="absolute left-1/2 -translate-x-1/2 top-10 w-2 h-2 rounded-full bg-[#5B554C]" />
-
-        {/* right raised dot */}
-        <span className="absolute right-12 top-2 w-2 h-2 rounded-full bg-[#857161]" />
-
-        {/* right low dot */}
-        <span className="absolute right-2 top-6 w-2 h-2 rounded-full bg-[#AF9381]" />
-      </div>
+      <DotWave />
 
       {/* Heading + description */}
       <Bounded

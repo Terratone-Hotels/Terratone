@@ -6,10 +6,10 @@
   --color-sand: #f4f1ed;
   --color-stone: #f4f1ed;
   --color-toiled-gold: #96703b;
-  
+
   --font-serif: var(--font-eb-mono), "EB Garamond", Georgia, serif;
-  --font-barlow:var(--font-barlow), "Barlow_Semi_Condensed",sans-serif;
-  --font-barlowNormal:var(--font-barlowNormal), "Barlow",sans-serif;
+  --font-barlow: var(--font-barlow), "Barlow_Semi_Condensed", sans-serif;
+  --font-barlowNormal: var(--font-barlowNormal), "Barlow", sans-serif;
 
   /* === Bold (700) === */
   /* --font-bold: var(--font-eb-mono);
@@ -18,11 +18,11 @@
   /* === Italic (400 italic) === */
   /* --font-italic: var(--font-eb-mono);
   --font-italic--font-variation-settings: */
-    /* "slnt" -10, simulate slant if supported "wght" 400; */
+  /* "slnt" -10, simulate slant if supported "wght" 400; */
 
   /* === Bold Italic === */
   /* --font-bold-italic: var(--font-eb-mono);
-  --font-bold-italic--font-variation-settings: "wght" 700, "slnt" -10; */ 
+  --font-bold-italic--font-variation-settings: "wght" 700, "slnt" -10; */
 }
 
 html {
@@ -30,11 +30,20 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
- 
 }
 
 body {
   margin: 0;
   padding: 0;
-   background-color: var(--color-stone) !important;
+  background-color: var(--color-stone) !important;
+}
+.hero-section [clip-path],
+.hero-section img {
+  will-change: opacity, transform, clip-path;
+}
+.hero-media {
+  opacity: 0;
+  transform: scale(1.1);
+  will-change: transform, opacity;
+  transform-origin: center center;
 }
