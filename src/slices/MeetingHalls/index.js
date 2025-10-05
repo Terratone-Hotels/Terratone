@@ -67,15 +67,9 @@ const MeetingHalls = ({ slice }) => {
                   field={item.image}
                   className="w-full aspect-square  object-cover"
                 />
-
-                <Button
-                  showArrow
-                  className={
-                    "absolute z-20  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex opacity-0 group-hover:opacity-100 transition duration-300"
-                  }
-                >
-                  VIEW ROOM
-                </Button>
+                <div className="absolute z-20  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex opacity-0 group-hover:opacity-100 transition duration-300">
+                  <Button showArrow>VIEW ROOM</Button>
+                </div>
               </div>
               <div className="mt-4">
                 <h3 className="text-[1.375rem] font-medium font-serif">
@@ -103,16 +97,17 @@ const MeetingHalls = ({ slice }) => {
                     />
 
                     <div className="absolute inset-0 z-20 flex items-center justify-center">
-                      <Button showArrow> VIEW ROOM </Button>
+                      <Button variant="normal"> VIEW ROOM </Button>
                     </div>
                   </div>
                   <div className="mt-4">
                     <h3 className="text-lg font-semibold font-serif ">
                       {item.card_title}
                     </h3>
-                    <p className="text-sm  ">{item.card_description}</p>
+                    <p className="text-sm font-barlow ">{item.card_description}</p>
                   </div>
                 </div>
+                
               </SwiperSlide>
             ))}
           </Swiper>

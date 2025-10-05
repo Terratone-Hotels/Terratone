@@ -51,7 +51,7 @@ const DestinationHighlight = ({ slice }) => {
           </div>
 
           {/*RMDR- Button is not inside PrismicNextLink */}
-          <Button variant="outline" showArrow>
+          <Button  showArrow>
             {slice.primary.button_text}
           </Button>
           {slice.primary.explore_button?.url && (

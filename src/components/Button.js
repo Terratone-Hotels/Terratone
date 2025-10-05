@@ -1,3 +1,4 @@
+"use client";
 import clsx from "clsx";
 
 const ArrowIcon = ({ className }) => (
@@ -13,32 +14,81 @@ const ArrowIcon = ({ className }) => (
 
 export default function Button({
   children,
-  variant = "primary",
-  fullWidth = false,
-  showArrow = false,
   className,
-  ...restProps
+  variant = "default",
+  showArrow = true,
 }) {
-  const variants = {
-    primary: "bg-white text-black border border-black hover:bg-[#E4A3A2]",
-    secondary: "bg-terra-pink text-black hover:bg-white",
-    outline: "border border-black text-black hover:bg-gray-100",
-    ghost: "text-black hover:bg-gray-100",
-  };
+  const isNormal = variant === "normal";
+  const isTransparent = variant === "transparent";
 
+  // Single-span button for mobile / transparent
+  if (isNormal || isTransparent) {
+    return (
+      <button
+        className={clsx(
+          "inline-flex items-center font-medium font-barlowNormal text-xs md:text-sm overflow-hidden transition-colors duration-300",
+          className
+        )}
+      >
+        <span
+          className={clsx(
+            "flex items-center justify-center px-4 py-2 gap-2 transition-colors duration-300",
+            isTransparent
+              ? "bg-transparent hover:bg-[#E4A3A2] text-black border border-transparent"
+              : "bg-white text-black border border-black hover:border-transparent hover:bg-[#E4A3A2]"
+          )}
+        >
+          {children}
+          {showArrow && <ArrowIcon className="w-[0.688rem] h-[0.625rem]" />}
+        </span>
+      </button>
+    );
+  }
+
+  // Default hover-split style
   return (
     <button
       className={clsx(
-        "inline-flex items-center justify-center gap-2 rounded-[.1rem] font-medium transition duration-200",
-        " px-[0.8125rem] h-[2rem] font-barlowNormal text-xs md:text-sm cursor-pointer ",
-        variants[variant],
-        fullWidth && "w-full",
+        "group inline-flex items-center border border-black font-medium font-barlowNormal text-xs md:text-sm transition-colors duration-300",
         className
       )}
-      {...restProps}
     >
-      {children}
-      {showArrow && <ArrowIcon className="w-[0.688rem] h-[0.625rem]" />}
+      {/* Text */}
+      <span
+        className={clsx(
+          "px-3 h-8 flex items-center justify-center text-black transition-transform duration-300",
+          "bg-white group-hover:bg-white", // Default appearance: white bg, black text
+          "group-hover:translate-x-0" // No split until button hover
+        )}
+      >
+        {children}
+      </span>
+
+      {/* Arrow */}
+      <span
+        className={clsx(
+          "px-2 h-8 flex items-center justify-center text-black transition-transform duration-300",
+          "bg-white group-hover:bg-white",
+          "group-hover:translate-x-0"
+        )}
+      >
+        {showArrow && <ArrowIcon className="w-[0.688rem] h-[0.625rem]" />}
+      </span>
+
+      {/* Inner div to trigger split + color/border on button hover */}
+      <style jsx>{`
+        button.group:hover span:first-child {
+          transform: translateX(-0.25rem);
+          background-color: #E4A3A2;
+        }
+        button.group:hover span:last-child {
+          transform: translateX(0.25rem);
+          background-color: #E4A3A2;
+        }
+        button.group:hover {
+          border-color: transparent;
+        }
+      `}</style>
     </button>
   );
 }
