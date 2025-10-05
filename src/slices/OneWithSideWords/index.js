@@ -59,7 +59,7 @@ const OneWithSideWords = ({ slice }) => {
         <Button variant="secondary" className=" font-barlow">
           ABOUT US
         </Button>
-        <Button showArrow variant="secondary" />
+        
       </div>
     </Bounded>
   );

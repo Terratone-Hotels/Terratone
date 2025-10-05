@@ -7,13 +7,13 @@ export default function RoomCard({
   title,
   description,
   bookingLink,
-  linkText,
+  linkText = "Book Now",
   titleClassName = "text-xl font-semibold",
-  descriptionClassName = "text-[18px] text-gray-700",
+  descriptionClassName = "text-xs text-gray-700",
   buttonTextProp = {},
 }) {
   return (
-    <div className="group flex flex-col py-4">
+    <div className="group flex flex-col py-4 relative">
       {/* Room Image */}
       {image && (
         <PrismicNextImage
@@ -31,39 +31,31 @@ export default function RoomCard({
 
       <div className="w-auto border-b-1 pt-[1.125rem]"></div>
 
-      <div className="flex mt-4 flex-row items-end justify-between">
+      <div className="flex mt-4 flex-row items-end justify-between relative">
         {/* Description */}
-
         {description && (
-          <div className={`pr-2 w-[60%] md:w-[70%]  ${descriptionClassName}`}>
+          <div className={`pr-2 font-barlow w-[60%] md:w-[70%] ${descriptionClassName}`}>
             <PrismicRichText
               field={description}
               components={{
-                paragraph: ({ children }) => (
-                  <p className="m-0 text-[16px]">{children}</p>
-                ),
+                paragraph: ({ children }) => <p className="m-0 font-barlow ">{children}</p>,
               }}
             />
           </div>
         )}
 
-        {/* Button */}
+        {/* Hover Button */}
         {bookingLink && (
-          <div className="flex justify-center">
-            <Button
-              variant="outline"
-              showArrow
-              className=" md:opacity-0 transition-opacity duration-300 md:group-hover:opacity-100"
-              {...buttonTextProp}
-            >
-              {/* {linkText} */}
-              <PrismicNextLink
-                field={bookingLink}
-                className="pb-0"
-                {...buttonTextProp}
-              ></PrismicNextLink>
-            </Button>
-          </div>
+<div className="lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
+  <PrismicNextLink field={bookingLink} className="block">
+    <Button 
+      {...buttonTextProp}
+      className="hover:border-transparent transition-colors duration-300"
+    >
+      {linkText}
+    </Button>
+  </PrismicNextLink>
+</div>
         )}
       </div>
     </div>
