@@ -14,7 +14,7 @@ const TaglineHeroSlice = ({ slice }) => {
     <>
       {slice.variation === "default" && (
         <Bounded
-          className="max-w-[90rem] mx-auto my-44 " //added width for scroll
+          className="max-w-[90rem] h-[1000px] mx-auto mt-20" //added width for scroll
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
         >
@@ -92,7 +92,7 @@ const TaglineHeroSlice = ({ slice }) => {
                 <PrismicRichText field={slice.primary.textfieldsix} />
               </div>
             </div>
-            <div>
+            <div className=" mt-7 lg:mt-12">
               <Button showArrow>STAY WITH US</Button>
             </div>
           </div>

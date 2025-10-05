@@ -29,9 +29,9 @@ export default function RoomCard({
         </div>
       )}
 
-      <div className="w-auto border-b-1 pt-[1.125rem]"></div>
+      <div className="w-auto border-b-2 "></div>
 
-      <div className="flex mt-4 flex-row items-end justify-between relative">
+      <div className="flex mt-3 flex-row items-end justify-between relative">
         {/* Description */}
         {description && (
           <div className={`pr-2 font-barlow w-[60%] md:w-[70%] ${descriptionClassName}`}>
