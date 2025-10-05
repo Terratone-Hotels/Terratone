@@ -82,37 +82,37 @@ const MeetingHalls = ({ slice }) => {
             </div>
           ))}
         </div>
+      </Bounded>
 
-        <div className="lg:hidden pl-4">
-          <Swiper spaceBetween={20} slidesPerView={1.2} grabCursor={true}>
-            {slice.primary.rooms.map((item, index) => (
-              <SwiperSlide key={index}>
-                <div className="relative">
-                  <div className="relative overflow-hidden ">
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-black/40 z-10" />
-                    <PrismicNextImage
-                      field={item.image}
-                      className="aspect-square object-cover"
-                    />
-
-                    <div className="absolute inset-0 z-20 flex items-center justify-center">
-                      <Button variant="normal"> VIEW ROOM </Button>
-                    </div>
-                  </div>
-                  <div className="mt-4">
-                    <h3 className="text-lg font-semibold font-serif ">
-                      {item.card_title}
-                    </h3>
-                    <p className="text-sm font-barlow ">{item.card_description}</p>
+      <div className="lg:hidden pl-4 ">
+        <Swiper spaceBetween={20} slidesPerView={1.2} grabCursor={true}>
+          {slice.primary.rooms.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div className="relative">
+                <div className="relative overflow-hidden ">
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-black/40 z-10" />
+                  <PrismicNextImage
+                    field={item.image}
+                    className="h-[275px] sm:h-[375px] object-cover"
+                  />
+                </div>
+                <div className="mt-4">
+                  <h3 className="text-lg font-semibold font-serif ">
+                    {item.card_title}
+                  </h3>
+                  <p className="text-sm font-barlow ">
+                    {item.card_description}
+                  </p>
+                  <div className=" mt-4 flex items-center justify-left">
+                    <Button variant="normal"> VIEW ROOM </Button>
                   </div>
                 </div>
-                
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </Bounded>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </section>
   );
 };

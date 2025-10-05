@@ -18,32 +18,32 @@ export default function Button({
   variant = "default",
   showArrow = true,
 }) {
-  const isNormal = variant === "normal";
-  const isTransparent = variant === "transparent";
+  // const isNormal = variant === "normal";
+  // const isTransparent = variant === "transparent";
 
-  // Single-span button for mobile / transparent
-  if (isNormal || isTransparent) {
-    return (
-      <button
-        className={clsx(
-          "inline-flex items-center font-medium font-barlowNormal text-xs md:text-sm overflow-hidden transition-colors duration-300",
-          className
-        )}
-      >
-        <span
-          className={clsx(
-            "flex items-center justify-center px-4 py-2 gap-2 transition-colors duration-300",
-            isTransparent
-              ? "bg-transparent hover:bg-[#E4A3A2] text-black border border-transparent"
-              : "bg-white text-black border border-black hover:border-transparent hover:bg-[#E4A3A2]"
-          )}
-        >
-          {children}
-          {showArrow && <ArrowIcon className="w-[0.688rem] h-[0.625rem]" />}
-        </span>
-      </button>
-    );
-  }
+  // // Single-span button for mobile / transparent
+  // if (isNormal || isTransparent) {
+  //   return (
+  //     <button
+  //       className={clsx(
+  //         "inline-flex items-center font-medium font-barlowNormal text-xs md:text-sm overflow-hidden transition-colors duration-300",
+  //         className
+  //       )}
+  //     >
+  //       <span
+  //         className={clsx(
+  //           "flex items-center justify-center px-4 py-2 gap-2 transition-colors duration-300",
+  //           isTransparent
+  //             ? "bg-transparent hover:bg-[#E4A3A2] text-black border border-transparent"
+  //             : "bg-white text-black border border-black hover:border-transparent hover:bg-[#E4A3A2]"
+  //         )}
+  //       >
+  //         {children}
+  //         {showArrow && <ArrowIcon className="w-[0.688rem] h-[0.625rem]" />}
+  //       </span>
+  //     </button>
+  //   );
+  // }
 
   // Default hover-split style
   return (
@@ -54,7 +54,7 @@ export default function Button({
       )}
     >
       {/* Text */}
-      <span
+      <div
         className={clsx(
           "px-3 h-8 flex items-center justify-center text-black transition-transform duration-300",
           "bg-white group-hover:bg-white", // Default appearance: white bg, black text
@@ -62,10 +62,10 @@ export default function Button({
         )}
       >
         {children}
-      </span>
+      </div>
 
       {/* Arrow */}
-      <span
+      <div
         className={clsx(
           "px-2 h-8 flex items-center justify-center text-black transition-transform duration-300",
           "bg-white group-hover:bg-white",
@@ -73,17 +73,17 @@ export default function Button({
         )}
       >
         {showArrow && <ArrowIcon className="w-[0.688rem] h-[0.625rem]" />}
-      </span>
+      </div>
 
       {/* Inner div to trigger split + color/border on button hover */}
       <style jsx>{`
-        button.group:hover span:first-child {
+        button.group:hover div:first-child {
           transform: translateX(-0.25rem);
-          background-color: #E4A3A2;
+          background-color: #e4a3a2;
         }
-        button.group:hover span:last-child {
+        button.group:hover div:last-child {
           transform: translateX(0.25rem);
-          background-color: #E4A3A2;
+          background-color: #e4a3a2;
         }
         button.group:hover {
           border-color: transparent;
