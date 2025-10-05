@@ -16,7 +16,7 @@ const DestinationHighlight = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="max-w-[90rem] mx-auto mt-44"
+      className="mt-10 lg:mt-30"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 ">
         {/* Left side text */}
@@ -37,7 +37,7 @@ const DestinationHighlight = ({ slice }) => {
             }}
           />
 
-          <div className="my-5">
+          <div className="mb-5 mt-3">
             <PrismicRichText
               field={slice.primary.description}
               components={{

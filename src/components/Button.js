@@ -58,7 +58,7 @@ export default function Button({
         className={clsx(
           "px-3 h-8 flex items-center justify-center text-black transition-transform duration-300",
           "bg-white group-hover:bg-white", // Default appearance: white bg, black text
-          "group-hover:translate-x-0" // No split until button hover
+          "group-hover:translate-x-0.5" //changed from 0
         )}
       >
         {children}
@@ -69,7 +69,7 @@ export default function Button({
         className={clsx(
           "px-2 h-8 flex items-center justify-center text-black transition-transform duration-300",
           "bg-white group-hover:bg-white",
-          "group-hover:translate-x-0"
+          "group-hover:translate-x-0.6"
         )}
       >
         {showArrow && <ArrowIcon className="w-[0.688rem] h-[0.625rem]" />}

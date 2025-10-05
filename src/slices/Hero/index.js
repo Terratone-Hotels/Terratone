@@ -35,7 +35,6 @@ const Hero = ({ slice }) => {
     setCurrentSwiper(swiper);
   };
 
-  // === GSAP Animation for Heading + Thumbnails ===
   useEffect(() => {
     const headingEl = headingRef.current;
     const thumbsEl = thumbsRef.current;
