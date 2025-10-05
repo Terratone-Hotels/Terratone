@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,12 +11,15 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { gsap } from "gsap";
 import VideoComponent from "@/components/VideoComponent";
 import Bounded from "@/components/Bounded";
 
 const Hero = ({ slice }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [currentSwiper, setCurrentSwiper] = useState(null);
+  const headingRef = useRef(null);
+  const thumbsRef = useRef(null);
 
   useEffect(() => {
     if (!currentSwiper) return;
@@ -32,6 +35,37 @@ const Hero = ({ slice }) => {
     setCurrentSwiper(swiper);
   };
 
+  // === GSAP Animation for Heading + Thumbnails ===
+  useEffect(() => {
+    const headingEl = headingRef.current;
+    const thumbsEl = thumbsRef.current;
+    if (!headingEl || !thumbsEl) return;
+
+    gsap.set([headingEl, thumbsEl], { opacity: 0 });
+
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    tl.fromTo(
+      headingEl,
+      { clipPath: "inset(100% 0% 0% 0%)", opacity: 0 },
+      {
+        clipPath: "inset(0% 0% 0% 0%)",
+        opacity: 1,
+        duration: 2,
+        delay: 0,
+      }
+    );
+
+    tl.fromTo(
+      thumbsEl,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 1.5 },
+      "-=1"
+    );
+
+    return () => tl.kill();
+  }, []);
+
   return (
     <Bounded
       full
@@ -39,7 +73,6 @@ const Hero = ({ slice }) => {
       data-slice-variation={slice.variation}
       className="hero-section relative"
     >
-      {/* Main Swiper */}
       <Swiper
         loop={true}
         spaceBetween={0}
@@ -72,13 +105,22 @@ const Hero = ({ slice }) => {
         ))}
       </Swiper>
 
-      {/* Bottom overlay: Heading + Thumbnails */}
-      <div className="absolute bottom-0 w-full flex flex-col sm:items-center z-20 pb-6 md:pb-10  px-[22px]  ">
-        <div className="font-serif leading-tight text-start sm:text-center w-full text-[2.8125rem]  sm:text-[3.25rem] text-white mb-4">
+      <div
+        className="absolute bottom-0 w-full flex flex-col sm:items-center z-20 pb-6 md:pb-10 px-[22px]"
+        style={{ pointerEvents: "none" }}
+      >
+        <div
+          ref={headingRef}
+          className="font-serif leading-tight text-start sm:text-center w-full text-[2.8125rem] sm:text-[3.25rem] text-white mb-4 opacity-0 [clip-path:inset(100%_0%_0%_0%)]"
+        >
           <PrismicRichText field={slice.primary.heading} />
         </div>
 
-        <div className="md:w-full md:flex md:justify-center">
+        <div
+          ref={thumbsRef}
+          className="md:w-full md:flex md:justify-center opacity-0"
+          style={{ pointerEvents: "auto" }}
+        >
           <Swiper
             onSwiper={setThumbsSwiper}
             loop={true}
@@ -94,7 +136,7 @@ const Hero = ({ slice }) => {
                 <PrismicNextImage
                   field={item.video ? item.thumbnail : item.image}
                   alt={item.image.alt || ""}
-                  className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer   hover:border-white"
+                  className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer hover:border-white"
                 />
               </SwiperSlide>
             ))}

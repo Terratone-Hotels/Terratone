@@ -5,6 +5,7 @@ import { PrismicRichText } from "@prismicio/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Bounded from "@/components/Bounded";
+import DotWave from "@/components/DotWave";
 
 /**
  * @typedef {import("@prismicio/client").Content.MeetingHallsSlice} MeetingHallsSlice
@@ -18,22 +19,7 @@ const MeetingHalls = ({ slice }) => {
       data-slice-variation={slice.variation}
       className=" mt-20 md:mt-44"
     >
-      <div className="relative h-12  w-40 mx-auto mb-8">
-        {/* left low dot */}
-        <span className="absolute left-0 top-6 w-2 h-2 rounded-full bg-[#977161]" />
-
-        {/* left raised dot */}
-        <span className="absolute left-8 top-0 w-2 h-2 rounded-full bg-[#996353]" />
-
-        {/* center low dot */}
-        <span className="absolute left-1/2 -translate-x-1/2 top-10 w-2 h-2 rounded-full bg-[#5B554C]" />
-
-        {/* right raised dot */}
-        <span className="absolute right-12 top-2 w-2 h-2 rounded-full bg-[#857161]" />
-
-        {/* right low dot */}
-        <span className="absolute right-2 top-6 w-2 h-2 rounded-full bg-[#AF9381]" />
-      </div>
+      <DotWave />
 
       {/* Heading + description */}
       <Bounded
@@ -81,15 +67,9 @@ const MeetingHalls = ({ slice }) => {
                   field={item.image}
                   className="w-full aspect-square  object-cover"
                 />
-
-                <Button
-                  showArrow
-                  className={
-                    "absolute z-20  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex opacity-0 group-hover:opacity-100 transition duration-300"
-                  }
-                >
-                  VIEW ROOM
-                </Button>
+                <div className="absolute z-20  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex opacity-0 group-hover:opacity-100 transition duration-300">
+                  <Button showArrow>VIEW ROOM</Button>
+                </div>
               </div>
               <div className="mt-4">
                 <h3 className="text-[1.375rem] font-medium font-serif">
@@ -117,16 +97,17 @@ const MeetingHalls = ({ slice }) => {
                     />
 
                     <div className="absolute inset-0 z-20 flex items-center justify-center">
-                      <Button showArrow> VIEW ROOM </Button>
+                      <Button variant="normal"> VIEW ROOM </Button>
                     </div>
                   </div>
                   <div className="mt-4">
                     <h3 className="text-lg font-semibold font-serif ">
                       {item.card_title}
                     </h3>
-                    <p className="text-sm  ">{item.card_description}</p>
+                    <p className="text-sm font-barlow ">{item.card_description}</p>
                   </div>
                 </div>
+                
               </SwiperSlide>
             ))}
           </Swiper>
