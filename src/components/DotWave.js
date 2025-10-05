@@ -34,7 +34,7 @@ const DotWave = () => {
           const yOffset = Math.sin(phase + i * wavelength) * amplitude;
           gsap.to(dot, {
             y: yOffset,
-            duration: 0.4,
+            duration: 0.5,
             ease: "sine.inOut",
           });
         });
