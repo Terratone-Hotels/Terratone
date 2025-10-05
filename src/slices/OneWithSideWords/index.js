@@ -69,7 +69,7 @@ const OneWithSideWords = ({ slice }) => {
       ref={sectionRef}
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex flex-col items-center justify-center text-center py-12 mt-8 md:mt-44 overflow-hidden"
+      className="flex flex-col items-center justify-center text-center mt-13 md:mt-44 overflow-hidden"
     >
       {/* Top Heading - "Thoughtfulness" */}
       <div
@@ -114,12 +114,12 @@ const OneWithSideWords = ({ slice }) => {
       </div>
 
       {/* Description */}
-      <div className="mt-8 leading-tight font-barlow text-sm md:text-[18px] text-black text-center">
+      <div className="mt-9 leading-tight font-barlow text-sm md:text-[18px] text-black text-center">
         <PrismicRichText field={slice.primary.description} />
       </div>
 
       {/* Buttons */}
-      <div className="mt-6 flex justify-center items-center gap-2">
+      <div className="mt-6 lg:mt-9 flex justify-center items-center gap-2">
         <Button variant="secondary" className="font-barlow">
           ABOUT US
         </Button>
