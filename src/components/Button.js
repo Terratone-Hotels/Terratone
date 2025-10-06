@@ -79,11 +79,11 @@ export default function Button({
       <style jsx>{`
         button.group:hover span:first-child {
           transform: translateX(-0.25rem);
-          background-color: #E4A3A2;
+          background-color: #e4a3a2;
         }
         button.group:hover span:last-child {
           transform: translateX(0.25rem);
-          background-color: #E4A3A2;
+          background-color: #e4a3a2;
         }
         button.group:hover {
           border-color: transparent;
