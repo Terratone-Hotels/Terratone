@@ -1080,11 +1080,25 @@ export type TaglineHeroSliceSliceRepeatableFieldVariation =
   >;
 
 /**
+ * tag variation for TaglineHeroSlice Slice
+ *
+ * - **API ID**: `tag`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TaglineHeroSliceSliceTag = prismic.SharedSliceVariation<
+  "tag",
+  Record<string, never>,
+  never
+>;
+
+/**
  * Slice variation for *TaglineHeroSlice*
  */
 type TaglineHeroSliceSliceVariation =
   | TaglineHeroSliceSliceDefault
-  | TaglineHeroSliceSliceRepeatableFieldVariation;
+  | TaglineHeroSliceSliceRepeatableFieldVariation
+  | TaglineHeroSliceSliceTag;
 
 /**
  * TaglineHeroSlice Shared Slice
@@ -1160,6 +1174,7 @@ declare module "@prismicio/client" {
       TaglineHeroSliceSliceVariation,
       TaglineHeroSliceSliceDefault,
       TaglineHeroSliceSliceRepeatableFieldVariation,
+      TaglineHeroSliceSliceTag,
     };
   }
 }

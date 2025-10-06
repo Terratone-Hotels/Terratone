@@ -234,6 +234,16 @@
         }
       },
       "items": {}
+    },
+    {
+      "id": "tag",
+      "name": "tag",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {}
     }
   ]
 }
