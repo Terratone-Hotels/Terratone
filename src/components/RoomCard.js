@@ -27,23 +27,23 @@ export default function RoomCard({
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Initial hidden state (prevents flicker)
+      // Initial state — hidden
       gsap.set(
         [imgRef.current, titleRef.current, borderRef.current, descRef.current],
-        {
-          opacity: 0,
-        }
+        { opacity: 0 }
       );
 
+      // Timeline with scrollTrigger that runs only once
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: cardRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
+          start: "top 85%", // starts slightly before the element hits center
+          once: true, // ✅ play only once
+          toggleActions: "play none none none", // don't reverse or replay
         },
       });
 
-      // Step 1: Image fade + slow slide up
+      // Step 1: Image fade + slide up
       tl.fromTo(
         imgRef.current,
         { opacity: 0, y: 60 },
@@ -55,7 +55,7 @@ export default function RoomCard({
         }
       );
 
-      // Step 2: Title fade + rise slightly after image
+      // Step 2: Title fade + rise
       tl.fromTo(
         titleRef.current,
         { opacity: 0, y: 40 },
@@ -65,10 +65,10 @@ export default function RoomCard({
           duration: 1.5,
           ease: "power3.out",
         },
-        "-=1.2" // overlaps slightly with the end of image animation
+        "-=1.0"
       );
 
-      // Step 3: Border line fills left → right
+      // Step 3: Border line draw
       tl.fromTo(
         borderRef.current,
         { opacity: 1, scaleX: 0, transformOrigin: "left center" },
@@ -80,7 +80,7 @@ export default function RoomCard({
         "-=1.0"
       );
 
-      // Step 4: Description fades + slides from left
+      // Step 4: Description fade in from left
       tl.fromTo(
         descRef.current,
         { opacity: 0, x: -30 },
