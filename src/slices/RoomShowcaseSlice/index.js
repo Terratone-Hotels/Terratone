@@ -13,9 +13,9 @@ const RoomShowcaseSlice = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="lg:pt-  "
+      className="lg:pt-4  "
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
         {slice.primary.room_card.map((item, index) => (
           <RoomCard
             key={index}
