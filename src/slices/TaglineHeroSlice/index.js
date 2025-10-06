@@ -103,7 +103,7 @@ const TaglineHeroSlice = ({ slice }) => {
           {slice.primary.footer_cta.map((item, index) => (
             <div
               key={index}
-              className="flex flex-row items-center justify-center gap-4"
+              className="flex flex-row items-center  justify-center gap-4"
             >
               <div className="font-serif italic text-[6.188rem]">
                 <PrismicRichText field={item.textone} />

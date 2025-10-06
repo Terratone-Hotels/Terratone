@@ -10,27 +10,27 @@ gsap.registerPlugin(ScrollTrigger);
 export default function SmoothScrollWrapper({ children }) {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 0.7,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
-      smoothTouch: false,
+      duration: 1.2, // slightly slower for fluid motion
+      lerp: 0.08, // small lerp value = smoother transition
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // exponential easeOut
+      smoothTouch: true, // smoother mobile feel
+      touchMultiplier: 1.2,
     });
 
-    // Sync with GSAP
+    // Keep ScrollTrigger synced with Lenis scroll position
     lenis.on("scroll", ScrollTrigger.update);
 
-    // GSAP ticker callback
-    const gsapTicker = (time) => {
+    // GSAP’s requestAnimationFrame hook
+    gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
-    };
+    });
 
-    gsap.ticker.add(gsapTicker);
     gsap.ticker.lagSmoothing(0);
 
     return () => {
-      gsap.ticker.remove(gsapTicker);
       lenis.destroy();
     };
   }, []);
 
-  return <div data-lenis-container>{children}</div>;
+  return <div data-lenis-root>{children}</div>;
 }
