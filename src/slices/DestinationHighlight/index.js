@@ -20,7 +20,7 @@ const DestinationHighlight = ({ slice }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // initial hidden state to prevent flicker
+      // Initial state — hidden and slightly lowered
       gsap.set(
         [
           headingRef.current,
@@ -28,65 +28,62 @@ const DestinationHighlight = ({ slice }) => {
           buttonRef.current,
           mediaRef.current,
         ],
-        {
-          opacity: 0,
-          y: 30,
-        }
+        { opacity: 0, y: 60 }
       );
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 85%",
-          end: "bottom top",
-          scrub: false,
-          once: true,
+          start: "top 90%", // earlier start (was 80%)
+          end: "bottom 10%", // ends a bit earlier too
+          scrub: 1, // smoother catch-up
+          ease: "none",
         },
       });
 
-      // Step 1: Heading reveal
+      // Step 1 — Heading
       tl.to(headingRef.current, {
         opacity: 1,
         y: 0,
-        duration: 1.2,
+        duration: 1.4,
         ease: "power3.out",
       });
 
-      // Step 2: Description comes after heading
+      // Step 2 — Description
       tl.to(
         descRef.current,
         {
           opacity: 1,
           y: 0,
-          duration: 1,
+          duration: 1.2,
           ease: "power2.out",
         },
-        "-=0.7" // slight overlap for rhythm
+        "-=0.9"
       );
 
-      // Step 3: Button fade in
+      // Step 3 — Button
       tl.to(
         buttonRef.current,
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: 1.0,
           ease: "power2.out",
         },
-        "-=0.6"
+        "-=0.8"
       );
 
-      // Step 4: Media fade + scale from 1.1 → 1
+      // Step 4 — Media (image / video)
       tl.fromTo(
         mediaRef.current,
         { opacity: 0, scale: 1.1 },
         {
           opacity: 1,
           scale: 1,
-          duration: 1.6,
+          duration: 2,
           ease: "expo.out",
         },
-        "-=1.2" // begins while text is finishing
+        "-=1.2"
       );
     }, sectionRef);
 
@@ -100,8 +97,8 @@ const DestinationHighlight = ({ slice }) => {
       data-slice-variation={slice.variation}
       className="mt-10 lg:mt-30 overflow-hidden"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center ">
-        {/* Left side text */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
+        {/* Left Side Text */}
         <div className="md:w-[28.1875rem] space-y-5">
           <div ref={headingRef}>
             <PrismicRichText
@@ -109,11 +106,6 @@ const DestinationHighlight = ({ slice }) => {
               components={{
                 heading1: ({ children }) => (
                   <h2 className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium leading-7 md:leading-12">
-                    {children}
-                  </h2>
-                ),
-                heading2: ({ children }) => (
-                  <h2 className="text-3xl md:text-4xl font-serif font-semibold">
                     {children}
                   </h2>
                 ),
@@ -143,7 +135,7 @@ const DestinationHighlight = ({ slice }) => {
           )}
         </div>
 
-        {/* Right side media */}
+        {/* Right Side Media */}
         <div
           ref={mediaRef}
           className="
@@ -152,7 +144,6 @@ const DestinationHighlight = ({ slice }) => {
             md:h-[32rem]
             lg:h-[36rem]
             overflow-hidden
-         
           "
         >
           {slice.primary.video_link ? (
