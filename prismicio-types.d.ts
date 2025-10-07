@@ -1133,16 +1133,6 @@ export interface TestimonialsSliceDefaultPrimaryTestimonialsItem {
  */
 export interface TestimonialsSliceDefaultPrimary {
   /**
-   * Heading Quote field in *Testimonials → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: testimonials.default.primary.heading_quote
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  heading_quote: prismic.RichTextField;
-
-  /**
    * Testimonials field in *Testimonials → Default → Primary*
    *
    * - **Field Type**: Group

@@ -68,14 +68,14 @@ const Hero = ({ slice }) => {
     const tl = gsap.timeline({ defaults: { ease: "power4.inOut" } });
 
     // === 1️⃣ Fade-in text container ===
-    tl.to(textContainer, { opacity: 1, duration: 0.6, ease: "power1.out" });
+    tl.to(textContainer, { opacity: 1, duration: 0.2, ease: "power1.out" });
 
     // === 2️⃣ Random up/down reveal ===
     tl.to(innerLetters, {
       clipPath: "inset(0% 0% 0% 0%)",
       yPercent: 0,
       opacity: 1,
-      duration: 1.3,
+      duration: 0.8,
       stagger: { each: 0.08, from: "random" },
     });
 
@@ -89,7 +89,7 @@ const Hero = ({ slice }) => {
             : "inset(100% 0% 0% 0%)",
         yPercent: (i, el) => (el.dataset.dir === "top" ? -100 : 100),
         opacity: 0,
-        duration: 1.2,
+        duration: 0.6,
         stagger: { each: 0.05, from: "random" },
         delay: 0.3,
       },
@@ -99,7 +99,7 @@ const Hero = ({ slice }) => {
     // === 4️⃣ Fade out text container ===
     tl.to(
       textContainer,
-      { opacity: 0, duration: 0.5, ease: "power2.inOut" },
+      { opacity: 0, duration: 0.2, ease: "power2.inOut" },
       "-=0.2"
     );
 
@@ -107,7 +107,7 @@ const Hero = ({ slice }) => {
     tl.to([logoLeft, logoRight], {
       opacity: 1,
       xPercent: 0,
-      duration: 1.2,
+      duration: 0.5,
       ease: "power3.out",
       stagger: 0.1,
     });
@@ -116,11 +116,11 @@ const Hero = ({ slice }) => {
     tl.to([logoLeft, logoRight], {
       yPercent: 0,
       duration: 0.6,
-      ease: "elastic.out(1, 0.6)",
+      ease: "elastic.out(1, 0.3)",
     });
 
     // === 7️⃣ Curtain raise + hero stretch ===
-    tl.to(".curtain", { yPercent: -100, duration: 2 }, "-=0.5")
+    tl.to(".curtain", { yPercent: -100, duration: 0.8 }, "-=0.5")
       .to(
         heroWrapperRef.current,
         {
@@ -158,7 +158,7 @@ const Hero = ({ slice }) => {
   return (
     <Bounded full className="hero-section relative overflow-hidden">
       {/* === Curtain Loader === */}
-      <div className="curtain fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black">
+      <div className="curtain fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-terra-pink">
         {/* TERRATONE text */}
         <h1
           ref={textContainerRef}
