@@ -86,75 +86,150 @@ const DestinationHighlight = ({ slice }) => {
   }, []);
 
   return (
-    <Bounded
-      ref={sectionRef}
-      data-slice-type={slice.slice_type}
-      data-slice-variation={slice.variation}
-      className="mt-10 lg:mt-30 overflow-hidden"
-    >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
-        {/* Left Side Text */}
-        <div className="md:w-[28.1875rem] space-y-5">
-          <div ref={headingRef}>
-            <PrismicRichText
-              field={slice.primary.heading}
-              components={{
-                heading1: ({ children }) => (
-                  <h2 className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium leading-7 md:leading-12">
-                    {children}
-                  </h2>
-                ),
-              }}
-            />
-          </div>
+    <>
+      {slice.variation === "default" && (
+        <Bounded
+          ref={sectionRef}
+          data-slice-type={slice.slice_type}
+          data-slice-variation={slice.variation}
+          className="mt-10 lg:mt-30 overflow-hidden"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
+            {/* Left Side Text */}
+            <div className="md:w-[28.1875rem] space-y-5">
+              <div ref={headingRef}>
+                <PrismicRichText
+                  field={slice.primary.heading}
+                  components={{
+                    heading1: ({ children }) => (
+                      <h2 className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium leading-7 md:leading-12">
+                        {children}
+                      </h2>
+                    ),
+                  }}
+                />
+              </div>
 
-          <div ref={descRef}>
-            <PrismicRichText
-              field={slice.primary.description}
-              components={{
-                paragraph: ({ children }) => (
-                  <p className="text-sm md:text-lg font-barlow text-black leading-tight">
-                    {children}
-                  </p>
-                ),
-              }}
-            />
-          </div>
+              <div ref={descRef}>
+                <PrismicRichText
+                  field={slice.primary.description}
+                  components={{
+                    paragraph: ({ children }) => (
+                      <p className="text-sm md:text-lg font-barlow text-black leading-tight">
+                        {children}
+                      </p>
+                    ),
+                  }}
+                />
+              </div>
 
-          <div ref={buttonRef}>
-            <Button showArrow>{slice.primary.button_text}</Button>
-          </div>
+              <div ref={buttonRef}>
+                <Button showArrow>{slice.primary.button_text}</Button>
+              </div>
 
-          {slice.primary.explore_button?.url && (
-            <PrismicNextLink field={slice.primary.explore_button} />
-          )}
-        </div>
+              {slice.primary.explore_button?.url && (
+                <PrismicNextLink field={slice.primary.explore_button} />
+              )}
+            </div>
 
-        {/* Right Side Media */}
-        <div
-          ref={mediaRef}
-          className="
+            {/* Right Side Media */}
+            <div
+              ref={mediaRef}
+              className="
             w-full
             h-[29.9375rem]
             md:h-[32rem]
             lg:h-[36rem]
             overflow-hidden
           "
+            >
+              {slice.primary.video_link ? (
+                <VideoComponent
+                  srcMp4={slice.primary.video_link}
+                  className="w-full h-full object-cover object-center"
+                />
+              ) : (
+                <PrismicNextImage
+                  field={slice.primary.image}
+                  className="w-full h-full object-cover object-center"
+                />
+              )}
+            </div>
+          </div>
+        </Bounded>
+      )}
+      {slice.variation === "reversedForMobile" && (
+        <Bounded
+          ref={sectionRef}
+          data-slice-type={slice.slice_type}
+          data-slice-variation={slice.variation}
+          className="mt-10 lg:mt-30 overflow-hidden"
         >
-          {slice.primary.video_link ? (
-            <VideoComponent
-              srcMp4={slice.primary.video_link}
-              className="w-full h-full object-cover object-center"
-            />
-          ) : (
-            <PrismicNextImage
-              field={slice.primary.image}
-              className="w-full h-full object-cover object-center"
-            />
-          )}
-        </div>
-      </div>
-    </Bounded>
+          <div className="flex flex-col-reverse md:flex-row gap-10">
+            {/* Left Side Text */}
+            <div className=" space-y-5">
+              <div ref={headingRef}>
+                <PrismicRichText
+                  field={slice.primary.heading}
+                  components={{
+                    heading1: ({ children }) => (
+                      <h2 className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium leading-7 md:leading-12">
+                        {children}
+                      </h2>
+                    ),
+                  }}
+                />
+              </div>
+
+              <div ref={descRef} className="md:w-[70%]">
+                <PrismicRichText
+                  field={slice.primary.description}
+                  components={{
+                    paragraph: ({ children }) => (
+                      <p className="text-sm md:text-lg font-barlow text-black leading-tight">
+                        {children}
+                      </p>
+                    ),
+                  }}
+                />
+              </div>
+
+              <div ref={buttonRef}>
+                <Button showArrow>{slice.primary.button_text}</Button>
+              </div>
+
+              {slice.primary.explore_button?.url && (
+                <PrismicNextLink field={slice.primary.explore_button} />
+              )}
+            </div>
+
+            {/* Right Side Media */}
+            <div
+              ref={mediaRef}
+              className="
+            w-full
+            h-[29.9375rem]
+            md:h-[32rem]
+            lg:h-[36rem]
+            overflow-hidden
+          "
+            >
+              {slice.primary.video_link ? (
+                <VideoComponent
+                  srcMp4={slice.primary.video_link}
+                  className="w-full h-full object-cover object-center"
+                />
+              ) : (
+                <PrismicNextImage
+                  field={slice.primary.image}
+                  className="w-full h-full object-cover object-center"
+                />
+              )}
+            </div>
+          </div>
+        </Bounded>
+      )}
+    </>
   );
 };
 

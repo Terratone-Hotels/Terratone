@@ -70,6 +70,7 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>["id"]];
 
 type HomepageDocumentDataSlicesSlice =
+  | DestinationHighlightSliceSlice
   | TestimonialsSlice
   | BanquetHallsSlice
   | TaglineHeroSliceSlice
@@ -331,9 +332,107 @@ export type DestinationHighlightSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *DestinationHighlight → ReversedForMobile → Primary*
+ */
+export interface DestinationHighlightSliceReversedForMobilePrimary {
+  /**
+   * Heading field in *DestinationHighlight → ReversedForMobile → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.reversedForMobile.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *DestinationHighlight → ReversedForMobile → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.reversedForMobile.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Explore Button field in *DestinationHighlight → ReversedForMobile → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.reversedForMobile.primary.explore_button
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  explore_button: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *DestinationHighlight → ReversedForMobile → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.reversedForMobile.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+
+  /**
+   * Image field in *DestinationHighlight → ReversedForMobile → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.reversedForMobile.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Video Link field in *DestinationHighlight → ReversedForMobile → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.reversedForMobile.primary.video_link
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  video_link: prismic.KeyTextField;
+
+  /**
+   * Video field in *DestinationHighlight → ReversedForMobile → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: destination_highlight.reversedForMobile.primary.video
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  video: prismic.BooleanField;
+}
+
+/**
+ * ReversedForMobile variation for DestinationHighlight Slice
+ *
+ * - **API ID**: `reversedForMobile`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type DestinationHighlightSliceReversedForMobile =
+  prismic.SharedSliceVariation<
+    "reversedForMobile",
+    Simplify<DestinationHighlightSliceReversedForMobilePrimary>,
+    never
+  >;
+
+/**
  * Slice variation for *DestinationHighlight*
  */
-type DestinationHighlightSliceVariation = DestinationHighlightSliceDefault;
+type DestinationHighlightSliceVariation =
+  | DestinationHighlightSliceDefault
+  | DestinationHighlightSliceReversedForMobile;
 
 /**
  * DestinationHighlight Shared Slice
@@ -1216,8 +1315,10 @@ declare module "@prismicio/client" {
       BanquetHallsSliceDefault,
       DestinationHighlightSlice,
       DestinationHighlightSliceDefaultPrimary,
+      DestinationHighlightSliceReversedForMobilePrimary,
       DestinationHighlightSliceVariation,
       DestinationHighlightSliceDefault,
+      DestinationHighlightSliceReversedForMobile,
       DestinationHighlightSliceSlice,
       DestinationHighlightSliceSliceVariation,
       DestinationHighlightSliceSliceDefault,

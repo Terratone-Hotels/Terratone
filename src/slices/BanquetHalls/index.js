@@ -27,7 +27,7 @@ export default function BanquetHalls({ slice }) {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col justify-end h-[40.6875rem] md:h-[46.5rem] px-4 sm:px-6 md:px-0">
-        <div className="absolute bottom-6 sm:bottom-10 left-4 md:top-26 lg:left-35 text-white max-w-[90%] sm:max-w-[80%] md:max-w-none">
+        <div className="absolute top-6 sm:top-10 left-3 md:top-26 lg:left-35 text-white max-w-[90%] sm:max-w-[80%] md:max-w-none">
           {/* Heading */}
           <PrismicRichText
             field={slice.primary.heading}
