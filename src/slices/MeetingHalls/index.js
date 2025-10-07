@@ -1,4 +1,7 @@
 "use client";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Button from "@/components/Button";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
@@ -7,38 +10,66 @@ import "swiper/css";
 import Bounded from "@/components/Bounded";
 import DotWave from "@/components/DotWave";
 
+gsap.registerPlugin(ScrollTrigger);
+
 /**
  * @typedef {import("@prismicio/client").Content.MeetingHallsSlice} MeetingHallsSlice
  * @typedef {import("@prismicio/react").SliceComponentProps<MeetingHallsSlice>} MeetingHallsProps
  * @type {import("react").FC<MeetingHallsProps>}
  */
 const MeetingHalls = ({ slice }) => {
+  const sectionRef = useRef(null);
+  const cardsRef = useRef([]);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    if (window.innerWidth < 1024) return;
+
+    const cards = cardsRef.current.filter(Boolean);
+    if (cards.length === 0) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        cards,
+        {
+          y: 550,
+        },
+        {
+          y: 0,
+          duration: 1.5,
+          ease: "power2.out",
+          stagger: 0.55,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 85%",
+            end: "bottom center ",
+            scrub: true,
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <Bounded
-      full
-      data-slice-type={slice.slice_type}
-      data-slice-variation={slice.variation}
-      className=" mt-20 md:mt-44"
-    >
+    <div className="mt-20 md:mt-44">
       <DotWave />
 
       {/* Heading + description */}
       <Bounded
+        ref={sectionRef}
         data-slice-type={slice.slice_type}
         data-slice-variation={slice.variation}
-        className="max-w-[90rem] mx-auto full"
+        className="max-w-[90rem] mx-auto full "
       >
-        <div className="max-w-3xl mx-auto text-center mb-12 px-4  mt-8 md:mt-12">
+        <div className="max-w-3xl mx-auto text-center mb-12 px-4 mt-8 md:mt-12">
           <PrismicRichText
             field={slice.primary.heading}
             components={{
               heading1: ({ children }) => (
-                <h2 className="text-[1.75rem]  md:text-5xl font-serif font-medium mb-2 lg:mb-8">
-                  {children}
-                </h2>
-              ),
-              heading2: ({ children }) => (
-                <h2 className="text-3xl md:text-5xl font-serif  mb-4">
+                <h2 className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 lg:mb-8">
                   {children}
                 </h2>
               ),
@@ -49,7 +80,7 @@ const MeetingHalls = ({ slice }) => {
             field={slice.primary.description}
             components={{
               paragraph: ({ children }) => (
-                <p className=" leading-tight font-barlow text-[0.875rem] md:text-[1.125rem] ">
+                <p className="leading-tight font-barlow text-[0.875rem] md:text-[1.125rem]">
                   {children}
                 </p>
               ),
@@ -57,12 +88,16 @@ const MeetingHalls = ({ slice }) => {
           />
         </div>
 
-        {/* Desktop Grid (hover overlay) */}
+        {/* Desktop Grid (animated) */}
         <div className="hidden lg:grid lg:grid-cols-3 gap-20 max-w-[85%] mx-auto items-start">
           {slice.primary.rooms.map((item, index) => (
-            <div key={index} className="group flex flex-col">
-              {/* Image wrapper */}
-              <div className="relative aspect-square overflow-hidden ">
+            <div
+              key={index}
+              ref={(el) => (cardsRef.current[index] = el)}
+              className="group flex flex-col"
+            >
+              {/* Image */}
+              <div className="relative aspect-square overflow-hidden">
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
                 <PrismicNextImage
                   field={item.image}
@@ -73,7 +108,7 @@ const MeetingHalls = ({ slice }) => {
                 </div>
               </div>
 
-              {/* Text wrapper */}
+              {/* Text */}
               <div className="mt-6 flex flex-col justify-start text-left min-h-[120px]">
                 <h3 className="text-[1.375rem] font-medium font-serif">
                   {item.card_title}
@@ -87,13 +122,14 @@ const MeetingHalls = ({ slice }) => {
         </div>
       </Bounded>
 
+      {/* Mobile Swiper untouched */}
       <div className="lg:hidden pl-4">
         <Swiper spaceBetween={20} slidesPerView={1.2} grabCursor={true}>
           {slice.primary.rooms.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="relative flex flex-col">
                 {/* Image */}
-                <div className="relative aspect-[4/3] overflow-hidden ">
+                <div className="relative aspect-[4/3] overflow-hidden">
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
                   <PrismicNextImage
                     field={item.image}
@@ -118,7 +154,7 @@ const MeetingHalls = ({ slice }) => {
           ))}
         </Swiper>
       </div>
-    </Bounded>
+    </div>
   );
 };
 

@@ -1,64 +1,33 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Bounded from "@/components/Bounded";
 import Button from "@/components/Button";
-import { PrismicNextLink, PrismicNextImage } from "@prismicio/next";
+import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /**
  * @typedef {import("@prismicio/client").Content.BanquetHallsSlice} BanquetHallsSlice
  * @typedef {import("@prismicio/react").SliceComponentProps<BanquetHallsSlice>} BanquetHallsProps
  * @type {import("react").FC<BanquetHallsProps>}
  */
-const BanquetHalls = ({ slice }) => {
-  const sectionRef = useRef(null);
-  const imgRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        imgRef.current,
-        { scale: 1 },
-        {
-          scale: 1.25,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
+export default function BanquetHalls({ slice }) {
   return (
     <Bounded
-      ref={sectionRef}
       className="relative h-auto lg:mt-30 mb-30 mt-[3.5rem] overflow-hidden"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      {/* Full-bleed image container */}
+      {/* Background image */}
       <div className="absolute inset-0 z-0">
         <PrismicNextImage
-          ref={imgRef}
           field={slice.primary.banquet_image}
           className="w-full h-full object-cover will-change-transform"
         />
       </div>
 
-      {/* Overlay content */}
+      {/* Content */}
       <div className="relative z-10 flex flex-col justify-end h-[40.6875rem] md:h-[46.5rem] px-4 sm:px-6 md:px-0">
-        <div className="absolute bottom-6 sm:bottom-10 left-4  md:top-26 lg:left-35 text-white max-w-[90%] sm:max-w-[80%] md:max-w-none">
+        <div className="absolute bottom-6 sm:bottom-10 left-4 md:top-26 lg:left-35 text-white max-w-[90%] sm:max-w-[80%] md:max-w-none">
           {/* Heading */}
           <PrismicRichText
             field={slice.primary.heading}
@@ -72,12 +41,12 @@ const BanquetHalls = ({ slice }) => {
           />
 
           {/* Description */}
-          <div className="my-3 sm:my-4 lg:my-6 w-[65%]  lg:w-[30%]">
+          <div className="my-3 sm:my-4 lg:my-6 w-[65%] lg:w-[30%]">
             <PrismicRichText
               field={slice.primary.description}
               components={{
                 paragraph: ({ children }) => (
-                  <p className="text-[0.8125rem] sm:text-[0.9375rem] md:text-lg font-bar text-white tracking-wide leading-snug md:leading-tight">
+                  <p className="text-[0.8125rem] sm:text-[0.9375rem] md:text-lg font-barlow text-white tracking-wide leading-snug md:leading-tight">
                     {children}
                   </p>
                 ),
@@ -95,6 +64,4 @@ const BanquetHalls = ({ slice }) => {
       </div>
     </Bounded>
   );
-};
-
-export default BanquetHalls;
+}

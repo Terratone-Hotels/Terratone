@@ -3,7 +3,7 @@
   --color-terra-pink: #e4a3a2; /* Terra Pink */
   --color-earth-green: #3e5b39;
   --color-pitch: #000000;
-  --color-sand: #f4f1ed;
+  --color-sand: #c6bdb5;
   --color-stone: #f4f1ed;
   --color-toiled-gold: #96703b;
 
@@ -35,7 +35,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--color-stone) !important;
+  background-color: var(--color-stone);
 }
 .hero-section [clip-path],
 .hero-section img {

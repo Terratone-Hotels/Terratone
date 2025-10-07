@@ -38,7 +38,9 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${garamond.variable} ${barlow.variable} ${barlowNormal.variable} bg-stone antialiased`}>
+      <body
+        className={`${garamond.variable} ${barlow.variable} ${barlowNormal.variable}  antialiased`}
+      >
         <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
       </body>
     </html>
