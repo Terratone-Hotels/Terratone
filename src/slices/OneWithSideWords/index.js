@@ -119,8 +119,8 @@ const OneWithSideWords = ({ slice }) => {
           ref={rightRef}
           className="relative w-[20%] lg:w-auto flex items-center justify-center opacity-0"
         >
-          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium -rotate-90 lg:rotate-0 lg:text-right lg:pr-10">
-            <PrismicRichText field={slice.primary.left_word} />
+          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium rotate-90 lg:rotate-0  lg:pl-10">
+            <PrismicRichText field={slice.primary.right_word} />
           </div>
         </div>
       </div>
