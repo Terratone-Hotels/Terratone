@@ -12,55 +12,106 @@ gsap.registerPlugin(ScrollTrigger);
 
 const OneWithSideWords = ({ slice }) => {
   const sectionRef = useRef(null);
-  const leftRef = useRef(null); // pause
-  const rightRef = useRef(null); // between
-  const topRef = useRef(null); // thoughtfulness
-  const videoRef = useRef(null); // video
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+  const topRef = useRef(null);
+  const videoRef = useRef(null);
+  const videoComponentRef = useRef(null); // Add a ref for the VideoComponent
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // === Initial States ===
-      gsap.set(leftRef.current, { opacity: 0, x: -40 });
-      gsap.set(rightRef.current, { opacity: 0, x: 40 });
-      gsap.set(topRef.current, { opacity: 0, y: -30 });
-      gsap.set(videoRef.current, {
-        opacity: 0,
-        scaleX: 0,
-        transformOrigin: "center",
-      });
+      /** ========== Helper for background transitions ========== */
+      const changeBg = (color) =>
+        gsap.to("body", {
+          backgroundColor: color,
+          duration: 0.8,
+        });
 
-      // === Timeline ===
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 50%",
-          toggleActions: "play none none none", // plays once
-        },
-        defaults: { ease: "power3.out" },
-      });
+      /** ========== Initial States ========== */
+      gsap.set(
+        [leftRef.current, rightRef.current, topRef.current, videoRef.current],
+        { opacity: 0 }
+      );
+      gsap.set(leftRef.current, { x: -40 });
+      gsap.set(rightRef.current, { x: 40 });
+      gsap.set(topRef.current, { y: -30 });
+      gsap.set(videoRef.current, { scaleX: 0, transformOrigin: "center" });
 
-      // Left and Right together (2s)
-      tl.to([leftRef.current, rightRef.current], {
-        opacity: 1,
-        x: 0,
-        duration: 2,
-        stagger: 0, // both together
-      })
-        // Top heading after both (2s)
-        .to(topRef.current, { opacity: 1, y: 0, duration: 2 }, "-=1.5")
-        // Video reveal last (3s)
+      /** ========== Content Reveal Timeline ========== */
+      const tl = gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 50%",
+            toggleActions: "play none none none", // Play ONCE
+          },
+        })
+        .to([leftRef.current, rightRef.current], {
+          opacity: 1,
+          x: 0,
+          duration: 1.8,
+        })
+        .to(topRef.current, { opacity: 1, y: 0, duration: 1.8 }, "-=1.2")
         .to(
           videoRef.current,
           {
             scaleX: 1,
             opacity: 1,
-            duration: 3,
+            duration: 2.2,
             ease: "power4.out",
           },
-          "-=1"
+          "-=0.8"
         );
+
+      /** ========== Video Playback ScrollTrigger ========== */
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 50%",
+        end: "top 25%",
+        once: true, // Only trigger once
+        onEnter: () => {
+          if (videoComponentRef.current) {
+            videoComponentRef.current.play();
+          }
+        },
+      });
     }, sectionRef);
 
+    // Move ScrollTrigger creation outside gsap.context
+    if (document.querySelector("body")) {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 55%",
+        end: "bottom 15%",
+
+        onEnter: () => {
+          gsap.to("body", {
+            backgroundColor: "var(--color-sand)",
+            duration: 0.8,
+          });
+        },
+        onLeave: () => {
+          gsap.to("body", {
+            backgroundColor: "var(--color-stone)",
+            duration: 0.1,
+          });
+        },
+        onEnterBack: () => {
+          gsap.to("body", {
+            backgroundColor: "var(--color-sand)",
+            duration: 0.8,
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to("body", {
+            backgroundColor: "var(--color-stone)",
+            duration: 0.1,
+          });
+        },
+      });
+    } else {
+      console.log("Body element not found!");
+    }
     return () => ctx.revert();
   }, []);
 
@@ -71,7 +122,7 @@ const OneWithSideWords = ({ slice }) => {
       data-slice-variation={slice.variation}
       className="flex flex-col items-center justify-center text-center mt-13 md:mt-44 overflow-hidden"
     >
-      {/* Top Heading - "Thoughtfulness" */}
+      {/* Top Heading */}
       <div
         ref={topRef}
         className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium opacity-0"
@@ -81,7 +132,7 @@ const OneWithSideWords = ({ slice }) => {
 
       {/* Video + Side Words */}
       <div className="flex items-center justify-center w-full mt-4 relative">
-        {/* Left Word - "Pause" */}
+        {/* Left Word */}
         <div
           ref={leftRef}
           className="relative w-[20%] lg:w-auto flex items-center justify-center opacity-0"
@@ -97,17 +148,20 @@ const OneWithSideWords = ({ slice }) => {
           className="w-full md:w-[60%] aspect-[21/9] overflow-hidden opacity-0"
         >
           <VideoComponent
+            ref={videoComponentRef} // Attach the ref
             srcMp4={slice.primary.video}
             className="w-full h-full object-cover"
+            muted // Add muted attribute to autoplay
+            playsInline // Add playsInline attribute to autoplay on iOS
           />
         </div>
 
-        {/* Right Word - "Between" */}
+        {/* Right Word */}
         <div
           ref={rightRef}
           className="relative w-[20%] lg:w-auto flex items-center justify-center opacity-0"
         >
-          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium rotate-90 lg:rotate-0 lg:pl-10">
+          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium rotate-90 lg:rotate-0 lg:text-right lg:pl-10">
             <PrismicRichText field={slice.primary.right_word} />
           </div>
         </div>
@@ -123,7 +177,6 @@ const OneWithSideWords = ({ slice }) => {
         <Button variant="secondary" className="font-barlow">
           ABOUT US
         </Button>
-        
       </div>
     </Bounded>
   );

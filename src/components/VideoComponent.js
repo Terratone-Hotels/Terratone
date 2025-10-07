@@ -1,8 +1,9 @@
 import React from "react";
 
-export default function VideoComponent({ srcMp4, srcWebm, className }) {
+export default function VideoComponent({ srcMp4, srcWebm, className, ref }) {
   return (
     <video
+      ref={ref}
       autoPlay
       muted
       loop
