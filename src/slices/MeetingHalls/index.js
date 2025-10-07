@@ -42,8 +42,9 @@ const MeetingHalls = ({ slice }) => {
           stagger: 0.55,
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 85%",
-            end: "bottom center ",
+            start: "top 55%",
+            end: "bottom 80% ",
+            markers: true,
             scrub: true,
           },
         }
