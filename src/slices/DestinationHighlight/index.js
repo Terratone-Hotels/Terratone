@@ -21,15 +21,10 @@ const DestinationHighlight = ({ slice }) => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Initial state — hidden and slightly lowered
-      gsap.set(
-        [
-          headingRef.current,
-          descRef.current,
-          buttonRef.current,
-          mediaRef.current,
-        ],
-        { opacity: 0, y: 60 }
-      );
+      gsap.set([headingRef.current, descRef.current, buttonRef.current], {
+        opacity: 0,
+        y: 60,
+      });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -76,11 +71,11 @@ const DestinationHighlight = ({ slice }) => {
       // Step 4 — Media (image / video)
       tl.fromTo(
         mediaRef.current,
-        { opacity: 0, scale: 1.1 },
+        { opacity: 0, scale: 1.2 },
         {
           opacity: 1,
           scale: 1,
-          duration: 2,
+          duration: 2.3,
           ease: "expo.out",
         },
         "-=1.2"
@@ -97,7 +92,7 @@ const DestinationHighlight = ({ slice }) => {
       data-slice-variation={slice.variation}
       className="mt-10 lg:mt-30 overflow-hidden"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
         {/* Left Side Text */}
         <div className="md:w-[28.1875rem] space-y-5">
           <div ref={headingRef}>

@@ -20,13 +20,6 @@ const OneWithSideWords = ({ slice }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      /** ========== Helper for background transitions ========== */
-      const changeBg = (color) =>
-        gsap.to("body", {
-          backgroundColor: color,
-          duration: 0.8,
-        });
-
       /** ========== Initial States ========== */
       gsap.set(
         [leftRef.current, rightRef.current, topRef.current, videoRef.current],
@@ -77,41 +70,6 @@ const OneWithSideWords = ({ slice }) => {
       });
     }, sectionRef);
 
-    // Move ScrollTrigger creation outside gsap.context
-    if (document.querySelector("body")) {
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top 55%",
-        end: "bottom 15%",
-
-        onEnter: () => {
-          gsap.to("body", {
-            backgroundColor: "var(--color-sand)",
-            duration: 0.8,
-          });
-        },
-        onLeave: () => {
-          gsap.to("body", {
-            backgroundColor: "var(--color-stone)",
-            duration: 0.1,
-          });
-        },
-        onEnterBack: () => {
-          gsap.to("body", {
-            backgroundColor: "var(--color-sand)",
-            duration: 0.8,
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to("body", {
-            backgroundColor: "var(--color-stone)",
-            duration: 0.1,
-          });
-        },
-      });
-    } else {
-      console.log("Body element not found!");
-    }
     return () => ctx.revert();
   }, []);
 
@@ -161,8 +119,8 @@ const OneWithSideWords = ({ slice }) => {
           ref={rightRef}
           className="relative w-[20%] lg:w-auto flex items-center justify-center opacity-0"
         >
-          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium rotate-90 lg:rotate-0 lg:text-right lg:pl-10">
-            <PrismicRichText field={slice.primary.right_word} />
+          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium -rotate-90 lg:rotate-0 lg:text-right lg:pr-10">
+            <PrismicRichText field={slice.primary.left_word} />
           </div>
         </div>
       </div>
