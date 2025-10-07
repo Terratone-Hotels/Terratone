@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Bounded from "@/components/Bounded";
 import DotWave from "@/components/DotWave";
+import RichTextRenderer from "@/components/RichTextRenderer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,26 +67,13 @@ const MeetingHalls = ({ slice }) => {
         className="max-w-[90rem] mx-auto full "
       >
         <div className="max-w-3xl mx-auto text-center mb-12 px-4 mt-8 md:mt-12">
-          <PrismicRichText
+          <RichTextRenderer
             field={slice.primary.heading}
-            components={{
-              heading1: ({ children }) => (
-                <h2 className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 lg:mb-8">
-                  {children}
-                </h2>
-              ),
-            }}
+            className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 lg:mb-8"
           />
-
-          <PrismicRichText
+          <RichTextRenderer
             field={slice.primary.description}
-            components={{
-              paragraph: ({ children }) => (
-                <p className="leading-tight font-barlow text-[0.875rem] md:text-[1.125rem]">
-                  {children}
-                </p>
-              ),
-            }}
+            className="leading-tight font-barlow text-[0.875rem] md:text-[1.125rem]"
           />
         </div>
 

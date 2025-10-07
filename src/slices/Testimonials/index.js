@@ -1,36 +1,42 @@
+"use client";
 import Bounded from "@/components/Bounded";
 import { PrismicRichText } from "@prismicio/react";
 import QuoteIcon from "@/components/quoteIcon";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 
-/**
- * @typedef {import("@prismicio/client").Content.TestimonialsSlice} TestimonialsSlice
- * @typedef {import("@prismicio/react").SliceComponentProps<TestimonialsSlice>} TestimonialsProps
- * @type {import("react").FC<TestimonialsProps>}
- */
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import RichTextRenderer from "@/components/RichTextRenderer";
+
 const Testimonials = ({ slice }) => {
   return (
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className={"flex items-center justify-center w-full mt-10"}
+      className="flex items-center justify-center mt-40 overflow-x-hidden "
     >
-      <div className="flex flex-col justify-center items-center">
-        <div className=" flex text-5xl font-medium  font-serif mb-10">
-          <QuoteIcon></QuoteIcon>
+      <div className="flex flex-col justify-center text-center items-center w-full max-w-[60rem] mx-auto overflow-hidden">
+        <div className="flex text-5xl font-medium font-serif mb-10">
+          <QuoteIcon />
         </div>
 
-        <div className="flex flex-col items-center text-center md:w-1/2">
+        <Swiper
+          spaceBetween={50}
+          slidesPerView={1}
+          modules={[Navigation, A11y]}
+          className="w-full overflow-hidden"
+        >
           {slice.primary.testimonials.map((item, index) => (
-            <div
-              key={index}
-              className="justify-center items-center font-barlow text-sm md:text-lg"
-            >
-              <PrismicRichText field={item.quote} />
-            </div>
+            <SwiperSlide key={index}>
+              <div className="p-6 mb-4 justify-center items-center font-barlow text-sm md:text-lg select-none">
+                <RichTextRenderer field={item.quote} />
+              </div>
+            </SwiperSlide>
           ))}
-        </div>
-        {/*div below is for the slider thing */}
-        <div>Div for slider</div>
+        </Swiper>
       </div>
     </Bounded>
   );

@@ -3,17 +3,6 @@
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
 		"primary": {
-			"heading_quote": {
-				"__TYPE__": "StructuredTextContent",
-				"value": [
-					{
-						"type": "paragraph",
-						"content": {
-							"text": "Dolor minim tempor laboris ex irure velit minim occaecat consequat consectetur esse tempor."
-						}
-					}
-				]
-			},
 			"testimonials": {
 				"__TYPE__": "GroupContentType",
 				"value": [

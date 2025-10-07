@@ -47,3 +47,16 @@ body {
   will-change: transform, opacity;
   transform-origin: center center;
 }
+/* Mask container for each line */
+/* Mask container for each line */
+.line-mask {
+  display: block;
+  overflow: hidden;
+}
+
+/* Each line behaves like a block for GSAP transform */
+.split-line {
+  display: block;
+  transform-origin: top left;
+  will-change: transform, opacity;
+}
