@@ -1,0 +1,44 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"testimonials": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"quote",
+								{
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Dolor aliqua eiusmod ad ullamco pariatur."
+											}
+										}
+									]
+								}
+							]
+						]
+					}
+				]
+			},
+			"quote_symbol": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Amet ad irure eu consectetur proident. Exercitation do sit minim. Ipsum anim voluptate laborum ipsum nisi ex."
+						}
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

@@ -13,4 +13,5 @@ export const components = {
   one_with_side_words: dynamic(() => import("./OneWithSideWords")),
   room_showcase_slice: dynamic(() => import("./RoomShowcaseSlice")),
   tagline_hero_slice: dynamic(() => import("./TaglineHeroSlice")),
+  testimonials: dynamic(() => import("./Testimonials")),
 };
