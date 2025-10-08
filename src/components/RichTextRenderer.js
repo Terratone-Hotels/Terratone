@@ -13,7 +13,7 @@ export default function RichTextRenderer({
   animationDuration = 0.6,
   animationStagger = 0.25,
   animationEase = "power2.out",
-  triggerStart = "top 80%",
+  triggerStart = "top 85%",
 }) {
   const containerRef = useRef(null);
 

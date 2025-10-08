@@ -9,6 +9,8 @@ export const components = {
     () => import("./DestinationHighlightSlice"),
   ),
   hero: dynamic(() => import("./Hero")),
+  hero_for_others: dynamic(() => import("./HeroForOthers")),
+  intro_block: dynamic(() => import("./IntroBlock")),
   meeting_halls: dynamic(() => import("./MeetingHalls")),
   one_with_side_words: dynamic(() => import("./OneWithSideWords")),
   room_showcase_slice: dynamic(() => import("./RoomShowcaseSlice")),
