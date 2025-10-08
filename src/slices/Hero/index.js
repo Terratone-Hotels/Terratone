@@ -159,7 +159,7 @@ const Hero = ({ slice }) => {
     <Bounded full className="hero-section relative overflow-hidden">
       {/* === Curtain Loader === */}
       <div className="
-      curtain fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-terra-pink
+       curtain fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-terra-pink
       ">
         {/* TERRATONE text */}
         <h1

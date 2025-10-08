@@ -1,0 +1,45 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"heading": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Fugiat eiusmod pariatur mollit. Est officia enim eu do veniam mollit."
+						}
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Ex aute laboris nulla dolore excepteur incididunt fugiat aliqua veniam reprehenderit magna. Duis ad aute sint amet velit."
+						}
+					}
+				]
+			},
+			"button_link": {
+				"key": "4f465ebf-010a-4f70-8534-6e7ce119f049",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://slicemachine.dev",
+					"text": "queen"
+				}
+			},
+			"button_text": {
+				"__TYPE__": "FieldContent",
+				"value": "source",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]

@@ -69,7 +69,7 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
-type DineDocumentDataSlicesSlice = never;
+type DineDocumentDataSlicesSlice = IntroBlockSlice | HeroSlice;
 
 /**
  * Content for Dine documents
@@ -131,6 +131,7 @@ export type DineDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<DineDocumentData>, "dine", Lang>;
 
 type HomepageDocumentDataSlicesSlice =
+  | IntroBlockSlice
   | DestinationHighlightSliceSlice
   | TestimonialsSlice
   | BanquetHallsSlice
@@ -632,6 +633,87 @@ type HeroSliceVariation = HeroSliceDefault;
  * - **Documentation**: https://prismic.io/docs/slices
  */
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
+
+/**
+ * Primary content in *IntroBlock → Default → Primary*
+ */
+export interface IntroBlockSliceDefaultPrimary {
+  /**
+   * Heading field in *IntroBlock → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *IntroBlock → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Button Link field in *IntroBlock → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.default.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *IntroBlock → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.default.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for IntroBlock Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type IntroBlockSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<IntroBlockSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *IntroBlock*
+ */
+type IntroBlockSliceVariation = IntroBlockSliceDefault;
+
+/**
+ * IntroBlock Shared Slice
+ *
+ * - **API ID**: `intro_block`
+ * - **Description**: IntroBlock
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type IntroBlockSlice = prismic.SharedSlice<
+  "intro_block",
+  IntroBlockSliceVariation
+>;
 
 /**
  * Item in *MeetingHalls → Default → Primary → Rooms*
@@ -1391,6 +1473,10 @@ declare module "@prismicio/client" {
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      IntroBlockSlice,
+      IntroBlockSliceDefaultPrimary,
+      IntroBlockSliceVariation,
+      IntroBlockSliceDefault,
       MeetingHallsSlice,
       MeetingHallsSliceDefaultPrimaryRoomsItem,
       MeetingHallsSliceDefaultPrimary,
