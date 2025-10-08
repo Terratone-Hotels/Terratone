@@ -16,10 +16,10 @@ const Testimonials = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex items-center justify-center mt-40 overflow-x-hidden "
+      className="mt-[90px] "
     >
-      <div className="flex flex-col justify-center text-center items-center w-full max-w-[60rem] mx-auto overflow-hidden">
-        <div className="flex text-5xl font-medium font-serif mb-10">
+      <div className="flex flex-col justify-center text-center items-center w-full md:max-w-[60rem] mx-auto ">
+        <div className="flex text-5xl font-medium font-serif ">
           <QuoteIcon />
         </div>
 
@@ -27,7 +27,7 @@ const Testimonials = ({ slice }) => {
           spaceBetween={50}
           slidesPerView={1}
           modules={[Navigation, A11y]}
-          className="w-full  max-w-[90%] md:max-w-[70%] overflow-hidden"
+          className="w-full"
         >
           {slice.primary.testimonials.map((item, index) => (
             <SwiperSlide key={index}>

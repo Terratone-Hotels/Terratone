@@ -161,14 +161,14 @@ const Hero = ({ slice }) => {
       <div className="curtain fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-terra-pink">
         <h1
           ref={textContainerRef}
-          className="opacity-0 text-white font-serrif  tracking-tighter text-3xl md:text-8xl flex"
+          className="opacity-0 text-white font-serif  text-5xl md:text-8xl flex"
         >
           {"terratone".split("").map((char, i) => (
             <span
               key={i}
-              className="letter inline-block relative overflow-hidden px-[0.05em]"
+              className="letter inline-block overflow-hidden relative px-[0.05em]    "
             >
-              <span className="inner-letter inline-block">{char}</span>
+              <span className="inner-letter inline-block  ">{char}</span>
             </span>
           ))}
         </h1>
