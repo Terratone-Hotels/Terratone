@@ -69,6 +69,71 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
+type DiningDocumentDataSlicesSlice = IntroBlockSlice | HeroForOthersSlice;
+
+/**
+ * Content for Dining documents
+ */
+interface DiningDocumentData {
+  /**
+   * Slice Zone field in *Dining*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: dining.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<DiningDocumentDataSlicesSlice> /**
+   * Meta Title field in *Dining*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: dining.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Dining*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: dining.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Dining*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: dining.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Dining document from Prismic
+ *
+ * - **API ID**: `dining`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type DiningDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<DiningDocumentData>,
+    "dining",
+    Lang
+  >;
+
 type HomepageDocumentDataSlicesSlice =
   | TestimonialsSlice
   | BanquetHallsSlice
@@ -142,7 +207,7 @@ export type HomepageDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = HomepageDocument;
+export type AllDocumentTypes = DiningDocument | HomepageDocument;
 
 /**
  * Primary content in *BanquetHalls → Default → Primary*
@@ -472,6 +537,142 @@ type HeroSliceVariation = HeroSliceDefault;
  * - **Documentation**: https://prismic.io/docs/slices
  */
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
+
+/**
+ * Primary content in *HeroForOthers → Default → Primary*
+ */
+export interface HeroForOthersSliceDefaultPrimary {
+  /**
+   * Hero Image field in *HeroForOthers → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_for_others.default.primary.hero_image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  hero_image: prismic.ImageField<never>;
+
+  /**
+   * Hero Heading field in *HeroForOthers → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_for_others.default.primary.hero_heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  hero_heading: prismic.RichTextField;
+}
+
+/**
+ * Default variation for HeroForOthers Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeroForOthersSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<HeroForOthersSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *HeroForOthers*
+ */
+type HeroForOthersSliceVariation = HeroForOthersSliceDefault;
+
+/**
+ * HeroForOthers Shared Slice
+ *
+ * - **API ID**: `hero_for_others`
+ * - **Description**: HeroForOthers
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeroForOthersSlice = prismic.SharedSlice<
+  "hero_for_others",
+  HeroForOthersSliceVariation
+>;
+
+/**
+ * Primary content in *IntroBlock → Default → Primary*
+ */
+export interface IntroBlockSliceDefaultPrimary {
+  /**
+   * Heading field in *IntroBlock → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *IntroBlock → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Button Link field in *IntroBlock → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.default.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *IntroBlock → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.default.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for IntroBlock Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type IntroBlockSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<IntroBlockSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *IntroBlock*
+ */
+type IntroBlockSliceVariation = IntroBlockSliceDefault;
+
+/**
+ * IntroBlock Shared Slice
+ *
+ * - **API ID**: `intro_block`
+ * - **Description**: IntroBlock
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type IntroBlockSlice = prismic.SharedSlice<
+  "intro_block",
+  IntroBlockSliceVariation
+>;
 
 /**
  * Item in *MeetingHalls → Default → Primary → Rooms*
@@ -1196,6 +1397,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      DiningDocument,
+      DiningDocumentData,
+      DiningDocumentDataSlicesSlice,
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
@@ -1216,6 +1420,14 @@ declare module "@prismicio/client" {
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      HeroForOthersSlice,
+      HeroForOthersSliceDefaultPrimary,
+      HeroForOthersSliceVariation,
+      HeroForOthersSliceDefault,
+      IntroBlockSlice,
+      IntroBlockSliceDefaultPrimary,
+      IntroBlockSliceVariation,
+      IntroBlockSliceDefault,
       MeetingHallsSlice,
       MeetingHallsSliceDefaultPrimaryRoomsItem,
       MeetingHallsSliceDefaultPrimary,

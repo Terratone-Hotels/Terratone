@@ -1,0 +1,36 @@
+{
+  "id": "hero_for_others",
+  "type": "SharedSlice",
+  "name": "HeroForOthers",
+  "description": "HeroForOthers",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "hero_image": {
+          "type": "Image",
+          "config": {
+            "label": "Hero Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "hero_heading": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Hero Heading",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
