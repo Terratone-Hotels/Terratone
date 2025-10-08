@@ -16,28 +16,28 @@ const Testimonials = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="mt-40 "
+      className="mt-[90px] "
     >
       <div className="flex flex-col justify-center text-center items-center w-full md:max-w-[60rem] mx-auto ">
-        <div className="flex text-5xl font-medium font-serif mb-10">
+        <div className="flex text-5xl font-medium font-serif ">
           <QuoteIcon />
         </div>
 
-          <Swiper
-            spaceBetween={50}
-            slidesPerView={1}
-            modules={[Navigation, A11y]}
-            className="w-full"
-          >
-            {slice.primary.testimonials.map((item, index) => (
-              <SwiperSlide key={index}>
-                <div className="p-6 mb-4 justify-center items-center font-barlow text-md mx-auto md:text-lg select-none">
-                  <RichTextRenderer field={item.quote} />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+        <Swiper
+          spaceBetween={50}
+          slidesPerView={1}
+          modules={[Navigation, A11y]}
+          className="w-full"
+        >
+          {slice.primary.testimonials.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div className="p-6 mb-4 justify-center items-center font-barlow text-md mx-auto md:text-lg select-none">
+                <RichTextRenderer field={item.quote} />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </Bounded>
   );
 };
