@@ -1,89 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Bounded from "@/components/Bounded";
 import VideoComponent from "@/components/VideoComponent";
 import { PrismicNextLink, PrismicNextImage } from "@prismicio/next";
-import { PrismicRichText } from "@prismicio/react";
 import Button from "@/components/Button";
-
-gsap.registerPlugin(ScrollTrigger);
+import RichTextRenderer from "@/components/RichTextRenderer";
+import { useRef } from "react";
 
 const DestinationHighlight = ({ slice }) => {
   const sectionRef = useRef(null);
-  const headingRef = useRef(null);
-  const descRef = useRef(null);
-  const buttonRef = useRef(null);
-  const mediaRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Initial state — hidden and slightly lowered
-      gsap.set([headingRef.current, descRef.current, buttonRef.current], {
-        opacity: 0,
-        y: 60,
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 90%", // earlier start (was 80%)
-          end: "bottom 10%", // ends a bit earlier too
-          scrub: 1, // smoother catch-up
-          ease: "none",
-        },
-      });
-
-      // Step 1 — Heading
-      tl.to(headingRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1.4,
-        ease: "power3.out",
-      });
-
-      // Step 2 — Description
-      tl.to(
-        descRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          ease: "power2.out",
-        },
-        "-=0.9"
-      );
-
-      // Step 3 — Button
-      tl.to(
-        buttonRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.0,
-          ease: "power2.out",
-        },
-        "-=0.8"
-      );
-
-      // Step 4 — Media (image / video)
-      tl.fromTo(
-        mediaRef.current,
-        { opacity: 0, scale: 1.2 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 2.3,
-          ease: "expo.out",
-        },
-        "-=1.2"
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <Bounded
@@ -95,36 +20,24 @@ const DestinationHighlight = ({ slice }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
         {/* Left Side Text */}
         <div className="md:w-[28.1875rem] space-y-5">
-          <div ref={headingRef}>
-            <PrismicRichText
-              field={slice.primary.heading}
-              components={{
-                heading1: ({ children }) => (
-                  <h2 className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium leading-7 md:leading-12">
-                    {children}
-                  </h2>
-                ),
-              }}
-            />
-          </div>
+          {/* Animated Heading */}
+          <RichTextRenderer
+            field={slice.primary.heading}
+            className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium leading-7 md:leading-[3rem]"
+          />
 
-          <div ref={descRef}>
-            <PrismicRichText
-              field={slice.primary.description}
-              components={{
-                paragraph: ({ children }) => (
-                  <p className="text-sm md:text-lg font-barlow text-black leading-tight">
-                    {children}
-                  </p>
-                ),
-              }}
-            />
-          </div>
+          {/* Animated Description */}
+          <RichTextRenderer
+            field={slice.primary.description}
+            className="text-sm md:text-lg font-barlow text-black leading-tight"
+          />
 
-          <div ref={buttonRef}>
+          {/* Button */}
+          <div>
             <Button showArrow>{slice.primary.button_text}</Button>
           </div>
 
+          {/* Optional Link */}
           {slice.primary.explore_button?.url && (
             <PrismicNextLink field={slice.primary.explore_button} />
           )}
@@ -132,7 +45,6 @@ const DestinationHighlight = ({ slice }) => {
 
         {/* Right Side Media */}
         <div
-          ref={mediaRef}
           className="
             w-full
             h-[29.9375rem]

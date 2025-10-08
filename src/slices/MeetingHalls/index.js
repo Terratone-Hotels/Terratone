@@ -10,6 +10,7 @@ import "swiper/css";
 import Bounded from "@/components/Bounded";
 import DotWave from "@/components/DotWave";
 import RichTextRenderer from "@/components/RichTextRenderer";
+import CurtainRevealImage from "@/components/CurtainRevealImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -88,7 +89,7 @@ const MeetingHalls = ({ slice }) => {
               {/* Image */}
               <div className="relative aspect-square overflow-hidden">
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-                <PrismicNextImage
+                <CurtainRevealImage
                   field={item.image}
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
                 />
@@ -120,7 +121,7 @@ const MeetingHalls = ({ slice }) => {
                 {/* Image */}
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-                  <PrismicNextImage
+                  <CurtainRevealImage
                     field={item.image}
                     className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
                   />

@@ -60,3 +60,6 @@ body {
   transform-origin: top left;
   will-change: transform, opacity;
 }
+.overlay-fix {
+  margin-top: -1px;
+}
