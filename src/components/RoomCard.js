@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 import Button from "@/components/Button";
+import CurtainRevealImage from "./CurtainRevealImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -101,11 +102,12 @@ export default function RoomCard({
     <div ref={cardRef} className="group flex flex-col py-4 relative">
       {/* Room Image */}
       {image && (
-        <PrismicNextImage
-          ref={imgRef}
-          field={image}
-          className="w-full h-[20rem] lg:h-[29.688rem] object-cover"
-        />
+        <div ref={imgRef}>
+          <CurtainRevealImage
+            field={image}
+            className="w-full h-[20rem] lg:h-[29.688rem] object-cover"
+          />
+        </div>
       )}
 
       {/* Title */}

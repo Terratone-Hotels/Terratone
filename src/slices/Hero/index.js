@@ -159,12 +159,11 @@ const Hero = ({ slice }) => {
     <Bounded full className="hero-section relative overflow-hidden">
       {/* === Curtain Loader === */}
       <div className="curtain fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-terra-pink">
-        {/* TERRATONE text */}
         <h1
           ref={textContainerRef}
-          className="opacity-0 text-white font-barlow uppercase tracking-tighter text-3xl md:text-8xl flex"
+          className="opacity-0 text-white font-serrif  tracking-tighter text-3xl md:text-8xl flex"
         >
-          {"TERRATONE".split("").map((char, i) => (
+          {"terratone".split("").map((char, i) => (
             <span
               key={i}
               className="letter inline-block relative overflow-hidden px-[0.05em]"

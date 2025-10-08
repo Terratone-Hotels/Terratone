@@ -1,76 +1,59 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Bounded from "@/components/Bounded";
 import Button from "@/components/Button";
 import VideoComponent from "@/components/VideoComponent";
-import { PrismicRichText } from "@prismicio/react";
+import RichTextRenderer from "@/components/RichTextRenderer";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const OneWithSideWords = ({ slice }) => {
+export default function OneWithSideWords({ slice }) {
   const sectionRef = useRef(null);
-  const leftRef = useRef(null);
-  const rightRef = useRef(null);
-  const topRef = useRef(null);
-  const videoRef = useRef(null);
-  const videoComponentRef = useRef(null); // Add a ref for the VideoComponent
+  const leftCurtainRef = useRef(null);
+  const rightCurtainRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      /** ========== Initial States ========== */
-      gsap.set(
-        [leftRef.current, rightRef.current, topRef.current, videoRef.current],
-        { opacity: 0 }
-      );
-      gsap.set(leftRef.current, { x: -40 });
-      gsap.set(rightRef.current, { x: 40 });
-      gsap.set(topRef.current, { y: -30 });
-      gsap.set(videoRef.current, { scaleX: 0, transformOrigin: "center" });
+    const leftCurtain = leftCurtainRef.current;
+    const rightCurtain = rightCurtainRef.current;
+    if (!leftCurtain || !rightCurtain) return;
 
-      /** ========== Content Reveal Timeline ========== */
-      const tl = gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 50%",
-            toggleActions: "play none none none", // Play ONCE
-          },
-        })
-        .to([leftRef.current, rightRef.current], {
-          opacity: 1,
-          x: 0,
-          duration: 1.8,
-        })
-        .to(topRef.current, { opacity: 1, y: 0, duration: 1.8 }, "-=1.2")
-        .to(
-          videoRef.current,
-          {
-            scaleX: 1,
-            opacity: 1,
-            duration: 2.2,
-            ease: "power4.out",
-          },
-          "-=0.8"
-        );
+    // Initial state: both curtains fully closed
+    gsap.set([leftCurtain, rightCurtain], { scaleX: 1 });
 
-      /** ========== Video Playback ScrollTrigger ========== */
-      ScrollTrigger.create({
+    const tl = gsap.timeline({
+      scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top 50%",
-        end: "top 25%",
-        once: true, // Only trigger once
-        onEnter: () => {
-          if (videoComponentRef.current) {
-            videoComponentRef.current.play();
-          }
-        },
-      });
-    }, sectionRef);
+        start: "top 80%",
+        toggleActions: "play none none none",
+        once: true,
+      },
+    });
 
-    return () => ctx.revert();
+    // Animate curtains opening horizontally
+    tl.to(leftCurtain, {
+      scaleX: 0,
+      transformOrigin: "left center",
+      duration: 1.3,
+      ease: "power3.inOut",
+    });
+    tl.to(
+      rightCurtain,
+      {
+        scaleX: 0,
+        transformOrigin: "right center",
+        duration: 1.3,
+        ease: "power3.inOut",
+      },
+      "<"
+    );
+
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+    };
   }, []);
 
   return (
@@ -80,57 +63,54 @@ const OneWithSideWords = ({ slice }) => {
       data-slice-variation={slice.variation}
       className="flex flex-col items-center justify-center text-center mt-13 md:mt-44 overflow-hidden"
     >
-      {/* Top Heading */}
-      <div
-        ref={topRef}
-        className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium opacity-0"
-      >
-        <PrismicRichText field={slice.primary.top_sentence} />
+      {/* =================== Top Heading =================== */}
+      <div className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium">
+        <RichTextRenderer field={slice.primary.top_sentence} />
       </div>
 
-      {/* Video + Side Words */}
+      {/* =================== Video + Side Words =================== */}
       <div className="flex items-center justify-center w-full mt-4 relative">
         {/* Left Word */}
-        <div
-          ref={leftRef}
-          className="relative w-[20%] lg:w-auto flex items-center justify-center opacity-0"
-        >
+        <div className="relative w-[20%] lg:w-auto flex items-center justify-center">
           <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium -rotate-90 lg:rotate-0 lg:text-right lg:pr-10">
-            <PrismicRichText field={slice.primary.left_word} />
+            <RichTextRenderer field={slice.primary.left_word} />
           </div>
         </div>
 
-        {/* Video */}
-        <div
-          ref={videoRef}
-          className="w-full md:w-[60%] aspect-[21/9] overflow-hidden opacity-0"
-        >
+        {/* === Video with Horizontal Reveal === */}
+        <div className="relative w-full md:w-[60%] aspect-[21/9] overflow-hidden">
           <VideoComponent
-            ref={videoComponentRef} // Attach the ref
             srcMp4={slice.primary.video}
             className="w-full h-full object-cover"
-            muted // Add muted attribute to autoplay
-            playsInline // Add playsInline attribute to autoplay on iOS
+            muted
+            playsInline
           />
+
+          {/* White Curtains (Left + Right) */}
+          <div
+            ref={leftCurtainRef}
+            className="absolute left-0 top-0 w-1/2 h-full bg-(--color-stone) z-[5] origin-center"
+          ></div>
+          <div
+            ref={rightCurtainRef}
+            className="absolute right-0 top-0 w-1/2 h-full bg-(--color-stone) z-[5] origin-center"
+          ></div>
         </div>
 
         {/* Right Word */}
-        <div
-          ref={rightRef}
-          className="relative w-[20%] lg:w-auto flex items-center justify-center opacity-0"
-        >
-          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium rotate-90 lg:rotate-0  lg:pl-10">
-            <PrismicRichText field={slice.primary.right_word} />
+        <div className="relative w-[20%] lg:w-auto flex items-center justify-center">
+          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium rotate-90 lg:rotate-0 lg:pl-10">
+            <RichTextRenderer field={slice.primary.right_word} />
           </div>
         </div>
       </div>
 
-      {/* Description */}
+      {/* =================== Description =================== */}
       <div className="mt-9 leading-tight font-barlow text-sm md:text-[18px] text-black text-center">
-        <PrismicRichText field={slice.primary.description} />
+        <RichTextRenderer field={slice.primary.description} />
       </div>
 
-      {/* Buttons */}
+      {/* =================== Buttons =================== */}
       <div className="mt-6 lg:mt-9 flex justify-center items-center gap-2">
         <Button variant="secondary" className="font-barlow">
           ABOUT US
@@ -138,6 +118,4 @@ const OneWithSideWords = ({ slice }) => {
       </div>
     </Bounded>
   );
-};
-
-export default OneWithSideWords;
+}
