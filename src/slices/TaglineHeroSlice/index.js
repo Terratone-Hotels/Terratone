@@ -14,7 +14,7 @@ const TaglineHeroSlice = ({ slice }) => {
     <>
       {slice.variation === "default" && (
         <Bounded
-          className="max-w-[90rem] py-40 mx-auto mt-20"
+          className="max-w-[90rem] py-10 mx-auto mt-10"
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
         >
@@ -22,7 +22,7 @@ const TaglineHeroSlice = ({ slice }) => {
           <div className="flex flex-col items-center justify-center leading-tight">
             {/*First Line */}
             <div className="flex flex-row gap-2 md:gap-6 items-center">
-              <div className="text-[2.813rem] md:text-[6.188rem] font-serif italic">
+              <div className="text-[2rem] md:text-[4rem] lg:text-[6.188rem] font-serif italic">
                 <PrismicRichText field={slice.primary.textfieldone} />
               </div>
               {/*Video/Image*/}
@@ -40,13 +40,13 @@ const TaglineHeroSlice = ({ slice }) => {
                   />
                 )}
               </div>
-              <div className=" font-serif text-[2.813rem] md:text-[6.188rem]">
+              <div className=" font-serif text-[2rem] md:text-[4rem] lg:text-[6.188rem]">
                 <PrismicRichText field={slice.primary.textfieldtwo} />
               </div>
             </div>
             {/*Second Line */}
             <div className="flex flex-row items-center gap-2 md:gap-6">
-              <div className="font-serif text-[2.813rem] md:text-[6.188rem]">
+              <div className="font-serif text-[2rem] md:text-[4rem] lg:text-[6.188rem]">
                 <PrismicRichText field={slice.primary.textfieldthree} />
               </div>
               {/*Video/Image*/}
@@ -64,17 +64,17 @@ const TaglineHeroSlice = ({ slice }) => {
                   />
                 )}
               </div>
-              <div className="font-serif italic text-[2.813rem] md:text-[6.188rem]">
+              <div className="font-serif italic text-[2rem] md:text-[4rem] lg:text-[6.188rem]">
                 <PrismicRichText field={slice.primary.textfieldfour} />
               </div>
             </div>
             {/*Third Line */}
             <div className="flex flex-row gap-2 md:gap-6 items-center">
-              <div className="font-serif text-[2.813rem] md:text-[6.188rem]">
+              <div className="font-serif text-[2rem] md:text-[4rem] lg:text-[6.188rem]">
                 <PrismicRichText field={slice.primary.textfieldfive} />
               </div>
               {/*Video/Image*/}
-              <div className="w-[5.375rem] h-[2.313rem]  md:w-[14.438rem] md:h-[4.688rem]">
+              <div className="w-[5.373rem] h-[2.313rem]  md:w-[14.438rem] md:h-[4.688rem]">
                 {slice.primary.videothree ? (
                   <VideoComponent
                     srcMp4={slice.primary.videolinkthree}
@@ -88,7 +88,7 @@ const TaglineHeroSlice = ({ slice }) => {
                   />
                 )}
               </div>
-              <div className="font-serif text-[2.813rem] md:text-[6.188rem]">
+              <div className="font-serif text-[2rem] md:text-[4rem] lg:text-[6.188rem]">
                 <PrismicRichText field={slice.primary.textfieldsix} />
               </div>
             </div>
