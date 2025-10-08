@@ -161,7 +161,7 @@ const Hero = ({ slice }) => {
       <div className="curtain fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-terra-pink">
         <h1
           ref={textContainerRef}
-          className="opacity-0 text-white font-serrif  tracking-tighter text-3xl md:text-8xl flex"
+          className="opacity-0 text-white font-serif tracking-tighter text-3xl md:text-8xl flex"
         >
           {"terratone".split("").map((char, i) => (
             <span
