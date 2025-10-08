@@ -61,8 +61,10 @@ const Hero = ({ slice }) => {
     gsap.set([logoLeft, logoRight], {
       opacity: 0,
 
-      xPercent: (i) => (i === 0 ? -400 : 400), // move from sides
-      rotate: 25,
+      xPercent: (i) => (i === 0 ? -400 : 400),
+      yPercent: (i) => (i === 0 ? -100 : -100),
+
+      rotate: 0,
     });
 
     const tl = gsap.timeline({ defaults: { ease: "power4.inOut" } });
@@ -114,9 +116,10 @@ const Hero = ({ slice }) => {
 
     // === 6️⃣ Subtle bounce/settle motion ===
     tl.to([logoLeft, logoRight], {
-      yPercent: 0,
-      duration: 0.6,
-      ease: "elastic.out(1, 0.3)",
+      yPercent: -100,
+      duration: 1,
+      ease: "power3.out",
+      rotate: 25,
     });
 
     // === 7️⃣ Curtain raise + hero stretch ===
@@ -161,14 +164,14 @@ const Hero = ({ slice }) => {
       <div className="curtain fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-terra-pink">
         <h1
           ref={textContainerRef}
-          className="opacity-0 text-white font-serif  text-5xl md:text-8xl flex"
+          className="opacity-0 text-white font-serif text-5xl md:text-8xl lg:text-9xl flex"
         >
           {"terratone".split("").map((char, i) => (
             <span
               key={i}
-              className="letter inline-block overflow-hidden relative px-[0.05em]    "
+              className="letter inline-block overflow-hidden  relative    "
             >
-              <span className="inner-letter inline-block  ">{char}</span>
+              <span className="inner-letter inline-block ">{char}</span>
             </span>
           ))}
         </h1>
