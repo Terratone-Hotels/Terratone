@@ -11,15 +11,14 @@ const DotWave = () => {
   const dotsRef = useRef([]);
 
   useEffect(() => {
-    if (typeof window === "undefined") return; // 🛡️ guard SSR
+    if (typeof window === "undefined") return;
 
     const container = containerRef.current;
-    const dots = dotsRef.current;
+    const dots = dotsRef.current.filter(Boolean);
+    if (!container || dots.length === 0) return;
 
-    // 🛡️ make sure refs exist
-    if (!container || !dots.length) return;
-
-    const ctx = gsap.context(() => {
+    // Run after one animation frame to let GSAP & DOM hydrate
+    const rafId = requestAnimationFrame(() => {
       const maxAmplitude = 60;
       const wavelength = 0.9;
       let amplitude = 0;
@@ -27,7 +26,6 @@ const DotWave = () => {
       let speed = 0.02;
       let animating = false;
 
-      // Initialize dots in center stack
       gsap.set(dots, {
         x: 0,
         y: 0,
@@ -51,8 +49,8 @@ const DotWave = () => {
         requestAnimationFrame(animateWave);
       };
 
-      // ✅ Safe ScrollTrigger with checks
-      ScrollTrigger.create({
+      // ✅ Create ScrollTrigger safely
+      const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top 70%",
         once: true,
@@ -64,7 +62,6 @@ const DotWave = () => {
             },
           });
 
-          // 🌟 Spread the dots out
           tl.to(dots, {
             x: (i) => (i - 2) * 32,
             duration: 1.2,
@@ -73,10 +70,18 @@ const DotWave = () => {
           });
         },
       });
-    }, container);
 
-    // 🧹 Cleanup on unmount
-    return () => ctx.revert();
+      // 🩹 Force ScrollTrigger to sync after DOM settles
+      setTimeout(() => ScrollTrigger.refresh(), 200);
+
+      // Cleanup
+      return () => trigger.kill();
+    });
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, []);
 
   return (
@@ -86,7 +91,7 @@ const DotWave = () => {
           <span
             key={i}
             ref={(el) => (dotsRef.current[i] = el)}
-            className="w-2 h-2 rounded-full"
+            className="w-2 h-2 rounded-full inline-block"
             style={{ backgroundColor: color }}
           />
         )

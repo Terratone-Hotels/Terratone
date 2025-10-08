@@ -9,7 +9,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * CurtainRevealImage
- * Safe GSAP reveal animation for PrismicNextImage.
+ * GSAP curtain reveal animation for PrismicNextImage.
+ * Fully protected against hydration and pin errors.
  */
 export default function CurtainRevealImage({
   field,
@@ -34,7 +35,7 @@ export default function CurtainRevealImage({
     color || "var(--color-stone)"
   );
 
-  // 🎨 Choose random curtain color if not specified
+  // 🎨 Choose random curtain color if not provided
   useEffect(() => {
     if (!color) {
       const chosen = colorList[Math.floor(Math.random() * colorList.length)];
@@ -43,45 +44,55 @@ export default function CurtainRevealImage({
   }, [color, colorList]);
 
   useEffect(() => {
+    // 🛡️ Prevent SSR errors
+    if (typeof window === "undefined") return;
+
     const wrapper = wrapperRef.current;
     const overlay = overlayRef.current;
 
-    // 🛡️ Prevent null target animation
     if (!wrapper || !overlay) return;
-
-    // 🛡️ Prevent running if no valid image field
     if (!field || !field.url) {
-      console.warn("CurtainRevealImage: field is missing or invalid", field);
+      console.warn("CurtainRevealImage: invalid field", field);
       return;
     }
 
-    const ctx = gsap.context(() => {
-      const dirMap = {
-        up: { from: { y: "0%" }, to: { y: "-100%" } },
-        down: { from: { y: "-100%" }, to: { y: "0%" } },
-        left: { from: { x: "0%" }, to: { x: "-100%" } },
-        right: { from: { x: "-100%" }, to: { x: "0%" } },
-      };
-      const dir = dirMap[curtainDirection] || dirMap.up;
+    // Delay slightly to ensure ScrollTrigger and Lenis are ready
+    const timeout = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        const dirMap = {
+          up: { from: { y: "0%" }, to: { y: "-100%" } },
+          down: { from: { y: "-100%" }, to: { y: "0%" } },
+          left: { from: { x: "0%" }, to: { x: "-100%" } },
+          right: { from: { x: "-100%" }, to: { x: "0%" } },
+        };
 
-      gsap.set(overlay, dir.from);
+        const dir = dirMap[curtainDirection] || dirMap.up;
+        gsap.set(overlay, dir.from);
 
-      gsap.to(overlay, {
-        ...dir.to,
-        duration,
-        ease,
-        scrollTrigger: {
-          trigger: wrapper,
-          start: "top 85%",
-          toggleActions: "play none none none",
-          once,
-          markers,
-        },
-      });
-    }, wrapper);
+        // ✅ Safe ScrollTrigger tween
+        const tween = gsap.to(overlay, {
+          ...dir.to,
+          duration,
+          ease,
+          scrollTrigger: {
+            trigger: wrapper,
+            start: "top 85%",
+            toggleActions: "play none none none",
+            once,
+            markers,
+          },
+        });
 
-    // Cleanup on unmount
-    return () => ctx.revert();
+        // ✅ Refresh triggers after setup
+        ScrollTrigger.refresh();
+
+        return () => tween.scrollTrigger?.kill();
+      }, wrapper);
+
+      return () => ctx.revert();
+    }, 150); // 150ms delay fixes hydration timing
+
+    return () => clearTimeout(timeout);
   }, [field, curtainDirection, duration, ease, once, markers]);
 
   return (
@@ -90,7 +101,6 @@ export default function CurtainRevealImage({
       className={`relative inline-block overflow-hidden ${className}`}
       style={{ lineHeight: 0 }}
     >
-      {/* 🖼️ Image */}
       {field ? (
         <PrismicNextImage
           field={field}
@@ -103,7 +113,7 @@ export default function CurtainRevealImage({
         </div>
       )}
 
-      {/* 🪄 Curtain Overlay */}
+      {/* Curtain overlay */}
       <div
         ref={overlayRef}
         className="absolute inset-0 z-20 pointer-events-none"

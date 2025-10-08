@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useRef } from "react";
+
+import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Button from "@/components/Button";
@@ -24,48 +25,55 @@ const MeetingHalls = ({ slice }) => {
   const cardsRef = useRef([]);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (typeof window === "undefined") return;
 
-    if (window.innerWidth < 1024) return;
-
+    const section = sectionRef.current;
     const cards = cardsRef.current.filter(Boolean);
-    if (cards.length === 0) return;
+    if (!section || cards.length === 0) return;
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
+    // Delay to ensure DOM + Lenis + ScrollTrigger are initialized
+    const timeout = setTimeout(() => {
+      const tl = gsap.fromTo(
         cards,
-        {
-          y: 550,
-        },
+        { y: 550 },
         {
           y: 0,
           duration: 1.5,
           ease: "power2.out",
           stagger: 0.55,
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: section,
             start: "top 55%",
-            end: "bottom 95% ",
-
+            end: "bottom 95%",
             scrub: true,
           },
         }
       );
-    }, sectionRef);
 
-    return () => ctx.revert();
+      // 🩹 Ensure triggers refresh after smooth scroll setup
+      setTimeout(() => ScrollTrigger.refresh(), 300);
+
+      // Cleanup on unmount
+      return () => {
+        tl.scrollTrigger?.kill();
+        tl.kill();
+      };
+    }, 100);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
     <div className="mt-20 md:mt-44">
+      {/* Animated Dot Wave */}
       <DotWave />
 
-      {/* Heading + description */}
+      {/* Heading + Description */}
       <Bounded
         ref={sectionRef}
         data-slice-type={slice.slice_type}
         data-slice-variation={slice.variation}
-        className="max-w-[90rem] mx-auto full "
+        className="max-w-[90rem] mx-auto"
       >
         <div className="max-w-3xl mx-auto text-center mb-12 px-4 mt-8 md:mt-12">
           <RichTextRenderer
@@ -78,7 +86,7 @@ const MeetingHalls = ({ slice }) => {
           />
         </div>
 
-        {/* Desktop Grid (animated) */}
+        {/* ====== Desktop Grid ====== */}
         <div className="hidden lg:grid lg:grid-cols-3 gap-20 max-w-[85%] mx-auto items-start">
           {slice.primary.rooms.map((item, index) => (
             <div
@@ -86,7 +94,7 @@ const MeetingHalls = ({ slice }) => {
               ref={(el) => (cardsRef.current[index] = el)}
               className="group flex flex-col"
             >
-              {/* Image */}
+              {/* Image with Curtain Reveal */}
               <div className="relative aspect-square overflow-hidden">
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
                 <CurtainRevealImage
@@ -98,7 +106,7 @@ const MeetingHalls = ({ slice }) => {
                 </div>
               </div>
 
-              {/* Text */}
+              {/* Card Text */}
               <div className="mt-6 flex flex-col justify-start text-left min-h-[120px]">
                 <h3 className="text-[1.375rem] font-medium font-serif">
                   {item.card_title}
@@ -112,13 +120,12 @@ const MeetingHalls = ({ slice }) => {
         </div>
       </Bounded>
 
-      {/* Mobile Swiper untouched */}
+      {/* ====== Mobile Swiper ====== */}
       <div className="lg:hidden pl-4">
         <Swiper spaceBetween={20} slidesPerView={1.2} grabCursor={true}>
           {slice.primary.rooms.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="relative flex flex-col">
-                {/* Image */}
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
                   <CurtainRevealImage
@@ -127,7 +134,6 @@ const MeetingHalls = ({ slice }) => {
                   />
                 </div>
 
-                {/* Text */}
                 <div className="mt-4 flex flex-col justify-between min-h-[110px]">
                   <h3 className="text-lg font-serif font-medium leading-snug">
                     {item.card_title}
