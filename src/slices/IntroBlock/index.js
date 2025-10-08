@@ -3,6 +3,7 @@ import Button from "@/components/Button";
 import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
 import RichTextRenderer from "@/components/RichTextRenderer";
+import GuitarStrings from "@/components/GuitarStrings";
 
 /**
  * @typedef {import("@prismicio/client").Content.IntroBlockSlice} IntroBlockSlice
@@ -31,6 +32,9 @@ const IntroBlock = ({ slice }) => {
           </Button>
         </div>
       </div>
+      <section className="min-h-[60vh] flex items-center justify-center">
+        <GuitarStrings />
+      </section>
     </Bounded>
   );
 };
