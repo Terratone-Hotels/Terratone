@@ -42,9 +42,9 @@ export default function GuitarStringsPhysics() {
       if (!samplerRef.current || vibrating[index]) return;
 
       const note = notes[index];
-      const velocity = 0.8 + Math.random() * 0.2; // slight human variation
+      const velocity = 0.4 + Math.random();
 
-      samplerRef.current.triggerAttackRelease(note, "2n", undefined, velocity);
+      samplerRef.current.triggerAttackRelease(note, "1n", undefined, velocity);
 
       setVibrating((prev) => {
         const next = [...prev];
@@ -64,15 +64,15 @@ export default function GuitarStringsPhysics() {
       });
 
       gsap.set(line, { y: 0, rotation: 0, filter: "blur(0px)" });
-      tl.to(line, { y: -10, duration: 0.05, ease: "power1.out" })
+      tl.to(line, { y: -2, duration: 0.05, ease: "power1.out" })
         .to(line, {
-          y: 8,
+          y: 3,
           duration: 0.05,
           ease: "power1.inOut",
           yoyo: true,
-          repeat: 6,
+          repeat: 2,
         })
-        .to(line, { y: 0, duration: 0.7, ease: "elastic.out(1,0.3)" });
+        .to(line, { y: 0, duration: 0.1, ease: "elastic.out(1,0.3)" });
 
       gsap.fromTo(
         line,
