@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 @theme inline {
   --color-terra-pink: #e4a3a2; /* Terra Pink */
   --color-earth-green: #3e5b39;
