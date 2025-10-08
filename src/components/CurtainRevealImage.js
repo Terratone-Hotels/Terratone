@@ -9,28 +9,24 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * CurtainRevealImage
- * A smooth curtain reveal effect for Prismic images.
- * - Begins the reveal right as the image enters the viewport.
- * - Works well with responsive Next.js layouts.
+ * Safe GSAP reveal animation for PrismicNextImage.
  */
-
 export default function CurtainRevealImage({
   field,
   alt = "Image",
   className = "",
-  curtainDirection = "up", // "up" | "down" | "left" | "right"
+  curtainDirection = "up",
   colorList = [
     "var(--color-earth-green)",
     "var(--color-terra-pink)",
     "var(--color-toiled-gold)",
     "var(--color-sand)",
   ],
-  color = null, // fixed curtain color
+  color = null,
   once = true,
   duration = 1.2,
   ease = "power2.inOut",
   markers = false,
-  immediate = false, // optional prop to trigger reveal instantly (no scroll)
 }) {
   const wrapperRef = useRef(null);
   const overlayRef = useRef(null);
@@ -38,73 +34,79 @@ export default function CurtainRevealImage({
     color || "var(--color-stone)"
   );
 
-  // 🎨 Choose a random color only once after mount
+  // 🎨 Choose random curtain color if not specified
   useEffect(() => {
     if (!color) {
-      setCurtainColor(colorList[Math.floor(Math.random() * colorList.length)]);
+      const chosen = colorList[Math.floor(Math.random() * colorList.length)];
+      setCurtainColor(chosen);
     }
   }, [color, colorList]);
 
-  // 🎬 Curtain animation setup
   useEffect(() => {
     const wrapper = wrapperRef.current;
     const overlay = overlayRef.current;
+
+    // 🛡️ Prevent null target animation
     if (!wrapper || !overlay) return;
 
-    const dirMap = {
-      up: { from: { y: "0%" }, to: { y: "-100%" } },
-      down: { from: { y: "-100%" }, to: { y: "0%" } },
-      left: { from: { x: "0%" }, to: { x: "-100%" } },
-      right: { from: { x: "-100%" }, to: { x: "0%" } },
-    };
-
-    const dir = dirMap[curtainDirection] || dirMap.up;
-    gsap.set(overlay, dir.from);
-
-    // 🕹 Immediate play (e.g., hero sections)
-    if (immediate) {
-      gsap.to(overlay, { ...dir.to, duration, ease, delay: 0.1 });
+    // 🛡️ Prevent running if no valid image field
+    if (!field || !field.url) {
+      console.warn("CurtainRevealImage: field is missing or invalid", field);
       return;
     }
 
-    // 🌀 Scroll-triggered reveal
-    const tween = gsap.to(overlay, {
-      ...dir.to,
-      duration,
-      ease,
-      scrollTrigger: {
-        trigger: wrapper,
-        start: "top 95%", // starts as soon as image enters viewport
-        toggleActions: "play none none none",
-        once,
-        markers,
-        onEnter: () => ScrollTrigger.refresh(true), // fixes lazy-load timing
-      },
-    });
+    const ctx = gsap.context(() => {
+      const dirMap = {
+        up: { from: { y: "0%" }, to: { y: "-100%" } },
+        down: { from: { y: "-100%" }, to: { y: "0%" } },
+        left: { from: { x: "0%" }, to: { x: "-100%" } },
+        right: { from: { x: "-100%" }, to: { x: "0%" } },
+      };
+      const dir = dirMap[curtainDirection] || dirMap.up;
 
-    return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
-    };
-  }, [curtainDirection, duration, ease, once, markers, immediate]);
+      gsap.set(overlay, dir.from);
+
+      gsap.to(overlay, {
+        ...dir.to,
+        duration,
+        ease,
+        scrollTrigger: {
+          trigger: wrapper,
+          start: "top 85%",
+          toggleActions: "play none none none",
+          once,
+          markers,
+        },
+      });
+    }, wrapper);
+
+    // Cleanup on unmount
+    return () => ctx.revert();
+  }, [field, curtainDirection, duration, ease, once, markers]);
 
   return (
     <div
       ref={wrapperRef}
-      className={`relative overflow-hidden ${className}`}
-      style={{ lineHeight: 0, zIndex: 0 }}
+      className={`relative inline-block overflow-hidden ${className}`}
+      style={{ lineHeight: 0 }}
     >
-      {/* Actual image */}
-      <PrismicNextImage
-        field={field}
-        alt={alt}
-        className="w-full h-full object-cover z-[1]"
-      />
+      {/* 🖼️ Image */}
+      {field ? (
+        <PrismicNextImage
+          field={field}
+          alt={alt}
+          className="w-full h-full object-cover"
+        />
+      ) : (
+        <div className="bg-gray-100 w-full h-full flex items-center justify-center text-gray-400 text-sm">
+          Missing Image
+        </div>
+      )}
 
-      {/* Curtain overlay */}
+      {/* 🪄 Curtain Overlay */}
       <div
         ref={overlayRef}
-        className="absolute inset-0 z-[2] pointer-events-none"
+        className="absolute inset-0 z-20 pointer-events-none"
         style={{
           backgroundColor: curtainColor,
           width: "100%",

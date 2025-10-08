@@ -11,8 +11,15 @@ const DotWave = () => {
   const dotsRef = useRef([]);
 
   useEffect(() => {
+    if (typeof window === "undefined") return; // 🛡️ guard SSR
+
+    const container = containerRef.current;
+    const dots = dotsRef.current;
+
+    // 🛡️ make sure refs exist
+    if (!container || !dots.length) return;
+
     const ctx = gsap.context(() => {
-      const dots = dotsRef.current;
       const maxAmplitude = 60;
       const wavelength = 0.9;
       let amplitude = 0;
@@ -20,7 +27,7 @@ const DotWave = () => {
       let speed = 0.02;
       let animating = false;
 
-      // Start stacked in center
+      // Initialize dots in center stack
       gsap.set(dots, {
         x: 0,
         y: 0,
@@ -44,8 +51,9 @@ const DotWave = () => {
         requestAnimationFrame(animateWave);
       };
 
+      // ✅ Safe ScrollTrigger with checks
       ScrollTrigger.create({
-        trigger: containerRef.current,
+        trigger: container,
         start: "top 70%",
         once: true,
         onEnter: () => {
@@ -56,28 +64,23 @@ const DotWave = () => {
             },
           });
 
-          // 🌟 Increased gap between dots
+          // 🌟 Spread the dots out
           tl.to(dots, {
-            x: (i) => (i - 2) * 32, // was 16 → now 32 for more spacing
+            x: (i) => (i - 2) * 32,
             duration: 1.2,
             ease: "power2.out",
-            stagger: {
-              amount: 0.3,
-              from: "center",
-            },
+            stagger: { amount: 0.3, from: "center" },
           });
         },
       });
-    }, containerRef);
+    }, container);
 
+    // 🧹 Cleanup on unmount
     return () => ctx.revert();
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative h-12 w-60 mx-auto mb-8" // ⬅️ wider container
-    >
+    <div ref={containerRef} className="relative h-12 w-60 mx-auto mb-8">
       {["#977161", "#996353", "#5B554C", "#857161", "#AF9381"].map(
         (color, i) => (
           <span

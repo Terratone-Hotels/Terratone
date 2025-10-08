@@ -27,11 +27,11 @@ const Testimonials = ({ slice }) => {
           spaceBetween={50}
           slidesPerView={1}
           modules={[Navigation, A11y]}
-          className="w-full overflow-hidden"
+          className="w-full  max-w-[90%] md:max-w-[70%] overflow-hidden"
         >
           {slice.primary.testimonials.map((item, index) => (
             <SwiperSlide key={index}>
-              <div className="p-6 mb-4 justify-center items-center font-barlow text-sm md:text-lg select-none">
+              <div className="p-6 mb-4 justify-center items-center font-barlow text-md mx-auto md:text-lg select-none">
                 <RichTextRenderer field={item.quote} />
               </div>
             </SwiperSlide>
