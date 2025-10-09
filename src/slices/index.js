@@ -8,11 +8,13 @@ export const components = {
   destination_highlight_slice: dynamic(
     () => import("./DestinationHighlightSlice"),
   ),
+  dining_cta: dynamic(() => import("./DiningCta")),
   hero: dynamic(() => import("./Hero")),
   hero_for_others: dynamic(() => import("./HeroForOthers")),
   intro_block: dynamic(() => import("./IntroBlock")),
   meeting_halls: dynamic(() => import("./MeetingHalls")),
   one_with_side_words: dynamic(() => import("./OneWithSideWords")),
+  resonance_block: dynamic(() => import("./ResonanceBlock")),
   room_showcase_slice: dynamic(() => import("./RoomShowcaseSlice")),
   tagline_hero_slice: dynamic(() => import("./TaglineHeroSlice")),
   testimonials: dynamic(() => import("./Testimonials")),

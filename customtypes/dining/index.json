@@ -11,6 +11,12 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "dining_cta": {
+              "type": "SharedSlice"
+            },
+            "resonance_block": {
+              "type": "SharedSlice"
+            },
             "intro_block": {
               "type": "SharedSlice"
             },
