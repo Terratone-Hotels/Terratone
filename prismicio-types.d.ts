@@ -70,6 +70,7 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>["id"]];
 
 type DiningDocumentDataSlicesSlice =
+  | ReversedDestinationHighlightsSlice
   | DiningCtaSlice
   | ResonanceBlockSlice
   | IntroBlockSlice
@@ -1072,6 +1073,120 @@ export type ResonanceBlockSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *ReversedDestinationHighlights → Default → Primary*
+ */
+export interface ReversedDestinationHighlightsSliceDefaultPrimary {
+  /**
+   * Heading field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Button Link field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+
+  /**
+   * Image field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Video ID field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.video_id
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  video_id: prismic.KeyTextField;
+
+  /**
+   * Video field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: reversed_destination_highlights.default.primary.video
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  video: prismic.BooleanField;
+}
+
+/**
+ * Default variation for ReversedDestinationHighlights Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ReversedDestinationHighlightsSliceDefault =
+  prismic.SharedSliceVariation<
+    "default",
+    Simplify<ReversedDestinationHighlightsSliceDefaultPrimary>,
+    never
+  >;
+
+/**
+ * Slice variation for *ReversedDestinationHighlights*
+ */
+type ReversedDestinationHighlightsSliceVariation =
+  ReversedDestinationHighlightsSliceDefault;
+
+/**
+ * ReversedDestinationHighlights Shared Slice
+ *
+ * - **API ID**: `reversed_destination_highlights`
+ * - **Description**: ReversedDestinationHighlights
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ReversedDestinationHighlightsSlice = prismic.SharedSlice<
+  "reversed_destination_highlights",
+  ReversedDestinationHighlightsSliceVariation
+>;
+
+/**
  * Item in *RoomShowcaseSlice → Default → Primary → Room Card*
  */
 export interface RoomShowcaseSliceSliceDefaultPrimaryRoomCardItem {
@@ -1625,6 +1740,10 @@ declare module "@prismicio/client" {
       ResonanceBlockSliceDefaultPrimary,
       ResonanceBlockSliceVariation,
       ResonanceBlockSliceDefault,
+      ReversedDestinationHighlightsSlice,
+      ReversedDestinationHighlightsSliceDefaultPrimary,
+      ReversedDestinationHighlightsSliceVariation,
+      ReversedDestinationHighlightsSliceDefault,
       RoomShowcaseSliceSlice,
       RoomShowcaseSliceSliceDefaultPrimaryRoomCardItem,
       RoomShowcaseSliceSliceDefaultPrimary,

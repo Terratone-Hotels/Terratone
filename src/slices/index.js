@@ -15,6 +15,9 @@ export const components = {
   meeting_halls: dynamic(() => import("./MeetingHalls")),
   one_with_side_words: dynamic(() => import("./OneWithSideWords")),
   resonance_block: dynamic(() => import("./ResonanceBlock")),
+  reversed_destination_highlights: dynamic(
+    () => import("./ReversedDestinationHighlights"),
+  ),
   room_showcase_slice: dynamic(() => import("./RoomShowcaseSlice")),
   tagline_hero_slice: dynamic(() => import("./TaglineHeroSlice")),
   testimonials: dynamic(() => import("./Testimonials")),
