@@ -5,18 +5,20 @@ import { gsap } from "gsap";
 import * as Tone from "tone";
 
 export default function GuitarStringsPhysics() {
+  const containerRef = useRef(null);
   const linesRef = useRef([]);
   const samplerRef = useRef(null);
   const audioStartedRef = useRef(false);
   const [vibrating, setVibrating] = useState(Array(6).fill(false));
+  const prevMouseY = useRef(null);
 
   const notes = ["E2", "A2", "D3", "G3", "B3", "E4"]; // standard guitar tuning
 
+  // Initialize Tone.js Sampler
   const initializeSampler = async () => {
     if (audioStartedRef.current) return;
     await Tone.start();
 
-    // Create a Sampler using WAV files for acoustic guitar
     const sampler = new Tone.Sampler({
       urls: {
         E2: "E2.wav",
@@ -26,81 +28,100 @@ export default function GuitarStringsPhysics() {
         B3: "B3.wav",
         E4: "E4.wav",
       },
-      baseUrl: "/samples/guitar/", // place your WAV files in public/samples/guitar/
-      onload: () => console.log("Sampler loaded"),
+      baseUrl: "/samples/guitar/",
+      onload: () => console.log("🎸 Sampler loaded"),
     }).toDestination();
 
     samplerRef.current = sampler;
     audioStartedRef.current = true;
   };
 
+  // Play specific string
+  const handlePlayString = async (index) => {
+    if (!audioStartedRef.current) await initializeSampler();
+    if (!samplerRef.current) return;
+
+    const note = notes[index];
+    const velocity = 0.4 + Math.random() * 0.6;
+    samplerRef.current.triggerAttackRelease(note, "1n", undefined, velocity);
+
+    const line = linesRef.current[index];
+    if (!line) return;
+
+    gsap.killTweensOf(line);
+    gsap.set(line, { y: 0, filter: "blur(0px)" });
+
+    const tl = gsap.timeline();
+    tl.to(line, { y: -2, duration: 0.05, ease: "power1.out" })
+      .to(line, {
+        y: 3,
+        duration: 0.05,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: 2,
+      })
+      .to(line, { y: 0, duration: 0.1, ease: "elastic.out(1,0.3)" });
+
+    gsap.fromTo(
+      line,
+      { filter: "blur(0.6px)" },
+      { filter: "blur(0px)", duration: 0.8, ease: "power2.out" }
+    );
+  };
+
+  // Detect fast strum by tracking mouse Y position
   useEffect(() => {
-    linesRef.current = linesRef.current.slice(0, notes.length);
+    const container = containerRef.current;
+    if (!container) return;
 
-    const handlePlayString = async (index) => {
+    const handleMouseMove = async (e) => {
       if (!audioStartedRef.current) await initializeSampler();
-      if (!samplerRef.current || vibrating[index]) return;
 
-      const note = notes[index];
-      const velocity = 0.4 + Math.random();
+      const rect = container.getBoundingClientRect();
+      const y = e.clientY - rect.top;
 
-      samplerRef.current.triggerAttackRelease(note, "1n", undefined, velocity);
+      if (prevMouseY.current === null) {
+        prevMouseY.current = y;
+        return;
+      }
 
-      setVibrating((prev) => {
-        const next = [...prev];
-        next[index] = true;
-        return next;
+      // detect direction
+      const direction = y > prevMouseY.current ? "down" : "up";
+
+      linesRef.current.forEach((line, i) => {
+        if (!line) return;
+        const lineRect = line.getBoundingClientRect();
+        const lineY = lineRect.top - rect.top;
+
+        // check if mouse crosses line between previous and current Y
+        const crossed =
+          (prevMouseY.current < lineY && y >= lineY && direction === "down") ||
+          (prevMouseY.current > lineY && y <= lineY && direction === "up");
+
+        if (crossed) {
+          handlePlayString(i);
+        }
       });
 
-      // GSAP vibration animation
-      const line = linesRef.current[index];
-      const tl = gsap.timeline({
-        onComplete: () =>
-          setVibrating((prev) => {
-            const next = [...prev];
-            next[index] = false;
-            return next;
-          }),
-      });
-
-      gsap.set(line, { y: 0, rotation: 0, filter: "blur(0px)" });
-      tl.to(line, { y: -2, duration: 0.05, ease: "power1.out" })
-        .to(line, {
-          y: 3,
-          duration: 0.05,
-          ease: "power1.inOut",
-          yoyo: true,
-          repeat: 2,
-        })
-        .to(line, { y: 0, duration: 0.1, ease: "elastic.out(1,0.3)" });
-
-      gsap.fromTo(
-        line,
-        { filter: "blur(0.5px)" },
-        { filter: "blur(0px)", duration: 1, ease: "power2.out" }
-      );
+      prevMouseY.current = y;
     };
 
-    linesRef.current.forEach((line, i) => {
-      if (!line) return;
-      line.addEventListener("mouseenter", () => handlePlayString(i));
-      line.addEventListener("touchstart", () => handlePlayString(i));
+    container.addEventListener("mousemove", handleMouseMove);
+    container.addEventListener("touchmove", (e) => {
+      if (e.touches?.[0]) handleMouseMove(e.touches[0]);
     });
 
     return () => {
-      linesRef.current.forEach((line, i) => {
-        if (!line) return;
-        line.replaceWith(line.cloneNode(true));
-      });
-      if (samplerRef.current) {
-        samplerRef.current.disconnect();
-      }
+      container.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("touchmove", handleMouseMove);
+      if (samplerRef.current) samplerRef.current.disconnect();
     };
   }, []);
 
   return (
     <div
-      className="flex flex-col items-center justify-center py-10 bg-[#f8f5f1]"
+      ref={containerRef}
+      className="flex flex-col items-center justify-center py-10 bg-[#f8f5f1] w-full"
       onMouseDown={initializeSampler}
       onTouchStart={initializeSampler}
     >
@@ -110,24 +131,12 @@ export default function GuitarStringsPhysics() {
         </p>
       </div>
 
-      <div className="flex flex-col items-center w-full max-w-xl">
+      <div className="flex flex-col items-center w-full max-w-2xl select-none">
         {notes.map((note, i) => (
           <div
             key={note}
             ref={(el) => (linesRef.current[i] = el)}
-            className={`w-full ${i % 2 === 0 ? "bg-gray-600" : "bg-gray-700"} ${
-              i === 0
-                ? "h-[1px]"
-                : i === 1
-                  ? "h-[1.25px]"
-                  : i === 2
-                    ? "h-[1.5px]"
-                    : i === 3
-                      ? "h-[2px]"
-                      : i === 4
-                        ? "h-[2.25px]"
-                        : "h-[2.5px]"
-            } my-2 rounded-full`}
+            className="w-full bg-black h-[2px] my-8 rounded-full"
             style={{ transformOrigin: "center center" }}
           ></div>
         ))}
