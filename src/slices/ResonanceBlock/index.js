@@ -1,4 +1,5 @@
 import Bounded from "@/components/Bounded";
+import GuitarStrings from "@/components/GuitarStrings";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 
@@ -12,7 +13,7 @@ const ResonanceBlock = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className={" h-auto"}
+      className={" h-auto relative"}
     >
       <div className="">
         <PrismicNextImage
@@ -39,37 +40,10 @@ const ResonanceBlock = ({ slice }) => {
           />
         </div>
         {/*Haaarmonium*/}
-        <div className=" mt-10 flex flex-col justify-evenly items-center w-full md:w-[25rem] lg:w-[45.75rem]">
-          {/*Frist string */}
-          <div className="w-full bg-black h-[0.094rem]"></div>
-          {/* Second string */}
-          <div className="flex items-end flex-row w-full">
-            <div className="font-serif text-[2rem] font-medium lg:text-[3.125rem] leading-6 lg:leading-9 pr-3 pt-3 lg:pr-5  ">
-              Where
-            </div>
-            <div className="h-[0.094rem] bg-black flex-1"></div>
-          </div>
-          {/* Third string */}
-          <div className="flex items-end flex-row w-full">
-            <div className="h-[0.094rem] bg-black flex-1 "></div>
-            <div className="flex-0.1 font-serif text-[2rem] font-medium lg:text-[3.125rem] italic leading-6  lg:leading-9 px-2 pt-3">
-              Every Meal
-            </div>
-            <div className="h-[0.094rem] bg-black flex-2 "></div>
-          </div>
-          {/* Fourth string */}
-          <div className="flex items-end flex-row w-full">
-            <div className="h-[0.094rem] bg-black flex-2 "></div>
-            <div className="font-serif text-[2rem] font-medium lg:text-[3.125rem] leading-6  lg:leading-9  pl-2 pt-3">
-              Is Harmony
-            </div>
-          </div>
-          {/*Fifth string */}
-          <div className="flex items-end mt-7 lg:mt-12 flex-row w-full ">
-            <div className="h-[0.094rem] bg-black flex-1"></div>
-          </div>
-        </div>
       </div>
+      <section className=" flex items-center justify-center">
+        <GuitarStrings />
+      </section>
     </Bounded>
   );
 };
