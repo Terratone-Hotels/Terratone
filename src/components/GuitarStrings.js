@@ -14,10 +14,13 @@ export default function GuitarStringsPhysics() {
 
   const notes = ["E2", "A2", "D3", "G3", "B3", "E4"]; // standard guitar tuning
 
-  // Initialize Tone.js Sampler
+  // This function is now called by EITHER the pre-loader OR a direct user interaction.
+  // The check at the top ensures its core logic only ever runs once.
   const initializeSampler = async () => {
     if (audioStartedRef.current) return;
     await Tone.start();
+
+    console.log("🚀 Initializing Sampler...");
 
     const sampler = new Tone.Sampler({
       urls: {
@@ -36,7 +39,7 @@ export default function GuitarStringsPhysics() {
     audioStartedRef.current = true;
   };
 
-  // Play specific string
+  // Play specific string (No changes needed)
   const handlePlayString = async (index) => {
     if (!audioStartedRef.current) await initializeSampler();
     if (!samplerRef.current) return;
@@ -50,7 +53,6 @@ export default function GuitarStringsPhysics() {
 
     gsap.killTweensOf(line);
     gsap.set(line, { y: 0, filter: "blur(0px)" });
-
     const tl = gsap.timeline();
     tl.to(line, { y: -2, duration: 0.05, ease: "power1.out" })
       .to(line, {
@@ -61,7 +63,6 @@ export default function GuitarStringsPhysics() {
         repeat: 2,
       })
       .to(line, { y: 0, duration: 0.1, ease: "elastic.out(1,0.3)" });
-
     gsap.fromTo(
       line,
       { filter: "blur(0.6px)" },
@@ -69,40 +70,58 @@ export default function GuitarStringsPhysics() {
     );
   };
 
-  // Detect fast strum by tracking mouse Y position
+  // --- NEW: Proactive audio loading when component is NEAR the viewport ---
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // When the component enters our "pre-load zone"...
+        if (entry.isIntersecting) {
+          console.log("Component is approaching screen, pre-loading audio...");
+          initializeSampler();
+          // The job is done, disconnect the observer for performance.
+          observer.disconnect();
+        }
+      },
+      {
+        // This creates an invisible margin around the viewport. The observer
+        // triggers when the component enters this margin, before it's on screen.
+        rootMargin: "200px",
+      }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    // Cleanup if the component unmounts before triggering.
+    return () => observer.disconnect();
+  }, []); // Empty array ensures this runs only once.
+
+  // Your original mouse tracking useEffect remains unchanged. It now acts as a reliable fallback.
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const handleMouseMove = async (e) => {
       if (!audioStartedRef.current) await initializeSampler();
-
       const rect = container.getBoundingClientRect();
       const y = e.clientY - rect.top;
-
       if (prevMouseY.current === null) {
         prevMouseY.current = y;
         return;
       }
-
-      // detect direction
       const direction = y > prevMouseY.current ? "down" : "up";
-
       linesRef.current.forEach((line, i) => {
         if (!line) return;
         const lineRect = line.getBoundingClientRect();
         const lineY = lineRect.top - rect.top;
-
-        // check if mouse crosses line between previous and current Y
         const crossed =
           (prevMouseY.current < lineY && y >= lineY && direction === "down") ||
           (prevMouseY.current > lineY && y <= lineY && direction === "up");
-
         if (crossed) {
           handlePlayString(i);
         }
       });
-
       prevMouseY.current = y;
     };
 
@@ -119,6 +138,7 @@ export default function GuitarStringsPhysics() {
   }, []);
 
   return (
+    // Your original fallback click handlers also remain for maximum reliability.
     <div
       ref={containerRef}
       className="flex flex-col items-center justify-center py-10 bg-stone w-full"
