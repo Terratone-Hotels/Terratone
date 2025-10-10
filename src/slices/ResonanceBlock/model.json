@@ -1,0 +1,44 @@
+{
+  "id": "resonance_block",
+  "type": "SharedSlice",
+  "name": "ResonanceBlock",
+  "description": "ResonanceBlock",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "horizontal_image": {
+          "type": "Image",
+          "config": {
+            "label": "Horizontal Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "horizontal_image_text": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Horizontal Image Text",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "vertical_image": {
+          "type": "Image",
+          "config": {
+            "label": "Vertical Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

@@ -69,7 +69,12 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
-type DiningDocumentDataSlicesSlice = IntroBlockSlice | HeroForOthersSlice;
+type DiningDocumentDataSlicesSlice =
+  | ReversedDestinationHighlightsSlice
+  | DiningCtaSlice
+  | ResonanceBlockSlice
+  | IntroBlockSlice
+  | HeroForOthersSlice;
 
 /**
  * Content for Dining documents
@@ -438,6 +443,117 @@ type DestinationHighlightSliceSliceVariation =
 export type DestinationHighlightSliceSlice = prismic.SharedSlice<
   "destination_highlight_slice",
   DestinationHighlightSliceSliceVariation
+>;
+
+/**
+ * Primary content in *DiningCta → Default → Primary*
+ */
+export interface DiningCtaSliceDefaultPrimary {
+  /**
+   * Heading field in *DiningCta → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: dining_cta.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *DiningCta → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: dining_cta.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Button Link field in *DiningCta → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: dining_cta.default.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *DiningCta → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: dining_cta.default.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+
+  /**
+   * Image One field in *DiningCta → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: dining_cta.default.primary.image_one
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_one: prismic.ImageField<never>;
+
+  /**
+   * Image Two field in *DiningCta → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: dining_cta.default.primary.image_two
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_two: prismic.ImageField<never>;
+
+  /**
+   * Image Three field in *DiningCta → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: dining_cta.default.primary.image_three
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_three: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for DiningCta Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type DiningCtaSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<DiningCtaSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *DiningCta*
+ */
+type DiningCtaSliceVariation = DiningCtaSliceDefault;
+
+/**
+ * DiningCta Shared Slice
+ *
+ * - **API ID**: `dining_cta`
+ * - **Description**: DiningCta
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type DiningCtaSlice = prismic.SharedSlice<
+  "dining_cta",
+  DiningCtaSliceVariation
 >;
 
 /**
@@ -889,6 +1005,185 @@ type OneWithSideWordsSliceVariation = OneWithSideWordsSliceDefault;
 export type OneWithSideWordsSlice = prismic.SharedSlice<
   "one_with_side_words",
   OneWithSideWordsSliceVariation
+>;
+
+/**
+ * Primary content in *ResonanceBlock → Default → Primary*
+ */
+export interface ResonanceBlockSliceDefaultPrimary {
+  /**
+   * Horizontal Image field in *ResonanceBlock → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: resonance_block.default.primary.horizontal_image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  horizontal_image: prismic.ImageField<never>;
+
+  /**
+   * Horizontal Image Text field in *ResonanceBlock → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: resonance_block.default.primary.horizontal_image_text
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  horizontal_image_text: prismic.RichTextField;
+
+  /**
+   * Vertical Image field in *ResonanceBlock → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: resonance_block.default.primary.vertical_image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  vertical_image: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for ResonanceBlock Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ResonanceBlockSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ResonanceBlockSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ResonanceBlock*
+ */
+type ResonanceBlockSliceVariation = ResonanceBlockSliceDefault;
+
+/**
+ * ResonanceBlock Shared Slice
+ *
+ * - **API ID**: `resonance_block`
+ * - **Description**: ResonanceBlock
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ResonanceBlockSlice = prismic.SharedSlice<
+  "resonance_block",
+  ResonanceBlockSliceVariation
+>;
+
+/**
+ * Primary content in *ReversedDestinationHighlights → Default → Primary*
+ */
+export interface ReversedDestinationHighlightsSliceDefaultPrimary {
+  /**
+   * Heading field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Button Link field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+
+  /**
+   * Image field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Video ID field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.video_id
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  video_id: prismic.KeyTextField;
+
+  /**
+   * Video field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: reversed_destination_highlights.default.primary.video
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  video: prismic.BooleanField;
+}
+
+/**
+ * Default variation for ReversedDestinationHighlights Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ReversedDestinationHighlightsSliceDefault =
+  prismic.SharedSliceVariation<
+    "default",
+    Simplify<ReversedDestinationHighlightsSliceDefaultPrimary>,
+    never
+  >;
+
+/**
+ * Slice variation for *ReversedDestinationHighlights*
+ */
+type ReversedDestinationHighlightsSliceVariation =
+  ReversedDestinationHighlightsSliceDefault;
+
+/**
+ * ReversedDestinationHighlights Shared Slice
+ *
+ * - **API ID**: `reversed_destination_highlights`
+ * - **Description**: ReversedDestinationHighlights
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ReversedDestinationHighlightsSlice = prismic.SharedSlice<
+  "reversed_destination_highlights",
+  ReversedDestinationHighlightsSliceVariation
 >;
 
 /**
@@ -1415,6 +1710,10 @@ declare module "@prismicio/client" {
       DestinationHighlightSliceSlice,
       DestinationHighlightSliceSliceVariation,
       DestinationHighlightSliceSliceDefault,
+      DiningCtaSlice,
+      DiningCtaSliceDefaultPrimary,
+      DiningCtaSliceVariation,
+      DiningCtaSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimaryCarouselItem,
       HeroSliceDefaultPrimary,
@@ -1437,6 +1736,14 @@ declare module "@prismicio/client" {
       OneWithSideWordsSliceDefaultPrimary,
       OneWithSideWordsSliceVariation,
       OneWithSideWordsSliceDefault,
+      ResonanceBlockSlice,
+      ResonanceBlockSliceDefaultPrimary,
+      ResonanceBlockSliceVariation,
+      ResonanceBlockSliceDefault,
+      ReversedDestinationHighlightsSlice,
+      ReversedDestinationHighlightsSliceDefaultPrimary,
+      ReversedDestinationHighlightsSliceVariation,
+      ReversedDestinationHighlightsSliceDefault,
       RoomShowcaseSliceSlice,
       RoomShowcaseSliceSliceDefaultPrimaryRoomCardItem,
       RoomShowcaseSliceSliceDefaultPrimary,
