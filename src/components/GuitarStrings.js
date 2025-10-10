@@ -121,24 +121,35 @@ export default function GuitarStringsPhysics() {
   return (
     <div
       ref={containerRef}
-      className="flex flex-col items-center justify-center py-10 bg-[#f8f5f1] w-full"
+      className="flex flex-col items-center justify-center py-10 bg-stone w-full"
       onMouseDown={initializeSampler}
       onTouchStart={initializeSampler}
     >
-      <div className="text-center mb-8">
-        <p className="font-serif text-lg md:text-xl">
-          Where <em>Every Meal</em> Is Harmony
-        </p>
-      </div>
-
-      <div className="flex flex-col items-center w-full max-w-2xl select-none">
+      <div className="flex flex-col items-center w-full max-w-2xl select-none ">
         {notes.map((note, i) => (
           <div
             key={note}
             ref={(el) => (linesRef.current[i] = el)}
-            className="w-full bg-black h-[2px] my-8 rounded-full"
+            className="w-full bg-black h-[1px] md:h-[2px] my-4 md:my-8 rounded-full relative"
             style={{ transformOrigin: "center center" }}
-          ></div>
+          >
+            {" "}
+            {i === 1 && (
+              <span className="absolute -top-[1.6rem] left-0 bg-stone px-3 font-serif text-2xl md:text-5xl">
+                Where
+              </span>
+            )}
+            {i === 2 && (
+              <span className="absolute -top-[1.6rem] left-1/3 bg-stone px-3 italic font-serif text-2xl md:text-5xl">
+                Every Meal
+              </span>
+            )}
+            {i === 3 && (
+              <span className="absolute -top-[1.6rem] right-0 bg-stone px-3 font-serif text-2xl md:text-5xl">
+                Is Harmony
+              </span>
+            )}
+          </div>
         ))}
       </div>
     </div>

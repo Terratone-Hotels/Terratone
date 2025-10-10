@@ -32,9 +32,6 @@ const IntroBlock = ({ slice }) => {
           </Button>
         </div>
       </div>
-      <section className="min-h-[60vh] flex items-center justify-center">
-        <GuitarStrings />
-      </section>
     </Bounded>
   );
 };
