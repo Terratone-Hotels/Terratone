@@ -56,20 +56,21 @@
             "thumbnails": []
           }
         },
-        "image_two": {
-          "type": "Image",
+        "parallax": {
+          "type": "Group",
           "config": {
-            "label": "Image Two",
-            "constraint": {},
-            "thumbnails": []
-          }
-        },
-        "image_three": {
-          "type": "Image",
-          "config": {
-            "label": "Image Three",
-            "constraint": {},
-            "thumbnails": []
+            "label": "Parallax",
+            "repeat": true,
+            "fields": {
+              "parallax_images": {
+                "type": "Image",
+                "config": {
+                  "label": "Parallax Images",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              }
+            }
           }
         }
       },
