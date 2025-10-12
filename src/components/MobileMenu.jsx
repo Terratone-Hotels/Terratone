@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { PrismicNextLink } from "@prismicio/next";
-import TerratoneLogo from "./terratoneLogo"; // Import TerratoneLogo
+import TerratoneLogo from "@/components/terratoneLogo"; // Import TerratoneLogo
+import Button from "@/components/Button";
 
 // --- SVG Definitions (HamburgerIcon and XMarkIcon remain the same) ---
 
@@ -75,14 +76,27 @@ export default function MobileMenu({
   // When the menu is CLOSED, only render the hamburger icon.
   if (!isOpen) {
     return (
-      <button
-        onClick={toggleMenu}
-        aria-expanded={isOpen}
-        aria-controls="mobile-menu"
-        className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black p-1 md:hidden z-50"
-      >
-        <HamburgerIcon className="h-3.5 w-9 text-white" aria-hidden="true" />
-      </button>
+      <div className="flex flex-row md:hidden">
+        <div className="mr-5 sm:mr-7">
+          <Button noBorder className=" px-1.5 py-1.5 text-[11px] bg-white  md:hidden">
+            Book stay
+          </Button>
+        </div>
+
+        <div className="sm:mr-8">
+          <button
+            onClick={toggleMenu}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black pr-3 lg:hidden z-50"
+          >
+            <HamburgerIcon
+              className="h-3 w-8 text-white"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+      </div>
     );
   }
 
@@ -91,39 +105,42 @@ export default function MobileMenu({
     <>
       <div
         id="mobile-menu"
-        className="fixed left-0 w-full top-0 h-[50vh] sm:h-[60vh] z-40 bg-white shadow-xl overflow-y-auto pt-2"
+        className="fixed left-0 w-full top-0 h-[60vh] sm:h-[60vh] z-40 bg-white shadow-xl overflow-y-auto pt-2"
       >
         {/* Open Menu Header Bar: Logo | Button | Close Icon */}
-        <div className="flex flex-row items-center justify-between pr-5 sm:pl-5 sm:pr-10 py-4">
+        <div className="flex flex-row items-center justify-between pr-5  py-4 mt-1">
           <div className="flex flex-row items-center justify-between w-full">
-            <div className="">
-              <TerratoneLogo className="text-black scale-80"/>
+            <div className="sm:ml-8">
+              <TerratoneLogo className="text-black scale-79 sm:scale-84" />
             </div>
 
             {/* 2. Button (Pink BG) */}
-            {buttonLink && (
-              <button className=" flex mr-2  sm:mr-4 px-3 bg-terra-pink border border-terra-pink py-1.5">
-                <PrismicNextLink
-                  field={buttonLink}
-                  // New: Pink background styling
-                  className=" text-black uppercase  text-xs font-barlowNormal"
-                >
-                  {buttonText}
-                </PrismicNextLink>
-              </button>
-            )}
+            <div className="mr-4 sm:mr-7">
+              {buttonLink && (
+                <Button noBorder className="px-1.5 py-1.5 text-[11px] bg-terra-pink ">
+                  <PrismicNextLink
+                    field={buttonLink}
+                    // New: Pink background styling
+                  >
+                    {buttonText}
+                  </PrismicNextLink>
+                </Button>
+              )}
+            </div>
           </div>
 
           {/* 3. Close Icon (Black) */}
-          <button
-            onClick={closeMenu}
-            className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black p-1"
-          >
-            <XMarkIcon className="h-5 w-5 text-black" aria-hidden="true" />
-          </button>
+          <div className="sm:mr-6.5">
+            <button
+              onClick={closeMenu}
+              className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black p-1"
+            >
+              <XMarkIcon className="h-5 w-5 text-black" aria-hidden="true" />
+            </button>
+          </div>
         </div>
 
-        <nav className="flex flex-col items-start px-4 sm:px-9">
+        <nav className="flex flex-col items-start px-4 sm:px-10">
           {/* Navigation Links - Now left-aligned inside the white panel */}
           {navigation.map((item, index) => (
             <PrismicNextLink

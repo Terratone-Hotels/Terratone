@@ -112,7 +112,7 @@ export default function OneWithSideWords({ slice }) {
 
       {/* =================== Buttons =================== */}
       <div className="mt-6 lg:mt-9 flex justify-center items-center gap-2">
-        <Button variant="secondary" className="font-barlow">
+        <Button  className="font-barlow px-2.5 py-1 tracking-tighter">
           ABOUT US
         </Button>
       </div>

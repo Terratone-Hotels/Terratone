@@ -4,6 +4,7 @@ import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
 import RichTextRenderer from "@/components/RichTextRenderer";
 import GuitarStrings from "@/components/GuitarStrings";
+import SplitButton from "@/components/SplitButton";
 
 /**
  * @typedef {import("@prismicio/client").Content.IntroBlockSlice} IntroBlockSlice
@@ -25,11 +26,12 @@ const IntroBlock = ({ slice }) => {
           <RichTextRenderer field={slice.primary.description} />
         </div>
         <div>
-          <Button className={"uppercase"}>
+          <Button className="px-2.5 py-1">
             <PrismicNextLink field={slice.primary.button_link}>
               {slice.primary.button_text}
             </PrismicNextLink>
           </Button>
+        
         </div>
       </div>
     </Bounded>

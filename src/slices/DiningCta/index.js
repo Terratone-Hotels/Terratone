@@ -33,7 +33,7 @@ const DiningCta = ({ slice }) => {
           </div>
 
           <div>
-            <Button className="uppercase">
+            <Button className="px-2.5 py-1">
               <PrismicNextLink field={slice.primary.button_link}>
                 {slice.primary.button_text}
               </PrismicNextLink>
