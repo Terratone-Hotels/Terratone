@@ -28,9 +28,7 @@ const RoomShowcaseSlice = ({ slice }) => {
             titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
             descriptionClassName="font-barlow text-xs"
             showMobileButton={true}
-            buttonProps={{
-              className: "text-xlw-[5.924rem] h-[1.489rem] md:w-auto md:h-auto",
-            }}
+            
           />
         ))}
       </div>

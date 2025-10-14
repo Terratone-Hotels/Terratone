@@ -36,7 +36,7 @@ const DestinationHighlight = ({ slice }) => {
 
               {/* Button */}
               <div>
-                <Button showArrow>{slice.primary.button_text}</Button>
+                <Button className="font-barlowNormal px-2.5 py-1">{slice.primary.button_text}</Button>
               </div>
 
               {/* Optional Link */}

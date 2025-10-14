@@ -46,7 +46,7 @@ export default function BanquetHalls({ slice }) {
           </div>
 
           {/* Button */}
-          <Button showArrow className="text-[0.75rem] sm:text-xs">
+          <Button  className="bg-white px-2.5 py-1">
             <PrismicNextLink field={slice.primary.button_link}>
               {slice.primary.button_text}
             </PrismicNextLink>

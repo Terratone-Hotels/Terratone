@@ -11,6 +11,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "reversed_destination_highlights": {
+              "type": "SharedSlice"
+            },
             "testimonials": {
               "type": "SharedSlice"
             },

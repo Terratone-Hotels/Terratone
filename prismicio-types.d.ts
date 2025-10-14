@@ -139,7 +139,128 @@ export type DiningDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Item in *Header Settings → Navigation*
+ */
+export interface HeaderSettingsDocumentDataNavigationItem {
+  /**
+   * Link field in *Header Settings → Navigation*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_settings.navigation[].link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * Link Lable field in *Header Settings → Navigation*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_settings.navigation[].link_lable
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  link_lable: prismic.KeyTextField;
+}
+
+/**
+ * Content for Header Settings documents
+ */
+interface HeaderSettingsDocumentData {
+  /**
+   * Site Title field in *Header Settings*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_settings.site_title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  site_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Header Settings*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_settings.meta_description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * OG Image field in *Header Settings*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_settings.og_image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  og_image: prismic.ImageField<never>;
+
+  /**
+   * Navigation field in *Header Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_settings.navigation[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  navigation: prismic.GroupField<
+    Simplify<HeaderSettingsDocumentDataNavigationItem>
+  >;
+
+  /**
+   * Nav Button-Link field in *Header Settings*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_settings.nav_button_link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  nav_button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Nav Button-Link Text field in *Header Settings*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_settings.nav_buttonlink_text
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  nav_buttonlink_text: prismic.KeyTextField;
+}
+
+/**
+ * Header Settings document from Prismic
+ *
+ * - **API ID**: `header_settings`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type HeaderSettingsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<HeaderSettingsDocumentData>,
+    "header_settings",
+    Lang
+  >;
+
 type HomepageDocumentDataSlicesSlice =
+  | ReversedDestinationHighlightsSlice
   | TestimonialsSlice
   | BanquetHallsSlice
   | TaglineHeroSliceSlice
@@ -212,7 +333,10 @@ export type HomepageDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = DiningDocument | HomepageDocument;
+export type AllDocumentTypes =
+  | DiningDocument
+  | HeaderSettingsDocument
+  | HomepageDocument;
 
 /**
  * Primary content in *BanquetHalls → Default → Primary*
@@ -446,6 +570,21 @@ export type DestinationHighlightSliceSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *DiningCta → Default → Primary → Parallax*
+ */
+export interface DiningCtaSliceDefaultPrimaryParallaxItem {
+  /**
+   * Parallax Images field in *DiningCta → Default → Primary → Parallax*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: dining_cta.default.primary.parallax[].parallax_images
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  parallax_images: prismic.ImageField<never>;
+}
+
+/**
  * Primary content in *DiningCta → Default → Primary*
  */
 export interface DiningCtaSliceDefaultPrimary {
@@ -506,24 +645,16 @@ export interface DiningCtaSliceDefaultPrimary {
   image_one: prismic.ImageField<never>;
 
   /**
-   * Image Two field in *DiningCta → Default → Primary*
+   * Parallax field in *DiningCta → Default → Primary*
    *
-   * - **Field Type**: Image
+   * - **Field Type**: Group
    * - **Placeholder**: *None*
-   * - **API ID Path**: dining_cta.default.primary.image_two
-   * - **Documentation**: https://prismic.io/docs/fields/image
+   * - **API ID Path**: dining_cta.default.primary.parallax[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
-  image_two: prismic.ImageField<never>;
-
-  /**
-   * Image Three field in *DiningCta → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: dining_cta.default.primary.image_three
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  image_three: prismic.ImageField<never>;
+  parallax: prismic.GroupField<
+    Simplify<DiningCtaSliceDefaultPrimaryParallaxItem>
+  >;
 }
 
 /**
@@ -1695,6 +1826,9 @@ declare module "@prismicio/client" {
       DiningDocument,
       DiningDocumentData,
       DiningDocumentDataSlicesSlice,
+      HeaderSettingsDocument,
+      HeaderSettingsDocumentData,
+      HeaderSettingsDocumentDataNavigationItem,
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
@@ -1711,6 +1845,7 @@ declare module "@prismicio/client" {
       DestinationHighlightSliceSliceVariation,
       DestinationHighlightSliceSliceDefault,
       DiningCtaSlice,
+      DiningCtaSliceDefaultPrimaryParallaxItem,
       DiningCtaSliceDefaultPrimary,
       DiningCtaSliceVariation,
       DiningCtaSliceDefault,

@@ -93,7 +93,7 @@ const TaglineHeroSlice = ({ slice }) => {
               </div>
             </div>
             <div className=" mt-7 lg:mt-12">
-              <Button showArrow>STAY WITH US</Button>
+              <Button className="px-1.5 md:px-2.5 py-1">STAY WITH US</Button>
             </div>
           </div>
         </Bounded>
