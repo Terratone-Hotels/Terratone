@@ -1,0 +1,57 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1547082299-de196ea013d6",
+					"width": 4272,
+					"height": 2848
+				},
+				"url": "https://images.unsplash.com/photo-1547082299-de196ea013d6",
+				"width": 4272,
+				"height": 2848,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "sentence",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"message": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Consectetur aute culpa voluptate magna magna proident irure fugiat culpa officia exercitation velit officia. Aliquip et et adipisicing labore cillum nisi. Excepteur amet adipisicing laboris amet sunt Lorem voluptate reprehenderit non ullamco adipisicing labore commodo ipsum."
+						}
+					}
+				]
+			},
+			"button_link": {
+				"key": "d76a887d-4de1-4f06-b583-e28155b47ad3",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://prismic.io",
+					"text": "clock"
+				}
+			},
+			"button_text": {
+				"__TYPE__": "FieldContent",
+				"value": "train",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]
