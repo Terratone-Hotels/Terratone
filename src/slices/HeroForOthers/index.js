@@ -1,4 +1,5 @@
 import Bounded from "@/components/Bounded";
+import HeroTextRenderer from "@/components/HeroTextRenderer";
 import RichTextRenderer from "@/components/RichTextRenderer";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
@@ -17,7 +18,7 @@ const HeroForOthers = ({ slice }) => {
         <PrismicNextImage field={slice.primary.hero_image} className="w-full h-full object-cover" />
       </div>
       <div className="absolute bottom-15 lg:bottom-7 left-1/2 transform -translate-x-1/2 text-white font-serif text-center capitalize text-[35px] w-[80%]  lg:text-[3.25rem] leading-10 tracking-tight lg:tracking-tight lg:leading-14 ">
-        <PrismicRichText field={slice.primary.hero_heading} />
+        <HeroTextRenderer field={slice.primary.hero_heading} />
       </div>
     </Bounded>
   );

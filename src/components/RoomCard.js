@@ -26,84 +26,84 @@ export default function RoomCard({
   const borderRef = useRef(null);
   const descRef = useRef(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Initial state — hidden
-      gsap.set(
-        [imgRef.current, titleRef.current, borderRef.current, descRef.current],
-        { opacity: 0 }
-      );
+  // useEffect(() => {
+  //   const ctx = gsap.context(() => {
+  //     // Initial state — hidden
+  //     gsap.set(
+  //       [imgRef.current, titleRef.current, borderRef.current, descRef.current],
+  //       { opacity: 0 }
+  //     );
 
-      // Timeline with scrollTrigger that runs only once
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: "top 85%", // starts slightly before the element hits center
-          once: true, // ✅ play only once
-          toggleActions: "play none none none", // don't reverse or replay
-        },
-      });
+  //     // Timeline with scrollTrigger that runs only once
+  //     const tl = gsap.timeline({
+  //       scrollTrigger: {
+  //         trigger: cardRef.current,
+  //         start: "top 85%", // starts slightly before the element hits center
+  //         once: true, // ✅ play only once
+  //         toggleActions: "play none none none", // don't reverse or replay
+  //       },
+  //     });
 
-      // Step 1: Image fade + slide up
-      tl.fromTo(
-        imgRef.current,
-        { opacity: 0, y: 60 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.8,
-          ease: "power3.out",
-        }
-      );
+  //     // Step 1: Image fade + slide up
+  //     tl.fromTo(
+  //       imgRef.current,
+  //       { opacity: 0, y: 60 },
+  //       {
+  //         opacity: 1,
+  //         y: 0,
+  //         duration: 1.8,
+  //         ease: "power3.out",
+  //       }
+  //     );
 
-      // Step 2: Title fade + rise
-      tl.fromTo(
-        titleRef.current,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.5,
-          ease: "power3.out",
-        },
-        "-=1.0"
-      );
+  //     // Step 2: Title fade + rise
+  //     tl.fromTo(
+  //       titleRef.current,
+  //       { opacity: 0, y: 40 },
+  //       {
+  //         opacity: 1,
+  //         y: 0,
+  //         duration: 1.5,
+  //         ease: "power3.out",
+  //       },
+  //       "-=1.0"
+  //     );
 
-      // Step 3: Border line draw
-      tl.fromTo(
-        borderRef.current,
-        { opacity: 1, scaleX: 0, transformOrigin: "left center" },
-        {
-          scaleX: 1,
-          duration: 1.4,
-          ease: "power2.out",
-        },
-        "-=1.0"
-      );
+  //     // Step 3: Border line draw
+  //     tl.fromTo(
+  //       borderRef.current,
+  //       { opacity: 1, scaleX: 0, transformOrigin: "left center" },
+  //       {
+  //         scaleX: 1,
+  //         duration: 1.4,
+  //         ease: "power2.out",
+  //       },
+  //       "-=1.0"
+  //     );
 
-      // Step 4: Description fade in from left
-      tl.fromTo(
-        descRef.current,
-        { opacity: 0, x: -30 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1.2,
-          ease: "power2.out",
-        },
-        "-=0.7"
-      );
-    }, cardRef);
+  //     // Step 4: Description fade in from left
+  //     tl.fromTo(
+  //       descRef.current,
+  //       { opacity: 0, x: -30 },
+  //       {
+  //         opacity: 1,
+  //         x: 0,
+  //         duration: 1.2,
+  //         ease: "power2.out",
+  //       },
+  //       "-=0.7"
+  //     );
+  //   }, cardRef);
 
-    return () => ctx.revert();
-  }, []);
+  //   return () => ctx.revert();
+  // }, []);
 
   return (
     <div ref={cardRef} className="group flex flex-col py-4 relative">
       {/* Room Image */}
       {image && (
         <div ref={imgRef}>
-          <CurtainRevealImage
+          <PrismicNextImage
             field={image}
             className="w-full h-[20rem] lg:h-[29.688rem] object-cover"
           />
