@@ -73,8 +73,9 @@ const ParallaxGallery = ({ slice }) => {
 
             lg:h-[70vh] lg:w-[44%] lg:max-w-[650px]
 
-            md:h-[70vh] md:w-[43%]
+            md:h-[70vh] md:w-[55%]
 
+            sm:h-[60vh] sm:w-[55%]
 
             md:mt-[-16]
             lg:mt-[-20vh] 
