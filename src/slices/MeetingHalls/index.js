@@ -12,6 +12,7 @@ import Bounded from "@/components/Bounded";
 import DotWave from "@/components/DotWave";
 import RichTextRenderer from "@/components/RichTextRenderer";
 import CurtainRevealImage from "@/components/CurtainRevealImage";
+import SplitButton from "@/components/SplitButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -102,7 +103,8 @@ const MeetingHalls = ({ slice }) => {
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
                 />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
-                  <Button showArrow>VIEW ROOM</Button>
+                  <Button className="bg-white px-2 py-1 text-sm  font-barlowNormal">VIEW ROOM</Button>
+                  {/* <SplitButton text={"VIEW ROOM"}/> */}
                 </div>
               </div>
 
@@ -142,7 +144,7 @@ const MeetingHalls = ({ slice }) => {
                     {item.card_description}
                   </p>
                   <div className="mt-4">
-                    <Button variant="normal">VIEW ROOM</Button>
+                    <Button className="px-1.5 py-1">VIEW ROOM</Button>
                   </div>
                 </div>
               </div>

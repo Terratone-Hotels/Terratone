@@ -142,8 +142,7 @@ export default function RoomCard({
           <div className="lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
             <PrismicNextLink field={bookingLink} className="block">
               <Button
-                {...buttonTextProp}
-                className="hover:border-transparent transition-colors duration-300"
+                className="px-2.5 py-1"
               >
                 {linkText}
               </Button>

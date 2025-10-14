@@ -1,0 +1,78 @@
+{
+  "format": "custom",
+  "id": "header_settings",
+  "label": "Header Settings",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "site_title": {
+        "type": "Text",
+        "config": {
+          "label": "Site Title",
+          "placeholder": ""
+        }
+      },
+      "meta_description": {
+        "type": "Text",
+        "config": {
+          "label": "Meta Description",
+          "placeholder": ""
+        }
+      },
+      "og_image": {
+        "type": "Image",
+        "config": {
+          "label": "OG Image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "navigation": {
+        "type": "Group",
+        "config": {
+          "label": "Navigation",
+          "repeat": true,
+          "fields": {
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "Link",
+                "placeholder": "",
+                "select": null,
+                "allowTargetBlank": true,
+                "allowText": true,
+                "repeat": false
+              }
+            },
+            "link_lable": {
+              "type": "Text",
+              "config": {
+                "label": "Link Lable",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      },
+      "nav_button_link": {
+        "type": "Link",
+        "config": {
+          "label": "Nav Button-Link",
+          "placeholder": "",
+          "select": null,
+          "allowTargetBlank": true,
+          "allowText": true,
+          "repeat": false
+        }
+      },
+      "nav_buttonlink_text": {
+        "type": "Text",
+        "config": {
+          "label": "Nav Button-Link Text",
+          "placeholder": ""
+        }
+      }
+    }
+  }
+}
