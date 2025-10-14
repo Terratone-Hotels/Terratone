@@ -65,17 +65,23 @@ const ParallaxGallery = ({ slice }) => {
           className={`
             imageContainer overflow-hidden 
      
-            h-[50vh] w-[90%]
+            h-[50vh] w-[75%]
 
-          
-            lg:h-[70vh] lg:w-[60%] lg:max-w-[650px]
             
-        
+
+            xl:h-[70vh] xl:w-[44%] xl:max-w-[1280px]
+
+            lg:h-[70vh] lg:w-[44%] lg:max-w-[650px]
+
+            md:h-[70vh] md:w-[43%]
+
+
+            md:mt-[-16]
             lg:mt-[-20vh] 
             lg:first:mt-0 
             
          
-            ${index % 2 === 0 ? "self-start ml-[5%]" : "self-end mr-[5%]"}
+            ${index % 2 === 0 ? "self-start md:ml-[5%]" : "self-end md:mr-[5%]"}
           `}
         >
           <PrismicNextImage

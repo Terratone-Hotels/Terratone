@@ -70,7 +70,7 @@ export default function HeroTextRenderer({
       tl.to(
         animatedElements,
         {
-          yPercent: -9, // Animate TO the final state (yPercent: 0, centered)
+          yPercent: -10, // Animate TO the final state (yPercent: 0, centered)
           duration: animationDuration,
           stagger: animationStagger,
           ease: animationEase,
