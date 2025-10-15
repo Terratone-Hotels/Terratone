@@ -65,9 +65,9 @@ export default function BanquetHalls({ slice }) {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
-        start: "top 45%",
+        start: "top 35%",
         end: "center center",
-        scrub: 1,
+        scrub: 1.3,
       },
     });
 
