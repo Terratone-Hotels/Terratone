@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 
 export const components = {
+  amenities: dynamic(() => import("./Amenities")),
   banquet_halls: dynamic(() => import("./BanquetHalls")),
   call_to_action_banner: dynamic(() => import("./CallToActionBanner")),
   destination_highlight: dynamic(() => import("./DestinationHighlight")),
@@ -13,6 +14,7 @@ export const components = {
   hero: dynamic(() => import("./Hero")),
   hero_for_others: dynamic(() => import("./HeroForOthers")),
   intro_block: dynamic(() => import("./IntroBlock")),
+  location_and_contacts: dynamic(() => import("./LocationAndContacts")),
   meeting_halls: dynamic(() => import("./MeetingHalls")),
   one_with_side_words: dynamic(() => import("./OneWithSideWords")),
   picture_section: dynamic(() => import("./PictureSection")),

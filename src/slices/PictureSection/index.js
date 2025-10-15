@@ -12,6 +12,7 @@ const PictureSection = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
+      className={"mt-20"}
     >
        {/*width: 1392;
           height: 779;

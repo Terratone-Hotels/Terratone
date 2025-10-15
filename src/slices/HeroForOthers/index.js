@@ -18,7 +18,7 @@ const HeroForOthers = ({ slice }) => {
           data-slice-variation={slice.variation}
         >
           <div className="relative h-screen">
-            <PrismicNextImage
+            <HeroTextRenderer
               field={slice.primary.hero_image}
               className="w-full h-full object-cover"
             />

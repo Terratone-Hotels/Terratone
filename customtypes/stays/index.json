@@ -11,6 +11,12 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "location_and_contacts": {
+              "type": "SharedSlice"
+            },
+            "amenities": {
+              "type": "SharedSlice"
+            },
             "call_to_action_banner": {
               "type": "SharedSlice"
             },
