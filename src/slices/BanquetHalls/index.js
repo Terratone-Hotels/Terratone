@@ -65,17 +65,17 @@ export default function BanquetHalls({ slice }) {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
-        start: "top 35%",
+        start: "top 65%",
         end: "center center",
         scrub: 1.3,
       },
     });
 
-    // --- MODIFICATION 3: Animate each element with a stagger ---
     // Animate the image wrapper (scale and border radius)
     tl.to(
       imageWrapper,
-      { scale: 1, borderRadius: "25px", ease: "power2.out" },
+      // ✅ MODIFIED: Changed borderRadius to "0px" for sharp corners
+      { scale: 1, borderRadius: "0px", ease: "power2.out" },
       "<"
     )
       // Animate the inner image (parallax effect)

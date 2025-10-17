@@ -18,7 +18,6 @@ const Hero = ({ slice }) => {
   const [currentSwiper, setCurrentSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const heroWrapperRef = useRef(null);
   const headingRef = useRef(null);
   const thumbsRef = useRef(null);
   const logoLeftRef = useRef(null);
@@ -30,17 +29,12 @@ const Hero = ({ slice }) => {
     const logoLeft = logoLeftRef.current;
     const logoRight = logoRightRef.current;
 
-    gsap.set(heroWrapperRef.current, {
-      scaleY: 0.65,
-      transformOrigin: "center bottom",
-      filter: "blur(2px)",
-    });
     gsap.set(".curtain", { yPercent: 0 });
     gsap.set([headingRef.current, thumbsRef.current], { opacity: 0 });
     gsap.set([logoLeft, logoRight], {
       opacity: 0,
       xPercent: (i) => (i === 0 ? -400 : 400),
-      yPercent: (i) => (i === 0 ? -100 : -100),
+
       rotate: 0,
     });
 
@@ -54,22 +48,12 @@ const Hero = ({ slice }) => {
       stagger: 0.1,
     })
       .to([logoLeft, logoRight], {
-        yPercent: -100,
         duration: 1,
         ease: "power3.out",
         rotate: 25,
       })
       .to(".curtain", { yPercent: -100, duration: 0.8 }, "-=0.5")
-      .to(
-        heroWrapperRef.current,
-        {
-          scaleY: 1,
-          filter: "blur(0px)",
-          duration: 2.2,
-          ease: "expo.out",
-        },
-        "<"
-      )
+
       .set(".curtain", { display: "none" })
       .fromTo(
         headingRef.current,
@@ -141,7 +125,7 @@ const Hero = ({ slice }) => {
       </div>
 
       {/* === Hero Section === */}
-      <div ref={heroWrapperRef} className="relative z-10 origin-bottom">
+      <div className="relative z-10 origin-bottom">
         <Swiper
           loop
           spaceBetween={0}

@@ -17,14 +17,15 @@ const DotWave = () => {
     const dots = dotsRef.current.filter(Boolean);
     if (!container || dots.length === 0) return;
 
-    // Run after one animation frame to let GSAP & DOM hydrate
+    // A variable to hold our ticker function for cleanup
+    let waveUpdate;
+
     const rafId = requestAnimationFrame(() => {
-      const maxAmplitude = 60;
+      const maxAmplitude = 20;
       const wavelength = 0.9;
       let amplitude = 0;
       let phase = 0;
       let speed = 0.02;
-      let animating = false;
 
       gsap.set(dots, {
         x: 0,
@@ -35,21 +36,23 @@ const DotWave = () => {
         transform: "translateX(-50%)",
       });
 
-      const animateWave = () => {
-        if (!animating) return;
+      // ✅ STEP 1: Create highly performant "quickSetters" for each dot's y property.
+      const ySetters = dots.map((dot) => gsap.quickSetter(dot, "y", "px"));
+
+      // ✅ STEP 2: Define the update logic that will run on every frame.
+      // This replaces the old `animateWave` function.
+      const updateWave = () => {
         phase += speed;
-        if (amplitude < maxAmplitude) amplitude += 0.3;
+        if (amplitude < maxAmplitude) amplitude += 0.2;
         if (speed < 0.05) speed += 0.001;
 
-        dots.forEach((dot, i) => {
+        ySetters.forEach((setY, i) => {
           const yOffset = Math.sin(phase + i * wavelength) * amplitude;
-          gsap.to(dot, { y: yOffset, duration: 0.5, ease: "sine.inOut" });
+          // Use the quickSetter to update the y position. No new tweens are created.
+          setY(yOffset);
         });
-
-        requestAnimationFrame(animateWave);
       };
 
-      // ✅ Create ScrollTrigger safely
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top 70%",
@@ -57,8 +60,10 @@ const DotWave = () => {
         onEnter: () => {
           const tl = gsap.timeline({
             onComplete: () => {
-              animating = true;
-              animateWave();
+              // ✅ STEP 3: Add the update function to GSAP's core ticker.
+              // This starts the continuous, performant wave animation.
+              waveUpdate = updateWave; // Assign to outer variable for cleanup
+              gsap.ticker.add(waveUpdate);
             },
           });
 
@@ -71,15 +76,24 @@ const DotWave = () => {
         },
       });
 
-      // 🩹 Force ScrollTrigger to sync after DOM settles
-      setTimeout(() => ScrollTrigger.refresh(), 200);
+      // ✅ STEP 4: The forced refresh is removed as it can cause its own stutter.
+      // setTimeout(() => ScrollTrigger.refresh(), 200);
 
       // Cleanup
-      return () => trigger.kill();
+      return () => {
+        trigger.kill();
+        // ✅ STEP 5: Make sure to remove the function from the ticker on cleanup.
+        if (waveUpdate) {
+          gsap.ticker.remove(waveUpdate);
+        }
+      };
     });
 
     return () => {
       cancelAnimationFrame(rafId);
+      if (waveUpdate) {
+        gsap.ticker.remove(waveUpdate);
+      }
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
