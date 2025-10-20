@@ -28,7 +28,7 @@ export default function Button({
       {/* Text span */}
       <span
         className={clsx(
-          "flex items-center justify-center font-barlowNormal text-xs lg:text-sm text-black transition-transform duration-300",
+          "flex items-center justify-center font-barlowNormal text-xs lg:text-sm text-black transition-transform duration-200",
           className
         )}
       >
@@ -38,7 +38,7 @@ export default function Button({
       {/* Arrow span */}
       <span
         className={clsx(
-          "flex items-center justify-center text-black transition-transform duration-300 ",
+          "flex items-center justify-center text-black transition-transform duration-200 ",
           className
         )}
       >

@@ -1,4 +1,5 @@
 import Bounded from "@/components/Bounded";
+import CurtainRevealImage from "@/components/CurtainRevealImage";
 import { PrismicNextImage } from "@prismicio/next";
 
 /**
@@ -12,17 +13,11 @@ const PictureSection = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className={"mt-20"}
+      className={"mt-35"}
     >
-       {/*width: 1392;
-          height: 779;
-          top: 3065px;
-          left: 24px;
-          angle: 0 deg;
-          opacity: 1;
-      */}
-      <div className="w-full h-[779px]">
-        <PrismicNextImage field={slice.primary.image} className="w-full h-full object-cover" />
+
+      <div className="w-full h-dvh">
+        <CurtainRevealImage field={slice.primary.image} className="w-full h-full object-cover" />
       </div>
     </Bounded>
   );

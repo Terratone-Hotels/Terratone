@@ -1,5 +1,7 @@
 import Bounded from "@/components/Bounded";
+import CurtainRevealImage from "@/components/CurtainRevealImage";
 import GuitarStrings from "@/components/GuitarStrings";
+import RichTextRenderer from "@/components/RichTextRenderer";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 
@@ -52,33 +54,54 @@ const ResonanceBlock = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className={" h-auto relative mt-20 "}
+          className={" h-auto relative mt-35"}
         >
-          <div className="text-black capitalize font-medium font-serif text-[2.75rem] md:text-[2.813rem] lg:text-[42px] leading-11 mb-10">
-            <PrismicRichText field={slice.primary.heading} />
+          <div className="text-black capitalize font-medium text-center font-serif text-[32px] md:text-[2.813rem] lg:text-[42px] leading-11 mb-5 md:mb-10">
+            <RichTextRenderer field={slice.primary.heading} />
           </div>
           <div>
-            <PrismicNextImage
+            <CurtainRevealImage
               field={slice.primary.horizontal_image}
-              className="h-[15.625rem] object-cover lg:h-[33.938rem] "
+              className="h-[196px] w-full object-cover lg:h-[33.938rem] "
             />
           </div>
-          <div className=" w-full h-[425px] flex flex-row justify-between items-center ">
+          {/* OverLapping image and text */}
+          <div className="hidden w-full h-[425px] lg:flex flex-row justify-between items-center ">
             <div className="w-[35%] flex h-auto items-center justify-center">
-              <div className=" w-[50%] font-barlow">
-                <PrismicRichText field={slice.primary.description_one} />
+              <div className=" w-[50%] font-barlow font-medium">
+                <RichTextRenderer field={slice.primary.description_one} />
               </div>
             </div>
-            <div className="lg:w-[27.938rem] -mt-45 md:-mt-55 lg:-mt-70 ">
-              <PrismicNextImage
+            <div className="lg:w-[27.938rem] -mt-45 md:-mt-55 lg:-mt-70 z-10">
+              <CurtainRevealImage
                 field={slice.primary.vertical_image}
                 className=" h-[16rem] w-[13rem] lg:w-[27.938rem] lg:h-[33.938rem] object-cover"
               />
             </div>
-            <div className="w-[35%] mt-auto flex flex-col justify-end items-center">
-              <div className=" w-[50%] font-barlow ">
+            <div className="w-[35%] flex mt-auto h-auto items-end justify-center">
+              <div className=" w-[50%] font-barlow font-medium">
                 <PrismicRichText field={slice.primary.description_two} />
               </div>
+            </div>
+          </div>
+          {/* Mobile version */}
+          <div className=" lg:hidden  ">
+            <div className="flex flex-col items-center  -mt-20 ">
+              <div>
+                <CurtainRevealImage
+                  field={slice.primary.vertical_image}
+                  className=" h-[14rem] w-[10rem] object-cover"
+                />
+              </div>
+              <div className=" mt-5 w-[71%] font-barlow ">
+                <div className="leading-tight">
+                  <PrismicRichText field={slice.primary.description_one} />
+                </div>
+                <div className="leading-tight">
+                  <PrismicRichText field={slice.primary.description_two} />
+                </div>
+              </div>
+              <div></div>
             </div>
           </div>
         </Bounded>

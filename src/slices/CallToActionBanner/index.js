@@ -1,5 +1,7 @@
 import Bounded from "@/components/Bounded";
 import Button from "@/components/Button";
+import CurtainRevealImage from "@/components/CurtainRevealImage";
+import RichTextRenderer from "@/components/RichTextRenderer";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 
@@ -13,13 +15,13 @@ const CallToActionBanner = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className={"mt-20"}
+      className={"mt-35"}
     >
       {/* Container for the image and content, with a fixed height and relative positioning */}
       <div className="relative w-full h-[524px]">
         {/* Image container */}
         <div className="absolute inset-0">
-          <PrismicNextImage
+          <CurtainRevealImage
             field={slice.primary.image}
             className="w-full h-full object-cover"
           />
@@ -32,17 +34,10 @@ const CallToActionBanner = ({ slice }) => {
         <div className="absolute inset-0 flex flex-col items-center justify-center">
 
           {/* Text/Message container */}
-          <div className="max-w-[76%] text-center text-white font-serif tracking-tight">
-            <PrismicRichText
+          <div className="max-w-[76%] text-center text-white font-serif tracking-tight text-3xl sm:text-4xl md:text-5xl font-light leading-tight">
+            <RichTextRenderer
               field={slice.primary.message}
-              components={{
-                paragraph: ({ children }) => (
-            
-                  <p className="text-3xl sm:text-4xl md:text-5xl font-light leading-tight">
-                    {children}
-                  </p>
-                ),
-              }}
+             
             />
           </div>
 

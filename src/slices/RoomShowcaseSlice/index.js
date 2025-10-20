@@ -1,6 +1,7 @@
 "use client";
 
 import Bounded from "@/components/Bounded";
+import RichTextRenderer from "@/components/RichTextRenderer";
 import RoomCard from "@/components/RoomCard";
 import { PrismicRichText } from "@prismicio/react";
 
@@ -40,14 +41,14 @@ const RoomShowcaseSlice = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className=" mt-20 "
+          className=" mt-35 "
         >
           <div className="flex flex-col items-center">
-            <div className="text-center font-serif font-medium leading-14 text-[56px]">
-              <PrismicRichText field={slice.primary.heading} />
+            <div className="text-center font-serif font-medium lg:leading-14 leading-tight text-[30px] lg:text-[60px]">
+              <RichTextRenderer field={slice.primary.heading} />
             </div>
-            <div className="w-[45%] text-center text-sm font-barlow mt-7 mb-10">
-              <PrismicRichText field={slice.primary.description} />
+            <div className="w-[90%] lg:w-[50%] text-center text-lg font-barlow leading-6 mt-7 mb-10">
+              <RichTextRenderer field={slice.primary.description} />
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
