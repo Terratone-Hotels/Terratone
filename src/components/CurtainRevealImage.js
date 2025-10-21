@@ -31,11 +31,10 @@ export default function CurtainRevealImage({
 }) {
   const wrapperRef = useRef(null);
   const overlayRef = useRef(null);
-  const [curtainColor, setCurtainColor] = useState(
-    color || "var(--color-stone)"
-  );
+  // ✅ FIX for Hydration Error: Initialize state without a random value.
+  const [curtainColor, setCurtainColor] = useState(color || "transparent");
 
-  // 🎨 Choose random curtain color if not provided
+  // ✅ FIX for Hydration Error: Generate random color only on the client-side.
   useEffect(() => {
     if (!color) {
       const chosen = colorList[Math.floor(Math.random() * colorList.length)];
@@ -69,7 +68,6 @@ export default function CurtainRevealImage({
         const dir = dirMap[curtainDirection] || dirMap.up;
         gsap.set(overlay, dir.from);
 
-        // ✅ Safe ScrollTrigger tween
         const tween = gsap.to(overlay, {
           ...dir.to,
           duration,
@@ -83,8 +81,9 @@ export default function CurtainRevealImage({
           },
         });
 
-        // ✅ Refresh triggers after setup
-        ScrollTrigger.refresh();
+        // ✅ FIX for TypeError: This line was causing the crash and has been removed.
+        // GSAP handles refreshing automatically when a new trigger is created.
+        // ScrollTrigger.refresh();
 
         return () => tween.scrollTrigger?.kill();
       }, wrapper);
