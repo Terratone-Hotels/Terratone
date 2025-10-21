@@ -18,7 +18,7 @@ const HeroForOthers = ({ slice }) => {
           data-slice-variation={slice.variation}
         >
           <div className="relative h-screen">
-            <HeroTextRenderer
+            <PrismicNextImage
               field={slice.primary.hero_image}
               className="w-full h-full object-cover"
             />
@@ -28,8 +28,8 @@ const HeroForOthers = ({ slice }) => {
           </div>
         </Bounded>
       )}
-      {slice.variation === "withAvailabilityBar" &&(
-               <Bounded
+      {slice.variation === "withAvailabilityBar" && (
+        <Bounded
           full
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}

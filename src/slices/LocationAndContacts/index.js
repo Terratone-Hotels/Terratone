@@ -18,11 +18,14 @@ const LocationAndContacts = ({ slice }) => {
       data-slice-variation={slice.variation}
       className={"my-35"}
     >
-      <div className="hidden flex-row w-full font-serif font-medium">
+      <div className="flex flex-row w-full font-serif font-medium">
         {/*Map and button*/}
         <div className="relative w-[30%]">
           <div className="w-[448px] h-[338px]">
-            <CurtainRevealImage field={slice.primary.map} className="w-full h-full" />
+            <CurtainRevealImage
+              field={slice.primary.map}
+              className="w-full h-full"
+            />
           </div>
           <div className=" flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <Button className=" px-2.5 py-1 bg-white border border-white group-hover:border-transparent">
@@ -61,7 +64,7 @@ const LocationAndContacts = ({ slice }) => {
               <RichTextRenderer field={slice.primary.contact_number} />
             </div>
           </div>
-          <div  className="flex justify-between w-full border-t-2 pt-1.5 pb-4 ">
+          <div className="flex justify-between w-full border-t-2 pt-1.5 pb-4 ">
             <div>
               <RichTextRenderer field={slice.primary.section_one} />
             </div>
@@ -69,7 +72,7 @@ const LocationAndContacts = ({ slice }) => {
               <RichTextRenderer field={slice.primary.section_one_email} />
             </div>
           </div>
-          <div  className="flex justify-between w-full border-t-2 pt-1.5">
+          <div className="flex justify-between w-full border-t-2 pt-1.5">
             <div>
               <RichTextRenderer field={slice.primary.section_two} />
             </div>
