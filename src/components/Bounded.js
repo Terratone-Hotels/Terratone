@@ -12,7 +12,7 @@ export default function Bounded({
     <Comp className={clsx(className)} {...restProps}>
       <div
         className={clsx(
-          full ? "w-full px-0 " : "",
+          full ? "w-full px-0 py-0 " : "",
           !full && !noPadding && "px-[0.9375rem] md:px-6"
         )}
       >

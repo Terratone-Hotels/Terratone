@@ -20,6 +20,7 @@ const routes = [
   // Examples:
   { type: "homepage", path: "/" },
   { type: "dining", path: "/dining" },
+  { type: "stays", path: "/stays" },
   // { type: "page", path: "/:uid" },
 ];
 

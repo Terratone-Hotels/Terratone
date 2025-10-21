@@ -1,0 +1,135 @@
+{
+  "id": "location_and_contacts",
+  "type": "SharedSlice",
+  "name": "LocationAndContacts",
+  "description": "LocationAndContacts",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "map": {
+          "type": "Image",
+          "config": {
+            "label": "Map",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "map_button_link": {
+          "type": "Link",
+          "config": {
+            "label": "Map Button Link",
+            "placeholder": "",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
+        },
+        "map_button_text": {
+          "type": "Text",
+          "config": {
+            "label": "Map Button Text",
+            "placeholder": ""
+          }
+        },
+        "distance_from": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Distance From",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "distances": {
+          "type": "Group",
+          "config": {
+            "label": "Distances",
+            "repeat": true,
+            "fields": {
+              "time": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Time",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+                }
+              },
+              "location": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Location",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+                }
+              }
+            }
+          }
+        },
+        "address": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Address",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "contact_number": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Contact Number",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl,heading1"
+          }
+        },
+        "section_one": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Section One",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "section_one_email": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Section One Email",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "section_two": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Section Two",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "section_two_email": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Section Two Email",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
