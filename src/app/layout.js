@@ -47,7 +47,7 @@ export default async function RootLayout({ children }) {
       >
         
         <SmoothScrollWrapper>
-          <Header/>
+          <Header />
          {children}
           </SmoothScrollWrapper>
       </body>

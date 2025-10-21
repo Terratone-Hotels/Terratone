@@ -4,6 +4,7 @@ import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 import Button from "@/components/Button";
 import ParallaxGallery from "@/components/ParallaxGallery";
+import RichTextRenderer from "@/components/RichTextRenderer";
 
 /**
  * @typedef {import("@prismicio/client").Content.DiningCtaSlice} DiningCtaSlice
@@ -18,7 +19,7 @@ const DiningCta = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       {/* Section 1: The main CTA content */}
-      <div className="flex flex-col md:flex-row-reverse justify-between items-center gap-6 mt-20">
+      <div className="flex flex-col md:flex-row-reverse justify-between items-start gap-6 mt-20">
         <div className="h-[290px] w-full md:w-[40%] md:h-[320px] lg:h-[440px] flex-shrink-0">
           {/* --- CHANGE 1: Use PrismicNextImage for the single CTA image --- */}
           {/* ParallaxGallery is for a list of images, so PrismicNextImage is the correct component for a single image field. */}
@@ -29,12 +30,12 @@ const DiningCta = ({ slice }) => {
         </div>
 
         <div className="w-full md:w-1/2 flex flex-col">
-          <div className="font-serif font-medium capitalize text-[25px] md:text-[38px] lg:text-[42px] leading-8 lg:leading-12">
-            <PrismicRichText field={slice.primary.heading} />
+          <div className="font-serif font-medium capitalize text-[25px] md:text-[38px] lg:text-[42px] leading-8 lg:leading-12 items-start">
+            <RichTextRenderer field={slice.primary.heading} />
           </div>
 
           <div className="text-sm lg:text-lg font-barlow md:w-[70%] lg:w-[80%] pt-2 pb-5 md:pt-8 md:pb-10">
-            <PrismicRichText field={slice.primary.description} />
+            <RichTextRenderer field={slice.primary.description} />
           </div>
 
           <div>

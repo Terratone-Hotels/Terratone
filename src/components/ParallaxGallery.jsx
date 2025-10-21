@@ -12,16 +12,40 @@ function ParallaxGallery({ field, className = "" }) {
   useEffect(() => {
     const section = sectionRef.current;
     const image = imageRef.current;
-    gsap.to(image, {
-      yPercent: -50,
 
+    // Create a timeline for more control over the two phases (in and out)
+    const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: image,
-        scrub:true,
-        start: "top 80%",
-        end: "bottom 50%",
+        trigger: section,
+        scrub: 1,
+        start: "top bottom",
+        end: "bottom top", // Keep the same trigger window
+        markers: true,
+    
       },
     });
+
+    tl.from(
+      image,
+      {
+        yPercent: 20,
+        opacity: 1,
+        ease: "none",
+  
+      },
+      0
+    )
+
+      .to(
+        image,
+        {
+          yPercent: -10,
+          opacity: 0,
+          ease: "none",
+         
+        },
+        1
+      );
   }, []);
 
   return (

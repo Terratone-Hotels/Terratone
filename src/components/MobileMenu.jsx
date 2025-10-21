@@ -76,9 +76,9 @@ export default function MobileMenu({
   // When the menu is CLOSED, only render the hamburger icon.
   if (!isOpen) {
     return (
-      <div className="flex flex-row md:hidden">
+      <div className="flex flex-row lg:hidden">
         <div className="mr-5 sm:mr-7">
-          <Button noBorder className=" px-1.5 py-1.5 text-[11px] bg-white  md:hidden">
+          <Button noBorder className=" px-1.5 py-1.5 text-[11px] bg-white  lg:hidden">
             Book stay
           </Button>
         </div>

@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 const DotWave = () => {
   const containerRef = useRef(null);
   const dotsRef = useRef([]);
+  const timelineRef = useRef(null); // 🟢 NEW: Ref to hold the pre-initialized timeline
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -17,7 +18,6 @@ const DotWave = () => {
     const dots = dotsRef.current.filter(Boolean);
     if (!container || dots.length === 0) return;
 
-    // A variable to hold our ticker function for cleanup
     let waveUpdate;
 
     const rafId = requestAnimationFrame(() => {
@@ -36,11 +36,8 @@ const DotWave = () => {
         transform: "translateX(-50%)",
       });
 
-      // ✅ STEP 1: Create highly performant "quickSetters" for each dot's y property.
       const ySetters = dots.map((dot) => gsap.quickSetter(dot, "y", "px"));
 
-      // ✅ STEP 2: Define the update logic that will run on every frame.
-      // This replaces the old `animateWave` function.
       const updateWave = () => {
         phase += speed;
         if (amplitude < maxAmplitude) amplitude += 0.2;
@@ -48,41 +45,44 @@ const DotWave = () => {
 
         ySetters.forEach((setY, i) => {
           const yOffset = Math.sin(phase + i * wavelength) * amplitude;
-          // Use the quickSetter to update the y position. No new tweens are created.
           setY(yOffset);
         });
       };
+
+      // 🎯 FIX 1: Initializing the timeline here, immediately, when the component mounts.
+      const tl = gsap.timeline({
+        paused: true, // Start paused
+        onComplete: () => {
+          // This starts the continuous wave AFTER the initial movement completes
+          waveUpdate = updateWave;
+          gsap.ticker.add(waveUpdate);
+        },
+      });
+
+      tl.to(dots, {
+        x: (i) => (i - 2) * 32,
+        duration: 1.2,
+        ease: "power2.out",
+        stagger: { amount: 0.3, from: "center" },
+      });
+
+      timelineRef.current = tl; // Store the timeline for later use
 
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top 70%",
         once: true,
+        // 🎯 FIX 2: The onEnter callback is now instantaneous, simply playing the pre-initialized animation.
         onEnter: () => {
-          const tl = gsap.timeline({
-            onComplete: () => {
-              // ✅ STEP 3: Add the update function to GSAP's core ticker.
-              // This starts the continuous, performant wave animation.
-              waveUpdate = updateWave; // Assign to outer variable for cleanup
-              gsap.ticker.add(waveUpdate);
-            },
-          });
-
-          tl.to(dots, {
-            x: (i) => (i - 2) * 32,
-            duration: 1.2,
-            ease: "power2.out",
-            stagger: { amount: 0.3, from: "center" },
-          });
+          if (timelineRef.current) {
+            timelineRef.current.play(0); // Play from the start (time 0)
+          }
         },
       });
-
-      // ✅ STEP 4: The forced refresh is removed as it can cause its own stutter.
-      // setTimeout(() => ScrollTrigger.refresh(), 200);
 
       // Cleanup
       return () => {
         trigger.kill();
-        // ✅ STEP 5: Make sure to remove the function from the ticker on cleanup.
         if (waveUpdate) {
           gsap.ticker.remove(waveUpdate);
         }
@@ -91,8 +91,8 @@ const DotWave = () => {
 
     return () => {
       cancelAnimationFrame(rafId);
-      if (waveUpdate) {
-        gsap.ticker.remove(waveUpdate);
+      if (timelineRef.current) {
+        timelineRef.current.kill();
       }
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };

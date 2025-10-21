@@ -17,23 +17,23 @@ export default function HeaderClient({ headerData }) {
     "px-4 py-2 text-white bg-black border border-black rounded-md hover:bg-gray-800 transition-colors text-sm font-semibold";
 
   // Style to hide elements when the menu is open on mobile
-  const hideOnMobileOpen = isMenuOpen ? "invisible md:visible" : "";
+  const hideOnMobileOpen = isMenuOpen ? "invisible lg:visible" : "";
 
   return (
     <Bounded
       full
-      className={`absolute top-3 z-50 w-full ${isMenuOpen ? "fixed top-0 bg-transparent" : ""}`}
+      className={`absolute top-3 z-50 w-full  ${isMenuOpen ? "fixed top-0 bg-transparent" : ""}`}
     >
-      <header className="flex flex-row items-center justify-between md:px-6 py-4">
+      <header className="flex flex-row items-center justify-between lg:px-6 py-4">
         {/* Left: Site logo - HIDES on mobile when menu is OPEN to avoid overlap */}
         <div
-          className={`md:block ${hideOnMobileOpen} ${logoColor} flex flex-row justify-between sm:ml-8 lg:ml-5`}
+          className={`lg:block ${hideOnMobileOpen} ${logoColor} flex flex-row justify-between sm:ml-8 lg:ml-5`}
         >
           <TerratoneLogo className=" scale-79 sm:scale-85 lg:scale-100" />
         </div>
 
         {/* Middle: Desktop Navigation links */}
-        <nav className="hidden md:block">
+        <nav className="hidden lg:block">
           {data.navigation && (
             <ul className="flex flex-row gap-6">
               {data.navigation.map((item, index) => (
@@ -54,7 +54,7 @@ export default function HeaderClient({ headerData }) {
         <div className="flex items-center">
           {/* Desktop Button (Conditionally visible on MD and up) */}
           {data.nav_button_link && (
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <Button noBorder field={data.nav_button_link} className="bg-white font-barlowNormal text-xs px-2 py-1.5" >{data.nav_buttonlink_text}
               </Button>
             </div>
