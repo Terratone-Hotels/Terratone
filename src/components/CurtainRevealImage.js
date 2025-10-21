@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 /**
  * CurtainRevealImage
  * GSAP curtain reveal animation for PrismicNextImage.
- * Fully protected against hydration and pin errors.
+ * Fully protected against hydration, stutter, and pin errors.
  */
 export default function CurtainRevealImage({
   field,
@@ -31,10 +31,9 @@ export default function CurtainRevealImage({
 }) {
   const wrapperRef = useRef(null);
   const overlayRef = useRef(null);
-  // ✅ FIX for Hydration Error: Initialize state without a random value.
   const [curtainColor, setCurtainColor] = useState(color || "transparent");
 
-  // ✅ FIX for Hydration Error: Generate random color only on the client-side.
+  // useEffect 1: Generate random color only on the client-side.
   useEffect(() => {
     if (!color) {
       const chosen = colorList[Math.floor(Math.random() * colorList.length)];
@@ -42,6 +41,7 @@ export default function CurtainRevealImage({
     }
   }, [color, colorList]);
 
+  // 🟢 CORRECTED useEffect 2: Animation setup runs immediately and synchronously.
   useEffect(() => {
     // 🛡️ Prevent SSR errors
     if (typeof window === "undefined") return;
@@ -49,49 +49,48 @@ export default function CurtainRevealImage({
     const wrapper = wrapperRef.current;
     const overlay = overlayRef.current;
 
+    // 🎯 CRITICAL FIX: The null check handles cases where the DOM isn't ready.
     if (!wrapper || !overlay) return;
     if (!field || !field.url) {
       console.warn("CurtainRevealImage: invalid field", field);
       return;
     }
 
-    // Delay slightly to ensure ScrollTrigger and Lenis are ready
-    const timeout = setTimeout(() => {
-      const ctx = gsap.context(() => {
-        const dirMap = {
-          up: { from: { y: "0%" }, to: { y: "-100%" } },
-          down: { from: { y: "-100%" }, to: { y: "0%" } },
-          left: { from: { x: "0%" }, to: { x: "-100%" } },
-          right: { from: { x: "-100%" }, to: { x: "0%" } },
-        };
+    // ❌ REMOVED: The setTimeout wrapper, fixing both the stutter and the timing race condition.
+    // The setup now runs immediately after the component mounts.
+    const ctx = gsap.context(() => {
+      const dirMap = {
+        up: { from: { y: "0%" }, to: { y: "-100%" } },
+        down: { from: { y: "-100%" }, to: { y: "0%" } },
+        left: { from: { x: "0%" }, to: { x: "-100%" } },
+        right: { from: { x: "-100%" }, to: { x: "0%" } },
+      };
 
-        const dir = dirMap[curtainDirection] || dirMap.up;
-        gsap.set(overlay, dir.from);
+      const dir = dirMap[curtainDirection] || dirMap.up;
 
-        const tween = gsap.to(overlay, {
-          ...dir.to,
-          duration,
-          ease,
-          scrollTrigger: {
-            trigger: wrapper,
-            start: "top 85%",
-            toggleActions: "play none none none",
-            once,
-            markers,
-          },
-        });
+      // Set initial state
+      gsap.set(overlay, dir.from);
 
-        // ✅ FIX for TypeError: This line was causing the crash and has been removed.
-        // GSAP handles refreshing automatically when a new trigger is created.
-        // ScrollTrigger.refresh();
+      const tween = gsap.to(overlay, {
+        ...dir.to,
+        duration,
+        ease,
+        scrollTrigger: {
+          trigger: wrapper,
+          start: "top 85%",
+          toggleActions: "play none none none",
+          once,
+          markers,
+        },
+      });
 
-        return () => tween.scrollTrigger?.kill();
-      }, wrapper);
+      // We still need the cleanup for the tween's ScrollTrigger
+      return () => tween.scrollTrigger?.kill();
+    }, wrapper);
 
-      return () => ctx.revert();
-    }, 150); // 150ms delay fixes hydration timing
-
-    return () => clearTimeout(timeout);
+    // This is the final cleanup that GSAP Context provides.
+    // We no longer need to clear a timeout.
+    return () => ctx.revert();
   }, [field, curtainDirection, duration, ease, once, markers]);
 
   return (
