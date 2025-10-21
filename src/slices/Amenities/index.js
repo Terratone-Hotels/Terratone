@@ -37,7 +37,7 @@ const AmenitiesStatic = ({ slice }) => {
       data-slice-variation={slice.variation}
       className={"mt-25"}
     >
-      <div className=" flex flex-col md:flex-row h-full md:h-[420px] border border-red-500  lg:h-[533px]  gap-7 lg:gap-12">
+      <div className=" flex flex-col md:flex-row h-full md:h-[420px] lg:h-[533px]  gap-7 lg:gap-12">
         {/* Left side */}
         <div className="flex flex-col justify-evenly">
           <div className="font-serif text-[23px] md:text-[30px]  md:w-[60%] md:leading-8 lg:text-[50px] lg:w-[60%] font-medium lg:leading-10 lg:mb-6 ">

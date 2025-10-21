@@ -66,6 +66,35 @@ const RoomShowcaseSlice = ({ slice }) => {
           </div>
         </Bounded>
       )}
+      {slice.variation === "withJustHeading" && (
+        <Bounded
+          data-slice-type={slice.slice_type}
+          data-slice-variation={slice.variation}
+          className="mt-36"
+        >
+          <div className="flex flex-col items-center mb-10">
+            <div className="text-center font-serif font-medium lg:leading-14 leading-tight text-[30px] lg:text-[60px]">
+              <RichTextRenderer field={slice.primary.heading} />
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row md:flex-wrap justify-evenly items-center gap-6">
+            {slice.primary.room_card.map((item, index) => (
+              <RoomCard
+                key={index}
+                image={item.image}
+                title={item.heading}
+                description={item.description}
+                bookingLink={item.button}
+                linkText="VIEW ROOM"
+                className="group relative"
+                titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
+                descriptionClassName="font-barlow text-xs"
+                showMobileButton={true}
+              />
+            ))}
+          </div>
+        </Bounded>
+      )}
     </>
   );
 };

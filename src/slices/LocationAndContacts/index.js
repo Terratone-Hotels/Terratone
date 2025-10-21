@@ -18,10 +18,10 @@ const LocationAndContacts = ({ slice }) => {
       data-slice-variation={slice.variation}
       className={"my-35"}
     >
-      <div className="flex flex-row w-full font-serif font-medium">
+      <div className="flex flex-col lg:flex-row w-full ">
         {/*Map and button*/}
-        <div className="relative w-[30%]">
-          <div className="w-[448px] h-[338px]">
+        <div className="relative lg:w-[30%]">
+          <div className="lg:w-[448px] lg:h-[338px]">
             <CurtainRevealImage
               field={slice.primary.map}
               className="w-full h-full"
@@ -37,8 +37,8 @@ const LocationAndContacts = ({ slice }) => {
         </div>
 
         {/* Distance Tab */}
-        <div className="self-end border-r-2 ml-6 w-[20%]">
-          <div className="text-[18px]">
+        <div className="flex gap-18 lg:flex-col lg:gap-2 font-barlow lg:self-end lg:ml-6 lg:w-[20%] mb-20 lg:mb-0 ">
+          <div className="text-[16px]">
             <RichTextRenderer field={slice.primary.distance_from} />
           </div>
           <div>
@@ -55,29 +55,31 @@ const LocationAndContacts = ({ slice }) => {
           </div>
         </div>
         {/* Address and contacts */}
-        <div className="ml-5 self-end border-t-2 w-[50%] ">
-          <div className="flex justify-between text-[22px] w-full mt-2 pb-4 ">
-            <div>
-              <RichTextRenderer field={slice.primary.address} />
+        <div className="lg:ml-5 lg:self-end  border-l-2 lg:w-[50%] ">
+          <div className="ml-3 border-t-2">
+            <div className="flex flex-col lg:flex-row justify-between font-serif font-medium lg:text-[24px] w-full mt-2 pb-4 ">
+              <div className="lg:w-[35%]">
+                <RichTextRenderer field={slice.primary.address} />
+              </div>
+              <div>
+                <RichTextRenderer field={slice.primary.contact_number} />
+              </div>
             </div>
-            <div>
-              <RichTextRenderer field={slice.primary.contact_number} />
+            <div className="flex justify-between w-full text-xs lg:text-sm  border-t-2 pt-1.5 pb-4 uppercase font-barlow">
+              <div>
+                <RichTextRenderer field={slice.primary.section_one} />
+              </div>
+              <div>
+                <RichTextRenderer field={slice.primary.section_one_email} />
+              </div>
             </div>
-          </div>
-          <div className="flex justify-between w-full border-t-2 pt-1.5 pb-4 ">
-            <div>
-              <RichTextRenderer field={slice.primary.section_one} />
-            </div>
-            <div>
-              <RichTextRenderer field={slice.primary.section_one_email} />
-            </div>
-          </div>
-          <div className="flex justify-between w-full border-t-2 pt-1.5">
-            <div>
-              <RichTextRenderer field={slice.primary.section_two} />
-            </div>
-            <div>
-              <RichTextRenderer field={slice.primary.section_two_email} />
+            <div className="flex justify-between w-full text-xs lg:text-sm border-t-2 pt-1.5 uppercase font-barlow">
+              <div>
+                <RichTextRenderer field={slice.primary.section_two} />
+              </div>
+              <div>
+                <RichTextRenderer field={slice.primary.section_two_email} />
+              </div>
             </div>
           </div>
         </div>

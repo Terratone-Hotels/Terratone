@@ -69,6 +69,219 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
+type DeluxekingDocumentDataSlicesSlice =
+  | AboutTheRoomSlice
+  | LocationAndContactsSlice
+  | PictureSectionSlice
+  | RoomShowcaseSliceSlice
+  | AmenitiesSlice
+  | HeroForOthersSlice;
+
+/**
+ * Content for DeluxeKing documents
+ */
+interface DeluxekingDocumentData {
+  /**
+   * Slice Zone field in *DeluxeKing*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: deluxeking.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<DeluxekingDocumentDataSlicesSlice> /**
+   * Meta Title field in *DeluxeKing*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: deluxeking.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *DeluxeKing*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: deluxeking.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *DeluxeKing*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: deluxeking.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * DeluxeKing document from Prismic
+ *
+ * - **API ID**: `deluxeking`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type DeluxekingDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<DeluxekingDocumentData>,
+    "deluxeking",
+    Lang
+  >;
+
+type DeluxesuiteDocumentDataSlicesSlice =
+  | AboutTheRoomSlice
+  | AmenitiesSlice
+  | RoomShowcaseSliceSlice
+  | PictureSectionSlice
+  | LocationAndContactsSlice
+  | HeroForOthersSlice;
+
+/**
+ * Content for DeluxeSuite documents
+ */
+interface DeluxesuiteDocumentData {
+  /**
+   * Slice Zone field in *DeluxeSuite*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: deluxesuite.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<DeluxesuiteDocumentDataSlicesSlice> /**
+   * Meta Title field in *DeluxeSuite*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: deluxesuite.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *DeluxeSuite*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: deluxesuite.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *DeluxeSuite*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: deluxesuite.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * DeluxeSuite document from Prismic
+ *
+ * - **API ID**: `deluxesuite`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type DeluxesuiteDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<DeluxesuiteDocumentData>,
+    "deluxesuite",
+    Lang
+  >;
+
+type DeluxetwinDocumentDataSlicesSlice =
+  | AboutTheRoomSlice
+  | AmenitiesSlice
+  | LocationAndContactsSlice
+  | PictureSectionSlice
+  | RoomShowcaseSliceSlice
+  | HeroForOthersSlice;
+
+/**
+ * Content for DeluxeTwin documents
+ */
+interface DeluxetwinDocumentData {
+  /**
+   * Slice Zone field in *DeluxeTwin*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: deluxetwin.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<DeluxetwinDocumentDataSlicesSlice> /**
+   * Meta Title field in *DeluxeTwin*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: deluxetwin.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *DeluxeTwin*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: deluxetwin.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *DeluxeTwin*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: deluxetwin.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * DeluxeTwin document from Prismic
+ *
+ * - **API ID**: `deluxetwin`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type DeluxetwinDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<DeluxetwinDocumentData>,
+    "deluxetwin",
+    Lang
+  >;
+
 type DiningDocumentDataSlicesSlice =
   | ReversedDestinationHighlightsSlice
   | DiningCtaSlice
@@ -402,10 +615,94 @@ export type StaysDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<StaysDocumentData>, "stays", Lang>;
 
 export type AllDocumentTypes =
+  | DeluxekingDocument
+  | DeluxesuiteDocument
+  | DeluxetwinDocument
   | DiningDocument
   | HeaderSettingsDocument
   | HomepageDocument
   | StaysDocument;
+
+/**
+ * Primary content in *AboutTheRoom → Default → Primary*
+ */
+export interface AboutTheRoomSliceDefaultPrimary {
+  /**
+   * Quote field in *AboutTheRoom → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about_the_room.default.primary.quote
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  quote: prismic.RichTextField;
+
+  /**
+   * Description field in *AboutTheRoom → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about_the_room.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Button Link field in *AboutTheRoom → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about_the_room.default.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *AboutTheRoom → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about_the_room.default.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for AboutTheRoom Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type AboutTheRoomSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<AboutTheRoomSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *AboutTheRoom*
+ */
+type AboutTheRoomSliceVariation = AboutTheRoomSliceDefault;
+
+/**
+ * AboutTheRoom Shared Slice
+ *
+ * - **API ID**: `about_the_room`
+ * - **Description**: AboutTheRoom
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type AboutTheRoomSlice = prismic.SharedSlice<
+  "about_the_room",
+  AboutTheRoomSliceVariation
+>;
 
 /**
  * Item in *Amenities → Default → Primary → Amenities*
@@ -1628,9 +1925,49 @@ export type PictureSectionSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *PictureSection → DoublePictures → Primary*
+ */
+export interface PictureSectionSliceDoublePicturesPrimary {
+  /**
+   * Image field in *PictureSection → DoublePictures → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: picture_section.doublePictures.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Image 2 field in *PictureSection → DoublePictures → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: picture_section.doublePictures.primary.image_2
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_2: prismic.ImageField<never>;
+}
+
+/**
+ * DoublePictures variation for PictureSection Slice
+ *
+ * - **API ID**: `doublePictures`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type PictureSectionSliceDoublePictures = prismic.SharedSliceVariation<
+  "doublePictures",
+  Simplify<PictureSectionSliceDoublePicturesPrimary>,
+  never
+>;
+
+/**
  * Slice variation for *PictureSection*
  */
-type PictureSectionSliceVariation = PictureSectionSliceDefault;
+type PictureSectionSliceVariation =
+  | PictureSectionSliceDefault
+  | PictureSectionSliceDoublePictures;
 
 /**
  * PictureSection Shared Slice
@@ -2004,6 +2341,61 @@ export interface RoomShowcaseSliceSliceWithHeadingPrimaryRoomCardItem {
 }
 
 /**
+ * Item in *RoomShowcaseSlice → withJustHeading → Primary → Room Card*
+ */
+export interface RoomShowcaseSliceSliceWithJustHeadingPrimaryRoomCardItem {
+  /**
+   * Image field in *RoomShowcaseSlice → withJustHeading → Primary → Room Card*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: room_showcase_slice.withJustHeading.primary.room_card[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Heading field in *RoomShowcaseSlice → withJustHeading → Primary → Room Card*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: room_showcase_slice.withJustHeading.primary.room_card[].heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *RoomShowcaseSlice → withJustHeading → Primary → Room Card*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: room_showcase_slice.withJustHeading.primary.room_card[].description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Button field in *RoomShowcaseSlice → withJustHeading → Primary → Room Card*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: room_showcase_slice.withJustHeading.primary.room_card[].button
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * Button Text field in *RoomShowcaseSlice → withJustHeading → Primary → Room Card*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: room_showcase_slice.withJustHeading.primary.room_card[].button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+}
+
+/**
  * Primary content in *RoomShowcaseSlice → Default → Primary*
  */
 export interface RoomShowcaseSliceSliceDefaultPrimary {
@@ -2084,11 +2476,53 @@ export type RoomShowcaseSliceSliceWithHeading = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *RoomShowcaseSlice → withJustHeading → Primary*
+ */
+export interface RoomShowcaseSliceSliceWithJustHeadingPrimary {
+  /**
+   * Heading field in *RoomShowcaseSlice → withJustHeading → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: room_showcase_slice.withJustHeading.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Room Card field in *RoomShowcaseSlice → withJustHeading → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: room_showcase_slice.withJustHeading.primary.room_card[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  room_card: prismic.GroupField<
+    Simplify<RoomShowcaseSliceSliceWithJustHeadingPrimaryRoomCardItem>
+  >;
+}
+
+/**
+ * withJustHeading variation for RoomShowcaseSlice Slice
+ *
+ * - **API ID**: `withJustHeading`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type RoomShowcaseSliceSliceWithJustHeading =
+  prismic.SharedSliceVariation<
+    "withJustHeading",
+    Simplify<RoomShowcaseSliceSliceWithJustHeadingPrimary>,
+    never
+  >;
+
+/**
  * Slice variation for *RoomShowcaseSlice*
  */
 type RoomShowcaseSliceSliceVariation =
   | RoomShowcaseSliceSliceDefault
-  | RoomShowcaseSliceSliceWithHeading;
+  | RoomShowcaseSliceSliceWithHeading
+  | RoomShowcaseSliceSliceWithJustHeading;
 
 /**
  * RoomShowcaseSlice Shared Slice
@@ -2516,6 +2950,15 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      DeluxekingDocument,
+      DeluxekingDocumentData,
+      DeluxekingDocumentDataSlicesSlice,
+      DeluxesuiteDocument,
+      DeluxesuiteDocumentData,
+      DeluxesuiteDocumentDataSlicesSlice,
+      DeluxetwinDocument,
+      DeluxetwinDocumentData,
+      DeluxetwinDocumentDataSlicesSlice,
       DiningDocument,
       DiningDocumentData,
       DiningDocumentDataSlicesSlice,
@@ -2529,6 +2972,10 @@ declare module "@prismicio/client" {
       StaysDocumentData,
       StaysDocumentDataSlicesSlice,
       AllDocumentTypes,
+      AboutTheRoomSlice,
+      AboutTheRoomSliceDefaultPrimary,
+      AboutTheRoomSliceVariation,
+      AboutTheRoomSliceDefault,
       AmenitiesSlice,
       AmenitiesSliceDefaultPrimaryAmenitiesItem,
       AmenitiesSliceDefaultPrimary,
@@ -2585,8 +3032,10 @@ declare module "@prismicio/client" {
       OneWithSideWordsSliceDefault,
       PictureSectionSlice,
       PictureSectionSliceDefaultPrimary,
+      PictureSectionSliceDoublePicturesPrimary,
       PictureSectionSliceVariation,
       PictureSectionSliceDefault,
+      PictureSectionSliceDoublePictures,
       ResonanceBlockSlice,
       ResonanceBlockSliceDefaultPrimary,
       ResonanceBlockSliceRoomNarrativePrimary,
@@ -2602,9 +3051,12 @@ declare module "@prismicio/client" {
       RoomShowcaseSliceSliceDefaultPrimary,
       RoomShowcaseSliceSliceWithHeadingPrimaryRoomCardItem,
       RoomShowcaseSliceSliceWithHeadingPrimary,
+      RoomShowcaseSliceSliceWithJustHeadingPrimaryRoomCardItem,
+      RoomShowcaseSliceSliceWithJustHeadingPrimary,
       RoomShowcaseSliceSliceVariation,
       RoomShowcaseSliceSliceDefault,
       RoomShowcaseSliceSliceWithHeading,
+      RoomShowcaseSliceSliceWithJustHeading,
       TaglineHeroSliceSlice,
       TaglineHeroSliceSliceDefaultPrimary,
       TaglineHeroSliceSliceRepeatableFieldVariationPrimaryFooterCtaItem,
