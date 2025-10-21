@@ -12,32 +12,34 @@ import { PrismicRichText } from "@prismicio/react";
  */
 const RoomShowcaseSlice = ({ slice }) => {
   return (
+
     <>
-      {slice.variation === "default" && (
-        <Bounded
-          data-slice-type={slice.slice_type}
-          data-slice-variation={slice.variation}
-          className="lg:pt-4  "
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
-            {slice.primary.room_card.map((item, index) => (
-              <RoomCard
-                key={index}
-                image={item.image}
-                title={item.heading}
-                description={item.description}
-                bookingLink={item.button}
-                linkText="VIEW ROOM"
-                className="group relative"
-                titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
-                descriptionClassName="font-barlow text-xs"
-                showMobileButton={true}
-              />
-            ))}
+  
+       {slice.variation === "default" && (
+    <Bounded
+      data-slice-type={slice.slice_type}
+      data-slice-variation={slice.variation}
+      className="lg:pt-4  "
+    >
+      <div className="flex flex-col md:flex-row md:flex-wrap justify-evenly items-center gap-6  ">
+        {slice.primary.room_card.map((item, index) => (
+          <div key={index} className="  ">
+            <RoomCard
+              image={item.image}
+              title={item.heading}
+              description={item.description}
+              bookingLink={item.button}
+              linkText="VIEW ROOM"
+              className="group relative "
+              titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
+              descriptionClassName="font-barlow text-xs"
+              showMobileButton={true}
+            />
           </div>
-        </Bounded>
-      )}
-      {slice.variation === "withHeading" && (
+        ))}
+      </div>
+    </Bounded>)
+   {slice.variation === "withHeading" && (
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
@@ -51,7 +53,7 @@ const RoomShowcaseSlice = ({ slice }) => {
               <RichTextRenderer field={slice.primary.description} />
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
+          <div className="flex flex-col md:flex-row md:flex-wrap justify-evenly items-center gap-6  ">
             {slice.primary.room_card.map((item, index) => (
               <RoomCard
                 key={index}
@@ -69,7 +71,8 @@ const RoomShowcaseSlice = ({ slice }) => {
           </div>
         </Bounded>
       )}
-    </>
+
+
   );
 };
 

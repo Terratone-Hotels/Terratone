@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Button from "@/components/Button";
@@ -11,8 +11,6 @@ import "swiper/css";
 import Bounded from "@/components/Bounded";
 import DotWave from "@/components/DotWave";
 import RichTextRenderer from "@/components/RichTextRenderer";
-import CurtainRevealImage from "@/components/CurtainRevealImage";
-import SplitButton from "@/components/SplitButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,17 +22,38 @@ gsap.registerPlugin(ScrollTrigger);
 const MeetingHalls = ({ slice }) => {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
+  const curtainsRef = useRef([]);
 
+  const colorList = [
+    "var(--color-earth-green)",
+    "var(--color-terra-pink)",
+    "var(--color-toiled-gold)",
+    "var(--color-sand)",
+  ];
+
+  const [curtainColors, setCurtainColors] = useState([]);
+
+  // This useEffect sets the random colors only on the client to prevent hydration errors.
+  useEffect(() => {
+    const colors = slice.primary.rooms.map(
+      () => colorList[Math.floor(Math.random() * colorList.length)]
+    );
+    setCurtainColors(colors);
+  }, [slice.primary.rooms]);
+
+  // This useEffect sets up BOTH animations.
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const section = sectionRef.current;
     const cards = cardsRef.current.filter(Boolean);
-    if (!section || cards.length === 0) return;
+    const curtains = curtainsRef.current.filter(Boolean);
 
-    // Delay to ensure DOM + Lenis + ScrollTrigger are initialized
+    if (!section || cards.length === 0 || curtains.length === 0) return;
+
     const timeout = setTimeout(() => {
-      const tl = gsap.fromTo(
+      // --- ANIMATION 1: CARD SLIDE-UP (with scrub) ---
+      const tlCards = gsap.fromTo(
         cards,
         { y: 550 },
         {
@@ -46,18 +65,39 @@ const MeetingHalls = ({ slice }) => {
             trigger: section,
             start: "top 55%",
             end: "bottom 95%",
-            scrub: true,
+            scrub: true, // ✅ This animation is always linked to the scrollbar
           },
         }
       );
 
-      // 🩹 Ensure triggers refresh after smooth scroll setup
-      setTimeout(() => ScrollTrigger.refresh(), 300);
+      // --- ANIMATION 2: CURTAIN REVEAL (one-time) ---
+      const tlCurtains = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 75%",
+          once: true, // ✅ This animation plays only once
+        },
+      });
 
-      // Cleanup on unmount
+      curtains.forEach((curtain, index) => {
+        gsap.set(curtain, { y: "0%" });
+        tlCurtains.to(
+          curtain,
+          {
+            y: "-100%",
+            duration: 1,
+            ease: "power2.inOut",
+          },
+          index * 0.2
+        );
+      });
+
+      // Cleanup function to kill both animations on unmount
       return () => {
-        tl.scrollTrigger?.kill();
-        tl.kill();
+        tlCards.scrollTrigger?.kill();
+        tlCards.kill();
+        tlCurtains.scrollTrigger?.kill();
+        tlCurtains.kill();
       };
     }, 100);
 
@@ -66,10 +106,7 @@ const MeetingHalls = ({ slice }) => {
 
   return (
     <div className="mt-20 md:mt-44">
-      {/* Animated Dot Wave */}
       <DotWave />
-
-      {/* Heading + Description */}
       <Bounded
         ref={sectionRef}
         data-slice-type={slice.slice_type}
@@ -87,7 +124,6 @@ const MeetingHalls = ({ slice }) => {
           />
         </div>
 
-        {/* ====== Desktop Grid ====== */}
         <div className="hidden lg:grid lg:grid-cols-3 gap-20 max-w-[85%] mx-auto items-start">
           {slice.primary.rooms.map((item, index) => (
             <div
@@ -95,20 +131,28 @@ const MeetingHalls = ({ slice }) => {
               ref={(el) => (cardsRef.current[index] = el)}
               className="group flex flex-col"
             >
-              {/* Image with Curtain Reveal */}
               <div className="relative aspect-square overflow-hidden">
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-                <CurtainRevealImage
+                <PrismicNextImage
                   field={item.image}
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
                 />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
-                  <Button className="bg-white px-2 py-1 text-sm  font-barlowNormal">VIEW ROOM</Button>
-                  {/* <SplitButton text={"VIEW ROOM"}/> */}
+                  <Button className="bg-white px-2 py-1 text-sm font-barlowNormal">
+                    VIEW ROOM
+                  </Button>
                 </div>
+
+                {/* The curtain that will be animated */}
+                <div
+                  ref={(el) => (curtainsRef.current[index] = el)}
+                  className="absolute inset-0 z-20 pointer-events-none"
+                  style={{
+                    backgroundColor: curtainColors[index] || "transparent",
+                  }}
+                />
               </div>
 
-              {/* Card Text */}
               <div className="mt-6 flex flex-col justify-start text-left min-h-[120px]">
                 <h3 className="text-[1.375rem] font-medium font-serif">
                   {item.card_title}
@@ -122,7 +166,7 @@ const MeetingHalls = ({ slice }) => {
         </div>
       </Bounded>
 
-      {/* ====== Mobile Swiper ====== */}
+      {/* ====== Mobile Swiper (Untouched) ====== */}
       <div className="lg:hidden pl-4">
         <Swiper spaceBetween={20} slidesPerView={1.2} grabCursor={true}>
           {slice.primary.rooms.map((item, index) => (
@@ -130,12 +174,11 @@ const MeetingHalls = ({ slice }) => {
               <div className="relative flex flex-col">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-                  <CurtainRevealImage
+                  <PrismicNextImage
                     field={item.image}
                     className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
                   />
                 </div>
-
                 <div className="mt-4 flex flex-col justify-between min-h-[110px]">
                   <h3 className="text-lg font-serif font-medium leading-snug">
                     {item.card_title}
