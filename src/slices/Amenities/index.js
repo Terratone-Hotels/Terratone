@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -20,7 +18,6 @@ const AmenitiesStatic = ({ slice }) => {
 
   const prevIndex = (activeIndex - 1 + amenities.length) % amenities.length;
   const nextIndex = (activeIndex + 1) % amenities.length;
-
   // --- 🟢 PRELOAD LOGIC ---
   // Preload ALL images once on mount to remove any lag later.
   // Discuss with your teammate whether to keep this (slightly heavier on memory)
@@ -34,30 +31,25 @@ const AmenitiesStatic = ({ slice }) => {
     });
   }, [amenities]);
 
-
-
   return (
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-        className={"mt-25"}
-      
+      className={"mt-25"}
     >
-      <div className=" hidden  h-dvh py-10 gap-12">
+      <div className=" flex flex-col md:flex-row h-full md:h-[420px] border border-red-500  lg:h-[533px]  gap-7 lg:gap-12">
         {/* Left side */}
-        <div className="flex-1 flex flex-col justify-between">
+        <div className="flex flex-col justify-evenly">
+          <div className="font-serif text-[23px] md:text-[30px]  md:w-[60%] md:leading-8 lg:text-[50px] lg:w-[60%] font-medium lg:leading-10 lg:mb-6 ">
+            <PrismicRichText field={slice.primary.heading} />
+          </div>
           <div>
-            {slice.primary.heading && (
-              <div className="font-serif text-[50px] font-medium leading-10 mb-6 ">
-                <RichTextRenderer field={slice.primary.heading} />
-              </div>
-            )}
-            <ul ref={listRef} className="mt-10">
+            <ul ref={listRef} className="pl-3 mt-2 md:pl-0">
               {amenities.map((item, index) => (
                 <li
                   key={index}
                   data-index={index}
-                  className={`cursor-pointer font-barlow text-[25px] flex items-center gap-1 transition-colors ${
+                  className={`cursor-pointer font-barlow text-[15px]  lg:text-[20px] flex items-center gap-1 transition-colors ${
                     activeIndex === index
                       ? "font-semibold text-black"
                       : "text-gray-400 hover:text-black"
@@ -65,28 +57,26 @@ const AmenitiesStatic = ({ slice }) => {
                   onClick={() => setActiveIndex(index)}
                 >
                   {activeIndex === index && (
-                    <span className="block w-4 h-4 rounded-full bg-black"></span>
+                    <span className="block w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-black"></span>
                   )}
-                  <RichTextRenderer field={item.amenity} />
+                  <PrismicRichText field={item.amenity} />
                 </li>
               ))}
             </ul>
           </div>
 
-          {slice.primary.message && (
-            <div className="w-[70%] text-[18px] font-barlow font-medium leading-5">
-              <RichTextRenderer field={slice.primary.message} />
-            </div>
-          )}
+          <div className="hidden md:block md:text-[14px] md:w-[85%] lg:w-[70%] lg:text-[18px] font-barlow font-medium leading-5">
+            <PrismicRichText field={slice.primary.message} />
+          </div>
         </div>
 
         {/* Right side */}
-        <div className="flex flex-row h-full items-center gap-6">
+        <div className="flex flex-row h-[250px] md:h-full md:w-[50%] lg:h-full items-center gap-4 lg:gap-6">
           {/* Left column - prev & next images */}
-          <div className="flex flex-col justify-between h-full gap-4  w-[211px]">
+          <div className="flex flex-col h-full   w-[50%]">
             {/* Previous */}
             <div
-              className="w-full h-[40%] cursor-pointer"
+              className=" h-[40%] w-full lg:w-full lg:h-[40%] cursor-pointer"
               onClick={() => setActiveIndex(prevIndex)}
             >
               <PrismicNextImage
@@ -97,7 +87,7 @@ const AmenitiesStatic = ({ slice }) => {
             </div>
             {/* Next */}
             <div
-              className="w-full h-[60%] cursor-pointer"
+              className="h-[60%] w-full lg:w-full lg:h-[60%] cursor-pointer"
               onClick={() => setActiveIndex(nextIndex)}
             >
               <PrismicNextImage
@@ -109,7 +99,7 @@ const AmenitiesStatic = ({ slice }) => {
           </div>
 
           {/* Right column - main large image */}
-          <div className="w-[447px] h-full">
+          <div className="h-full w-full lg:w-[447px] lg:h-full">
             <PrismicNextImage
               field={amenities[activeIndex]?.amenity_image}
               className="w-full h-full object-cover"
@@ -117,6 +107,11 @@ const AmenitiesStatic = ({ slice }) => {
             />
           </div>
         </div>
+        {slice.primary.message && (
+          <div className="md:hidden w-full text-[15px] font-barlow  leading-5">
+            <PrismicRichText field={slice.primary.message} />
+          </div>
+        )}
       </div>
     </Bounded>
   );
