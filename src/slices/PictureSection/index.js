@@ -9,18 +9,45 @@ import { PrismicNextImage } from "@prismicio/next";
  */
 const PictureSection = ({ slice }) => {
   return (
-    <Bounded
-      data-slice-type={slice.slice_type}
-      data-slice-variation={slice.variation}
-      className={"mt-35"}
-    >
-      <div className="w-full h-screen">
-        <CurtainRevealImage
-          field={slice.primary.image}
-          className="w-full h-full object-cover"
-        />
-      </div>
-    </Bounded>
+    <>
+      {slice.variation === "default" && (
+        <Bounded
+          data-slice-type={slice.slice_type}
+          data-slice-variation={slice.variation}
+          className={"mt-35"}
+        >
+          <div className="w-full h-dvh">
+            <CurtainRevealImage
+              field={slice.primary.image}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </Bounded>
+      )}
+
+      {slice.variation === "doublePictures" && (
+        <Bounded
+          data-slice-type={slice.slice_type}
+          data-slice-variation={slice.variation}
+          className={"mt-10 lg:mt-30"}
+        >
+          <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+            <div className="lg:w-[50%] h-dvh">
+              <CurtainRevealImage
+                field={slice.primary.image}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="lg:w-[50%] h-dvh">
+              <CurtainRevealImage
+                field={slice.primary.image_2}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </Bounded>
+      )}
+    </>
   );
 };
 
