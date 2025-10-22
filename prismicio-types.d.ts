@@ -2357,11 +2357,60 @@ export type PictureSectionSliceDoublePictures = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *PictureSection → TrippleImage → Primary*
+ */
+export interface PictureSectionSliceTrippleImagePrimary {
+  /**
+   * Image field in *PictureSection → TrippleImage → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: picture_section.trippleImage.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Image 2 field in *PictureSection → TrippleImage → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: picture_section.trippleImage.primary.image_2
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_2: prismic.ImageField<never>;
+
+  /**
+   * Image 3 field in *PictureSection → TrippleImage → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: picture_section.trippleImage.primary.image_3
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_3: prismic.ImageField<never>;
+}
+
+/**
+ * TrippleImage variation for PictureSection Slice
+ *
+ * - **API ID**: `trippleImage`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type PictureSectionSliceTrippleImage = prismic.SharedSliceVariation<
+  "trippleImage",
+  Simplify<PictureSectionSliceTrippleImagePrimary>,
+  never
+>;
+
+/**
  * Slice variation for *PictureSection*
  */
 type PictureSectionSliceVariation =
   | PictureSectionSliceDefault
-  | PictureSectionSliceDoublePictures;
+  | PictureSectionSliceDoublePictures
+  | PictureSectionSliceTrippleImage;
 
 /**
  * PictureSection Shared Slice
@@ -3636,9 +3685,11 @@ declare module "@prismicio/client" {
       PictureSectionSlice,
       PictureSectionSliceDefaultPrimary,
       PictureSectionSliceDoublePicturesPrimary,
+      PictureSectionSliceTrippleImagePrimary,
       PictureSectionSliceVariation,
       PictureSectionSliceDefault,
       PictureSectionSliceDoublePictures,
+      PictureSectionSliceTrippleImage,
       ResonanceBlockSlice,
       ResonanceBlockSliceDefaultPrimary,
       ResonanceBlockSliceRoomNarrativePrimary,
