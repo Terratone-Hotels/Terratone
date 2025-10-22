@@ -17,16 +17,13 @@ export default function RoomCard({
   buttonTextProp = {},
 }) {
   return (
-    <div className="group  w-full md:w-140 flex flex-col  relative ">
-      {/* Room Image */}
-      {image && (
-        <div>
-          <CurtainRevealImage
-            field={image}
-            className="w-full h-90 md:h-110 object-cover"
-          />
-        </div>
-      )}
+    <div className="group  w-full md:w-100 xl:w-150 flex flex-col  relative ">
+      <div>
+        <CurtainRevealImage
+          field={image}
+          className="w-full h-90 md:h-110 object-cover"
+        />
+      </div>
 
       {/* Title */}
       {title && (
