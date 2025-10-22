@@ -3,8 +3,6 @@ import "./globals.css";
 import SmoothScrollWrapper from "../components/SmoothScrollWrapper";
 import Header from "@/components/HeaderWrapper";
 
-
-
 const garamond = EB_Garamond({
   variable: "--font-eb-mono",
   subsets: ["latin"],
@@ -39,17 +37,15 @@ export const viewport = {
 };
 
 export default async function RootLayout({ children }) {
- 
   return (
     <html lang="en">
       <body
         className={`${garamond.variable} ${barlow.variable} ${barlowNormal.variable}  antialiased`}
       >
-        
         <SmoothScrollWrapper>
           <Header />
-         {children}
-          </SmoothScrollWrapper>
+          {children}
+        </SmoothScrollWrapper>
       </body>
     </html>
   );
