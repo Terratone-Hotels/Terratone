@@ -27,8 +27,26 @@ export default function SmoothScrollWrapper({ children }) {
 
     gsap.ticker.lagSmoothing(0);
 
+    // --- FIX FOR BROWSER BACK BUTTON ---
+    const handlePopState = () => {
+      // 1. Force ScrollTrigger to refresh its positions based on the current DOM state
+      ScrollTrigger.refresh(true);
+
+      // 2. Explicitly tell Lenis to scroll to the top (or the position stored by the browser)
+      // Lenis needs to be made aware of the restoration. Scrolling to the top is the safest default.
+      lenis.scrollTo(0, { immediate: true });
+    };
+
+    // Listen for the page restoration event (when navigating back)
+    window.addEventListener("popstate", handlePopState);
+
+    // Also, force a refresh on initial load to handle cases where components load slowly.
+    ScrollTrigger.refresh(true);
+
+    // Cleanup function
     return () => {
       lenis.destroy();
+      window.removeEventListener("popstate", handlePopState);
     };
   }, []);
 
