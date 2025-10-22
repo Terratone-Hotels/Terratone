@@ -73,5 +73,165 @@
 			}
 		},
 		"items": []
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "oppositeLayout",
+		"primary": {
+			"heading": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Ut aute dolor pariatur cillum duis voluptate ut sunt occaecat ipsum duis nulla pariatur proident commodo. Pariatur veniam est qui quis laboris amet qui pariatur veniam mollit."
+						}
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Quis fugiat voluptate incididunt est excepteur deserunt reprehenderit occaecat. Duis laboris ad elit consectetur ex qui consectetur sunt irure aute ex."
+						}
+					}
+				]
+			},
+			"button_link": {
+				"key": "5e1bc53e-95c8-4b39-b864-a0a4929e37c6",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "http://twitter.com",
+					"text": "organized"
+				}
+			},
+			"button_text": {
+				"__TYPE__": "FieldContent",
+				"value": "bottle",
+				"type": "Text"
+			},
+			"image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1589321599763-d66926c29613",
+					"width": 3168,
+					"height": 4752
+				},
+				"url": "https://images.unsplash.com/photo-1589321599763-d66926c29613",
+				"width": 3168,
+				"height": 4752,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "lion",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"video_id": {
+				"__TYPE__": "FieldContent",
+				"value": "stronger",
+				"type": "Text"
+			},
+			"video": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "centeredRightLeft",
+		"primary": {
+			"heading": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Ea pariatur consequat excepteur Lorem elit eu ex anim."
+						}
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Excepteur proident sit labore dolor sint veniam minim ipsum ipsum sunt enim anim velit. In Lorem est reprehenderit velit incididunt. Duis eu aute occaecat id reprehenderit nisi mollit quis aliqua nulla culpa proident."
+						}
+					}
+				]
+			},
+			"button_link": {
+				"key": "301e8be8-009a-4b70-80eb-28efd2c6f64b",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "http://twitter.com",
+					"text": "government"
+				}
+			},
+			"button_text": {
+				"__TYPE__": "FieldContent",
+				"value": "climb",
+				"type": "Text"
+			},
+			"image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1",
+					"width": 5616,
+					"height": 3744
+				},
+				"url": "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1",
+				"width": 5616,
+				"height": 3744,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "given",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"video_id": {
+				"__TYPE__": "FieldContent",
+				"value": "soldier",
+				"type": "Text"
+			},
+			"video": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
 	}
 ]
