@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+// We no longer need useState, useEffect, or useRef for interaction
 import Bounded from "@/components/Bounded";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
@@ -13,23 +13,18 @@ import RichTextRenderer from "@/components/RichTextRenderer";
  */
 const AmenitiesStatic = ({ slice }) => {
   const amenities = slice.primary.amenities || [];
-  const [activeIndex, setActiveIndex] = useState(0);
-  const listRef = useRef(null);
 
+  // If there are no amenities, don't render anything to avoid errors
+  if (amenities.length === 0) {
+    return null;
+  }
+
+  // The component is now static. We will always display the first item.
+  const activeIndex = 0;
+
+  // Calculate the previous and next indices based on the static activeIndex
   const prevIndex = (activeIndex - 1 + amenities.length) % amenities.length;
   const nextIndex = (activeIndex + 1) % amenities.length;
-  // --- 🟢 PRELOAD LOGIC ---
-  // Preload ALL images once on mount to remove any lag later.
-  // Discuss with your teammate whether to keep this (slightly heavier on memory)
-  // or switch to adjacent-only preloading for optimization.
-  useEffect(() => {
-    amenities.forEach((item) => {
-      if (item?.amenity_image?.url) {
-        const img = new Image();
-        img.src = item.amenity_image.url;
-      }
-    });
-  }, [amenities]);
 
   return (
     <Bounded
@@ -37,27 +32,30 @@ const AmenitiesStatic = ({ slice }) => {
       data-slice-variation={slice.variation}
       className={"mt-25"}
     >
-      <div className=" flex flex-col md:flex-row h-full md:h-[420px] lg:h-[533px]  gap-7 lg:gap-12">
+      <div className=" flex flex-col md:flex-row hh-[420px] border border-red-500  lg:h-[533px]  ">
         {/* Left side */}
         <div className="flex flex-col justify-evenly">
-          <div className="font-serif text-[23px] md:text-[30px]  md:w-[60%] md:leading-8 lg:text-[50px] lg:w-[60%] font-medium lg:leading-10 lg:mb-6 ">
+          <div className="font-serif text-[23px] md:text-[30px]  lg:text-[50px] lg:w-[60%]  ">
             <PrismicRichText field={slice.primary.heading} />
           </div>
           <div>
-            <ul ref={listRef} className="pl-3 mt-2 md:pl-0">
+            {/* The ref is no longer needed on the ul */}
+            <ul className=" ">
               {amenities.map((item, index) => (
                 <li
                   key={index}
                   data-index={index}
-                  className={`cursor-pointer font-barlow text-[15px]  lg:text-[20px] flex items-center gap-1 transition-colors ${
-                    activeIndex === index
+                  // The className is now static. The first item is styled as "active".
+                  // No more cursor-pointer or hover effects.
+                  className={`font-barlow text-[15px] lg:text-[20px] flex items-center gap-1 ${
+                    index === activeIndex
                       ? "font-semibold text-black"
-                      : "text-gray-400 hover:text-black"
+                      : "text-gray-400"
                   }`}
-                  onClick={() => setActiveIndex(index)}
                 >
-                  {activeIndex === index && (
-                    <span className="block w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-black"></span>
+                  {/* The bullet point only shows for the active (first) item */}
+                  {index === activeIndex && (
+                    <span className=" w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-black"></span>
                   )}
                   <PrismicRichText field={item.amenity} />
                 </li>
@@ -70,26 +68,17 @@ const AmenitiesStatic = ({ slice }) => {
           </div>
         </div>
 
-        {/* Right side */}
         <div className="flex flex-row h-[250px] md:h-full md:w-[50%] lg:h-full items-center gap-4 lg:gap-6">
-          {/* Left column - prev & next images */}
-          <div className="flex flex-col h-full   w-[50%]">
-            {/* Previous */}
-            <div
-              className=" h-[40%] w-full lg:w-full lg:h-[40%] cursor-pointer"
-              onClick={() => setActiveIndex(prevIndex)}
-            >
+          <div className="flex flex-col h-full w-[50%]">
+            <div className="h-[40%] w-full lg:w-full lg:h-[40%]">
               <PrismicNextImage
                 field={amenities[prevIndex]?.amenity_image}
                 className="w-full h-full object-cover"
                 priority
               />
             </div>
-            {/* Next */}
-            <div
-              className="h-[60%] w-full lg:w-full lg:h-[60%] cursor-pointer"
-              onClick={() => setActiveIndex(nextIndex)}
-            >
+
+            <div className="h-[60%] w-full lg:w-full lg:h-[60%]">
               <PrismicNextImage
                 field={amenities[nextIndex]?.amenity_image}
                 className="w-full h-full object-cover"
