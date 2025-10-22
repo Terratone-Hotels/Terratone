@@ -21,6 +21,9 @@ const routes = [
   { type: "homepage", path: "/" },
   { type: "dining", path: "/dining" },
   { type: "stays", path: "/stays" },
+  { type: "deluxesuite", path: "/stays/deluxe-suite" },
+  { type: "deluxeking", path: "/stays/deluxe-king" },
+  { type: "deluxetwin", path: "/stays/deluxe-twin" },
   // { type: "page", path: "/:uid" },
 ];
 

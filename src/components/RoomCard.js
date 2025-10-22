@@ -11,10 +11,10 @@ export default function RoomCard({
   title,
   description,
   bookingLink,
-  linkText = "Book Now",
+  linkText,
   titleClassName = "text-xl font-semibold",
   descriptionClassName = " text-gray-700",
-  buttonTextProp = {},
+  buttonClassNames ="",
 }) {
   return (
     <div className="group  w-full md:w-100 xl:w-150 flex flex-col  relative ">
@@ -47,7 +47,11 @@ export default function RoomCard({
           </div>
         )}
 
-        <Button className="p-1.5">{linkText}</Button>
+        <Button className={`p-1.5 ${buttonClassNames}`}>
+          <PrismicNextLink field={bookingLink}>
+            {linkText}
+          </PrismicNextLink>
+        </Button>
       </div>
     </div>
   );
