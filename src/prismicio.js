@@ -24,6 +24,10 @@ const routes = [
   { type: "deluxesuite", path: "/stays/deluxe-suite" },
   { type: "deluxeking", path: "/stays/deluxe-king" },
   { type: "deluxetwin", path: "/stays/deluxe-twin" },
+  { type: "meet", path: "/meet" },
+  { type: "meetingroom", path: "/meet/meeting-room" },
+  { type: "conference_room", path: "/meet/conference-room" },
+  { type: "banquet_hall", path: "/meet/banquet-hall" },
   // { type: "page", path: "/:uid" },
 ];
 

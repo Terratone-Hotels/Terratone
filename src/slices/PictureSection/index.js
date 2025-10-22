@@ -47,6 +47,36 @@ const PictureSection = ({ slice }) => {
           </div>
         </Bounded>
       )}
+      {slice.variation === "trippleImage" && (
+        <Bounded
+          data-slice-type={slice.slice_type}
+          data-slice-variation={slice.variation}
+          className={"mt-10 lg:mt-30"}
+        >
+          <div>
+            <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+              <div className="lg:w-[50%] lg:h-screen">
+                <CurtainRevealImage
+                  field={slice.primary.image}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="lg:w-[50%] lg:h-screen">
+                <CurtainRevealImage
+                  field={slice.primary.image_2}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            <div className="w-full mt-6 lg:h-screen">
+              <CurtainRevealImage
+                field={slice.primary.image_3}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </Bounded>
+      )}
     </>
   );
 };

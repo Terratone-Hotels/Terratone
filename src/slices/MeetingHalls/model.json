@@ -68,6 +68,80 @@
                   "allowText": true,
                   "repeat": false
                 }
+              },
+              "button_text": {
+                "type": "Text",
+                "config": {
+                  "label": "Button Text ",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    },
+    {
+      "id": "withNumbers",
+      "name": "With Numbers",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "rooms": {
+          "type": "Group",
+          "config": {
+            "label": "Rooms",
+            "repeat": true,
+            "fields": {
+              "image": {
+                "type": "Image",
+                "config": {
+                  "label": "Image",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              },
+              "serial_no": {
+                "type": "Text",
+                "config": {
+                  "label": "Serial No",
+                  "placeholder": ""
+                }
+              },
+              "card_title": {
+                "type": "Text",
+                "config": {
+                  "label": "Card Title",
+                  "placeholder": ""
+                }
+              },
+              "card_description": {
+                "type": "Text",
+                "config": {
+                  "label": "Card Description",
+                  "placeholder": ""
+                }
+              },
+              "room_link": {
+                "type": "Link",
+                "config": {
+                  "label": "Room Link",
+                  "placeholder": "",
+                  "select": null,
+                  "allowTargetBlank": true,
+                  "allowText": true,
+                  "repeat": false
+                }
+              },
+              "button_text": {
+                "type": "Text",
+                "config": {
+                  "label": "Button Text",
+                  "placeholder": ""
+                }
               }
             }
           }
