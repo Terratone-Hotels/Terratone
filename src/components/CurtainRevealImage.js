@@ -121,11 +121,9 @@ export default function CurtainRevealImage({
         ref={overlayRef}
         className="absolute inset-0 z-20 pointer-events-none"
         style={{
-          // Use the state value here, which starts as 'transparent' for SSR/initial client render
-          // and then updates to the final random color after useEffect runs.
-          backgroundColor: curtainColor,
           width: "100%",
           height: "100%",
+          backgroundColor: curtainColor,
         }}
       />
     </div>
