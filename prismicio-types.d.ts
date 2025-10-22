@@ -69,6 +69,147 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
+type BanquetHallDocumentDataSlicesSlice =
+  | LocationAndContactsSlice
+  | CallToActionBannerSlice
+  | ReversedDestinationHighlightsSlice
+  | IntroBlockSlice
+  | HeroForOthersSlice;
+
+/**
+ * Content for Banquet Hall documents
+ */
+interface BanquetHallDocumentData {
+  /**
+   * Slice Zone field in *Banquet Hall*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: banquet_hall.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<BanquetHallDocumentDataSlicesSlice> /**
+   * Meta Title field in *Banquet Hall*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: banquet_hall.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Banquet Hall*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: banquet_hall.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Banquet Hall*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: banquet_hall.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Banquet Hall document from Prismic
+ *
+ * - **API ID**: `banquet_hall`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BanquetHallDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<BanquetHallDocumentData>,
+    "banquet_hall",
+    Lang
+  >;
+
+type ConferenceRoomDocumentDataSlicesSlice =
+  | LocationAndContactsSlice
+  | CallToActionBannerSlice
+  | PictureSectionSlice
+  | ReversedDestinationHighlightsSlice
+  | IntroBlockSlice
+  | HeroForOthersSlice;
+
+/**
+ * Content for Conference Room documents
+ */
+interface ConferenceRoomDocumentData {
+  /**
+   * Slice Zone field in *Conference Room*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: conference_room.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<ConferenceRoomDocumentDataSlicesSlice> /**
+   * Meta Title field in *Conference Room*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: conference_room.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Conference Room*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: conference_room.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Conference Room*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: conference_room.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Conference Room document from Prismic
+ *
+ * - **API ID**: `conference_room`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ConferenceRoomDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<ConferenceRoomDocumentData>,
+    "conference_room",
+    Lang
+  >;
+
 type DeluxekingDocumentDataSlicesSlice =
   | AboutTheRoomSlice
   | LocationAndContactsSlice
@@ -546,6 +687,142 @@ export type HomepageDocument<Lang extends string = string> =
     Lang
   >;
 
+type MeetDocumentDataSlicesSlice =
+  | LocationAndContactsSlice
+  | CallToActionBannerSlice
+  | MeetingHallsSlice
+  | IntroBlockSlice
+  | HeroForOthersSlice;
+
+/**
+ * Content for Meet documents
+ */
+interface MeetDocumentData {
+  /**
+   * Slice Zone field in *Meet*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meet.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<MeetDocumentDataSlicesSlice> /**
+   * Meta Title field in *Meet*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: meet.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Meet*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: meet.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Meet*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meet.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Meet document from Prismic
+ *
+ * - **API ID**: `meet`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type MeetDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<MeetDocumentData>, "meet", Lang>;
+
+type MeetingroomDocumentDataSlicesSlice =
+  | LocationAndContactsSlice
+  | CallToActionBannerSlice
+  | ReversedDestinationHighlightsSlice
+  | IntroBlockSlice
+  | HeroForOthersSlice;
+
+/**
+ * Content for MeetingRoom documents
+ */
+interface MeetingroomDocumentData {
+  /**
+   * Slice Zone field in *MeetingRoom*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meetingroom.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<MeetingroomDocumentDataSlicesSlice> /**
+   * Meta Title field in *MeetingRoom*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: meetingroom.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *MeetingRoom*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: meetingroom.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *MeetingRoom*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meetingroom.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * MeetingRoom document from Prismic
+ *
+ * - **API ID**: `meetingroom`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type MeetingroomDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<MeetingroomDocumentData>,
+    "meetingroom",
+    Lang
+  >;
+
 type StaysDocumentDataSlicesSlice =
   | LocationAndContactsSlice
   | AmenitiesSlice
@@ -615,12 +892,16 @@ export type StaysDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<StaysDocumentData>, "stays", Lang>;
 
 export type AllDocumentTypes =
+  | BanquetHallDocument
+  | ConferenceRoomDocument
   | DeluxekingDocument
   | DeluxesuiteDocument
   | DeluxetwinDocument
   | DiningDocument
   | HeaderSettingsDocument
   | HomepageDocument
+  | MeetDocument
+  | MeetingroomDocument
   | StaysDocument;
 
 /**
@@ -1728,6 +2009,87 @@ export interface MeetingHallsSliceDefaultPrimaryRoomsItem {
     prismic.FieldState,
     never
   >;
+
+  /**
+   * Button Text  field in *MeetingHalls → Default → Primary → Rooms*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meeting_halls.default.primary.rooms[].button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+}
+
+/**
+ * Item in *MeetingHalls → With Numbers → Primary → Rooms*
+ */
+export interface MeetingHallsSliceWithNumbersPrimaryRoomsItem {
+  /**
+   * Image field in *MeetingHalls → With Numbers → Primary → Rooms*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meeting_halls.withNumbers.primary.rooms[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Serial No field in *MeetingHalls → With Numbers → Primary → Rooms*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meeting_halls.withNumbers.primary.rooms[].serial_no
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  serial_no: prismic.KeyTextField;
+
+  /**
+   * Card Title field in *MeetingHalls → With Numbers → Primary → Rooms*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meeting_halls.withNumbers.primary.rooms[].card_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  card_title: prismic.KeyTextField;
+
+  /**
+   * Card Description field in *MeetingHalls → With Numbers → Primary → Rooms*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meeting_halls.withNumbers.primary.rooms[].card_description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  card_description: prismic.KeyTextField;
+
+  /**
+   * Room Link field in *MeetingHalls → With Numbers → Primary → Rooms*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meeting_halls.withNumbers.primary.rooms[].room_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  room_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *MeetingHalls → With Numbers → Primary → Rooms*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meeting_halls.withNumbers.primary.rooms[].button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
 }
 
 /**
@@ -1779,9 +2141,41 @@ export type MeetingHallsSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *MeetingHalls → With Numbers → Primary*
+ */
+export interface MeetingHallsSliceWithNumbersPrimary {
+  /**
+   * Rooms field in *MeetingHalls → With Numbers → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meeting_halls.withNumbers.primary.rooms[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  rooms: prismic.GroupField<
+    Simplify<MeetingHallsSliceWithNumbersPrimaryRoomsItem>
+  >;
+}
+
+/**
+ * With Numbers variation for MeetingHalls Slice
+ *
+ * - **API ID**: `withNumbers`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type MeetingHallsSliceWithNumbers = prismic.SharedSliceVariation<
+  "withNumbers",
+  Simplify<MeetingHallsSliceWithNumbersPrimary>,
+  never
+>;
+
+/**
  * Slice variation for *MeetingHalls*
  */
-type MeetingHallsSliceVariation = MeetingHallsSliceDefault;
+type MeetingHallsSliceVariation =
+  | MeetingHallsSliceDefault
+  | MeetingHallsSliceWithNumbers;
 
 /**
  * MeetingHalls Shared Slice
@@ -2213,10 +2607,204 @@ export type ReversedDestinationHighlightsSliceDefault =
   >;
 
 /**
+ * Primary content in *ReversedDestinationHighlights → Centered Left-Right → Primary*
+ */
+export interface ReversedDestinationHighlightsSliceOppositeLayoutPrimary {
+  /**
+   * Image field in *ReversedDestinationHighlights → Centered Left-Right → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.oppositeLayout.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Video field in *ReversedDestinationHighlights → Centered Left-Right → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: reversed_destination_highlights.oppositeLayout.primary.video
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  video: prismic.BooleanField;
+
+  /**
+   * Video ID field in *ReversedDestinationHighlights → Centered Left-Right → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.oppositeLayout.primary.video_id
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  video_id: prismic.KeyTextField;
+
+  /**
+   * Heading field in *ReversedDestinationHighlights → Centered Left-Right → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.oppositeLayout.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *ReversedDestinationHighlights → Centered Left-Right → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.oppositeLayout.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Button Link field in *ReversedDestinationHighlights → Centered Left-Right → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.oppositeLayout.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *ReversedDestinationHighlights → Centered Left-Right → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.oppositeLayout.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+}
+
+/**
+ * Centered Left-Right variation for ReversedDestinationHighlights Slice
+ *
+ * - **API ID**: `oppositeLayout`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ReversedDestinationHighlightsSliceOppositeLayout =
+  prismic.SharedSliceVariation<
+    "oppositeLayout",
+    Simplify<ReversedDestinationHighlightsSliceOppositeLayoutPrimary>,
+    never
+  >;
+
+/**
+ * Primary content in *ReversedDestinationHighlights → Centered Right-Left → Primary*
+ */
+export interface ReversedDestinationHighlightsSliceCenteredRightLeftPrimary {
+  /**
+   * Heading field in *ReversedDestinationHighlights → Centered Right-Left → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.centeredRightLeft.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *ReversedDestinationHighlights → Centered Right-Left → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.centeredRightLeft.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Button Link field in *ReversedDestinationHighlights → Centered Right-Left → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.centeredRightLeft.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *ReversedDestinationHighlights → Centered Right-Left → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.centeredRightLeft.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+
+  /**
+   * Image field in *ReversedDestinationHighlights → Centered Right-Left → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.centeredRightLeft.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Video ID field in *ReversedDestinationHighlights → Centered Right-Left → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.centeredRightLeft.primary.video_id
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  video_id: prismic.KeyTextField;
+
+  /**
+   * Video field in *ReversedDestinationHighlights → Centered Right-Left → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: reversed_destination_highlights.centeredRightLeft.primary.video
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  video: prismic.BooleanField;
+}
+
+/**
+ * Centered Right-Left variation for ReversedDestinationHighlights Slice
+ *
+ * - **API ID**: `centeredRightLeft`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ReversedDestinationHighlightsSliceCenteredRightLeft =
+  prismic.SharedSliceVariation<
+    "centeredRightLeft",
+    Simplify<ReversedDestinationHighlightsSliceCenteredRightLeftPrimary>,
+    never
+  >;
+
+/**
  * Slice variation for *ReversedDestinationHighlights*
  */
 type ReversedDestinationHighlightsSliceVariation =
-  ReversedDestinationHighlightsSliceDefault;
+  | ReversedDestinationHighlightsSliceDefault
+  | ReversedDestinationHighlightsSliceOppositeLayout
+  | ReversedDestinationHighlightsSliceCenteredRightLeft;
 
 /**
  * ReversedDestinationHighlights Shared Slice
@@ -2950,6 +3538,12 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      BanquetHallDocument,
+      BanquetHallDocumentData,
+      BanquetHallDocumentDataSlicesSlice,
+      ConferenceRoomDocument,
+      ConferenceRoomDocumentData,
+      ConferenceRoomDocumentDataSlicesSlice,
       DeluxekingDocument,
       DeluxekingDocumentData,
       DeluxekingDocumentDataSlicesSlice,
@@ -2968,6 +3562,12 @@ declare module "@prismicio/client" {
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
+      MeetDocument,
+      MeetDocumentData,
+      MeetDocumentDataSlicesSlice,
+      MeetingroomDocument,
+      MeetingroomDocumentData,
+      MeetingroomDocumentDataSlicesSlice,
       StaysDocument,
       StaysDocumentData,
       StaysDocumentDataSlicesSlice,
@@ -3024,8 +3624,11 @@ declare module "@prismicio/client" {
       MeetingHallsSlice,
       MeetingHallsSliceDefaultPrimaryRoomsItem,
       MeetingHallsSliceDefaultPrimary,
+      MeetingHallsSliceWithNumbersPrimaryRoomsItem,
+      MeetingHallsSliceWithNumbersPrimary,
       MeetingHallsSliceVariation,
       MeetingHallsSliceDefault,
+      MeetingHallsSliceWithNumbers,
       OneWithSideWordsSlice,
       OneWithSideWordsSliceDefaultPrimary,
       OneWithSideWordsSliceVariation,
@@ -3044,8 +3647,12 @@ declare module "@prismicio/client" {
       ResonanceBlockSliceRoomNarrative,
       ReversedDestinationHighlightsSlice,
       ReversedDestinationHighlightsSliceDefaultPrimary,
+      ReversedDestinationHighlightsSliceOppositeLayoutPrimary,
+      ReversedDestinationHighlightsSliceCenteredRightLeftPrimary,
       ReversedDestinationHighlightsSliceVariation,
       ReversedDestinationHighlightsSliceDefault,
+      ReversedDestinationHighlightsSliceOppositeLayout,
+      ReversedDestinationHighlightsSliceCenteredRightLeft,
       RoomShowcaseSliceSlice,
       RoomShowcaseSliceSliceDefaultPrimaryRoomCardItem,
       RoomShowcaseSliceSliceDefaultPrimary,

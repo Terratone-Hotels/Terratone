@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Button from "@/components/Button";
-import { PrismicNextImage } from "@prismicio/next";
+import { PrismicNextImage ,PrismicNextLink } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -106,97 +106,205 @@ const MeetingHalls = ({ slice }) => {
   }, []);
 
   return (
-    <div className="mt-20 md:mt-44">
-      <DotWave />
-      <Bounded
-        ref={sectionRef}
-        data-slice-type={slice.slice_type}
-        data-slice-variation={slice.variation}
-        className="max-w-[90rem] mx-auto"
-      >
-        <div className="max-w-3xl mx-auto text-center mb-12 px-4 mt-8 md:mt-12">
-          <RichTextRenderer
-            field={slice.primary.heading}
-            className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 lg:mb-8"
-          />
-          <RichTextRenderer
-            field={slice.primary.description}
-            className="leading-tight font-barlow text-[0.875rem] md:text-[1.125rem]"
-          />
-        </div>
-
-        <div className="hidden lg:grid lg:grid-cols-3 gap-20 max-w-[85%] mx-auto items-start">
-          {slice.primary.rooms.map((item, index) => (
-            <div
-              key={index}
-              ref={(el) => (cardsRef.current[index] = el)}
-              className="group flex flex-col"
-            >
-              <div className="relative aspect-square overflow-hidden">
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-                <CurtainRevealImage
-                  field={item.image}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                />
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
-                  <Button className="bg-white px-2 py-1 text-sm font-barlowNormal">
-                    VIEW ROOM
-                  </Button>
-                </div>
-
-                {/* The curtain that will be animated */}
-                <div
-                  ref={(el) => (curtainsRef.current[index] = el)}
-                  className="absolute inset-0 z-20 pointer-events-none"
-                  style={{
-                    backgroundColor: curtainColors[index] || "transparent",
-                  }}
-                />
-              </div>
-
-              <div className="mt-6 flex flex-col justify-start text-left min-h-[120px]">
-                <h3 className="text-[1.375rem] font-medium font-serif">
-                  {item.card_title}
-                </h3>
-                <p className="text-[14px] font-barlow mt-2 leading-relaxed">
-                  {item.card_description}
-                </p>
-              </div>
+    <>
+      {slice.variation === "default" && (
+        <div className="mt-20 md:mt-44">
+          <DotWave />
+          <Bounded
+            ref={sectionRef}
+            data-slice-type={slice.slice_type}
+            data-slice-variation={slice.variation}
+            className="max-w-[90rem] mx-auto"
+          >
+            <div className="max-w-3xl mx-auto text-center mb-12 px-4 mt-8 md:mt-12">
+              <RichTextRenderer
+                field={slice.primary.heading}
+                className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 lg:mb-8"
+              />
+              <RichTextRenderer
+                field={slice.primary.description}
+                className="leading-tight font-barlow text-[0.875rem] md:text-[1.125rem]"
+              />
             </div>
-          ))}
-        </div>
-      </Bounded>
 
-      {/* ====== Mobile Swiper (Untouched) ====== */}
-      <div className="lg:hidden pl-4">
-        <Swiper spaceBetween={20} slidesPerView={1.2} grabCursor={true}>
-          {slice.primary.rooms.map((item, index) => (
-            <SwiperSlide key={index}>
-              <div className="relative flex flex-col">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-                  <CurtainRevealImage
-                    field={item.image}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-4 flex flex-col justify-between min-h-[110px]">
-                  <h3 className="text-lg font-serif font-medium leading-snug">
-                    {item.card_title}
-                  </h3>
-                  <p className="text-sm font-barlow leading-relaxed mt-2">
-                    {item.card_description}
-                  </p>
-                  <div className="mt-4">
-                    <Button className="px-1.5 py-1">VIEW ROOM</Button>
+            <div className="hidden lg:grid lg:grid-cols-3 gap-20 max-w-[85%] mx-auto items-start">
+              {slice.primary.rooms.map((item, index) => (
+                <div
+                  key={index}
+                  ref={(el) => (cardsRef.current[index] = el)}
+                  className="group flex flex-col"
+                >
+                  <div className="relative aspect-square overflow-hidden">
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                    <CurtainRevealImage
+                      field={item.image}
+                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
+                      <Button className="bg-white px-2 py-1 text-sm font-barlowNormal">
+                        VIEW ROOM
+                      </Button>
+                    </div>
+
+                    {/* The curtain that will be animated */}
+                    <div
+                      ref={(el) => (curtainsRef.current[index] = el)}
+                      className="absolute inset-0 z-20 pointer-events-none"
+                      style={{
+                        backgroundColor: curtainColors[index] || "transparent",
+                      }}
+                    />
+                  </div>
+
+                  <div className="mt-6 flex flex-col justify-start text-left min-h-[120px]">
+                    <h3 className="text-[1.375rem] font-medium font-serif">
+                      {item.card_title}
+                    </h3>
+                    <p className="text-[14px] font-barlow mt-2 leading-relaxed">
+                      {item.card_description}
+                    </p>
                   </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </div>
+              ))}
+            </div>
+          </Bounded>
+
+          {/* ====== Mobile Swiper (Untouched) ====== */}
+          <div className="lg:hidden pl-4">
+            <Swiper spaceBetween={20} slidesPerView={1.2} grabCursor={true}>
+              {slice.primary.rooms.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <div className="relative flex flex-col">
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                      <CurtainRevealImage
+                        field={item.image}
+                        className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="mt-4 flex flex-col justify-between min-h-[110px]">
+                      <h3 className="text-lg font-serif font-medium leading-snug">
+                        {item.card_title}
+                      </h3>
+                      <p className="text-sm font-barlow leading-relaxed mt-2">
+                        {item.card_description}
+                      </p>
+                      <div className="mt-4">
+                        <Button className="px-1.5 py-1">VIEW ROOM</Button>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
+      )}
+      {slice.variation === "withNumbers" && (
+        <div className="mt-20 md:mt-44">
+          <Bounded
+            ref={sectionRef}
+            data-slice-type={slice.slice_type}
+            data-slice-variation={slice.variation}
+            className="max-w-[90rem] mx-auto"
+          >
+            <div className="max-w-3xl mx-auto text-center mb-12 px-4 mt-8 md:mt-12">
+              <RichTextRenderer
+                field={slice.primary.heading}
+                className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 lg:mb-8"
+              />
+              <RichTextRenderer
+                field={slice.primary.description}
+                className="leading-tight font-barlow text-[0.875rem] md:text-[1.125rem]"
+              />
+            </div>
+
+            <div className="hidden lg:grid lg:grid-cols-3 gap-20 max-w-[85%] mx-auto items-start">
+              {slice.primary.rooms.map((item, index) => (
+                <div
+                  key={index}
+                  ref={(el) => (cardsRef.current[index] = el)}
+                  className="group flex flex-col"
+                >
+                  <div className="relative aspect-square overflow-hidden">
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                    <CurtainRevealImage
+                      field={item.image}
+                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                    />
+
+                    {/* The curtain that will be animated */}
+                    <div
+                      ref={(el) => (curtainsRef.current[index] = el)}
+                      className="absolute inset-0 z-20 pointer-events-none"
+                      style={{
+                        backgroundColor: curtainColors[index] || "transparent",
+                      }}
+                    />
+                  </div>
+
+                  <div className="mt-6 flex flex-col justify-start text-left min-h-[120px]">
+                    <div className="font-barlow font-medium text-sm">
+                      {item.serial_no}
+                    </div>
+                    <h3 className="text-[1.375rem] font-medium font-serif">
+                      {item.card_title}
+                    </h3>
+                    <p className="text-[14px] font-barlow mt-2 leading-relaxed">
+                      {item.card_description}
+                    </p>
+                  </div>
+                  <div className="mt-4">
+                    <Button className="bg-white px-2 py-1 text-sm font-barlowNormal">
+                      <PrismicNextLink field={item.room_link} >
+                        {item.button_text}
+                      </PrismicNextLink>
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Bounded>
+
+          {/* ====== Mobile Swiper (Untouched) ====== */}
+          <div className="lg:hidden pl-4">
+            <Swiper spaceBetween={20} slidesPerView={1.2} grabCursor={true}>
+              {slice.primary.rooms.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <div className="relative flex flex-col">
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                      <CurtainRevealImage
+                        field={item.image}
+                        className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="mt-4 flex flex-col justify-between min-h-[110px]">
+                      <div className="font-barlow font-medium text-sm">
+                        {item.serial_no}
+                      </div>
+                      <h3 className="text-lg font-serif font-medium leading-snug">
+                        {item.card_title}
+                      </h3>
+                      <p className="text-sm font-barlow leading-relaxed mt-2">
+                        {item.card_description}
+                      </p>
+                      <div className="mt-4">
+                        <Button className="px-1.5 py-1">
+                          <PrismicNextLink field={item.room_link}>
+                            {item.button_text}
+                          </PrismicNextLink>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

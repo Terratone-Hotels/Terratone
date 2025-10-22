@@ -1,0 +1,61 @@
+{
+  "format": "page",
+  "id": "banquet_hall",
+  "label": "Banquet Hall",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "location_and_contacts": {
+              "type": "SharedSlice"
+            },
+            "call_to_action_banner": {
+              "type": "SharedSlice"
+            },
+            "reversed_destination_highlights": {
+              "type": "SharedSlice"
+            },
+            "intro_block": {
+              "type": "SharedSlice"
+            },
+            "hero_for_others": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    },
+    "SEO & Metadata": {
+      "meta_title": {
+        "config": {
+          "label": "Meta Title",
+          "placeholder": "A title of the page used for social media and search engines"
+        },
+        "type": "Text"
+      },
+      "meta_description": {
+        "config": {
+          "label": "Meta Description",
+          "placeholder": "A brief summary of the page"
+        },
+        "type": "Text"
+      },
+      "meta_image": {
+        "config": {
+          "constraint": {
+            "height": 1260,
+            "width": 2400
+          },
+          "label": "Meta Image",
+          "thumbnails": []
+        },
+        "type": "Image"
+      }
+    }
+  }
+}

@@ -76,13 +76,21 @@
 							[
 								"room_link",
 								{
-									"__TYPE__": "LinkContent",
 									"key": "ab77bc4d-5915-4655-9421-e6952c4c9f62",
+									"__TYPE__": "LinkContent",
 									"value": {
 										"__TYPE__": "ExternalLink",
 										"url": "https://prismic.io",
 										"text": "this"
 									}
+								}
+							],
+							[
+								"button_text",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "pine",
+									"type": "Text"
 								}
 							]
 						]
@@ -91,5 +99,97 @@
 			}
 		},
 		"items": []
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "withNumbers",
+		"primary": {
+			"rooms": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"image",
+								{
+									"origin": {
+										"id": "main",
+										"url": "https://images.unsplash.com/photo-1551739440-5dd934d3a94a",
+										"width": 3456,
+										"height": 4320
+									},
+									"url": "https://images.unsplash.com/photo-1551739440-5dd934d3a94a",
+									"width": 3456,
+									"height": 4320,
+									"edit": {
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 0
+										},
+										"background": "transparent"
+									},
+									"alt": "neighborhood",
+									"credits": null,
+									"__TYPE__": "ImageContent",
+									"thumbnails": {}
+								}
+							],
+							[
+								"card_title",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "system",
+									"type": "Text"
+								}
+							],
+							[
+								"card_description",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "think",
+									"type": "Text"
+								}
+							],
+							[
+								"room_link",
+								{
+									"key": "8ad0faec-f478-4c7a-a02c-e875592a7fb3",
+									"__TYPE__": "LinkContent",
+									"value": {
+										"__TYPE__": "ExternalLink",
+										"url": "https://slicemachine.dev",
+										"text": "green"
+									}
+								}
+							],
+							[
+								"serial_no",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "diagram",
+									"type": "Text"
+								}
+							],
+							[
+								"button_text",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "harbor",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
 	}
 ]
