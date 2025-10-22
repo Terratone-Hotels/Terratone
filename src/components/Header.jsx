@@ -29,7 +29,9 @@ export default function HeaderClient({ headerData }) {
         <div
           className={`lg:block ${hideOnMobileOpen} ${logoColor} flex flex-row justify-between sm:ml-8 lg:ml-5`}
         >
-          <TerratoneLogo className=" scale-79 sm:scale-85 lg:scale-100" />
+          <PrismicNextLink href={"/"} className="inline-block">
+            <TerratoneLogo className="scale-79 sm:scale-85 lg:scale-100" />
+          </PrismicNextLink>
         </div>
 
         {/* Middle: Desktop Navigation links */}
@@ -55,7 +57,12 @@ export default function HeaderClient({ headerData }) {
           {/* Desktop Button (Conditionally visible on MD and up) */}
           {data.nav_button_link && (
             <div className="hidden lg:block">
-              <Button noBorder field={data.nav_button_link} className="bg-white font-barlowNormal text-xs px-2 py-1.5" >{data.nav_buttonlink_text}
+              <Button
+                noBorder
+                field={data.nav_button_link}
+                className="bg-white font-barlowNormal text-xs px-2 py-1.5"
+              >
+                {data.nav_buttonlink_text}
               </Button>
             </div>
           )}

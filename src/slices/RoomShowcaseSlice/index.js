@@ -23,7 +23,7 @@ const RoomShowcaseSlice = ({ slice }) => {
                 title={item.heading}
                 description={item.description}
                 bookingLink={item.button}
-                linkText="VIEW ROOM"
+                linkText={item.button_text}
                 className="group relative"
                 titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
                 descriptionClassName="font-barlow text-xs"
@@ -56,7 +56,7 @@ const RoomShowcaseSlice = ({ slice }) => {
                 title={item.heading}
                 description={item.description}
                 bookingLink={item.button}
-                linkText="VIEW ROOM"
+                linkText={item.button_text}
                 className="group relative"
                 titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
                 descriptionClassName="font-barlow text-xs"
@@ -85,7 +85,7 @@ const RoomShowcaseSlice = ({ slice }) => {
                 title={item.heading}
                 description={item.description}
                 bookingLink={item.button}
-                linkText="VIEW ROOM"
+                linkText={item.button_text}
                 className="group relative"
                 titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
                 descriptionClassName="font-barlow text-xs"
