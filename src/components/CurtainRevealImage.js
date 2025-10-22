@@ -123,6 +123,7 @@ export default function CurtainRevealImage({
         style={{
           width: "100%",
           height: "100%",
+          backgroundColor: curtainColor,
         }}
       />
     </div>

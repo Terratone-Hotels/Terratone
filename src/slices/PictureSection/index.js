@@ -9,15 +9,16 @@ import { PrismicNextImage } from "@prismicio/next";
  */
 const PictureSection = ({ slice }) => {
   return (
-   
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
       className={"mt-35"}
     >
-
-      <div className="w-full h-dvh">
-        <CurtainRevealImage field={slice.primary.image} className="w-full h-full object-cover" />
+      <div className="w-full h-screen">
+        <CurtainRevealImage
+          field={slice.primary.image}
+          className="w-full h-full object-cover"
+        />
       </div>
     </Bounded>
   );
