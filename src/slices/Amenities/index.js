@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react"; // Re-introducing useState and useMemo for interactivity
+import { useState, useMemo } from "react";
 import Bounded from "@/components/Bounded";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
-// RichTextRenderer is removed as it was unused in the previous snippet
 
 /**
  * @typedef {import("@prismicio/client").Content.AmenitiesSlice} AmenitiesSlice
@@ -12,30 +11,29 @@ import { PrismicRichText } from "@prismicio/react";
  * @type {import("react").FC<AmenitiesProps>}
  */
 const AmenitiesInteractiveListStaticImages = ({ slice }) => {
-  // Assuming 'amenities' is the Repeatable field key
   const amenities = slice.primary.amenities || [];
   const numAmenities = amenities.length;
 
-  if (numAmenities === 0) {
-    return null;
-  }
-
-  // 1. State Management for the List's Active Index (for list interaction)
+  // --- HOOKS MOVED HERE ---
+  // Hooks must be called at the top level, before any early returns.
   const [listActiveIndex, setListActiveIndex] = useState(0);
 
-  // 2. Hardcoded Indices for the Images (Images remain static to the first item and its neighbors)
-  // The images will always display indices 0, prev(0), and next(0).
-  const imageActiveIndex = 0;
+  const imageActiveIndex = 0; // This remains a hardcoded value
 
-  // Calculate the static previous and next indices based on index 0
   const imagePrevIndex = useMemo(
     () => (imageActiveIndex - 1 + numAmenities) % numAmenities,
-    [numAmenities]
+    [numAmenities] // numAmenities is available, so this is safe
   );
   const imageNextIndex = useMemo(
     () => (imageActiveIndex + 1) % numAmenities,
-    [numAmenities]
+    [numAmenities] // numAmenities is available, so this is safe
   );
+  // --- END OF MOVED HOOKS ---
+
+  // Now, you can safely return early if there are no amenities.
+  if (numAmenities === 0) {
+    return null;
+  }
 
   // Handle click on an amenity item to update the list's active state
   const handleAmenityClick = (index) => {
