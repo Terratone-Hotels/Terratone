@@ -205,7 +205,7 @@ const MeetingHalls = ({ slice }) => {
             ref={sectionRef}
             data-slice-type={slice.slice_type}
             data-slice-variation={slice.variation}
-            className="max-w-[90rem] mx-auto"
+        
           >
             <div className="max-w-3xl mx-auto text-center mb-12 px-4 mt-8 md:mt-12">
               <RichTextRenderer
@@ -218,7 +218,7 @@ const MeetingHalls = ({ slice }) => {
               />
             </div>
 
-            <div className="hidden lg:grid lg:grid-cols-3 gap-20 max-w-[85%] mx-auto items-start">
+            <div className="hidden md:grid md:grid-cols-3 md:gap-6 lg:gap-20  items-start">
               {slice.primary.rooms.map((item, index) => (
                 <div
                   key={index}
@@ -249,7 +249,7 @@ const MeetingHalls = ({ slice }) => {
                     <h3 className="text-[1.375rem] font-medium font-serif">
                       {item.card_title}
                     </h3>
-                    <p className="text-[14px] font-barlow mt-2 leading-relaxed">
+                    <p className="text-[15px] font-barlow mt-2 leading-relaxed">
                       {item.card_description}
                     </p>
                   </div>
@@ -266,7 +266,7 @@ const MeetingHalls = ({ slice }) => {
           </Bounded>
 
           {/* ====== Mobile Swiper (Untouched) ====== */}
-          <div className="lg:hidden pl-4">
+          <div className="md:hidden pl-4">
             <Swiper spaceBetween={20} slidesPerView={1.2} grabCursor={true}>
               {slice.primary.rooms.map((item, index) => (
                 <SwiperSlide key={index}>
