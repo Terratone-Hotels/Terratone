@@ -14,6 +14,7 @@ const RoomShowcaseSlice = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
+          className={"lg:pt-35"}
         >
           <div className="flex flex-col md:flex-row md:flex-wrap justify-evenly items-center gap-6">
             {slice.primary.room_card.map((item, index) => (
