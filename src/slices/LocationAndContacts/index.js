@@ -38,18 +38,18 @@ const LocationAndContacts = ({ slice }) => {
           </div>
 
           {/* Distance Tab */}
-          <div className="flex justify-center lg:mt-0  ">
+          <div className="flex justify-center lg:-mb-1.5  ">
             <div className="flex gap-15 lg:gap-0 lg:flex-col w-full">
-              <div className="text-[14px] lg:text-[18px] mt-4 lg:mt-0 font-barlow">
+              <div className="text-[14px] lg:text-[16px] font-medium mt-4 lg:mt-0 font-barlow">
                 <RichTextRenderer field={slice.primary.distance_from} />
               </div>
               <div className="   font-barlow">
                 {slice.primary.distances.map((item, index) => (
-                  <div key={index} className="mt-4 lg:mt-2">
-                    <div className="text-[12px] lg:text-[16px] text-gray-500">
+                  <div key={index} className="mt-4 lg:mt-1">
+                    <div className="text-[12px] lg:text-[15px] font-medium text-gray-500">
                       <RichTextRenderer field={item.time} />
                     </div>
-                    <div className="leading-4 text-[14px] lg:text-[18px] pt-1">
+                    <div className="text-[14px] lg:text-[18px] ">
                       <RichTextRenderer field={item.location} />
                     </div>
                   </div>
@@ -64,28 +64,28 @@ const LocationAndContacts = ({ slice }) => {
         <div className="w-full lg:font-medium mt-10 lg:mt-0 lg:w-[60%]">
           <div className="border-l-2 border-black pl-4  lg:pl-6">
             <div className="flex flex-col  lg:flex-row justify-between items-start w-full border-t-2   border-black pb-9 pt-2 lg:pb-5 lg:pt-2 ">
-              <div className=" text-[18px] font-medium lg:text-[24px] pb-4 lg:pb-0">
+              <div className=" text-[18px] font-medium lg:text-[26px] pb-4 lg:pb-0">
                 <RichTextRenderer field={slice.primary.address} />
               </div>
-              <div className="text-[18px] font-medium lg:text-[24px]">
+              <div className="text-[18px] font-medium lg:text-[26px]">
                 <RichTextRenderer field={slice.primary.contact_number} />
               </div>
             </div>
 
             <div className="flex font-barlow uppercase justify-between items-center w-full border-t border-black pt-2 pb-4">
-              <div className="text-[13px]">
+              <div className="text-[13px] lg:text-[16px]">
                 <RichTextRenderer field={slice.primary.section_one} />
               </div>
-              <div className="text-[13px]">
+              <div className="text-[13px] lg:text-[16px]">
                 <RichTextRenderer field={slice.primary.section_one_email} />
               </div>
             </div>
 
-            <div className="flex leading-4 font-barlow uppercase justify-between items-center w-full border-t border-black pt-2">
-              <div className="text-[13px]">
+            <div className="flex  font-barlow uppercase justify-between items-center w-full border-t border-black pt-2 ">
+              <div className="text-[13px] lg:text-[16px]  lg:-mb-1.5">
                 <RichTextRenderer field={slice.primary.section_two} />
               </div>
-              <div className=" text-[13px]">
+              <div className="text-[13px] lg:text-[16px]  lg:-mb-1.5">
                 <RichTextRenderer field={slice.primary.section_two_email} />
               </div>
             </div>
