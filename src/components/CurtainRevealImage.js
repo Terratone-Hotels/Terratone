@@ -105,11 +105,14 @@ export default function CurtainRevealImage({
       style={{ lineHeight: 0 }}
     >
       {field ? (
-        <PrismicNextImage
-          field={field}
-          alt={alt}
-          className="w-full h-full object-cover"
-        />
+        <>
+          <PrismicNextImage
+            field={field}
+            alt={alt}
+            className="w-full h-full object-cover relative"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent z-10" />
+        </>
       ) : (
         <div className="bg-gray-100 w-full h-full flex items-center justify-center text-gray-400 text-sm">
           Missing Image
