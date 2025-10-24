@@ -77,7 +77,7 @@ const DestinationHighlight = ({ slice }) => {
           ref={sectionRef}
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className="mt-10 lg:mt-30 overflow-hidden"
+          className="overflow-hidden"
         >
           <div className="flex flex-col-reverse md:flex-row gap-5 items-start">
             {/* Left Side Text */}

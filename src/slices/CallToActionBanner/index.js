@@ -15,7 +15,6 @@ const CallToActionBanner = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className={"mt-35"}
     >
       {/* Container for the image and content, with a fixed height and relative positioning */}
       <div className="relative w-full h-[524px]">

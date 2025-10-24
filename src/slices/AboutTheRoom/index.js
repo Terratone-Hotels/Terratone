@@ -12,7 +12,6 @@ const AboutTheRoom = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className={"mt-20"}
     >
       {/* Main Container */}
       <div className="flex flex-col lg:flex-row">

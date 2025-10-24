@@ -19,7 +19,7 @@ const DiningCta = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       {/* Section 1: The main CTA content */}
-      <div className="flex flex-col md:flex-row-reverse justify-between items-start gap-6 mt-20">
+      <div className="flex flex-col md:flex-row-reverse justify-between items-start gap-6">
         <div className="h-[290px] w-full md:w-[40%] md:h-[320px] lg:h-[440px] flex-shrink-0">
           {/* --- CHANGE 1: Use PrismicNextImage for the single CTA image --- */}
           {/* ParallaxGallery is for a list of images, so PrismicNextImage is the correct component for a single image field. */}

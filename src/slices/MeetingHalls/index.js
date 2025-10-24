@@ -108,14 +108,15 @@ const MeetingHalls = ({ slice }) => {
   return (
     <>
       {slice.variation === "default" && (
-        <div className="mt-20 md:mt-44">
-          <DotWave />
+        <div >
+          
           <Bounded
             ref={sectionRef}
             data-slice-type={slice.slice_type}
             data-slice-variation={slice.variation}
             className="max-w-[90rem] mx-auto"
           >
+            <DotWave />
             <div className="max-w-3xl mx-auto text-center mb-12 px-4 mt-8 md:mt-12">
               <RichTextRenderer
                 field={slice.primary.heading}
@@ -203,13 +204,13 @@ const MeetingHalls = ({ slice }) => {
         </div>
       )}
       {slice.variation === "withNumbers" && (
-        <div className="mt-20 md:mt-44">
+        <div >
           <Bounded
             ref={sectionRef}
             data-slice-type={slice.slice_type}
             data-slice-variation={slice.variation}
           >
-            <div className="max-w-3xl mx-auto text-center mb-12 px-4 mt-8 md:mt-12">
+            <div className="max-w-3xl mx-auto text-center px-4">
               <RichTextRenderer
                 field={slice.primary.heading}
                 className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 lg:mb-8"
