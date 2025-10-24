@@ -33,7 +33,7 @@ const CallToActionBanner = ({ slice }) => {
         <div className="absolute inset-0 flex flex-col items-center justify-center">
 
           {/* Text/Message container */}
-          <div className="max-w-[76%] text-center text-white font-serif tracking-tight text-3xl sm:text-4xl md:text-5xl font-light leading-tight">
+          <div className="max-w-[80%] text-center text-white font-serif tracking-tight text-3xl sm:text-4xl md:text-5xl font-light leading-tight">
             <RichTextRenderer
               field={slice.primary.message}
              

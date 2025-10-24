@@ -143,7 +143,9 @@ const MeetingHalls = ({ slice }) => {
                     />
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
                       <Button className="bg-white px-2 py-1 text-sm font-barlowNormal">
-                        VIEW ROOM
+                        <PrismicNextLink field={item.room_link}>
+                          {item.button_text}
+                        </PrismicNextLink>
                       </Button>
                     </div>
 
@@ -158,10 +160,10 @@ const MeetingHalls = ({ slice }) => {
                   </div>
 
                   <div className="mt-6 flex flex-col justify-start text-left min-h-[120px]">
-                    <h3 className="text-[1.375rem] font-medium font-serif">
+                    <h3 className="text-[24px] font-medium font-serif">
                       {item.card_title}
                     </h3>
-                    <p className="text-[14px] font-barlow mt-2 leading-relaxed">
+                    <p className="text-[16px] font-barlow mt-2 leading-relaxed">
                       {item.card_description}
                     </p>
                   </div>
@@ -207,7 +209,6 @@ const MeetingHalls = ({ slice }) => {
             ref={sectionRef}
             data-slice-type={slice.slice_type}
             data-slice-variation={slice.variation}
-        
           >
             <div className="max-w-3xl mx-auto text-center px-4">
               <RichTextRenderer
@@ -220,7 +221,7 @@ const MeetingHalls = ({ slice }) => {
               />
             </div>
 
-            <div className="hidden md:grid md:grid-cols-3 md:gap-6 lg:gap-20  items-start">
+            <div className="hidden md:grid md:grid-cols-3 md:gap-6 lg:gap-6  items-start">
               {slice.primary.rooms.map((item, index) => (
                 <div
                   key={index}
@@ -245,13 +246,13 @@ const MeetingHalls = ({ slice }) => {
                   </div>
 
                   <div className="mt-6 flex flex-col justify-start text-left min-h-[120px]">
-                    <div className="font-barlow font-medium text-sm">
+                    <div className="font-barlow font-medium text-lg">
                       {item.serial_no}
                     </div>
-                    <h3 className="text-[1.375rem] font-medium font-serif">
+                    <h3 className="md:text-[24px] lg:text-[28px] font-medium font-serif">
                       {item.card_title}
                     </h3>
-                    <p className="text-[15px] font-barlow mt-2 leading-relaxed">
+                    <p className="lg:text-[18px] font-barlow mt-2 leading-snug">
                       {item.card_description}
                     </p>
                   </div>
