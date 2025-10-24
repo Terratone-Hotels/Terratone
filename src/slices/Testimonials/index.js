@@ -16,7 +16,6 @@ const Testimonials = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="mt-[90px] "
     >
       <div className="flex flex-col justify-center text-center items-center w-full md:max-w-[60rem] mx-auto ">
         <div className="flex text-5xl font-medium font-serif ">
