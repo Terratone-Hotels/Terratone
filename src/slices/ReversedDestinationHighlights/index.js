@@ -79,7 +79,7 @@ const ReversedDestinationHighlights = ({ slice }) => {
           data-slice-variation={slice.variation}
           className={"mt-10 lg:mt-30 mb-10 overflow-hidden "}
         >
-          <div className="flex flex-col md:flex-row lg:px-30 gap-5 items-center">
+          <div className="flex flex-col md:flex-row lg:px-30 gap-5 md:items-center">
             {/* Left Side Media */}
             <div
               className="
@@ -139,7 +139,7 @@ const ReversedDestinationHighlights = ({ slice }) => {
           data-slice-variation={slice.variation}
           className={"mt-10 lg:mt-30 mb-10 overflow-hidden "}
         >
-          <div className="flex flex-col-reverse md:flex-row gap-5 lg:px-30 items-center">
+          <div className="flex flex-col-reverse md:flex-row gap-5 lg:px-30 md:items-center">
             {/* Left Side Text */}
             <div className="md:w-1/2 space-y-5">
               {/* Animated Heading */}
