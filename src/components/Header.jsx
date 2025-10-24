@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { PrismicNextLink } from "@prismicio/next";
 import TerratoneLogo from "./terratoneLogo";
 import Bounded from "./Bounded";
@@ -9,22 +9,52 @@ import Button from "@/components/Button";
 
 export default function HeaderClient({ headerData }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const headerRef = useRef(null);
+  const scrollTimeout = useRef(null);
+
   const data = headerData;
 
   // 💡 Logo and button colors are always for the DARK header when the menu is CLOSED.
   const logoColor = "text-white";
-  const buttonClasses =
-    "px-4 py-2 text-white bg-black border border-black rounded-md hover:bg-gray-800 transition-colors text-sm font-semibold";
 
   // Style to hide elements when the menu is open on mobile
   const hideOnMobileOpen = isMenuOpen ? "invisible lg:visible" : "";
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleScroll = () => {
+      // Hide header immediately while scrolling
+      if (headerRef.current)
+        headerRef.current.style.transform = "translateY(-120%)";
+
+      // Clear previous timeout
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+
+      // Show header after 250ms of no scrolling
+      scrollTimeout.current = setTimeout(() => {
+        if (headerRef.current)
+          headerRef.current.style.transform = "translateY(0%)";
+      }, 250);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+    };
+  }, []);
+
   return (
     <Bounded
       full
-      className={`absolute top-3 z-50 w-full  ${isMenuOpen ? "fixed top-0 bg-transparent" : ""}`}
+      className={`fixed top-0 left-0 right-0 z-50 w-full ${isMenuOpen ? "bg-transparent" : ""}`}
     >
-      <header className="flex flex-row items-center justify-between lg:px-6 py-4">
+      <header
+        ref={headerRef}
+        className="flex flex-row items-center justify-between lg:px-6 py-4 transition-transform duration-300 ease-in-out"
+      >
         {/* Left: Site logo - HIDES on mobile when menu is OPEN to avoid overlap */}
         <div
           className={`lg:block ${hideOnMobileOpen} ${logoColor} flex flex-row justify-between sm:ml-8 lg:ml-5`}
@@ -54,7 +84,7 @@ export default function HeaderClient({ headerData }) {
 
         {/* Right: Container for Desktop Button and Mobile Menu components */}
         <div className="flex items-center">
-          {/* Desktop Button (Conditionally visible on MD and up) */}
+          {/* Desktop Button */}
           {data.nav_button_link && (
             <div className="hidden lg:block">
               <Button
@@ -67,10 +97,8 @@ export default function HeaderClient({ headerData }) {
             </div>
           )}
 
-          {/* Mobile Menu Component (Only shows the hamburger when closed) */}
-          {/* We must wrap the MobileMenu in a div that HIDES its hamburger when the menu is open */}
+          {/* Mobile Menu Hamburger */}
           <div className={hideOnMobileOpen}>
-            {/* This div only holds the HAMBURGER icon and nothing else when closed */}
             {!isMenuOpen && (
               <MobileMenu
                 navigation={data.navigation || []}
@@ -82,7 +110,7 @@ export default function HeaderClient({ headerData }) {
             )}
           </div>
 
-          {/* 💡 The full menu overlay is rendered separately to be outside the header flow */}
+          {/* Full Mobile Menu Overlay */}
           {isMenuOpen && (
             <MobileMenu
               navigation={data.navigation || []}

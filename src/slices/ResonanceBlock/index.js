@@ -80,7 +80,7 @@ const ResonanceBlock = ({ slice }) => {
             </div>
             <div className="w-[35%] flex mt-auto h-auto items-end justify-center">
               <div className=" w-[50%] font-barlow font-medium">
-                <PrismicRichText field={slice.primary.description_two} />
+                <RichTextRenderer field={slice.primary.description_two} />
               </div>
             </div>
           </div>
@@ -95,10 +95,10 @@ const ResonanceBlock = ({ slice }) => {
               </div>
               <div className=" mt-5 w-[71%] font-barlow ">
                 <div className="leading-tight">
-                  <PrismicRichText field={slice.primary.description_one} />
+                  <RichTextRenderer field={slice.primary.description_one} />
                 </div>
                 <div className="leading-tight">
-                  <PrismicRichText field={slice.primary.description_two} />
+                  <RichTextRenderer field={slice.primary.description_two} />
                 </div>
               </div>
               <div></div>

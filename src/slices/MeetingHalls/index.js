@@ -55,16 +55,17 @@ const MeetingHalls = ({ slice }) => {
       // --- ANIMATION 1: CARD SLIDE-UP (with scrub) ---
       const tlCards = gsap.fromTo(
         cards,
-        { y: 550 },
+        { y: 650 },
         {
           y: 0,
-          duration: 1.5,
+
+          duration: 3.5,
           ease: "power2.out",
           stagger: 0.55,
           scrollTrigger: {
             trigger: section,
-            start: "top 55%",
-            end: "bottom 95%",
+            start: "top 45%",
+            end: "bottom 55%",
             scrub: true, // ✅ This animation is always linked to the scrollbar
           },
         }
