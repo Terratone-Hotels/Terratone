@@ -14,10 +14,10 @@ export default function RoomCard({
   linkText,
   titleClassName = "text-xl font-semibold",
   descriptionClassName = " text-gray-700",
-  buttonClassNames ="",
+  buttonClassNames = "",
 }) {
   return (
-    <div className="group  w-full md:w-100 xl:w-150 flex flex-col  relative ">
+    <div className="group  w-full md:w-90 xl:w-110 flex flex-col  relative ">
       <div>
         <CurtainRevealImage
           field={image}
@@ -48,9 +48,7 @@ export default function RoomCard({
         )}
 
         <Button className={`p-1.5 ${buttonClassNames}`}>
-          <PrismicNextLink field={bookingLink}>
-            {linkText}
-          </PrismicNextLink>
+          <PrismicNextLink field={bookingLink}>{linkText}</PrismicNextLink>
         </Button>
       </div>
     </div>
