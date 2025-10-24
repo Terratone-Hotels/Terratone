@@ -44,7 +44,6 @@ const AmenitiesInteractiveListStaticImages = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className={"mt-25"}
     >
       {/* Main flex container: column on mobile, row on tablet/desktop. */}
       <div className="flex flex-col md:flex-row md:h-[450px] lg:h-[533px] overflow-hidden">

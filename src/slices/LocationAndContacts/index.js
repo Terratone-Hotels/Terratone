@@ -17,7 +17,7 @@ const LocationAndContacts = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className={"my-35"}
+      className={"mb-35"}
     >
       <div className="flex flex-col lg:flex-row w-full items-end justify-between font-serif  gap-6 ">
         {/*Map and button*/}

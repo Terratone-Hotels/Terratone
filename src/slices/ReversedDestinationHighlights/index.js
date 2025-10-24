@@ -17,7 +17,7 @@ const ReversedDestinationHighlights = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className={"mt-10 lg:mt-30 mb-10 overflow-hidden "}
+          className={"overflow-hidden "}
         >
           <div className="flex flex-col-reverse md:flex-row gap-5 items-start ">
             {/* Left Side Text */}
@@ -77,7 +77,7 @@ const ReversedDestinationHighlights = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className={"mt-10 lg:mt-30 mb-10 overflow-hidden "}
+          className={"overflow-hidden "}
         >
           <div className="flex flex-col md:flex-row lg:px-30 gap-5 items-center">
             {/* Left Side Media */}
@@ -137,7 +137,7 @@ const ReversedDestinationHighlights = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className={"mt-10 lg:mt-30 mb-10 overflow-hidden "}
+          className={"overflow-hidden "}
         >
           <div className="flex flex-col-reverse md:flex-row gap-5 lg:px-30 items-center">
             {/* Left Side Text */}

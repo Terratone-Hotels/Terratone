@@ -38,7 +38,7 @@ const RoomShowcaseSlice = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className="mt-36"
+          
         >
           <div className="flex flex-col items-center">
             <div className="text-center font-serif font-medium lg:leading-14 leading-tight text-[30px] lg:text-[60px]">
@@ -70,7 +70,6 @@ const RoomShowcaseSlice = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className="mt-36"
         >
           <div className="flex flex-col items-center mb-10">
             <div className="text-center font-serif font-medium lg:leading-14 leading-tight text-[30px] lg:text-[60px]">

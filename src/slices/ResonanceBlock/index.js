@@ -54,7 +54,7 @@ const ResonanceBlock = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className={" h-auto relative mt-35"}
+          className={" h-auto relative "}
         >
           <div className="text-black capitalize font-medium text-center font-serif text-[32px] md:text-[2.813rem] lg:text-[42px] leading-11 mb-5 md:mb-10">
             <RichTextRenderer field={slice.primary.heading} />

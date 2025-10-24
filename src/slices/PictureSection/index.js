@@ -14,7 +14,6 @@ const PictureSection = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className={"mt-35"}
         >
           <div className="w-full h-dvh">
             <CurtainRevealImage
@@ -29,9 +28,9 @@ const PictureSection = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className={" mt-0 md:mt-10 "}
+        
         >
-          <div className="flex flex-col pt-10 md:pt-40 lg:flex-row gap-4 lg:gap-6">
+          <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
             <div className="lg:w-[50%] h-1/2 md:h-dvh">
               <CurtainRevealImage
                 field={slice.primary.image}
@@ -51,7 +50,7 @@ const PictureSection = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className={"mt-10 lg:mt-30"}
+          
         >
           <div>
             <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">

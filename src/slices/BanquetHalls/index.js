@@ -102,7 +102,7 @@ export default function BanquetHalls({ slice }) {
   return (
     <Bounded
       ref={containerRef}
-      className="relative h-auto lg:mt-30 mb-30 mt-[3.5rem] overflow-hidden"
+      className="relative mt-15 lg:mt-35 h-auto overflow-hidden"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
