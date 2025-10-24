@@ -87,7 +87,6 @@ const Hero = ({ slice }) => {
         if (bar) {
           gsap.set(bar, {
             opacity: i === swiper.realIndex ? 1 : 0.2,
-            // Ensure the newly active bar starts empty (strokeDashoffset: 1)
             strokeDashoffset: 1,
           });
         }
@@ -98,11 +97,7 @@ const Hero = ({ slice }) => {
     swiper.on("autoplayTimeLeft", (s, time, progress) => {
       const activeBar = progressBarsRef.current[s.realIndex];
       if (activeBar) {
-        // *** UPDATED LOGIC HERE ***
-        // To make the bar GROW (start empty and fill up),
-        // strokeDashoffset should go from 1 to 0.
-        // Swiper's 'progress' goes from 1 (start) to 0 (end).
-        // Therefore, we use 'progress' directly.
+        // Progress fills from left → right now (0 = full, 1 = empty)
         gsap.to(activeBar, {
           strokeDashoffset: progress,
           ease: "none",
@@ -203,6 +198,7 @@ const Hero = ({ slice }) => {
                       className="absolute inset-0 w-full h-full"
                       viewBox="0 0 100 100"
                       preserveAspectRatio="none"
+                      style={{ transform: "scaleX(-1)" }} // ✅ Fills left → right
                     >
                       <rect
                         ref={(el) => (progressBarsRef.current[index] = el)}
@@ -210,7 +206,6 @@ const Hero = ({ slice }) => {
                         className={`fill-transparent stroke-white stroke-[3] ${
                           index === activeIndex ? "opacity-100" : "opacity-20"
                         }`}
-                        // Initial state: strokeDashoffset: 1 makes it appear empty
                         style={{ strokeDasharray: 1, strokeDashoffset: 1 }}
                         x="1.5"
                         y="1.5"

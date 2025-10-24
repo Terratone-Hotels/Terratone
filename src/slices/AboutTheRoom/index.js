@@ -18,13 +18,13 @@ const AboutTheRoom = ({ slice }) => {
       <div className="flex flex-col lg:flex-row">
         {/* Left side */}
         <div className="lg:w-[50%] mb-4">
-          <div className="lg:w-[80%] font-serif text-[25px] font-medium capitalize lg:text-[42px] leading-tight lg:leading-12">
+          <div className="lg:w-[80%] font-barlow text-[25px] font-medium capitalize lg:text-[42px] leading-tight lg:leading-12">
             <PrismicRichText field={slice.primary.quote} />
           </div>
         </div>
         {/* Right side  */}
         <div className="lg:w-[50%]">
-          <div className="lg:w-[55%] font-barlow leading-tight">
+          <div className=" font-barlow  leading-tight">
             <PrismicRichText field={slice.primary.description} />
           </div>
           <div className="mt-9">
