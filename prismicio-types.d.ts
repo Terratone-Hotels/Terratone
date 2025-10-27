@@ -494,6 +494,503 @@ export type DiningDocument<Lang extends string = string> =
   >;
 
 /**
+ * Item in *Footer Settings → Footer Links*
+ */
+export interface FooterSettingsDocumentDataFooterLinksItem {
+  /**
+   * Page Link field in *Footer Settings → Footer Links*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.footer_links[].page_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  page_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Page Name field in *Footer Settings → Footer Links*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.footer_links[].page_name
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  page_name: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Footer Settings → Page SubLinks 1*
+ */
+export interface FooterSettingsDocumentDataPageSublinksItem {
+  /**
+   * Link field in *Footer Settings → Page SubLinks 1*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_sublinks[].link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * Link Text field in *Footer Settings → Page SubLinks 1*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_sublinks[].link_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  link_text: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Footer Settings → Page SubLinks 2*
+ */
+export interface FooterSettingsDocumentDataPageSublinks2Item {
+  /**
+   * Link field in *Footer Settings → Page SubLinks 2*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_sublinks_2[].link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * Link Text field in *Footer Settings → Page SubLinks 2*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_sublinks_2[].link_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  link_text: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Footer Settings → Page Links*
+ */
+export interface FooterSettingsDocumentDataPageLinksItem {
+  /**
+   * Page Link field in *Footer Settings → Page Links*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_links[].page_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  page_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Page Title field in *Footer Settings → Page Links*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_links[].page_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  page_title: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Footer Settings → Directions*
+ */
+export interface FooterSettingsDocumentDataDirectionsItem {
+  /**
+   * Place field in *Footer Settings → Directions*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.directions[].place
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  place: prismic.KeyTextField;
+
+  /**
+   * Distance field in *Footer Settings → Directions*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.directions[].distance
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  distance: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Footer Settings → Contacts List*
+ */
+export interface FooterSettingsDocumentDataContactsListItem {
+  /**
+   * Type field in *Footer Settings → Contacts List*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.contacts_list[].type
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  type: prismic.RichTextField;
+
+  /**
+   * Link field in *Footer Settings → Contacts List*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: Optional
+   * - **API ID Path**: footer_settings.contacts_list[].link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * Link Text field in *Footer Settings → Contacts List*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Link Text (Optional)
+   * - **API ID Path**: footer_settings.contacts_list[].link_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  link_text: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Footer Settings → Follow Links*
+ */
+export interface FooterSettingsDocumentDataFollowLinksItem {
+  /**
+   * Link field in *Footer Settings → Follow Links*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.follow_links[].link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * Link Text field in *Footer Settings → Follow Links*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.follow_links[].link_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  link_text: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Footer Settings → Booking Sites*
+ */
+export interface FooterSettingsDocumentDataBookingSitesItem {
+  /**
+   * Link field in *Footer Settings → Booking Sites*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.booking_sites[].link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * Link Text field in *Footer Settings → Booking Sites*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.booking_sites[].link_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  link_text: prismic.KeyTextField;
+}
+
+/**
+ * Content for Footer Settings documents
+ */
+interface FooterSettingsDocumentData {
+  /**
+   * Menu field in *Footer Settings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.menu
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  menu: prismic.RichTextField;
+
+  /**
+   * Footer Links field in *Footer Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.footer_links[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  footer_links: prismic.GroupField<
+    Simplify<FooterSettingsDocumentDataFooterLinksItem>
+  >;
+
+  /**
+   * Page Link 1 field in *Footer Settings*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_link_1
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  page_link_1: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Page Title 1 field in *Footer Settings*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_title_1
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  page_title_1: prismic.KeyTextField;
+
+  /**
+   * Page SubLinks 1 field in *Footer Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_sublinks[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  page_sublinks: prismic.GroupField<
+    Simplify<FooterSettingsDocumentDataPageSublinksItem>
+  >;
+
+  /**
+   * Page Link 2 field in *Footer Settings*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_link_2
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  page_link_2: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Page Title 2 field in *Footer Settings*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_title_2
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  page_title_2: prismic.KeyTextField;
+
+  /**
+   * Page SubLinks 2 field in *Footer Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_sublinks_2[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  page_sublinks_2: prismic.GroupField<
+    Simplify<FooterSettingsDocumentDataPageSublinks2Item>
+  >;
+
+  /**
+   * Page Links field in *Footer Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.page_links[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  page_links: prismic.GroupField<
+    Simplify<FooterSettingsDocumentDataPageLinksItem>
+  >;
+
+  /**
+   * Address Heading field in *Footer Settings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.address_heading
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  address_heading: prismic.RichTextField;
+
+  /**
+   * Address field in *Footer Settings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.address
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  address: prismic.RichTextField;
+
+  /**
+   * Direction field in *Footer Settings*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.direction
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  direction: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Direction Text field in *Footer Settings*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.direction_text
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  direction_text: prismic.KeyTextField;
+
+  /**
+   * Directions field in *Footer Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.directions[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  directions: prismic.GroupField<
+    Simplify<FooterSettingsDocumentDataDirectionsItem>
+  >;
+
+  /**
+   * Contacts field in *Footer Settings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.contacts
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  contacts: prismic.RichTextField;
+
+  /**
+   * Contacts List field in *Footer Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.contacts_list[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  contacts_list: prismic.GroupField<
+    Simplify<FooterSettingsDocumentDataContactsListItem>
+  >;
+
+  /**
+   * Rating field in *Footer Settings*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.rating
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  rating: prismic.NumberField;
+
+  /**
+   * Review Count field in *Footer Settings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.review_count
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  review_count: prismic.RichTextField;
+
+  /**
+   * Follow Links field in *Footer Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.follow_links[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  follow_links: prismic.GroupField<
+    Simplify<FooterSettingsDocumentDataFollowLinksItem>
+  >;
+
+  /**
+   * Booking Sites field in *Footer Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.booking_sites[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  booking_sites: prismic.GroupField<
+    Simplify<FooterSettingsDocumentDataBookingSitesItem>
+  >;
+}
+
+/**
+ * Footer Settings document from Prismic
+ *
+ * - **API ID**: `footer_settings`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type FooterSettingsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<FooterSettingsDocumentData>,
+    "footer_settings",
+    Lang
+  >;
+
+/**
  * Item in *Header Settings → Navigation*
  */
 export interface HeaderSettingsDocumentDataNavigationItem {
@@ -898,6 +1395,7 @@ export type AllDocumentTypes =
   | DeluxesuiteDocument
   | DeluxetwinDocument
   | DiningDocument
+  | FooterSettingsDocument
   | HeaderSettingsDocument
   | HomepageDocument
   | MeetDocument
@@ -3605,6 +4103,16 @@ declare module "@prismicio/client" {
       DiningDocument,
       DiningDocumentData,
       DiningDocumentDataSlicesSlice,
+      FooterSettingsDocument,
+      FooterSettingsDocumentData,
+      FooterSettingsDocumentDataFooterLinksItem,
+      FooterSettingsDocumentDataPageSublinksItem,
+      FooterSettingsDocumentDataPageSublinks2Item,
+      FooterSettingsDocumentDataPageLinksItem,
+      FooterSettingsDocumentDataDirectionsItem,
+      FooterSettingsDocumentDataContactsListItem,
+      FooterSettingsDocumentDataFollowLinksItem,
+      FooterSettingsDocumentDataBookingSitesItem,
       HeaderSettingsDocument,
       HeaderSettingsDocumentData,
       HeaderSettingsDocumentDataNavigationItem,

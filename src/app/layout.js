@@ -2,6 +2,7 @@ import { EB_Garamond, Barlow_Semi_Condensed, Barlow } from "next/font/google";
 import "./globals.css";
 import SmoothScrollWrapper from "../components/SmoothScrollWrapper";
 import Header from "@/components/HeaderWrapper";
+import FooterServer from "@/components/FooterServer";
 
 const garamond = EB_Garamond({
   variable: "--font-eb-mono",
@@ -45,6 +46,7 @@ export default async function RootLayout({ children }) {
         <SmoothScrollWrapper>
           <Header />
           {children}
+          <FooterServer/>
         </SmoothScrollWrapper>
       </body>
     </html>
