@@ -225,7 +225,7 @@ export default function Footer({ footerData }) {
 
 
         {/*----- Mobile Version ------*/}
-        <div className="md:hidden font-barlow  border-t border-[#c7c7c7] flex flex-col">
+        <div className="lg:hidden font-barlow  border-t border-[#c7c7c7] flex flex-col">
           {/* First Row */}
           <div className="flex flex-col items-center border-b border-[#c7c7c7] py-6">
             <div className="uppercase text-xs font-medium tracking-widest">
