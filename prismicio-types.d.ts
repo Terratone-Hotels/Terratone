@@ -620,6 +620,22 @@ export interface FooterSettingsDocumentDataDirectionsItem {
   place: prismic.KeyTextField;
 
   /**
+   * Distance Link field in *Footer Settings → Directions*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.directions[].distance_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  distance_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
    * Distance field in *Footer Settings → Directions*
    *
    * - **Field Type**: Text
@@ -634,16 +650,6 @@ export interface FooterSettingsDocumentDataDirectionsItem {
  * Item in *Footer Settings → Contacts List*
  */
 export interface FooterSettingsDocumentDataContactsListItem {
-  /**
-   * Type field in *Footer Settings → Contacts List*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: footer_settings.contacts_list[].type
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  type: prismic.RichTextField;
-
   /**
    * Link field in *Footer Settings → Contacts List*
    *
@@ -663,6 +669,16 @@ export interface FooterSettingsDocumentDataContactsListItem {
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   link_text: prismic.KeyTextField;
+
+  /**
+   * Method field in *Footer Settings → Contacts List*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.contacts_list[].method
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  method: prismic.KeyTextField;
 }
 
 /**
