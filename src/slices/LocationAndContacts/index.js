@@ -28,7 +28,7 @@ const LocationAndContacts = ({ slice }) => {
               className="w-full lg:w-[448px] h-full"
             />
 
-            <div className="absolute inset-0 flex justify-center items-center">
+            <div className="absolute inset-0 flex justify-center items-center z-10">
               <Button className="bg-white px-2 py-1.5">
                 <PrismicNextLink field={slice.primary.map_button_link}>
                   {slice.primary.map_button_text}
