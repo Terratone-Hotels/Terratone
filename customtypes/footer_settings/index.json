@@ -208,6 +208,17 @@
                 "placeholder": ""
               }
             },
+            "distance_link": {
+              "type": "Link",
+              "config": {
+                "label": "Distance Link",
+                "placeholder": "",
+                "select": null,
+                "allowTargetBlank": true,
+                "allowText": true,
+                "repeat": false
+              }
+            },
             "distance": {
               "type": "Text",
               "config": {
@@ -233,15 +244,6 @@
           "label": "Contacts List",
           "repeat": true,
           "fields": {
-            "type": {
-              "type": "StructuredText",
-              "config": {
-                "label": "Type",
-                "placeholder": "",
-                "allowTargetBlank": true,
-                "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
-              }
-            },
             "link": {
               "type": "Link",
               "config": {
@@ -258,6 +260,13 @@
               "config": {
                 "label": "Link Text",
                 "placeholder": "Link Text (Optional)"
+              }
+            },
+            "method": {
+              "type": "Text",
+              "config": {
+                "label": "Method",
+                "placeholder": ""
               }
             }
           }

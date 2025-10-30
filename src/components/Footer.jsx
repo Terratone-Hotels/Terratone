@@ -131,9 +131,11 @@ export default function Footer({ footerData }) {
                           {" "}
                           {item.place}
                         </span>
-                        <span className="underline text-sm text-[#5B5B5B] font-medium">
-                          {item.distance}
-                        </span>
+                        <div className=" text-sm text-[#5B5B5B] font-medium">
+                          <FooterLink field={item.distance_link} noArrow>
+                            {item.distance}
+                          </FooterLink>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -147,13 +149,12 @@ export default function Footer({ footerData }) {
                     {data.contacts_list.map((item, index) => (
                       <div key={index}>
                         <div>
-                          <PrismicRichText field={item.type} />
-                        </div>
-                        <div>
                           <FooterLink
                             field={item.link}
                             arrowSpan={"self-center"}
-                            arrowClassName={"w-[0.7em]"}
+                            arrowClassName={"w-0"}
+                            method={item.method}
+                            noArrow
                           >
                             {item.link_text}
                           </FooterLink>
@@ -337,10 +338,7 @@ export default function Footer({ footerData }) {
             <div className="flex flex-col gap-2">
               <div className="flex gap-2 text-xs ">
                 <div>
-                  <RatingStars
-                    rating={data.rating}
-                    starClassName="w-3 h-4 "
-                  />
+                  <RatingStars rating={data.rating} starClassName="w-3 h-4 " />
                 </div>
                 <div className="text-[#5B5B5B] mt-0.5 flex text-xs font-barlow ">
                   <PrismicRichText field={data.review_count} />{" "}
