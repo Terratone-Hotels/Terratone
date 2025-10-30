@@ -1,21 +1,37 @@
 "use client";
 
-export default function RatingStars({ rating = 0, size = 22 }) {
-  // Ensure the rating is a number, handling string input like "4.5"
+export default function RatingStars({
+  rating = 0,
+  size = 22,
+  maxStars = 5,
+  filledColor = "#1E1E1E",
+  emptyColor = "#E0E0E0",
+  responsiveSizes, // { sm: 14, md: 18, lg: 22 }
+  className = "",
+}) {
   const numericRating = parseFloat(rating);
-  
-  const maxStars = 5;
-  
   const safeRating = Math.min(numericRating || 0, maxStars);
   const fullStars = Math.floor(safeRating);
   const hasHalf = safeRating % 1 >= 0.5;
 
-  // Your Star SVG, now confirmed to be used correctly with currentColor
+  // Compute size dynamically if responsiveSizes provided
+  const getResponsiveSize = () => {
+    if (typeof window === "undefined" || !responsiveSizes) return size;
+
+    const width = window.innerWidth;
+    if (width < 640 && responsiveSizes.sm) return responsiveSizes.sm; // mobile
+    if (width < 1024 && responsiveSizes.md) return responsiveSizes.md; // tablet
+    if (responsiveSizes.lg) return responsiveSizes.lg; // desktop
+    return size;
+  };
+
+  const actualSize = getResponsiveSize();
+
   const StarSVG = (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 22 21" 
+    <svg 
+      width={actualSize}
+      height={actualSize}
+      viewBox="0 0 22 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -26,53 +42,36 @@ export default function RatingStars({ rating = 0, size = 22 }) {
     </svg>
   );
 
-  // Define colors for clarity
-  const filledColor = "#1E1E1E"; // Black
-  const emptyColor = "#E0E0E0"; // Light Gray
-
   return (
-    <div className="flex gap-1">
-      {/* Full stars (Black) */}
+    <div className={`flex self-start gap-1 ${className}`}>
+      {/* Full stars */}
       {[...Array(fullStars)].map((_, i) => (
-        <div key={`full-${i}`} style={{ color: filledColor }}>
+        <span key={`full-${i}`}  className="inline-flex items-center justify-center shrink-0" style={{ color: filledColor }}>
           {StarSVG}
-        </div>
+        </span>
       ))}
 
-      {/* ⭐️ Half star ⭐️ */}
+      {/* Half star */}
       {hasHalf && (
-        <div
-          style={{
-            position: "relative",
-            width: size,
-            height: size,
-          }}
-        >
-          {/* Layer 1: The completely empty star on the bottom */}
-          <div style={{ color: emptyColor, position: 'absolute', top: 0, left: 0 }}>
+        <div style={{ position: "relative", width: actualSize, height: actualSize }}>
+          <div style={{ color: emptyColor, position: "absolute", top: 0, left: 0 }}>
             {StarSVG}
           </div>
-
-          {/* Layer 2: A container showing only the left 50% of the filled star */}
           <div
             style={{
               position: "absolute",
               top: 0,
               left: 0,
-              width: "50%", // Only show the left half
+              width: "50%",
               height: "100%",
-              overflow: "hidden", // Crucial for clipping the filled star
-              color: filledColor, // The filled color
+              overflow: "hidden",
+              color: filledColor,
             }}
           >
             {StarSVG}
           </div>
         </div>
       )}
-
-      {/* The EMPTY STARS block has been removed. 
-        The component now only renders the calculated full and half stars.
-      */}
     </div>
   );
 }

@@ -15,15 +15,16 @@ export default function FooterLink({
   children,
   arrowClassName,
   arrowSpan,
+  textSpan
 }) {
   return (
     <PrismicNextLink
       field={field}
       className="group inline-flex items-end relative"
     >
-      <div className="flex flex-row  gap-2">
+      <div className="flex flex-row hover:text-black font-medium  gap-1">
         {/* Text with underline animation */}
-        <span className="relative after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[1px] after:bg-current after:transition-all after:duration-300 group-hover:after:w-full">
+        <span className={`${textSpan} relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-[1px] after:bg-current after:transition-all after:duration-300 group-hover:after:w-full`}>
           {children}
         </span>
 
