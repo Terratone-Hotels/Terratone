@@ -2,35 +2,21 @@
 
 export default function RatingStars({
   rating = 0,
-  size = 22,
+
   maxStars = 5,
   filledColor = "#1E1E1E",
   emptyColor = "#E0E0E0",
-  responsiveSizes, // { sm: 14, md: 18, lg: 22 }
   className = "",
+  starClassName=""
 }) {
   const numericRating = parseFloat(rating);
   const safeRating = Math.min(numericRating || 0, maxStars);
   const fullStars = Math.floor(safeRating);
   const hasHalf = safeRating % 1 >= 0.5;
 
-  // Compute size dynamically if responsiveSizes provided
-  const getResponsiveSize = () => {
-    if (typeof window === "undefined" || !responsiveSizes) return size;
-
-    const width = window.innerWidth;
-    if (width < 640 && responsiveSizes.sm) return responsiveSizes.sm; // mobile
-    if (width < 1024 && responsiveSizes.md) return responsiveSizes.md; // tablet
-    if (responsiveSizes.lg) return responsiveSizes.lg; // desktop
-    return size;
-  };
-
-  const actualSize = getResponsiveSize();
-
   const StarSVG = (
-    <svg 
-      width={actualSize}
-      height={actualSize}
+    <svg
+      className={starClassName}
       viewBox="0 0 22 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -43,18 +29,30 @@ export default function RatingStars({
   );
 
   return (
-    <div className={`flex self-start gap-1 ${className}`}>
+    <div className={`flex  gap-1 ${className}`}>
       {/* Full stars */}
       {[...Array(fullStars)].map((_, i) => (
-        <span key={`full-${i}`}  className="inline-flex items-center justify-center shrink-0" style={{ color: filledColor }}>
+        <span
+          key={`full-${i}`}
+       
+          style={{ color: filledColor }}
+        >
           {StarSVG}
         </span>
       ))}
 
       {/* Half star */}
       {hasHalf && (
-        <div style={{ position: "relative", width: actualSize, height: actualSize }}>
-          <div style={{ color: emptyColor, position: "absolute", top: 0, left: 0 }}>
+        <div
+          style={{
+            position: "relative",
+            width: actualSize,
+            height: actualSize,
+          }}
+        >
+          <div
+            style={{ color: emptyColor, position: "absolute", top: 0, left: 0 }}
+          >
             {StarSVG}
           </div>
           <div
