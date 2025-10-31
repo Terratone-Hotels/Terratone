@@ -1,0 +1,60 @@
+{
+  "id": "discover_hero",
+  "type": "SharedSlice",
+  "name": "DiscoverHero",
+  "description": "DiscoverHero",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "image_top_left": {
+          "type": "Image",
+          "config": {
+            "label": "Image top left",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_top_right": {
+          "type": "Image",
+          "config": {
+            "label": "Image top right",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_bottom_left": {
+          "type": "Image",
+          "config": {
+            "label": "Image bottom left",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_bottom_right": {
+          "type": "Image",
+          "config": {
+            "label": "Image bottom right",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "heading": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Heading",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

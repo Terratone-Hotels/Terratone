@@ -12,6 +12,7 @@ export const components = {
     () => import("./DestinationHighlightSlice"),
   ),
   dining_cta: dynamic(() => import("./DiningCta")),
+  discover_hero: dynamic(() => import("./DiscoverHero")),
   hero: dynamic(() => import("./Hero")),
   hero_for_others: dynamic(() => import("./HeroForOthers")),
   intro_block: dynamic(() => import("./IntroBlock")),
@@ -28,4 +29,5 @@ export const components = {
   scroll_section: dynamic(() => import("./ScrollSection")),
   tagline_hero_slice: dynamic(() => import("./TaglineHeroSlice")),
   testimonials: dynamic(() => import("./Testimonials")),
+  tips_explore: dynamic(() => import("./TipsExplore")),
 };
