@@ -494,6 +494,110 @@ export type DiningDocument<Lang extends string = string> =
   >;
 
 /**
+ * Item in *Discover → Left headings*
+ */
+export interface DiscoverDocumentDataLeftHeadingsItem {
+  /**
+   * heading field in *Discover → Left headings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover.left_headings[].heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+}
+
+type DiscoverDocumentDataSlicesSlice = ScrollSectionSlice;
+
+/**
+ * Content for Discover documents
+ */
+interface DiscoverDocumentData {
+  /**
+   * Pin Section Heading field in *Discover*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover.pin_section_heading
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  pin_section_heading: prismic.RichTextField;
+
+  /**
+   * Left headings field in *Discover*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover.left_headings[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  left_headings: prismic.GroupField<
+    Simplify<DiscoverDocumentDataLeftHeadingsItem>
+  >;
+
+  /**
+   * Slice Zone field in *Discover*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<DiscoverDocumentDataSlicesSlice> /**
+   * Meta Title field in *Discover*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: discover.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Discover*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: discover.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Discover*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Discover document from Prismic
+ *
+ * - **API ID**: `discover`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type DiscoverDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<DiscoverDocumentData>,
+    "discover",
+    Lang
+  >;
+
+/**
  * Item in *Footer Settings → Footer Links*
  */
 export interface FooterSettingsDocumentDataFooterLinksItem {
@@ -1411,6 +1515,7 @@ export type AllDocumentTypes =
   | DeluxesuiteDocument
   | DeluxetwinDocument
   | DiningDocument
+  | DiscoverDocument
   | FooterSettingsDocument
   | HeaderSettingsDocument
   | HomepageDocument
@@ -2939,6 +3044,98 @@ export type PictureSectionSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *PlacestoVisit → Default → Primary → StickyContentNavigator*
+ */
+export interface PlacestoVisitSliceDefaultPrimaryStickycontentnavigatorItem {
+  /**
+   * Nav_Title field in *PlacestoVisit → Default → Primary → StickyContentNavigator*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: placesto_visit.default.primary.stickycontentnavigator[].title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Content_ID field in *PlacestoVisit → Default → Primary → StickyContentNavigator*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: placesto_visit.default.primary.stickycontentnavigator[].content_id
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  content_id: prismic.KeyTextField;
+
+  /**
+   * Text_Content field in *PlacestoVisit → Default → Primary → StickyContentNavigator*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: placesto_visit.default.primary.stickycontentnavigator[].text_content
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text_content: prismic.RichTextField;
+
+  /**
+   * Image field in *PlacestoVisit → Default → Primary → StickyContentNavigator*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: placesto_visit.default.primary.stickycontentnavigator[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *PlacestoVisit → Default → Primary*
+ */
+export interface PlacestoVisitSliceDefaultPrimary {
+  /**
+   * StickyContentNavigator field in *PlacestoVisit → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: placesto_visit.default.primary.stickycontentnavigator[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  stickycontentnavigator: prismic.GroupField<
+    Simplify<PlacestoVisitSliceDefaultPrimaryStickycontentnavigatorItem>
+  >;
+}
+
+/**
+ * Default variation for PlacestoVisit Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type PlacestoVisitSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<PlacestoVisitSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *PlacestoVisit*
+ */
+type PlacestoVisitSliceVariation = PlacestoVisitSliceDefault;
+
+/**
+ * PlacestoVisit Shared Slice
+ *
+ * - **API ID**: `placesto_visit`
+ * - **Description**: PlacestoVisit
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type PlacestoVisitSlice = prismic.SharedSlice<
+  "placesto_visit",
+  PlacestoVisitSliceVariation
+>;
+
+/**
  * Primary content in *ResonanceBlock → Default → Primary*
  */
 export interface ResonanceBlockSliceDefaultPrimary {
@@ -3688,6 +3885,88 @@ export type RoomShowcaseSliceSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *ScrollSection → Default → Primary → Content*
+ */
+export interface ScrollSectionSliceDefaultPrimaryContentItem {
+  /**
+   * Image field in *ScrollSection → Default → Primary → Content*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: scroll_section.default.primary.content[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Description field in *ScrollSection → Default → Primary → Content*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: scroll_section.default.primary.content[].description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * heading field in *ScrollSection → Default → Primary → Content*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: scroll_section.default.primary.content[].heading
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  heading: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *ScrollSection → Default → Primary*
+ */
+export interface ScrollSectionSliceDefaultPrimary {
+  /**
+   * Content field in *ScrollSection → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: scroll_section.default.primary.content[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  content: prismic.GroupField<
+    Simplify<ScrollSectionSliceDefaultPrimaryContentItem>
+  >;
+}
+
+/**
+ * Default variation for ScrollSection Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ScrollSectionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ScrollSectionSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ScrollSection*
+ */
+type ScrollSectionSliceVariation = ScrollSectionSliceDefault;
+
+/**
+ * ScrollSection Shared Slice
+ *
+ * - **API ID**: `scroll_section`
+ * - **Description**: ScrollSection
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ScrollSectionSlice = prismic.SharedSlice<
+  "scroll_section",
+  ScrollSectionSliceVariation
+>;
+
+/**
  * Item in *TaglineHeroSlice → Repeatable Field Variation → Primary → Footer CTA*
  */
 export interface TaglineHeroSliceSliceRepeatableFieldVariationPrimaryFooterCtaItem {
@@ -4119,6 +4398,10 @@ declare module "@prismicio/client" {
       DiningDocument,
       DiningDocumentData,
       DiningDocumentDataSlicesSlice,
+      DiscoverDocument,
+      DiscoverDocumentData,
+      DiscoverDocumentDataLeftHeadingsItem,
+      DiscoverDocumentDataSlicesSlice,
       FooterSettingsDocument,
       FooterSettingsDocumentData,
       FooterSettingsDocumentDataFooterLinksItem,
@@ -4214,6 +4497,11 @@ declare module "@prismicio/client" {
       PictureSectionSliceDefault,
       PictureSectionSliceDoublePictures,
       PictureSectionSliceTrippleImage,
+      PlacestoVisitSlice,
+      PlacestoVisitSliceDefaultPrimaryStickycontentnavigatorItem,
+      PlacestoVisitSliceDefaultPrimary,
+      PlacestoVisitSliceVariation,
+      PlacestoVisitSliceDefault,
       ResonanceBlockSlice,
       ResonanceBlockSliceDefaultPrimary,
       ResonanceBlockSliceRoomNarrativePrimary,
@@ -4239,6 +4527,11 @@ declare module "@prismicio/client" {
       RoomShowcaseSliceSliceDefault,
       RoomShowcaseSliceSliceWithHeading,
       RoomShowcaseSliceSliceWithJustHeading,
+      ScrollSectionSlice,
+      ScrollSectionSliceDefaultPrimaryContentItem,
+      ScrollSectionSliceDefaultPrimary,
+      ScrollSectionSliceVariation,
+      ScrollSectionSliceDefault,
       TaglineHeroSliceSlice,
       TaglineHeroSliceSliceDefaultPrimary,
       TaglineHeroSliceSliceRepeatableFieldVariationPrimaryFooterCtaItem,

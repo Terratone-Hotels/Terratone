@@ -1,0 +1,61 @@
+{
+  "id": "placesto_visit",
+  "type": "SharedSlice",
+  "name": "PlacestoVisit",
+  "description": "PlacestoVisit",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "stickycontentnavigator": {
+          "type": "Group",
+          "config": {
+            "label": "StickyContentNavigator",
+            "repeat": true,
+            "fields": {
+              "title": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Nav_Title",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+                }
+              },
+              "content_id": {
+                "type": "Text",
+                "config": {
+                  "label": "Content_ID",
+                  "placeholder": ""
+                }
+              },
+              "text_content": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Text_Content",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+                }
+              },
+              "image": {
+                "type": "Image",
+                "config": {
+                  "label": "Image",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
