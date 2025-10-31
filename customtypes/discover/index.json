@@ -38,6 +38,12 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "tips_explore": {
+              "type": "SharedSlice"
+            },
+            "discover_hero": {
+              "type": "SharedSlice"
+            },
             "scroll_section": {
               "type": "SharedSlice"
             }

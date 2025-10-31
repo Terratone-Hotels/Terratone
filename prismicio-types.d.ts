@@ -508,7 +508,10 @@ export interface DiscoverDocumentDataLeftHeadingsItem {
   heading: prismic.RichTextField;
 }
 
-type DiscoverDocumentDataSlicesSlice = ScrollSectionSlice;
+type DiscoverDocumentDataSlicesSlice =
+  | TipsExploreSlice
+  | DiscoverHeroSlice
+  | ScrollSectionSlice;
 
 /**
  * Content for Discover documents
@@ -2124,6 +2127,91 @@ type DiningCtaSliceVariation = DiningCtaSliceDefault;
 export type DiningCtaSlice = prismic.SharedSlice<
   "dining_cta",
   DiningCtaSliceVariation
+>;
+
+/**
+ * Primary content in *DiscoverHero → Default → Primary*
+ */
+export interface DiscoverHeroSliceDefaultPrimary {
+  /**
+   * Image top left field in *DiscoverHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover_hero.default.primary.image_top_left
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_top_left: prismic.ImageField<never>;
+
+  /**
+   * Image top right field in *DiscoverHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover_hero.default.primary.image_top_right
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_top_right: prismic.ImageField<never>;
+
+  /**
+   * Image bottom left field in *DiscoverHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover_hero.default.primary.image_bottom_left
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_bottom_left: prismic.ImageField<never>;
+
+  /**
+   * Image bottom right field in *DiscoverHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover_hero.default.primary.image_bottom_right
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_bottom_right: prismic.ImageField<never>;
+
+  /**
+   * Heading field in *DiscoverHero → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover_hero.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+}
+
+/**
+ * Default variation for DiscoverHero Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type DiscoverHeroSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<DiscoverHeroSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *DiscoverHero*
+ */
+type DiscoverHeroSliceVariation = DiscoverHeroSliceDefault;
+
+/**
+ * DiscoverHero Shared Slice
+ *
+ * - **API ID**: `discover_hero`
+ * - **Description**: DiscoverHero
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type DiscoverHeroSlice = prismic.SharedSlice<
+  "discover_hero",
+  DiscoverHeroSliceVariation
 >;
 
 /**
@@ -4359,6 +4447,86 @@ export type TestimonialsSlice = prismic.SharedSlice<
   TestimonialsSliceVariation
 >;
 
+/**
+ * Item in *TipsExplore → Default → Primary → tips*
+ */
+export interface TipsExploreSliceDefaultPrimaryTipsItem {
+  /**
+   * Heading field in *TipsExplore → Default → Primary → tips*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tips_explore.default.primary.tips[].heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *TipsExplore → Default → Primary → tips*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tips_explore.default.primary.tips[].description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *TipsExplore → Default → Primary*
+ */
+export interface TipsExploreSliceDefaultPrimary {
+  /**
+   * Heading field in *TipsExplore → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tips_explore.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * tips field in *TipsExplore → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tips_explore.default.primary.tips[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  tips: prismic.GroupField<Simplify<TipsExploreSliceDefaultPrimaryTipsItem>>;
+}
+
+/**
+ * Default variation for TipsExplore Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TipsExploreSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TipsExploreSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *TipsExplore*
+ */
+type TipsExploreSliceVariation = TipsExploreSliceDefault;
+
+/**
+ * TipsExplore Shared Slice
+ *
+ * - **API ID**: `tips_explore`
+ * - **Description**: TipsExplore
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TipsExploreSlice = prismic.SharedSlice<
+  "tips_explore",
+  TipsExploreSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -4457,6 +4625,10 @@ declare module "@prismicio/client" {
       DiningCtaSliceDefaultPrimary,
       DiningCtaSliceVariation,
       DiningCtaSliceDefault,
+      DiscoverHeroSlice,
+      DiscoverHeroSliceDefaultPrimary,
+      DiscoverHeroSliceVariation,
+      DiscoverHeroSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimaryCarouselItem,
       HeroSliceDefaultPrimary,
@@ -4545,6 +4717,11 @@ declare module "@prismicio/client" {
       TestimonialsSliceDefaultPrimary,
       TestimonialsSliceVariation,
       TestimonialsSliceDefault,
+      TipsExploreSlice,
+      TipsExploreSliceDefaultPrimaryTipsItem,
+      TipsExploreSliceDefaultPrimary,
+      TipsExploreSliceVariation,
+      TipsExploreSliceDefault,
     };
   }
 }
