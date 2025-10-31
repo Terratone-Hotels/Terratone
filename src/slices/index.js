@@ -19,11 +19,13 @@ export const components = {
   meeting_halls: dynamic(() => import("./MeetingHalls")),
   one_with_side_words: dynamic(() => import("./OneWithSideWords")),
   picture_section: dynamic(() => import("./PictureSection")),
+  placesto_visit: dynamic(() => import("./PlacestoVisit")),
   resonance_block: dynamic(() => import("./ResonanceBlock")),
   reversed_destination_highlights: dynamic(
     () => import("./ReversedDestinationHighlights"),
   ),
   room_showcase_slice: dynamic(() => import("./RoomShowcaseSlice")),
+  scroll_section: dynamic(() => import("./ScrollSection")),
   tagline_hero_slice: dynamic(() => import("./TaglineHeroSlice")),
   testimonials: dynamic(() => import("./Testimonials")),
 };
