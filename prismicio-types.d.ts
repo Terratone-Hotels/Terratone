@@ -2174,6 +2174,46 @@ export interface DiscoverHeroSliceDefaultPrimary {
   image_bottom_right: prismic.ImageField<never>;
 
   /**
+   * Image top center field in *DiscoverHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover_hero.default.primary.image_top_center
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_top_center: prismic.ImageField<never>;
+
+  /**
+   * Image bottom center field in *DiscoverHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover_hero.default.primary.image_bottom_center
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_bottom_center: prismic.ImageField<never>;
+
+  /**
+   * Image left field in *DiscoverHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover_hero.default.primary.image_left
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_left: prismic.ImageField<never>;
+
+  /**
+   * Image right field in *DiscoverHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover_hero.default.primary.image_right
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_right: prismic.ImageField<never>;
+
+  /**
    * Heading field in *DiscoverHero → Default → Primary*
    *
    * - **Field Type**: Rich Text
@@ -2182,6 +2222,36 @@ export interface DiscoverHeroSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   heading: prismic.RichTextField;
+
+  /**
+   * Image Extra One field in *DiscoverHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover_hero.default.primary.image_extra_1
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_extra_1: prismic.ImageField<never>;
+
+  /**
+   * Image Extra 2 field in *DiscoverHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover_hero.default.primary.image_extra_2
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_extra_2: prismic.ImageField<never>;
+
+  /**
+   * Image Extra 3 field in *DiscoverHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discover_hero.default.primary.image_extra_3
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_extra_3: prismic.ImageField<never>;
 }
 
 /**
