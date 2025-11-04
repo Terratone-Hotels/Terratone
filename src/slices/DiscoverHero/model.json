@@ -44,6 +44,38 @@
             "thumbnails": []
           }
         },
+        "image_top_center": {
+          "type": "Image",
+          "config": {
+            "label": "Image top center",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_bottom_center": {
+          "type": "Image",
+          "config": {
+            "label": "Image bottom center",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_left": {
+          "type": "Image",
+          "config": {
+            "label": "Image left",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_right": {
+          "type": "Image",
+          "config": {
+            "label": "Image right",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
         "heading": {
           "type": "StructuredText",
           "config": {
@@ -51,6 +83,30 @@
             "placeholder": "",
             "allowTargetBlank": true,
             "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "image_extra_1": {
+          "type": "Image",
+          "config": {
+            "label": "Image Extra One",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_extra_2": {
+          "type": "Image",
+          "config": {
+            "label": "Image Extra 2",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_extra_3": {
+          "type": "Image",
+          "config": {
+            "label": "Image Extra 3",
+            "constraint": {},
+            "thumbnails": []
           }
         }
       },
