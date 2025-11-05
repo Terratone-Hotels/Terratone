@@ -5,12 +5,14 @@ import { PrismicNextImage } from "@prismicio/next";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Bounded from "@/components/Bounded";
+import ScrollSectionMobile from "@/components/ScrollSectionMobile";
 
 gsap.registerPlugin(ScrollToPlugin);
 
 const ScrollSection = ({ slice, context }) => {
   const content = slice?.primary?.content || [];
   const pinHeading = context?.pin_section_heading;
+  console.log(slice);
 
   // Helper: extract heading text safely
   const getHeadingText = (item) => {
@@ -96,7 +98,7 @@ const ScrollSection = ({ slice, context }) => {
 
   return (
     <Bounded className="scroll-section relative">
-      <div className="border-t-1 border-b-1">
+      <div className="hidden lg:block border-t-1 border-b-1">
         <div className="mt-12 flex flex-col md:flex-row gap-2 mb-12">
           {/* LEFT: Sticky Headings */}
           <div className="w-full md:w-[40%] sticky top-[10vh] self-start h-fit">
@@ -117,9 +119,9 @@ const ScrollSection = ({ slice, context }) => {
                     ref={(el) => (bulletRefs.current[index] = el)}
                     className="w-5 h-5 rounded-full bg-black opacity-0 scale-0"
                   />
-                  
+
                   <h1
-                    className={`text-3xl xl:text-3xl font-barlow transition-colors duration-200 ${
+                    className={`text-[24px] xl:text-2xl font-barlow transition-colors duration-200 ${
                       heading === activeHeading
                         ? "text-black font-bold"
                         : "text-gray-400 group-hover:text-black"
@@ -168,7 +170,7 @@ const ScrollSection = ({ slice, context }) => {
 
                     {/* DESCRIPTION */}
                     <div
-                      className={`mt-12 md:w-[80%] font-medium  leading-tight text-xl xl:text-xl rich-text ${
+                      className={`mt-12 md:w-[80%] font-medium  leading-snug italic text-[20px] xl:text-xl rich-text ${
                         isEven ? "self-end text-left" : "self-start text-left"
                       }`}
                     >
@@ -188,6 +190,14 @@ const ScrollSection = ({ slice, context }) => {
             )}
           </div>
         </div>
+      </div>
+      {/* Mobile Verions Below */}
+
+      <div className="lg:hidden">
+        <ScrollSectionMobile
+          data={slice}
+          sectionHeading={context?.pin_section_heading}
+        />
       </div>
     </Bounded>
   );
