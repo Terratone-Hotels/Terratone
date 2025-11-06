@@ -14,16 +14,11 @@ const DiscoverHero = ({ slice }) => {
   useEffect(() => {
     const container = containerRef.current;
     const textEl = textRef.current;
-
-    // Ensure elements exist before proceeding
     if (!textEl || !container) return;
 
     const random = (min, max) => Math.random() * (max - min) + min;
-
-    // Add 3D perspective to container for depth illusion
     gsap.set(container, { transformStyle: "preserve-3d", perspective: 1200 });
 
-    // Wrap each letter in span for color animation
     const text = textEl.innerText;
     textEl.innerHTML = text
       .split("")
@@ -32,7 +27,6 @@ const DiscoverHero = ({ slice }) => {
     const letters = textEl.querySelectorAll(".letter");
     gsap.set(letters, { color: "#bcbcbc" });
 
-    // Scroll triggered master timeline
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
@@ -44,7 +38,6 @@ const DiscoverHero = ({ slice }) => {
       },
     });
 
-    // Animate text scale and color
     tl.fromTo(
       textEl,
       { scale: 1, opacity: 0.6 },
@@ -61,35 +54,26 @@ const DiscoverHero = ({ slice }) => {
       0.2
     );
 
-    // --- Variable Speed Image Animation Setup ---
-    // Define the range for speed (duration) and size (width)
-    const minDuration = 10; // Fastest speed (shorter duration, for bigger images)
-    const maxDuration = 30; // Slowest speed (longer duration, for smaller images)
-    const minWidth = 100; // Smallest expected image width in pixels (adjust if needed)
-    const maxWidth = 300; // Largest expected image width in pixels (adjust if needed)
+    const minDuration = 10;
+    const maxDuration = 30;
+    const minWidth = 100;
+    const maxWidth = 300;
 
     imageRefs.current.forEach((img) => {
       if (!img) return;
-
-      // Get actual rendered width for size mapping
       const imgWidth = img.offsetWidth;
-
-      // Map width to duration (inverted: larger width -> shorter duration)
       const mappedDuration = gsap.utils.mapRange(
         minWidth,
         maxWidth,
-        maxDuration, // Output for minWidth
-        minDuration // Output for maxWidth
+        maxDuration,
+        minDuration
       )(imgWidth);
-
-      // Ensure duration stays within bounds and add small random jitter
       const baseDuration = Math.max(
         minDuration,
         Math.min(maxDuration, mappedDuration)
       );
       const finalDuration = baseDuration + random(-2, 2);
 
-      // --- Existing 3D Drift Calculations ---
       const rect = img.getBoundingClientRect();
       const containerRect = container.getBoundingClientRect();
       const centerX = containerRect.left + containerRect.width / 2;
@@ -97,7 +81,6 @@ const DiscoverHero = ({ slice }) => {
 
       const dx_start = rect.left + rect.width / 2 - centerX;
       const dy_start = rect.top + rect.height / 2 - centerY;
-
       const magnitude = Math.sqrt(dx_start * dx_start + dy_start * dy_start);
       const normX = magnitude
         ? dx_start / magnitude
@@ -107,16 +90,11 @@ const DiscoverHero = ({ slice }) => {
         : Math.sin(Math.random() * Math.PI * 2);
 
       const finalScale = random(3.5, 6);
-
-      // 🌙 Drift Fix: Increased base drift distance to ensure images leave the viewport entirely
-      const driftDistance = random(1200, 2500); // Increased range from (700, 1500)
-      // 🌙 Drift Fix: Increased Z distance to make the animation feel deeper/farther
-      const finalZ = random(800, 1200); // Increased range from (400, 600)
-
+      const driftDistance = random(1200, 2500);
+      const finalZ = random(800, 1200);
       const finalX = normX * driftDistance;
       const finalY = normY * driftDistance;
 
-      // --- Animation Application (using finalDuration) ---
       tl.to(
         img,
         {
@@ -125,11 +103,11 @@ const DiscoverHero = ({ slice }) => {
           z: finalZ,
           scale: finalScale,
           ease: "power2.inOut",
-          duration: finalDuration, // Mapped duration based on size
+          duration: finalDuration,
           transformOrigin: "center center",
           transformStyle: "preserve-3d",
         },
-        0 // all animations start simultaneously
+        0
       );
     });
   }, []);
@@ -143,7 +121,7 @@ const DiscoverHero = ({ slice }) => {
       style={{ perspective: 1200 }}
     >
       {/* Text */}
-      <div className="z-20 text-center max-w-[50%] px-6">
+      <div className="z-20 text-center max-w-[85%] md:max-w-[80%] xl:max-w-[50%] px-6">
         <div
           ref={textRef}
           className="text-2xl xl:text-[26px] font-serif leading-tight tracking-tight"
@@ -153,101 +131,102 @@ const DiscoverHero = ({ slice }) => {
         </div>
       </div>
 
-      {/* Floating images (9 existing + 3 new slots = 12 total) */}
+      {/* Floating Images */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Image 0 (Top Left) */}
+        {/* 0 - Top Left */}
         <div
           ref={(el) => (imageRefs.current[0] = el)}
-          className="absolute md:left-26 md:top-20 xl:top-12.5 xl:left-135 w-40 xl:w-50 xl:h-44 z-10"
+          className="absolute top-18 left-3 sm:top-15 sm:left-14 sm:w-50 sm:z-20 md:top-16 md:left-12 xl:top-12.5 xl:left-135 w-28 md:w-46 lg:w-55 lg:h-35 xl:w-70 xl:h-44 z-10"
         >
-          <PrismicNextImage
-            field={slice.primary.image_top_left}
-            className="w-full h-full object-cover"
-          />
-        </div>
-        {/* Image 1 (Top Right) */}
-        <div
-          ref={(el) => (imageRefs.current[1] = el)}
-          className="absolute md:right-60 md:top-17 xl:top-25 xl:right-150 w-40 md:w-29.5 xl:h-32 md:h-70 z-10"
-        >
-          <PrismicNextImage
-            field={slice.primary.image_top_right}
-            className="object-cover w-full h-full"
-          />
-        </div>
-        {/* Image 2 (Bottom Left) */}
-        <div
-          ref={(el) => (imageRefs.current[2] = el)}
-          className="absolute md:bottom-10 md:left-70 xl:bottom-16 xl:left-61 w-50 xl:h-37 xl:w-65 z-10"
-        >
-          <PrismicNextImage
-            field={slice.primary.image_bottom_left}
-            className="w-full h-full object-cover"
-          />
-        </div>
-        {/* Image 3 (Bottom Right) */}
-        <div
-          ref={(el) => (imageRefs.current[3] = el)}
-          className="absolute md:bottom-10 md:right-10 xl:bottom-7 xl:right-55 w-40 xl:w-61 z-40"
-        >
-          <PrismicNextImage field={slice.primary.image_bottom_right} />
-        </div>
-        {/* Image 4 (Top Center) */}
-        <div
-          ref={(el) => (imageRefs.current[4] = el)}
-          className="absolute xl:bottom-60 xl:right-50 z-10 xl:w-40"
-        >
-          <PrismicNextImage field={slice.primary.image_top_center} />
-        </div>
-        {/* Image 5 (Bottom Center) */}
-        <div
-          ref={(el) => (imageRefs.current[5] = el)}
-          className="absolute xl:w-40 xl:bottom-40 xl:left-110"
-        >
-          <PrismicNextImage field={slice.primary.image_bottom_center} />
-        </div>
-        {/* Image 6 (Left) */}
-        <div
-          ref={(el) => (imageRefs.current[6] = el)}
-          className="absolute xl:w-40 xl:top-70 xl:left-50"
-        >
-          <PrismicNextImage field={slice.primary.image_left} />
-        </div>
-        {/* Image 7 (Right) */}
-        <div
-          ref={(el) => (imageRefs.current[7] = el)}
-          className="absolute xl:w-60 xl:right-30 xl:top-70"
-        >
-          <PrismicNextImage field={slice.primary.image_right} />
-        </div>
-        {/* Image 8 (Extra spot) */}
-        <div
-          ref={(el) => (imageRefs.current[8] = el)}
-          className="absolute xl:w-40 xl:left-108 xl:top-34"
-        >
-          <PrismicNextImage field={slice.primary.image_right} />
+          <PrismicNextImage field={slice.primary.image_top_left} className="w-full h-full object-cover" />
         </div>
 
-        {/* Image 9 (Example positioning: Smaller size, slower speed) */}
+        {/* 1 - Top Right */}
+        <div
+          ref={(el) => (imageRefs.current[1] = el)}
+          className="absolute top-14 right-1 sm:top-14 sm:right-4 md:top-14 md:right-2 lg:top-24 lg:right-20 xl:top-25 xl:right-50 w-28 md:w-36 md:h-40 lg:w-38 lg:h-30 xl:w-40 xl:h-32 lg:z-30 xl:z-0"
+        >
+          <PrismicNextImage field={slice.primary.image_top_right} className="object-cover w-full h-full" />
+        </div>
+
+        {/* 2 - Bottom Left */}
+        <div
+          ref={(el) => (imageRefs.current[2] = el)}
+          className="absolute bottom-3 left-3 md:bottom-10 md:left-20 xl:bottom-16 xl:left-61 w-36 md:w-44 xl:w-65 xl:h-40 z-10"
+        >
+          <PrismicNextImage field={slice.primary.image_bottom_left} className="w-full h-full object-cover" />
+        </div>
+
+        {/* 3 - Bottom Right */}
+        <div
+          ref={(el) => (imageRefs.current[3] = el)}
+          className="absolute bottom-5 right-3 md:bottom-6 md:right-5 xl:bottom-7 xl:right-35 w-32 md:w-44 xl:w-61 z-40"
+        >
+          <PrismicNextImage field={slice.primary.image_bottom_right} className="w-full h-full object-cover" />
+        </div>
+
+        {/* 4 - Top Center */}
+        <div
+          ref={(el) => (imageRefs.current[4] = el)}
+          className="absolute top-36 right-1 sm:top-40 sm:left-50  md:top-36 md:left-50 lg:top-40 lg:left-80 xl:bottom-60 xl:left-60 xl:h-34 z-10 w-22 md:w-34 xl:w-60"
+        >
+          <PrismicNextImage field={slice.primary.image_top_center} className="w-full h-full object-cover" />
+        </div>
+
+        {/* 5 - Bottom Center */}
+        <div
+          ref={(el) => (imageRefs.current[5] = el)}
+          className="absolute bottom-28 left-30 z-10 lg:z-0 lg:bottom-30 md:bottom-20 xl:bottom-40 xl:left-110  w-28 md:w-40 lg:w-30 xl:w-50"
+        >
+          <PrismicNextImage field={slice.primary.image_bottom_center}  className="w-full h-full object-cover"/>
+        </div>
+
+        {/* 6 - Left */}
+        <div
+          ref={(el) => (imageRefs.current[6] = el)}
+          className="absolute top-45 left-1 sm:top-60 sm:w-16 md:left-3 md:top-60 xl:top-70 xl:left-20  w-14 md:w-20 xl:w-40"
+        >
+          <PrismicNextImage field={slice.primary.image_left}  className="w-full h-full object-cover"/>
+        </div>
+
+        {/* 7 - Right */}
+        <div
+          ref={(el) => (imageRefs.current[7] = el)}
+          className="absolute bottom-62 right-1 md:bottom-42 md:right-1 xl:right-10 xl:top-50  w-14  md:w-34 xl:w-60 xl:h-70"
+        >
+          <PrismicNextImage field={slice.primary.image_right}  className="w-full h-full object-cover"/>
+        </div>
+
+        {/* 8 - Extra Right Top */}
+        <div
+          ref={(el) => (imageRefs.current[8] = el)}
+          className="z-10 xl:z-0 absolute bottom-33 right-1 md:right-40 md:bottom-33 lg:right-70 xl:h-28 xl:left-108 xl:top-49 w-27 md:w-42 xl:w-40"
+        >
+          <PrismicNextImage field={slice.primary.image_right} className="w-full h-full object-cover" />
+        </div>
+
+        {/* 9 - Extra Bottom Right Small */}
         <div
           ref={(el) => (imageRefs.current[9] = el)}
-          className="absolute xl:w-50 xl:bottom-2 xl:right-140 z-10"
+          className="absolute bottom-24 left-2 sm:bottom-15 sm:left-70 sm:w-30 md:bottom-8 md:left-90 lg:bottom-2 xl:bottom-2 xl:left-200 w-20 md:w-32 lg:w-40  xl:w-50 z-10"
         >
-          <PrismicNextImage field={slice.primary.image_extra_1} />
+          <PrismicNextImage field={slice.primary.image_extra_1}  className="w-full h-full object-cover"/>
         </div>
-        {/* Image 10 (Example positioning: Medium size) */}
+
+        {/* 10 - Extra Bottom Mid */}
         <div
           ref={(el) => (imageRefs.current[10] = el)}
-          className="absolute xl:w-50 xl:bottom-20 xl:right-15 z-30"
+          className="absolute bottom-20 right-25 md:bottom-16 md:right-40 lg:bottom-4 xl:bottom-30 xl:right-65  w-20 md:w-36 xl:w-40 xl:-z-30"
         >
-          <PrismicNextImage field={slice.primary.image_extra_2} />
+          <PrismicNextImage field={slice.primary.image_extra_2}  className="w-full h-full object-cover"/>
         </div>
-        {/* Image 11 (Example positioning: Larger size, faster speed) */}
+
+        {/* 11 - Extra Top Right Large */}
         <div
           ref={(el) => (imageRefs.current[11] = el)}
-          className="absolute xl:w-50 xl:top-10 xl:right-100 z-20"
+          className="absolute top-15 right-25 sm:top-20 sm:right-40 md:top-12  md:right-60 xl:top-16 xl:right-100 w-24 md:w-37 xl:w-50 z-20"
         >
-          <PrismicNextImage field={slice.primary.image_extra_3} />
+          <PrismicNextImage field={slice.primary.image_extra_3}  className="w-full h-full object-cover"/>
         </div>
       </div>
     </section>
