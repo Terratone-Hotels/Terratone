@@ -21,6 +21,7 @@ const routes = [
   { type: "homepage", path: "/" },
   { type: "dining", path: "/dining" },
   { type: "stays", path: "/stays" },
+  { type: "discover", path: "/discover" },
   { type: "deluxesuite", path: "/stays/deluxe-suite" },
   { type: "deluxeking", path: "/stays/deluxe-king" },
   { type: "deluxetwin", path: "/stays/deluxe-twin" },
@@ -28,6 +29,7 @@ const routes = [
   { type: "meetingroom", path: "/meet/meeting-room" },
   { type: "conference_room", path: "/meet/conference-room" },
   { type: "banquet_hall", path: "/meet/banquet-hall" },
+  { type: "our_story", path: "/our-story" },
   // { type: "page", path: "/:uid" },
 ];
 
