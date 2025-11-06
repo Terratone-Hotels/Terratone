@@ -1,0 +1,20 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"hero_text": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Sint nostrud consectetur proident aliquip mollit fugiat veniam deserunt cillum mollit fugiat dolore velit. Cupidatat enim nostrud laboris duis officia incididunt laboris sint id cillum cillum dolore. Proident duis tempor reprehenderit quis fugiat ut tempor."
+						}
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

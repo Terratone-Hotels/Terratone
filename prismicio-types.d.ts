@@ -1443,6 +1443,71 @@ export type MeetingroomDocument<Lang extends string = string> =
     Lang
   >;
 
+type OurStoryDocumentDataSlicesSlice = FullImageSlice | HeroIntroSliceSlice;
+
+/**
+ * Content for Our Story documents
+ */
+interface OurStoryDocumentData {
+  /**
+   * Slice Zone field in *Our Story*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<OurStoryDocumentDataSlicesSlice> /**
+   * Meta Title field in *Our Story*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: our_story.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Our Story*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: our_story.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Our Story*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Our Story document from Prismic
+ *
+ * - **API ID**: `our_story`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type OurStoryDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<OurStoryDocumentData>,
+    "our_story",
+    Lang
+  >;
+
 type StaysDocumentDataSlicesSlice =
   | LocationAndContactsSlice
   | AmenitiesSlice
@@ -1524,6 +1589,7 @@ export type AllDocumentTypes =
   | HomepageDocument
   | MeetDocument
   | MeetingroomDocument
+  | OurStoryDocument
   | StaysDocument;
 
 /**
@@ -2285,6 +2351,61 @@ export type DiscoverHeroSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *FullImage → Default → Primary*
+ */
+export interface FullImageSliceDefaultPrimary {
+  /**
+   * Description field in *FullImage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: full_image.default.primary.hero_title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  hero_title: prismic.RichTextField;
+
+  /**
+   * Image field in *FullImage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: full_image.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for FullImage Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type FullImageSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<FullImageSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *FullImage*
+ */
+type FullImageSliceVariation = FullImageSliceDefault;
+
+/**
+ * FullImage Shared Slice
+ *
+ * - **API ID**: `full_image`
+ * - **Description**: FullImage
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type FullImageSlice = prismic.SharedSlice<
+  "full_image",
+  FullImageSliceVariation
+>;
+
+/**
  * Item in *Hero → Default → Primary → Carousel*
  */
 export interface HeroSliceDefaultPrimaryCarouselItem {
@@ -2476,6 +2597,51 @@ type HeroForOthersSliceVariation =
 export type HeroForOthersSlice = prismic.SharedSlice<
   "hero_for_others",
   HeroForOthersSliceVariation
+>;
+
+/**
+ * Primary content in *HeroIntroSlice → Default → Primary*
+ */
+export interface HeroIntroSliceSliceDefaultPrimary {
+  /**
+   * Hero Text field in *HeroIntroSlice → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_intro_slice.default.primary.hero_text
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  hero_text: prismic.RichTextField;
+}
+
+/**
+ * Default variation for HeroIntroSlice Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeroIntroSliceSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<HeroIntroSliceSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *HeroIntroSlice*
+ */
+type HeroIntroSliceSliceVariation = HeroIntroSliceSliceDefault;
+
+/**
+ * HeroIntroSlice Shared Slice
+ *
+ * - **API ID**: `hero_intro_slice`
+ * - **Description**: HeroIntroSlice
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeroIntroSliceSlice = prismic.SharedSlice<
+  "hero_intro_slice",
+  HeroIntroSliceSliceVariation
 >;
 
 /**
@@ -4662,6 +4828,9 @@ declare module "@prismicio/client" {
       MeetingroomDocument,
       MeetingroomDocumentData,
       MeetingroomDocumentDataSlicesSlice,
+      OurStoryDocument,
+      OurStoryDocumentData,
+      OurStoryDocumentDataSlicesSlice,
       StaysDocument,
       StaysDocumentData,
       StaysDocumentDataSlicesSlice,
@@ -4699,6 +4868,10 @@ declare module "@prismicio/client" {
       DiscoverHeroSliceDefaultPrimary,
       DiscoverHeroSliceVariation,
       DiscoverHeroSliceDefault,
+      FullImageSlice,
+      FullImageSliceDefaultPrimary,
+      FullImageSliceVariation,
+      FullImageSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimaryCarouselItem,
       HeroSliceDefaultPrimary,
@@ -4710,6 +4883,10 @@ declare module "@prismicio/client" {
       HeroForOthersSliceVariation,
       HeroForOthersSliceDefault,
       HeroForOthersSliceWithAvailabilityBar,
+      HeroIntroSliceSlice,
+      HeroIntroSliceSliceDefaultPrimary,
+      HeroIntroSliceSliceVariation,
+      HeroIntroSliceSliceDefault,
       IntroBlockSlice,
       IntroBlockSliceDefaultPrimary,
       IntroBlockSliceVariation,

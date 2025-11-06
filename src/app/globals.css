@@ -81,7 +81,7 @@ body {
 }
 
 .rich-text a {
-  color: #2563eb; /* Tailwind blue-600 */
+  color: #2563eb;
   text-decoration: underline;
 }
 
@@ -94,4 +94,17 @@ body {
   font-weight: 600;
   margin-top: 1.25rem;
   margin-bottom: 0.75rem;
+}
+
+.horizontal-scroll {
+  overflow-x: hidden;
+}
+
+.horizontal-scroll__inner {
+  display: flex;
+}
+
+.horizontal-scroll__inner > section {
+  width: 100vw;
+  flex-shrink: 0;
 }
