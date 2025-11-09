@@ -1443,7 +1443,10 @@ export type MeetingroomDocument<Lang extends string = string> =
     Lang
   >;
 
-type OurStoryDocumentDataSlicesSlice = FullImageSlice | HeroIntroSliceSlice;
+type OurStoryDocumentDataSlicesSlice =
+  | OurStoryIntroSlice
+  | FullImageSlice
+  | HeroIntroSliceSlice;
 
 /**
  * Content for Our Story documents
@@ -3234,6 +3237,141 @@ export type OneWithSideWordsSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *StoryBlockA → Default → Primary*
+ */
+export interface OurStoryIntroSliceDefaultPrimary {
+  /**
+   * Block A Image 0 field in *StoryBlockA → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story_intro.default.primary.block_a_image_0
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  block_a_image_0: prismic.ImageField<never>;
+
+  /**
+   * Block A Text 0 field in *StoryBlockA → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story_intro.default.primary.block_a_text_0
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  block_a_text_0: prismic.RichTextField;
+
+  /**
+   * Block A Image 1 field in *StoryBlockA → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story_intro.default.primary.block_a_image_1
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  block_a_image_1: prismic.ImageField<never>;
+
+  /**
+   * Block A Text 1 field in *StoryBlockA → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story_intro.default.primary.block_a_text_1
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  block_a_text_1: prismic.RichTextField;
+
+  /**
+   * Block A Image 2 field in *StoryBlockA → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story_intro.default.primary.block_a_image_2
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  block_a_image_2: prismic.ImageField<never>;
+
+  /**
+   * Block A Text 2 field in *StoryBlockA → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story_intro.default.primary.block_a_text_2
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  block_a_text_2: prismic.RichTextField;
+
+  /**
+   * Block A Image 3 field in *StoryBlockA → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story_intro.default.primary.block_a_image_3
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  block_a_image_3: prismic.ImageField<never>;
+
+  /**
+   * Block A Text 3 field in *StoryBlockA → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story_intro.default.primary.block_a_text_3
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  block_a_text_3: prismic.RichTextField;
+
+  /**
+   * Block A Image 4 field in *StoryBlockA → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story_intro.default.primary.block_a_image_4
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  block_a_image_4: prismic.ImageField<never>;
+
+  /**
+   * Block A Text 4 field in *StoryBlockA → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story_intro.default.primary.block_a_text_4
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  block_a_text_4: prismic.RichTextField;
+}
+
+/**
+ * Default variation for StoryBlockA Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type OurStoryIntroSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<OurStoryIntroSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *StoryBlockA*
+ */
+type OurStoryIntroSliceVariation = OurStoryIntroSliceDefault;
+
+/**
+ * StoryBlockA Shared Slice
+ *
+ * - **API ID**: `our_story_intro`
+ * - **Description**: OurStoryIntro
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type OurStoryIntroSlice = prismic.SharedSlice<
+  "our_story_intro",
+  OurStoryIntroSliceVariation
+>;
+
+/**
  * Primary content in *PictureSection → Default → Primary*
  */
 export interface PictureSectionSliceDefaultPrimary {
@@ -4908,6 +5046,10 @@ declare module "@prismicio/client" {
       OneWithSideWordsSliceDefaultPrimary,
       OneWithSideWordsSliceVariation,
       OneWithSideWordsSliceDefault,
+      OurStoryIntroSlice,
+      OurStoryIntroSliceDefaultPrimary,
+      OurStoryIntroSliceVariation,
+      OurStoryIntroSliceDefault,
       PictureSectionSlice,
       PictureSectionSliceDefaultPrimary,
       PictureSectionSliceDoublePicturesPrimary,

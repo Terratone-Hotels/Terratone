@@ -21,6 +21,7 @@ export const components = {
   location_and_contacts: dynamic(() => import("./LocationAndContacts")),
   meeting_halls: dynamic(() => import("./MeetingHalls")),
   one_with_side_words: dynamic(() => import("./OneWithSideWords")),
+  our_story_intro: dynamic(() => import("./StoryBlockA")),
   picture_section: dynamic(() => import("./PictureSection")),
   placesto_visit: dynamic(() => import("./PlacestoVisit")),
   resonance_block: dynamic(() => import("./ResonanceBlock")),
