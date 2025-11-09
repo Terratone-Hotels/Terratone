@@ -8,225 +8,237 @@ gsap.registerPlugin(ScrollTrigger);
 
 const DiscoverHero = ({ slice }) => {
   const containerRef = useRef(null);
-  const textRef = useRef(null);
-  const imageRefs = useRef([]);
+
+  // --- Define individual refs ---
+  const imageRef = useRef(null);
+  const imageRef1 = useRef(null);
+  const imageRef2 = useRef(null);
+  const imageRef3 = useRef(null);
+  const imageRef4 = useRef(null);
+  const imageRef5 = useRef(null);
+  const imageRef6 = useRef(null);
+  const imageRef7 = useRef(null);
+  const imageRef8 = useRef(null);
+  const imageRef9 = useRef(null);
+  // ------------------------------
 
   useEffect(() => {
     const container = containerRef.current;
-    const textEl = textRef.current;
-    if (!textEl || !container) return;
+    const allImages = [
+      imageRef.current,
+      imageRef1.current,
+      imageRef2.current,
+      imageRef3.current,
+      imageRef4.current,
+      imageRef5.current,
+      imageRef6.current,
+      imageRef7.current,
+      imageRef8.current,
+      imageRef9.current,
+    ].filter(Boolean);
 
-    const random = (min, max) => Math.random() * (max - min) + min;
-    gsap.set(container, { transformStyle: "preserve-3d", perspective: 1200 });
+    const ctx = gsap.context(() => {
+      if (!container || allImages.length === 0) return;
 
-    const text = textEl.innerText;
-    textEl.innerHTML = text
-      .split("")
-      .map((c) => `<span class="letter">${c}</span>`)
-      .join("");
-    const letters = textEl.querySelectorAll(".letter");
-    gsap.set(letters, { color: "#bcbcbc" });
+      // --- INITIAL STATE (already opacity 0 via CSS, but ensure) ---
+      gsap.set(allImages, { opacity: 0 });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container,
-        start: "top top",
-        end: "+=200%",
-        scrub: true,
-        pin: true,
-        anticipatePin: 1,
-      },
-    });
+      // --- Fade in sequence on load ---
+      gsap.to(allImages, {
+        opacity: 1,
+        duration: 0.2,
+        ease: "power4.in",
+        stagger: 0.2,
+      });
 
-    tl.fromTo(
-      textEl,
-      { scale: 1, opacity: 0.6 },
-      { scale: 1.3, opacity: 1, ease: "power2.out", duration: 20 }
-    );
-    tl.to(
-      letters,
-      {
-        color: "#000",
-        stagger: { each: 0.05, ease: "none" },
-        duration: 6,
-        ease: "none",
-      },
-      0.2
-    );
+      // --- Scroll 3D setup ---
+      gsap.set(container, { perspective: 8000 });
+      gsap.set(allImages, { transformStyle: "preserve-3d" });
 
-    const minDuration = 10;
-    const maxDuration = 30;
-    const minWidth = 100;
-    const maxWidth = 300;
-
-    imageRefs.current.forEach((img) => {
-      if (!img) return;
-      const imgWidth = img.offsetWidth;
-      const mappedDuration = gsap.utils.mapRange(
-        minWidth,
-        maxWidth,
-        maxDuration,
-        minDuration
-      )(imgWidth);
-      const baseDuration = Math.max(
-        minDuration,
-        Math.min(maxDuration, mappedDuration)
-      );
-      const finalDuration = baseDuration + random(-2, 2);
-
-      const rect = img.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
-      const centerX = containerRect.left + containerRect.width / 2;
-      const centerY = containerRect.top + containerRect.height / 2;
-
-      const dx_start = rect.left + rect.width / 2 - centerX;
-      const dy_start = rect.top + rect.height / 2 - centerY;
-      const magnitude = Math.sqrt(dx_start * dx_start + dy_start * dy_start);
-      const normX = magnitude
-        ? dx_start / magnitude
-        : Math.cos(Math.random() * Math.PI * 2);
-      const normY = magnitude
-        ? dy_start / magnitude
-        : Math.sin(Math.random() * Math.PI * 2);
-
-      const finalScale = random(3.5, 6);
-      const driftDistance = random(1200, 2500);
-      const finalZ = random(800, 1200);
-      const finalX = normX * driftDistance;
-      const finalY = normY * driftDistance;
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: "+=300%",
+          scrub: true,
+          pin: true,
+        },
+      });
 
       tl.to(
-        img,
-        {
-          x: finalX,
-          y: finalY,
-          z: finalZ,
-          scale: finalScale,
-          ease: "power2.inOut",
-          duration: finalDuration,
-          transformOrigin: "center center",
-          transformStyle: "preserve-3d",
-        },
+        imageRef.current,
+        { scale: 35, z: 200, x: -4500, y: -7000, ease: "power4.in" },
         0
-      );
-    });
+      )
+        .to(
+          imageRef1.current,
+          { scale: 26, z: 1300, x: 8500, y: -1000, ease: "power4.in" },
+          0
+        )
+        .to(
+          imageRef2.current,
+          { scale: 12, z: 1000, x: 10000, y: 10000, ease: "power4.in" },
+          0
+        )
+        .to(
+          imageRef3.current,
+          { scale: 35, z: 1000, x: -9000, y: -14100, ease: "power4.in" },
+          0
+        )
+        .to(
+          imageRef4.current,
+          { scale: 9, z: 15000, x: -10500, y: -2000, ease: "power4.in" },
+          0
+        )
+        .to(
+          imageRef5.current,
+          { scale: 10, z: 1000, x: 2500, y: -20, ease: "power4.in" },
+          0
+        )
+        .to(
+          imageRef6.current,
+          { scale: 11, z: 13000, x: -6500, y: -500, ease: "power4.in" },
+          0
+        )
+        .to(
+          imageRef7.current,
+          { scale: 6.5, z: 9500, x: -3500, y: 2500, ease: "power4.in" },
+          0
+        )
+        .to(
+          imageRef8.current,
+          { scale: 18, z: 10500, x: 1400, y: -2500, ease: "power4.in" },
+          0
+        )
+        .to(
+          imageRef9.current,
+          { scale: 18, z: 10500, x: -10000, y: 7000, ease: "power4.in" },
+          0
+        );
+    }, container);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={containerRef}
       data-slice-type={slice.slice_type}
-      data-slice-variation={slice.variation}
       className="relative w-full h-screen flex items-center justify-center overflow-hidden"
-      style={{ perspective: 1200 }}
     >
-      {/* Text */}
-      <div className="z-20 text-center max-w-[85%] md:max-w-[80%] xl:max-w-[50%] px-6">
-        <div
-          ref={textRef}
-          className="text-2xl xl:text-[26px] font-serif leading-tight tracking-tight"
-        >
-          {slice.primary.heading?.[0]?.text ||
-            "Nestled in Thevally, Kollam, Terratone Boutique Hotel puts you steps from tranquil backwaters, local markets, temples, and Kerala cuisine. Experience the perfect blend of tradition and modern energy—with easy access to key attractions, travel routes, and an authentic neighbourhood vibe for both business and leisure."}
-        </div>
+      {/* 0. Top Left */}
+      <div
+        ref={imageRef}
+        className="absolute top-[15%] md:top-[25%] left-[25%] w-10 h-8 md:w-32 md:h-20 z-10 opacity-0"
+      >
+        <PrismicNextImage
+          field={slice.primary.image_top_left}
+          className="w-full h-full object-cover"
+        />
       </div>
 
-      {/* Floating Images */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* 0 - Top Left */}
-        <div
-          ref={(el) => (imageRefs.current[0] = el)}
-          className="absolute top-18 left-3 sm:top-15 sm:left-14 sm:w-50 sm:z-20 md:top-16 md:left-12 xl:top-12.5 xl:left-135 w-28 md:w-46 lg:w-55 lg:h-35 xl:w-70 xl:h-44 z-10"
-        >
-          <PrismicNextImage field={slice.primary.image_top_left} className="w-full h-full object-cover" />
-        </div>
+      {/* 1. Top Right */}
+      <div
+        ref={imageRef1}
+        className="absolute top-[35%] right-[4%] w-25 h-15 md:w-48 md:h-30 z-20 opacity-0"
+      >
+        <PrismicNextImage
+          field={slice.primary.image_top_right}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-        {/* 1 - Top Right */}
-        <div
-          ref={(el) => (imageRefs.current[1] = el)}
-          className="absolute top-14 right-1 sm:top-14 sm:right-4 md:top-14 md:right-2 lg:top-24 lg:right-20 xl:top-25 xl:right-50 w-28 md:w-36 md:h-40 lg:w-38 lg:h-30 xl:w-40 xl:h-32 lg:z-30 xl:z-0"
-        >
-          <PrismicNextImage field={slice.primary.image_top_right} className="object-cover w-full h-full" />
-        </div>
+      {/* 2. Bottom Right */}
+      <div
+        ref={imageRef2}
+        className="absolute bottom-10 right-1/4 md:w-50 md:h-30 w-18 h-12 lg:w-80 lg:h-48 z-1 opacity-0"
+      >
+        <PrismicNextImage
+          field={slice.primary.image_bottom_right}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-        {/* 2 - Bottom Left */}
-        <div
-          ref={(el) => (imageRefs.current[2] = el)}
-          className="absolute bottom-3 left-3 md:bottom-10 md:left-20 xl:bottom-16 xl:left-61 w-36 md:w-44 xl:w-65 xl:h-40 z-10"
-        >
-          <PrismicNextImage field={slice.primary.image_bottom_left} className="w-full h-full object-cover" />
-        </div>
+      {/* 3. Center Top */}
+      <div
+        ref={imageRef3}
+        className="absolute top-[10%] left-1/3 -translate-x-1/2 xl:w-45 xl:h-45 md:h-25 md:w-25 h-15 w-15 z-1 opacity-0"
+      >
+        <PrismicNextImage
+          field={slice.primary.image_top_center}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-        {/* 3 - Bottom Right */}
-        <div
-          ref={(el) => (imageRefs.current[3] = el)}
-          className="absolute bottom-5 right-3 md:bottom-6 md:right-5 xl:bottom-7 xl:right-35 w-32 md:w-44 xl:w-61 z-40"
-        >
-          <PrismicNextImage field={slice.primary.image_bottom_right} className="w-full h-full object-cover" />
-        </div>
+      {/* 4. Center Left */}
+      <div
+        ref={imageRef4}
+        className="absolute top-1/3 left-0 -translate-y-1/2 w-10 h-15 md:w-20 md:h-28 xl:w-46 xl:h-54 z-20 opacity-0"
+      >
+        <PrismicNextImage
+          field={slice.primary.image_left}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-        {/* 4 - Top Center */}
-        <div
-          ref={(el) => (imageRefs.current[4] = el)}
-          className="absolute top-36 right-1 sm:top-40 sm:left-50  md:top-36 md:left-50 lg:top-40 lg:left-80 xl:bottom-60 xl:left-60 xl:h-34 z-10 w-22 md:w-34 xl:w-60"
-        >
-          <PrismicNextImage field={slice.primary.image_top_center} className="w-full h-full object-cover" />
-        </div>
+      {/* 5. Mid Right */}
+      <div
+        ref={imageRef5}
+        className="absolute bottom-[50%] md:bottom-[41%] right-[10%] w-10 h-10 md:w-20 md:h-20 z-10 opacity-0"
+      >
+        <PrismicNextImage
+          field={slice.primary.image_top_left}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-        {/* 5 - Bottom Center */}
-        <div
-          ref={(el) => (imageRefs.current[5] = el)}
-          className="absolute bottom-28 left-30 z-10 lg:z-0 lg:bottom-30 md:bottom-20 xl:bottom-40 xl:left-110  w-28 md:w-40 lg:w-30 xl:w-50"
-        >
-          <PrismicNextImage field={slice.primary.image_bottom_center}  className="w-full h-full object-cover"/>
-        </div>
+      {/* 6. Center */}
+      <div
+        ref={imageRef6}
+        className="absolute lg:top-1/2 top-[38%] left-[10%] -translate-x-1/2 -translate-y-1/2 w-14 h-10 lg:w-28 lg:h-20 z-40 opacity-0"
+      >
+        <PrismicNextImage
+          field={slice.primary.image_top_left}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-        {/* 6 - Left */}
-        <div
-          ref={(el) => (imageRefs.current[6] = el)}
-          className="absolute top-45 left-1 sm:top-60 sm:w-16 md:left-3 md:top-60 xl:top-70 xl:left-20  w-14 md:w-20 xl:w-40"
-        >
-          <PrismicNextImage field={slice.primary.image_left}  className="w-full h-full object-cover"/>
-        </div>
+      {/* 7. Bottom Left */}
+      <div
+        ref={imageRef7}
+        className="absolute bottom-[4%] left-[14%] w-20 h-20 lg:w-35 lg:h-35 xl:h-45 xl:w-45 z-10 opacity-0"
+      >
+        <PrismicNextImage
+          field={slice.primary.image_extra_2}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-        {/* 7 - Right */}
-        <div
-          ref={(el) => (imageRefs.current[7] = el)}
-          className="absolute bottom-62 right-1 md:bottom-42 md:right-1 xl:right-10 xl:top-50  w-14  md:w-34 xl:w-60 xl:h-70"
-        >
-          <PrismicNextImage field={slice.primary.image_right}  className="w-full h-full object-cover"/>
-        </div>
+      {/* 8. Extra Top */}
+      <div
+        ref={imageRef8}
+        className="absolute top-20 right-1/4 lg:w-38 lg:h-26 w-24 h-15 z-20 opacity-0"
+      >
+        <PrismicNextImage
+          field={slice.primary.image_extra_3}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-        {/* 8 - Extra Right Top */}
-        <div
-          ref={(el) => (imageRefs.current[8] = el)}
-          className="z-10 xl:z-0 absolute bottom-33 right-1 md:right-40 md:bottom-33 lg:right-70 xl:h-28 xl:left-108 xl:top-49 w-27 md:w-42 xl:w-40"
-        >
-          <PrismicNextImage field={slice.primary.image_right} className="w-full h-full object-cover" />
-        </div>
-
-        {/* 9 - Extra Bottom Right Small */}
-        <div
-          ref={(el) => (imageRefs.current[9] = el)}
-          className="absolute bottom-24 left-2 sm:bottom-15 sm:left-70 sm:w-30 md:bottom-8 md:left-90 lg:bottom-2 xl:bottom-2 xl:left-200 w-20 md:w-32 lg:w-40  xl:w-50 z-10"
-        >
-          <PrismicNextImage field={slice.primary.image_extra_1}  className="w-full h-full object-cover"/>
-        </div>
-
-        {/* 10 - Extra Bottom Mid */}
-        <div
-          ref={(el) => (imageRefs.current[10] = el)}
-          className="absolute bottom-20 right-25 md:bottom-16 md:right-40 lg:bottom-4 xl:bottom-30 xl:right-65  w-20 md:w-36 xl:w-40 xl:-z-30"
-        >
-          <PrismicNextImage field={slice.primary.image_extra_2}  className="w-full h-full object-cover"/>
-        </div>
-
-        {/* 11 - Extra Top Right Large */}
-        <div
-          ref={(el) => (imageRefs.current[11] = el)}
-          className="absolute top-15 right-25 sm:top-20 sm:right-40 md:top-12  md:right-60 xl:top-16 xl:right-100 w-24 md:w-37 xl:w-50 z-20"
-        >
-          <PrismicNextImage field={slice.primary.image_extra_3}  className="w-full h-full object-cover"/>
+      {/* 9. Extra Bottom Center */}
+      <div
+        ref={imageRef9}
+        className="absolute bottom-[10%] left-[40%] md:left-1/4 w-7 h-7 md:h-15 md:w-15 lg:w-25 lg:h-25 z-10 opacity-0"
+      >
+        <PrismicNextImage
+          field={slice.primary.image_extra_1}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="z-20 text-center max-w-[70%] xl:max-w-[50%] px-6">
+        <div className=" text-md md:text-xl xl:text-[26px] font-serif leading-tight tracking-tight">
+          {slice.primary.heading?.[0]?.text ||
+            "Nestled in Thevally, Kollam, Terratone Boutique Hotel puts you steps from tranquil backwaters, local markets, temples, and Kerala cuisine. Experience the perfect blend of tradition and modern energy—with easy access to key attractions, travel routes, and an authentic neighbourhood vibe for both business and leisure."}
         </div>
       </div>
     </section>
