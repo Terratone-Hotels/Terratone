@@ -57,7 +57,7 @@ const FullImage = ({ slice }) => {
             trigger: imageWrapperRef.current,
             start: "top 80%",
             toggleActions: "play none none none",
-            markers: true, // <-- Add markers for debugging
+            // markers: false, // <-- Add markers for debugging
           },
         }
       );

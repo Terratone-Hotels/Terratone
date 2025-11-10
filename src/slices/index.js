@@ -30,7 +30,11 @@ export const components = {
   ),
   room_showcase_slice: dynamic(() => import("./RoomShowcaseSlice")),
   scroll_section: dynamic(() => import("./ScrollSection")),
+  story_block_b: dynamic(() => import("./StoryBlockB")),
+  story_block_c: dynamic(() => import("./StoryBlockC")),
+  story_block_d: dynamic(() => import("./StoryBlockD")),
   tagline_hero_slice: dynamic(() => import("./TaglineHeroSlice")),
   testimonials: dynamic(() => import("./Testimonials")),
+  text_and_dot_wave: dynamic(() => import("./TextAndDotWave")),
   tips_explore: dynamic(() => import("./TipsExplore")),
 };

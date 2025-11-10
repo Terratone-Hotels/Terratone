@@ -1,0 +1,52 @@
+{
+  "id": "story_block_c",
+  "type": "SharedSlice",
+  "name": "StoryBlockC",
+  "description": "StoryBlockC",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "text_field": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Text Field ",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "image_one": {
+          "type": "Image",
+          "config": {
+            "label": "Image One",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_two": {
+          "type": "Image",
+          "config": {
+            "label": "Image Two",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_three": {
+          "type": "Image",
+          "config": {
+            "label": "Image Three",
+            "constraint": {},
+            "thumbnails": []
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

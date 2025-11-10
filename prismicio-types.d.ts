@@ -1444,6 +1444,10 @@ export type MeetingroomDocument<Lang extends string = string> =
   >;
 
 type OurStoryDocumentDataSlicesSlice =
+  | StoryBlockCSlice
+  | StoryBlockDSlice
+  | StoryBlockBSlice
+  | TextAndDotWaveSlice
   | OurStoryIntroSlice
   | FullImageSlice
   | HeroIntroSliceSlice;
@@ -3241,26 +3245,6 @@ export type OneWithSideWordsSlice = prismic.SharedSlice<
  */
 export interface OurStoryIntroSliceDefaultPrimary {
   /**
-   * Block A Image 0 field in *StoryBlockA → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: our_story_intro.default.primary.block_a_image_0
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  block_a_image_0: prismic.ImageField<never>;
-
-  /**
-   * Block A Text 0 field in *StoryBlockA → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: our_story_intro.default.primary.block_a_text_0
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  block_a_text_0: prismic.RichTextField;
-
-  /**
    * Block A Image 1 field in *StoryBlockA → Default → Primary*
    *
    * - **Field Type**: Image
@@ -3281,16 +3265,6 @@ export interface OurStoryIntroSliceDefaultPrimary {
   block_a_text_1: prismic.RichTextField;
 
   /**
-   * Block A Image 2 field in *StoryBlockA → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: our_story_intro.default.primary.block_a_image_2
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  block_a_image_2: prismic.ImageField<never>;
-
-  /**
    * Block A Text 2 field in *StoryBlockA → Default → Primary*
    *
    * - **Field Type**: Rich Text
@@ -3301,14 +3275,14 @@ export interface OurStoryIntroSliceDefaultPrimary {
   block_a_text_2: prismic.RichTextField;
 
   /**
-   * Block A Image 3 field in *StoryBlockA → Default → Primary*
+   * Block A Image 2 field in *StoryBlockA → Default → Primary*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: our_story_intro.default.primary.block_a_image_3
+   * - **API ID Path**: our_story_intro.default.primary.block_a_image_2
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
-  block_a_image_3: prismic.ImageField<never>;
+  block_a_image_2: prismic.ImageField<never>;
 
   /**
    * Block A Text 3 field in *StoryBlockA → Default → Primary*
@@ -3321,14 +3295,14 @@ export interface OurStoryIntroSliceDefaultPrimary {
   block_a_text_3: prismic.RichTextField;
 
   /**
-   * Block A Image 4 field in *StoryBlockA → Default → Primary*
+   * Block A Image 3 field in *StoryBlockA → Default → Primary*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: our_story_intro.default.primary.block_a_image_4
+   * - **API ID Path**: our_story_intro.default.primary.block_a_image_3
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
-  block_a_image_4: prismic.ImageField<never>;
+  block_a_image_3: prismic.ImageField<never>;
 
   /**
    * Block A Text 4 field in *StoryBlockA → Default → Primary*
@@ -3339,6 +3313,26 @@ export interface OurStoryIntroSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   block_a_text_4: prismic.RichTextField;
+
+  /**
+   * Block A Image 4 field in *StoryBlockA → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story_intro.default.primary.block_a_image_4
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  block_a_image_4: prismic.ImageField<never>;
+
+  /**
+   * Block A Text 5 field in *StoryBlockA → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story_intro.default.primary.block_a_text_5
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  block_a_text_5: prismic.RichTextField;
 }
 
 /**
@@ -4429,6 +4423,351 @@ export type ScrollSectionSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *StoryBlockB → Default → Primary*
+ */
+export interface StoryBlockBSliceDefaultPrimary {
+  /**
+   * Text field one field in *StoryBlockB → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_b.default.primary.text_field_one
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text_field_one: prismic.RichTextField;
+
+  /**
+   * Image One field in *StoryBlockB → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_b.default.primary.image_one
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_one: prismic.ImageField<never>;
+
+  /**
+   * Text field two field in *StoryBlockB → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_b.default.primary.text_field_two
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text_field_two: prismic.RichTextField;
+
+  /**
+   * Image Two field in *StoryBlockB → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_b.default.primary.image_two
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_two: prismic.ImageField<never>;
+
+  /**
+   * Image Three field in *StoryBlockB → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_b.default.primary.image_three
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_three: prismic.ImageField<never>;
+
+  /**
+   * Image Four field in *StoryBlockB → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_b.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Image Five field in *StoryBlockB → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_b.default.primary.image_five
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_five: prismic.ImageField<never>;
+
+  /**
+   * Image Six field in *StoryBlockB → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_b.default.primary.image_six
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_six: prismic.ImageField<never>;
+
+  /**
+   * Image Seven field in *StoryBlockB → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_b.default.primary.image_seven
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_seven: prismic.ImageField<never>;
+
+  /**
+   * Image Eight field in *StoryBlockB → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_b.default.primary.image_eight
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_eight: prismic.ImageField<never>;
+
+  /**
+   * Image Nine field in *StoryBlockB → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_b.default.primary.image_nine
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_nine: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for StoryBlockB Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type StoryBlockBSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<StoryBlockBSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *StoryBlockB*
+ */
+type StoryBlockBSliceVariation = StoryBlockBSliceDefault;
+
+/**
+ * StoryBlockB Shared Slice
+ *
+ * - **API ID**: `story_block_b`
+ * - **Description**: StoryBlockB
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type StoryBlockBSlice = prismic.SharedSlice<
+  "story_block_b",
+  StoryBlockBSliceVariation
+>;
+
+/**
+ * Primary content in *StoryBlockC → Default → Primary*
+ */
+export interface StoryBlockCSliceDefaultPrimary {
+  /**
+   * Text Field  field in *StoryBlockC → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_c.default.primary.text_field
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text_field: prismic.RichTextField;
+
+  /**
+   * Image One field in *StoryBlockC → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_c.default.primary.image_one
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_one: prismic.ImageField<never>;
+
+  /**
+   * Image Two field in *StoryBlockC → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_c.default.primary.image_two
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_two: prismic.ImageField<never>;
+
+  /**
+   * Image Three field in *StoryBlockC → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_c.default.primary.image_three
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_three: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for StoryBlockC Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type StoryBlockCSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<StoryBlockCSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *StoryBlockC*
+ */
+type StoryBlockCSliceVariation = StoryBlockCSliceDefault;
+
+/**
+ * StoryBlockC Shared Slice
+ *
+ * - **API ID**: `story_block_c`
+ * - **Description**: StoryBlockC
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type StoryBlockCSlice = prismic.SharedSlice<
+  "story_block_c",
+  StoryBlockCSliceVariation
+>;
+
+/**
+ * Primary content in *StoryBlockD → Default → Primary*
+ */
+export interface StoryBlockDSliceDefaultPrimary {
+  /**
+   * Main Image field in *StoryBlockD → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_d.default.primary.main_image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  main_image: prismic.ImageField<never>;
+
+  /**
+   * Text Main field in *StoryBlockD → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_d.default.primary.text_main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text_main: prismic.RichTextField;
+
+  /**
+   * Image 2 field in *StoryBlockD → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_d.default.primary.image_2
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_2: prismic.ImageField<never>;
+
+  /**
+   * Image 3 field in *StoryBlockD → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_d.default.primary.image_3
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_3: prismic.ImageField<never>;
+
+  /**
+   * Image 4 field in *StoryBlockD → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_d.default.primary.image_4
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_4: prismic.ImageField<never>;
+
+  /**
+   * Image 5 field in *StoryBlockD → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_d.default.primary.image_5
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_5: prismic.ImageField<never>;
+
+  /**
+   * Image 6 field in *StoryBlockD → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_d.default.primary.image_6
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_6: prismic.ImageField<never>;
+
+  /**
+   * Image 7 field in *StoryBlockD → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_d.default.primary.image_7
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_7: prismic.ImageField<never>;
+
+  /**
+   * Ending Text field in *StoryBlockD → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: story_block_d.default.primary.ending_text
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  ending_text: prismic.RichTextField;
+}
+
+/**
+ * Default variation for StoryBlockD Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type StoryBlockDSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<StoryBlockDSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *StoryBlockD*
+ */
+type StoryBlockDSliceVariation = StoryBlockDSliceDefault;
+
+/**
+ * StoryBlockD Shared Slice
+ *
+ * - **API ID**: `story_block_d`
+ * - **Description**: StoryBlockD
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type StoryBlockDSlice = prismic.SharedSlice<
+  "story_block_d",
+  StoryBlockDSliceVariation
+>;
+
+/**
  * Item in *TaglineHeroSlice → Repeatable Field Variation → Primary → Footer CTA*
  */
 export interface TaglineHeroSliceSliceRepeatableFieldVariationPrimaryFooterCtaItem {
@@ -4822,6 +5161,51 @@ export type TestimonialsSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *TextAndDotWave → Default → Primary*
+ */
+export interface TextAndDotWaveSliceDefaultPrimary {
+  /**
+   * Message field in *TextAndDotWave → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: text_and_dot_wave.default.primary.message
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  message: prismic.RichTextField;
+}
+
+/**
+ * Default variation for TextAndDotWave Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TextAndDotWaveSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TextAndDotWaveSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *TextAndDotWave*
+ */
+type TextAndDotWaveSliceVariation = TextAndDotWaveSliceDefault;
+
+/**
+ * TextAndDotWave Shared Slice
+ *
+ * - **API ID**: `text_and_dot_wave`
+ * - **Description**: TextAndDotWave
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TextAndDotWaveSlice = prismic.SharedSlice<
+  "text_and_dot_wave",
+  TextAndDotWaveSliceVariation
+>;
+
+/**
  * Item in *TipsExplore → Default → Primary → tips*
  */
 export interface TipsExploreSliceDefaultPrimaryTipsItem {
@@ -5093,6 +5477,18 @@ declare module "@prismicio/client" {
       ScrollSectionSliceDefaultPrimary,
       ScrollSectionSliceVariation,
       ScrollSectionSliceDefault,
+      StoryBlockBSlice,
+      StoryBlockBSliceDefaultPrimary,
+      StoryBlockBSliceVariation,
+      StoryBlockBSliceDefault,
+      StoryBlockCSlice,
+      StoryBlockCSliceDefaultPrimary,
+      StoryBlockCSliceVariation,
+      StoryBlockCSliceDefault,
+      StoryBlockDSlice,
+      StoryBlockDSliceDefaultPrimary,
+      StoryBlockDSliceVariation,
+      StoryBlockDSliceDefault,
       TaglineHeroSliceSlice,
       TaglineHeroSliceSliceDefaultPrimary,
       TaglineHeroSliceSliceRepeatableFieldVariationPrimaryFooterCtaItem,
@@ -5106,6 +5502,10 @@ declare module "@prismicio/client" {
       TestimonialsSliceDefaultPrimary,
       TestimonialsSliceVariation,
       TestimonialsSliceDefault,
+      TextAndDotWaveSlice,
+      TextAndDotWaveSliceDefaultPrimary,
+      TextAndDotWaveSliceVariation,
+      TextAndDotWaveSliceDefault,
       TipsExploreSlice,
       TipsExploreSliceDefaultPrimaryTipsItem,
       TipsExploreSliceDefaultPrimary,

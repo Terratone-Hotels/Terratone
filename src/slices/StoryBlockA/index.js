@@ -1,91 +1,93 @@
 "use client";
 
-import React from "react";
-import { PrismicNextImage } from "@prismicio/next";
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PrismicRichText } from "@prismicio/react";
+import { PrismicNextImage } from "@prismicio/next";
 
-export default function StoryBlockALayout({ slice }) {
-  const img1 = slice?.primary?.block_a_image_1;
-  const img2 = slice?.primary?.block_a_image_2;
-  const img3 = slice?.primary?.block_a_image_3;
-  const img4 = slice?.primary?.block_a_image_4;
+gsap.registerPlugin(ScrollTrigger);
 
-  const txt1 = slice?.primary?.block_a_text_1;
-  const txt2 = slice?.primary?.block_a_text_2;
-  const txt3 = slice?.primary?.block_a_text_3;
-  const txt4 = slice?.primary?.block_a_text_4;
+export default function BlockA({ slice }) {
+    const elementRef = useRef(null); // Reference to the entire slice container
+    const imageRef = useRef(null); // Reference to the image itself
+    const textRef = useRef(null); // Reference to the text container
 
-  return (
-    // ⚠️ Flex container = horizontal layout
-    <div className="flex w-fit h-screen">
-      {/* Panel 1 */}
-      <section className=" w-screen h-screen flex items-center justify-center shrink-0">
-        <div className=" relative flex justify-center items-center">
-          <div className="absolute  w-[513px] h-[376px]">
-            {img1 && (
-              <PrismicNextImage field={img1} fill className="object-cover w-full h-full" />
-            )}
-          </div>
-          <div className="relative z-10 max-w-[60ch] text-center text-white font-medium text-4xl px-6">
-            <PrismicRichText field={txt1} />
-          </div>
-        </div>
-      </section>
+    useEffect(() => {
+        if (typeof window === "undefined") return;
 
-      {/* Panel 2 */}
-      <section className="relative w-screen h-screen flex items-center justify-center shrink-0">
-        <div className="absolute inset-0 flex items-center justify-between px-[5vw]">
-          <div className="relative w-[20vw] h-[60vh]">
-            {img2 && (
-              <PrismicNextImage field={img2} fill className="object-cover" />
-            )}
-          </div>
-          <div className="relative w-[20vw] h-[60vh]">
-            {img3 && (
-              <PrismicNextImage field={img3} fill className="object-cover" />
-            )}
-          </div>
-        </div>
-        <div className="relative z-10 max-w-[60ch] text-center px-6">
-          <PrismicRichText field={txt2} />
-        </div>
-      </section>
+        const triggerElement = elementRef.current;
+        const imageElement = imageRef.current;
+        const textElement = textRef.current;
 
-      {/* Panel 3 */}
-      <section className="relative w-screen h-screen flex items-center justify-center shrink-0">
-        <div className="absolute inset-0">
-          {img4 && (
-            <PrismicNextImage field={img4} fill className="object-cover" />
-          )}
-        </div>
-        <div className="absolute inset-0 flex items-center justify-between px-[5vw] pointer-events-none">
-          <div className="relative w-[20vw] h-[40vh]">
-            {img2 && (
-              <PrismicNextImage field={img2} fill className="object-cover" />
-            )}
-          </div>
-          <div className="relative w-[20vw] h-[40vh]">
-            {img3 && (
-              <PrismicNextImage field={img3} fill className="object-cover" />
-            )}
-          </div>
-        </div>
-        <div className="relative z-20 max-w-[60ch] text-center px-6">
-          <PrismicRichText field={txt3} />
-        </div>
-      </section>
+        if (!triggerElement || !imageElement || !textElement) return;
 
-      {/* Panel 4 */}
-      <section className="relative w-screen h-screen flex items-center justify-center shrink-0">
-        <div className="absolute inset-0">
-          {img4 && (
-            <PrismicNextImage field={img4} fill className="object-cover" />
-          )}
-        </div>
-        <div className="relative z-10 max-w-[60ch] text-center px-6">
-          <PrismicRichText field={txt4} />
-        </div>
-      </section>
-    </div>
-  );
+        const parentScrollTrigger = ScrollTrigger.getById("horizontalScroll");
+        if (!parentScrollTrigger) return;
+
+        // --- Create a timeline for the inner animations ---
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: triggerElement,
+                containerAnimation: parentScrollTrigger.animation,
+                start: "left center",
+                end: "center center",
+                scrub:true,
+                markers: true,
+            },
+        });
+
+        // Ensure the text is hidden and positioned low (y: 50) for a move-up effect.
+        // Set initial clip-path for the image (circle(0% at 50% 50%)) for the reveal effect.
+        gsap.set(textElement, { opacity: 0, y: 50 });
+        gsap.set(imageElement, { clipPath: "circle(0% at 50% 50%)" });
+
+        // 2. Image Clip Reveal Animation (Duration 1.0)
+        tl.to(imageElement, {
+            clipPath: "circle(100% at 50% 50%)",
+            duration: 2.0, 
+            ease: "power2.inOut",
+        });
+
+        // 3. Text Fade-in Animation (Starts at 0.9 seconds into the timeline, when image is 90% revealed)
+        tl.to(textElement, {
+            y: 0, // Animate up to final position
+            opacity: 1, // Animate to full visibility
+            duration: 0.5,
+            ease: "power2.out",
+        }, 2); // Absolute position marker for sequencing
+
+        return () => {
+            tl.scrollTrigger?.kill();
+            tl.kill();
+        };
+    }, []);
+
+    return (
+        <section
+            ref={elementRef}
+            className="relative flex-none w-screen h-screen shrink-0 bg-stone overflow-hidden"
+        >
+            {/* The content of the animated slice */}
+            <div className="relative w-full h-full flex items-center justify-center">
+                <PrismicNextImage
+                    field={slice.primary.block_a_image_1}
+                    fill
+                    className="object-cover"
+                    ref={imageRef}
+                    style={{ willChange: 'clip-path' }} // Optimization for clip-path animation
+                />
+                <div
+                    ref={textRef}
+                    // Text is positioned using CSS and its visibility/position controlled by GSAP
+                    className="absolute flex items-center justify-center text-center text-2xl text-white z-20 px-4"
+                >
+                    <PrismicRichText field={slice.primary.block_a_text_1} />
+                </div>
+                <div>
+                  <PrismicRichText field={slice.primary.block_a_text_2} />
+                </div>
+            </div>
+        </section>
+    );
 }

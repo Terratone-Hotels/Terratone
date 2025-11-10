@@ -1,0 +1,192 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"main_image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2",
+					"width": 3648,
+					"height": 4560
+				},
+				"url": "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2",
+				"width": 3648,
+				"height": 4560,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "square",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"text_main": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Occaecat ea mollit amet cupidatat non id."
+						}
+					}
+				]
+			},
+			"image_2": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
+					"width": 3424,
+					"height": 3424
+				},
+				"url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
+				"width": 3424,
+				"height": 3424,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "share",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"image_3": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1537498425277-c283d32ef9db",
+					"width": 4380,
+					"height": 2895
+				},
+				"url": "https://images.unsplash.com/photo-1537498425277-c283d32ef9db",
+				"width": 4380,
+				"height": 2895,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "roll",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"image_4": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1587613865763-4b8b0d19e8ab",
+					"width": 12288,
+					"height": 16384
+				},
+				"url": "https://images.unsplash.com/photo-1587613865763-4b8b0d19e8ab",
+				"width": 12288,
+				"height": 16384,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "lot",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"image_5": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1551739440-5dd934d3a94a",
+					"width": 3456,
+					"height": 4320
+				},
+				"url": "https://images.unsplash.com/photo-1551739440-5dd934d3a94a",
+				"width": 3456,
+				"height": 4320,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "be",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"image_6": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1448932223592-d1fc686e76ea",
+					"width": 3500,
+					"height": 2338
+				},
+				"url": "https://images.unsplash.com/photo-1448932223592-d1fc686e76ea",
+				"width": 3500,
+				"height": 2338,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "promised",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"image_7": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1600861194802-a2b11076bc51",
+					"width": 2545,
+					"height": 2545
+				},
+				"url": "https://images.unsplash.com/photo-1600861194802-a2b11076bc51",
+				"width": 2545,
+				"height": 2545,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "straw",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"ending_text": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Incididunt dolor ea ex ea enim magna est ullamco enim reprehenderit sit eiusmod."
+						}
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

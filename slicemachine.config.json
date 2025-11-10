@@ -2,5 +2,6 @@
   "repositoryName": "terratone-hotels",
   "adapter": "@slicemachine/adapter-next",
   "libraries": ["./src/slices"],
-  "localSliceSimulatorURL": "http://localhost:3000/slice-simulator"
+  "localSliceSimulatorURL": "http://localhost:3000/slice-simulator",
+  "apiToken": "MC5hUXlFV3hFQUFDTUFRajZZ.Bu-_ve-_ve-_vTLvv70NCHbvv70QVX7vv70uWBoa77-977-9AO-_ve-_vXZLXE7vv73vv73vv706Mg"
 }

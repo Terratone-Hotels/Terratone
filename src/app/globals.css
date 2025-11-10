@@ -105,6 +105,9 @@ body {
 }
 
 .horizontal-scroll__inner > section {
-  width: 100vw;
+ 
   flex-shrink: 0;
+}
+.horizontal-scroll__inner > section:not(.custom-width) {
+  width: 100vw;
 }

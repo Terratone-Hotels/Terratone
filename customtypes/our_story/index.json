@@ -11,6 +11,18 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "story_block_c": {
+              "type": "SharedSlice"
+            },
+            "story_block_d": {
+              "type": "SharedSlice"
+            },
+            "story_block_b": {
+              "type": "SharedSlice"
+            },
+            "text_and_dot_wave": {
+              "type": "SharedSlice"
+            },
             "our_story_intro": {
               "type": "SharedSlice"
             },

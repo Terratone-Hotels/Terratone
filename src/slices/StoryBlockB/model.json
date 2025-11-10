@@ -1,0 +1,109 @@
+{
+  "id": "story_block_b",
+  "type": "SharedSlice",
+  "name": "StoryBlockB",
+  "description": "StoryBlockB",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "text_field_one": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Text field one",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "image_one": {
+          "type": "Image",
+          "config": {
+            "label": "Image One",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "text_field_two": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Text field two",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "image_two": {
+          "type": "Image",
+          "config": {
+            "label": "Image Two",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_three": {
+          "type": "Image",
+          "config": {
+            "label": "Image Three",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image": {
+          "type": "Image",
+          "config": {
+            "label": "Image Four",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_five": {
+          "type": "Image",
+          "config": {
+            "label": "Image Five",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_six": {
+          "type": "Image",
+          "config": {
+            "label": "Image Six",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_seven": {
+          "type": "Image",
+          "config": {
+            "label": "Image Seven",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_eight": {
+          "type": "Image",
+          "config": {
+            "label": "Image Eight",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_nine": {
+          "type": "Image",
+          "config": {
+            "label": "Image Nine",
+            "constraint": {},
+            "thumbnails": []
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

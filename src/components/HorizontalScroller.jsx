@@ -27,14 +27,20 @@ export default function HorizontalScroller({ children }) {
         x: () => -totalScrollWidth,
         ease: "none",
         scrollTrigger: {
+          id: "horizontalScroll",
           trigger: section,
           pin: true,
           scrub: 1,
           start: "top top",
           end: () => "+=" + totalScrollWidth,
           invalidateOnRefresh: true,
+          markers: true,
         },
       });
+      console.log(
+        "HorizontalScroller ScrollTrigger created:",
+        ScrollTrigger.getById("horizontalScroll")
+      );
     }, sectionRef); // Scope the context to the sectionRef
 
     // Cleanup function
