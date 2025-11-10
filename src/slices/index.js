@@ -17,6 +17,7 @@ export const components = {
   hero: dynamic(() => import("./Hero")),
   hero_for_others: dynamic(() => import("./HeroForOthers")),
   hero_intro_slice: dynamic(() => import("./HeroIntroSlice")),
+  horizontal_page: dynamic(() => import("./HorizontalPage")),
   intro_block: dynamic(() => import("./IntroBlock")),
   location_and_contacts: dynamic(() => import("./LocationAndContacts")),
   meeting_halls: dynamic(() => import("./MeetingHalls")),

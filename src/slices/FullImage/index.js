@@ -1,109 +1,117 @@
+// src/slices/FullImage/index.jsx
 "use client";
-import { useEffect, useRef } from "react";
+
+import { useRef, useEffect } from "react";
 import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextImage } from "@prismicio/next";
-import gsap from "gsap";
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const components = {
-  heading1: ({ children }) => (
-    <h1 className="text-5xl md:text-8xl font-bold text-white">{children}</h1>
-  ),
-  heading2: ({ children }) => (
-    <h2 className="text-4xl md:text-7xl font-bold text-white">{children}</h2>
+  paragraph: ({ children }) => (
+    <p className="text-6xl text-white font-serif">{children}</p>
   ),
 };
 
-const FullImage = ({ slice }) => {
-  const imageWrapperRef = useRef(null);
-  const overlayWrapperRef = useRef(null);
-  const heroTitleRef = useRef(null);
+export default function FullImage({ slice }) {
+  // CORRECT: useRef<HTMLDivElement>(null)
+  const sectionRef = useRef < HTMLDivElement > null;
+  const imageWrapperRef = useRef < HTMLDivElement > null;
+  const stepsRef = useRef < HTMLDivElement > null;
+
+  const widthScreens = slice.primary.duration_screens || 4;
+  const totalWidth = `${widthScreens * 100}vw`;
+
+  const steps = slice.items.map((item, i) => (
+    <div
+      key={i}
+      className="pin-step absolute inset-0 w-screen h-screen flex items-center justify-center p-20 opacity-0 pointer-events-none"
+    >
+      <div className="text-center">
+        <PrismicRichText field={item.step_text} components={components} />
+      </div>
+    </div>
+  ));
 
   useEffect(() => {
-    // Ensure all refs are available
-    if (
-      !imageWrapperRef.current ||
-      !overlayWrapperRef.current ||
-      !heroTitleRef.current
-    )
-      return;
+    const section = sectionRef.current;
+    const imageWrapper = imageWrapperRef.current;
+    const stepEls = stepsRef.current?.children;
+
+    if (!section || !imageWrapper || !stepEls?.length) return;
 
     const ctx = gsap.context(() => {
-      // Timeline for image and overlay scale
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: imageWrapperRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0.8,
-        },
-        ease: "power2.out",
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: `+=${widthScreens * 100}vw`,
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+        scrub: 1,
       });
 
-      tl.fromTo(imageWrapperRef.current, { scale: 1.3 }, { scale: 1 });
-      tl.fromTo(overlayWrapperRef.current, { scale: 1.3 }, { scale: 1 }, "<");
+      gsap.to(imageWrapper, {
+        x: `-${(widthScreens - 1) * 100}vw`,
+        scale: 0.85,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: `+=${widthScreens * 100}vw`,
+          scrub: 1,
+        },
+      });
 
-      // Animate hero title opacity and y-position
-      gsap.fromTo(
-        heroTitleRef.current,
-        { autoAlpha: 0, y: 50 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: imageWrapperRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-            markers: true, // <-- Add markers for debugging
-          },
-        }
-      );
-    }, imageWrapperRef); // Scoping animations to the component
+      Array.from(stepEls).forEach((el, i) => {
+        const start = i * 100;
+        ScrollTrigger.create({
+          trigger: section,
+          start: `top top-=${start}vw`,
+          end: `top top-=${start + 80}vw`,
+          onEnter: () => gsap.to(el, { opacity: 1, duration: 0.6 }),
+          onLeaveBack: () => gsap.set(el, { opacity: 0 }),
+        });
+      });
+    }, section);
 
-    return () => ctx.revert(); // Cleanup GSAP animations
-  }, []);
+    return () => ctx.revert();
+  }, [slice, widthScreens]);
 
   return (
     <section
+      ref={sectionRef} // CORRECT: ref is a proper React ref
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="relative w-screen h-screen overflow-visible z-10 flex items-center justify-center"
+      className="horizontal-section full-image image-pin-sequence relative h-screen overflow-hidden"
+      style={{ width: totalWidth }}
     >
-      {/* Container with overflow-hidden */}
-      <div className="absolute inset-0 overflow-hidden z-0">
-        {/* Image wrapper */}
-        <div ref={imageWrapperRef} className="w-full h-full">
-          {slice.primary.image && (
-            <PrismicNextImage
-              field={slice.primary.image}
-              alt=""
-              fill
-              className="object-cover brightness-95"
-            />
-          )}
-          <div className="absolute left-0 top-0 h-full w-[15vw]" />
-        </div>
-        {/* Overlay wrapper */}
-        <div ref={overlayWrapperRef} className="absolute inset-0 bg-black/30" />
-      </div>
-
-      {/* === Title Content === */}
       <div
-        ref={heroTitleRef}
-        className="relative z-20 p-4 text-center text-white text-5xl invisible" // <-- Use 'invisible' class instead of inline style
+        ref={imageWrapperRef}
+        className="sticky top-0 left-0 h-screen w-screen z-10"
       >
-        {slice.primary.hero_title && (
-          <PrismicRichText
-            field={slice.primary.hero_title}
-            components={components}
+        {slice.primary.image && (
+          <PrismicNextImage
+            field={slice.primary.image}
+            alt=""
+            fill
+            className="object-cover brightness-95"
+            priority
           />
         )}
       </div>
+
+      <div className="absolute inset-0 bg-black/30 pointer-events-none z-20" />
+
+      <div
+        ref={stepsRef}
+        className="absolute top-0 left-0 z-30"
+        style={{ width: totalWidth }}
+      >
+        {steps}
+      </div>
     </section>
   );
-};
-
-export default FullImage;
+}

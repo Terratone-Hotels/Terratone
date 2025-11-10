@@ -96,15 +96,26 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.horizontal-scroll {
-  overflow-x: hidden;
+.horizontal-container {
+  overscroll-behavior: none;
+  height: 100vh;
 }
 
-.horizontal-scroll__inner {
+.panels {
+  width: max-content;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.panel {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
   display: flex;
 }
 
-.horizontal-scroll__inner > section {
-  width: 100vw;
-  flex-shrink: 0;
+.box {
+  width: 75px;
+  height: 75px;
+  background-color: white;
 }

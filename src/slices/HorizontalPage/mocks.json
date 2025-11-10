@@ -1,0 +1,176 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"section_1": {
+				"__TYPE__": "FieldContent",
+				"value": "carefully",
+				"type": "Text"
+			},
+			"our_story": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Ad sunt dolor ullamco sunt."
+						}
+					}
+				]
+			},
+			"section_2": {
+				"__TYPE__": "FieldContent",
+				"value": "select",
+				"type": "Text"
+			},
+			"text_1": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Ex nulla ex occaecat irure ipsum ea. Ad aliquip veniam aute minim cillum sint est pariatur Lorem."
+						}
+					}
+				]
+			},
+			"text_2": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Eu quis consequat ea eu non in mollit aliquip. Sint nisi veniam consectetur. Sit aute ipsum exercitation consequat officia ipsum sunt."
+						}
+					}
+				]
+			},
+			"text_3": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Nostrud enim fugiat sit. Cillum labore ipsum tempor. Mollit mollit aliqua officia eu esse aliqua ipsum aute incididunt sit."
+						}
+					}
+				]
+			},
+			"text_4": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Exercitation aliqua duis adipisicing elit officia nostrud dolor duis labore. Sint nulla voluptate tempor aliqua nostrud id labore."
+						}
+					}
+				]
+			},
+			"text_5": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Ex fugiat tempor sit ex consequat fugiat sunt in do velit deserunt enim excepteur adipisicing aliqua. Lorem culpa incididunt sint."
+						}
+					}
+				]
+			},
+			"image_1": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1",
+					"width": 5616,
+					"height": 3744
+				},
+				"url": "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1",
+				"width": 5616,
+				"height": 3744,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "gather",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"image_2": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1587653915936-5623ea0b949a",
+					"width": 4000,
+					"height": 4000
+				},
+				"url": "https://images.unsplash.com/photo-1587653915936-5623ea0b949a",
+				"width": 4000,
+				"height": 4000,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "private",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"image_3": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1606248897732-2c5ffe759c04",
+					"width": 4000,
+					"height": 4000
+				},
+				"url": "https://images.unsplash.com/photo-1606248897732-2c5ffe759c04",
+				"width": 4000,
+				"height": 4000,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "scared",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"image_4": {
+				"__TYPE__": "ImageContent",
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2",
+					"width": 5616,
+					"height": 3744
+				},
+				"url": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2",
+				"width": 5616,
+				"height": 3744,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "lesson",
+				"thumbnails": {}
+			}
+		},
+		"items": []
+	}
+]

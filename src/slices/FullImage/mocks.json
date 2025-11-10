@@ -15,7 +15,6 @@
 				]
 			},
 			"image": {
-				"__TYPE__": "ImageContent",
 				"origin": {
 					"id": "main",
 					"url": "https://images.unsplash.com/photo-1606248897732-2c5ffe759c04",
@@ -34,7 +33,20 @@
 					"background": "transparent"
 				},
 				"alt": "parallel",
+				"credits": null,
+				"__TYPE__": "ImageContent",
 				"thumbnails": {}
+			},
+			"description_2": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "In quis eu proident fugiat in laborum non nostrud tempor sint exercitation qui enim velit reprehenderit. Adipisicing qui nostrud culpa sit qui duis mollit mollit anim deserunt."
+						}
+					}
+				]
 			}
 		},
 		"items": []

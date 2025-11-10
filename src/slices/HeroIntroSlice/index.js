@@ -11,20 +11,11 @@ const HeroIntroSlice = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="
-        hero-intro 
-        flex h-screen w-screen 
-        items-center justify-start 
-        bg-[var(--color-stone)]
-        relative z-0 overflow-hidden
-      "
+      className="relative flex items-center justify-center h-screen w-screen overflow-hidden "
     >
-      <div className="p-10 text-[280px] font-medium font-inter leading-68 leading-">
+      <div className="max-w-[90vw] px-10 text-[10vw] md:text-[12vw] font-medium font-inter leading-none break-words">
         <PrismicRichText field={slice.primary.hero_text} />
       </div>
-
-      {/* Fade gradient that helps blend into next section */}
-      <div className="absolute right-0 top-0 h-full w-[20vw] bg-gradient-to-l from-[var(--color-stone)] to-transparent pointer-events-none z-10" />
     </section>
   );
 };

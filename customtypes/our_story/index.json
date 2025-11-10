@@ -11,13 +11,7 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "our_story_intro": {
-              "type": "SharedSlice"
-            },
-            "full_image": {
-              "type": "SharedSlice"
-            },
-            "hero_intro_slice": {
+            "horizontal_page": {
               "type": "SharedSlice"
             }
           }

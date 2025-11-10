@@ -4,19 +4,12 @@ import { SliceZone } from "@prismicio/react";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
-import HorizontalScroller from "@/components/HorizontalScroller"; // client-side animation wrapper
 
 export default async function Page() {
   const client = createClient();
   const page = await client.getSingle("our_story").catch(() => notFound());
 
-  return (
-    <main className="our-story-page">
-      <HorizontalScroller>
-        <SliceZone slices={page.data.slices} components={components} />
-      </HorizontalScroller>
-    </main>
-  );
+  return <SliceZone slices={page.data.slices} components={components} />;
 }
 
 export async function generateMetadata() {

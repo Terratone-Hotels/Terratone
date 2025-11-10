@@ -1443,10 +1443,7 @@ export type MeetingroomDocument<Lang extends string = string> =
     Lang
   >;
 
-type OurStoryDocumentDataSlicesSlice =
-  | OurStoryIntroSlice
-  | FullImageSlice
-  | HeroIntroSliceSlice;
+type OurStoryDocumentDataSlicesSlice = HorizontalPageSlice;
 
 /**
  * Content for Our Story documents
@@ -2376,6 +2373,16 @@ export interface FullImageSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
+
+  /**
+   * Description 2 field in *FullImage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: full_image.default.primary.description_2
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description_2: prismic.RichTextField;
 }
 
 /**
@@ -2645,6 +2652,161 @@ type HeroIntroSliceSliceVariation = HeroIntroSliceSliceDefault;
 export type HeroIntroSliceSlice = prismic.SharedSlice<
   "hero_intro_slice",
   HeroIntroSliceSliceVariation
+>;
+
+/**
+ * Primary content in *HorizontalPage → Default → Primary*
+ */
+export interface HorizontalPageSliceDefaultPrimary {
+  /**
+   * Section 1 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_1
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_1: prismic.KeyTextField;
+
+  /**
+   * Our Story field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.our_story
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  our_story: prismic.RichTextField;
+
+  /**
+   * Section 2 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_2
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_2: prismic.KeyTextField;
+
+  /**
+   * Text 1 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.text_1
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text_1: prismic.RichTextField;
+
+  /**
+   * Text 2 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.text_2
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text_2: prismic.RichTextField;
+
+  /**
+   * Text 3 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.text_3
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text_3: prismic.RichTextField;
+
+  /**
+   * Text 4 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.text_4
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text_4: prismic.RichTextField;
+
+  /**
+   * Text 5 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.text_5
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text_5: prismic.RichTextField;
+
+  /**
+   * Image 1 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.image_1
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_1: prismic.ImageField<never>;
+
+  /**
+   * Image 2 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.image_2
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_2: prismic.ImageField<never>;
+
+  /**
+   * Image 3 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.image_3
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_3: prismic.ImageField<never>;
+
+  /**
+   * Image 4 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.image_4
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_4: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for HorizontalPage Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HorizontalPageSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<HorizontalPageSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *HorizontalPage*
+ */
+type HorizontalPageSliceVariation = HorizontalPageSliceDefault;
+
+/**
+ * HorizontalPage Shared Slice
+ *
+ * - **API ID**: `horizontal_page`
+ * - **Description**: HorizontalPage
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HorizontalPageSlice = prismic.SharedSlice<
+  "horizontal_page",
+  HorizontalPageSliceVariation
 >;
 
 /**
@@ -5025,6 +5187,10 @@ declare module "@prismicio/client" {
       HeroIntroSliceSliceDefaultPrimary,
       HeroIntroSliceSliceVariation,
       HeroIntroSliceSliceDefault,
+      HorizontalPageSlice,
+      HorizontalPageSliceDefaultPrimary,
+      HorizontalPageSliceVariation,
+      HorizontalPageSliceDefault,
       IntroBlockSlice,
       IntroBlockSliceDefaultPrimary,
       IntroBlockSliceVariation,
