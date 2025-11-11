@@ -19,13 +19,13 @@ const LocationAndContacts = ({ slice }) => {
       data-slice-variation={slice.variation}
      
     >
-      <div className="flex flex-col lg:flex-row w-full items-end justify-between font-serif  ">
+      <div className="flex flex-col lg:flex-row w-full justify-between font-serif  ">
         {/*Map and button*/}
-        <div className=" flex lg:flex-row flex-col   lg:items-end  justify-start  gap-2 lg:gap-5  lg:w-1/2   ">
-          <div className="w-full  relative h-[206px]  lg:h-[331px]">
+        <div className=" flex lg:flex-row flex-col    justify-start  gap-2 lg:gap-5  lg:w-1/2   ">
+          <div className="w-full  relative h-[220px] md:h-[300px]  lg:h-[331px]">
             <CurtainRevealImage
               field={slice.primary.map}
-              className="w-full lg:w-[448px] h-full"
+              className="w-full lg:w-[320px] xl:w-[448px] h-full"
             />
 
             <div className="absolute inset-0 flex justify-center items-center z-10">
@@ -39,17 +39,17 @@ const LocationAndContacts = ({ slice }) => {
 
           {/* Distance Tab */}
           <div className="flex  lg:justify-center lg:-mb-1.5 w-full">
-            <div className="flex justify-between lg:gap-0 lg:flex-col w-[80%] lg:w-full">
+            <div className="flex justify-between lg:justify-end lg:gap-0 lg:flex-col w-[80%] md:w-[60%] lg:w-full">
               <div className="text-[14px] lg:text-[16px] font-medium mb-1  mt-4 lg:mt-0 font-barlow">
                 <RichTextRenderer field={slice.primary.distance_from} />
               </div>
               <div className="   font-barlow">
                 {slice.primary.distances.map((item, index) => (
                   <div key={index} className="mt-4 lg:mt-1">
-                    <div className="text-[12px] lg:text-[15px] font-medium text-gray-500">
+                    <div className="text-[12px] lg:text-[13px] font-medium text-gray-500">
                       <RichTextRenderer field={item.time} />
                     </div>
-                    <div className="text-[14px] lg:text-[18px] ">
+                    <div className="text-[14px] lg:text-[15px] ">
                       <RichTextRenderer field={item.location} />
                     </div>
                   </div>
@@ -61,7 +61,7 @@ const LocationAndContacts = ({ slice }) => {
 
         {/* Address and contacts */}
 
-        <div className="w-full lg:font-medium mt-10 lg:mt-0 lg:w-1/2">
+        <div className="w-full lg:font-medium mt-10 lg:mt-0 lg:self-end lg:w-1/2">
           <div className="border-l-2 border-black pl-4  lg:pl-6">
             <div className="flex flex-col  md:flex-row justify-between items-start w-full border-t-2 border-black pb-9 pt-2 lg:pb-5 lg:pt-2 ">
               <div className=" text-[18px] font-medium lg:text-[22px] pb-4 lg:pb-0">

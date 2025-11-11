@@ -67,8 +67,8 @@ const ResonanceBlock = ({ slice }) => {
           </div>
           {/* OverLapping image and text */}
           <div className="hidden w-full h-[425px] lg:flex flex-row justify-between items-center ">
-            <div className="w-[35%] flex h-auto items-center justify-center">
-              <div className=" w-[50%] font-barlow font-medium">
+            <div className="w-[35%] flex h-auto text-justify items-center justify-center">
+              <div className=" w-[50%] text-lg font-barlow font-medium">
                 <RichTextRenderer field={slice.primary.description_one} />
               </div>
             </div>
@@ -78,7 +78,7 @@ const ResonanceBlock = ({ slice }) => {
                 className=" h-[16rem] w-[13rem] lg:w-[27.938rem] lg:h-[33.938rem] object-cover"
               />
             </div>
-            <div className="w-[35%] flex mt-auto h-auto items-end justify-center">
+            <div className=" w-[35%] flex mt-auto h-auto text-justify items-end justify-center">
               <div className=" w-[50%] font-barlow font-medium">
                 <RichTextRenderer field={slice.primary.description_two} />
               </div>
@@ -90,7 +90,7 @@ const ResonanceBlock = ({ slice }) => {
               <div>
                 <CurtainRevealImage
                   field={slice.primary.vertical_image}
-                  className=" h-[14rem] w-[10rem] object-cover"
+                  className=" h-[14rem] w-[10rem] z-100 object-cover"
                 />
               </div>
               <div className=" mt-5 w-[71%] font-barlow ">

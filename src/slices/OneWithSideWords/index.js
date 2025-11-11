@@ -69,16 +69,16 @@ export default function OneWithSideWords({ slice }) {
       </div>
 
       {/* =================== Video + Side Words =================== */}
-      <div className="flex items-center justify-center w-full mt-4 relative">
+      <div className="flex justify-evenly  w-full h-auto mt-4 relative">
         {/* Left Word */}
-        <div className="relative w-[20%] lg:w-auto flex items-center justify-center">
-          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium -rotate-90 lg:rotate-0 lg:text-right lg:pr-10">
+        <div className="relative flex-1 w-[20%] lg:w-auto flex items-center justify-center">
+          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium -rotate-90 lg:rotate-0 lg:text-right lg:pr-4 ">
             <RichTextRenderer field={slice.primary.left_word} />
           </div>
         </div>
 
         {/* === Video with Horizontal Reveal === */}
-        <div className="relative w-full md:w-[60%] aspect-[21/9] overflow-hidden">
+        <div className="relative flex-6 w-full md:w-[60%] aspect-[22/11] overflow-hidden">
           <VideoComponent
             srcMp4={slice.primary.video}
             className="w-full h-full object-cover"
@@ -98,8 +98,8 @@ export default function OneWithSideWords({ slice }) {
         </div>
 
         {/* Right Word */}
-        <div className="relative w-[20%] lg:w-auto flex items-center justify-center">
-          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium rotate-90 lg:rotate-0 lg:pl-10">
+        <div className="relative flex-1 w-[20%] lg:w-auto flex items-center justify-center">
+          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium rotate-90 lg:rotate-0 lg:pl-5 ">
             <RichTextRenderer field={slice.primary.right_word} />
           </div>
         </div>

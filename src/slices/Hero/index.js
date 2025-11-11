@@ -165,7 +165,7 @@ const Hero = ({ slice }) => {
         >
           <div
             ref={headingRef}
-            className="font-serif leading-tight text-start sm:text-center w-full text-[2.8125rem] sm:text-[3.25rem] text-white mb-4 opacity-0 [clip-path:inset(100%_0%_0%_0%)]"
+            className="font-serif leading-17 text-start sm:text-center w-full text-[2.8125rem] sm:text-[3.25rem] text-white mb-4 opacity-0 [clip-path:inset(100%_0%_0%_0%)]"
           >
             <PrismicRichText field={slice.primary.heading} />
           </div>

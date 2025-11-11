@@ -40,7 +40,7 @@ export default function ScrollSectionMobile({ data, sectionHeading }) {
             {items.map((item, i) => (
               <div key={i} className="px-4 py-3">
                 {item.image && (
-                  <PrismicNextImage field={item.image} className=" mb-3" />
+                  <PrismicNextImage field={item.image} className=" mb-3 w-full aspect-[8/6] object-cover" />
                 )}
                 <div className="rich-text">
                   {item.description?.length > 0 && (
