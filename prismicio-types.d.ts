@@ -2777,6 +2777,136 @@ export interface HorizontalPageSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image_4: prismic.ImageField<never>;
+
+  /**
+   * Section 3 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_3
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_3: prismic.KeyTextField;
+
+  /**
+   * Section3 Text 1 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section3_text_1
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  section3_text_1: prismic.RichTextField;
+
+  /**
+   * Section 3 text 2 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_3_text_2
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  section_3_text_2: prismic.RichTextField;
+
+  /**
+   * Section 3 Text 3 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_3_text_3
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  section_3_text_3: prismic.RichTextField;
+
+  /**
+   * Marque 1 Image 1 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.marque_1_image_1
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  marque_1_image_1: prismic.ImageField<never>;
+
+  /**
+   * Marque 1 Image 2 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.marque_1_image_2
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  marque_1_image_2: prismic.ImageField<never>;
+
+  /**
+   * Marque 1 Image 3 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.marque_1_image_3
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  marque_1_image_3: prismic.ImageField<never>;
+
+  /**
+   * Marque 2 Image 1 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.marque_2_image_1
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  marque_2_image_1: prismic.ImageField<never>;
+
+  /**
+   * Marque 2 Image 2 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.marque_2_image_2
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  marque_2_image_2: prismic.ImageField<never>;
+
+  /**
+   * Marque 2 Image 3 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.marque_2_image_3
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  marque_2_image_3: prismic.ImageField<never>;
+
+  /**
+   * Marque 3 Image 1 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.marque_3_image_1
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  marque_3_image_1: prismic.ImageField<never>;
+
+  /**
+   * Marque 3 Image 2 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.marque_3_image_2
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  marque_3_image_2: prismic.ImageField<never>;
+
+  /**
+   * Marque 3 Image 3 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.marque_3_image_3
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  marque_3_image_3: prismic.ImageField<never>;
 }
 
 /**
