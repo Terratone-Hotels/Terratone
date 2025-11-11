@@ -14,7 +14,7 @@ export default function RoomCard({
   linkText,
   titleClassName = "text-xl font-semibold",
   descriptionClassName = " text-gray-700",
-  buttonClassNames = "",
+  buttonClassNames = "text-xs",
 }) {
   return (
     <div className="group  w-full md:w-90 xl:w-110 flex flex-col  relative ">
@@ -42,12 +42,12 @@ export default function RoomCard({
           >
             <RichTextRenderer
               field={description}
-              className="m-0 font-barlow text-[12px] lg:text-[15px]"
+              className="m-0 font-barlow text-[12px] lg:text-[14px]"
             />
           </div>
         )}
 
-        <Button className={`p-1.5 ${buttonClassNames}`}>
+        <Button className={`px-1 py-1  ${buttonClassNames}`}>
           <PrismicNextLink field={bookingLink}>{linkText}</PrismicNextLink>
         </Button>
       </div>
