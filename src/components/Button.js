@@ -1,3 +1,5 @@
+
+
 "use client";
 
 import { useRef, useEffect } from "react";
@@ -81,9 +83,11 @@ export default function Button({
     <button
       ref={buttonRef}
       className={clsx(
-        "group inline-flex font-medium uppercase",
-        !noBorder && "border border-black"
+        "group inline-grid font-medium  uppercase",
+        !noBorder && "border border-black",
+        "grid-cols-[auto_auto]"
       )}
+      style={{ alignItems: "stretch" }} // so grid items stretch height-wise
     >
       {/* Text span */}
       <span
@@ -91,7 +95,6 @@ export default function Button({
         className={clsx(
           "flex items-center justify-center font-barlowNormal text-xs lg:text-sm text-black",
           className
-          // ✅ Removed transition classes
         )}
       >
         {children}
@@ -100,16 +103,10 @@ export default function Button({
       {/* Arrow span */}
       <span
         ref={arrowSpanRef}
-        className={clsx(
-          "flex items-center justify-center text-black",
-          className
-          // ✅ Removed transition classes
-        )}
+        className={clsx("flex justify-center items-center text-black", className)}
       >
-        {showArrow && <ArrowIcon className="w-[0.688rem] h-[0.625rem]" />}
+        {showArrow && <ArrowIcon className="w-[0.688rem] h-full" />}
       </span>
-
-      {/* ✅ The <style jsx> block has been removed */}
     </button>
   );
 }

@@ -145,7 +145,7 @@ const ReversedDestinationHighlights = ({ slice }) => {
               {/* Animated Heading */}
               <RichTextRenderer
                 field={slice.primary.heading}
-                className="text-[1.75rem] md:text-[2.625rem] lg:text-6xl font-serif font-medium leading-7 md:leading-[3rem]"
+                className="text-[1.75rem] md:text-[2.625rem] lg:text-6xl font-serif font-medium leading-7 md:leading-12"
               />
 
               {/* Animated Description */}
@@ -157,14 +157,11 @@ const ReversedDestinationHighlights = ({ slice }) => {
               {/* Button */}
               <div>
                 <Button className="px-2.5 py-1">
-                  {slice.primary.button_text}
+                  <PrismicNextLink field={slice.primary.button_link}>
+                    {slice.primary.button_text}
+                  </PrismicNextLink>
                 </Button>
               </div>
-
-              {/* Optional Link */}
-              {slice.primary.explore_button?.url && (
-                <PrismicNextLink field={slice.primary.explore_button} />
-              )}
             </div>
 
             {/* Right Side Media */}

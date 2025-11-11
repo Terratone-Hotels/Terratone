@@ -162,7 +162,7 @@ const ScrollSection = ({ slice, context }) => {
                     {item.image?.url && (
                       <PrismicNextImage
                         field={item.image}
-                        className={`aspect-square max-w-[300px] xl:max-w-[500px] object-cover ${
+                        className={`aspect-square lg:w-90 lg:h-90 xl:h-100 xl:w-100 max-w-[300px] xl:max-w-[500px] object-cover ${
                           isEven ? "self-start" : "self-end"
                         }`}
                       />
