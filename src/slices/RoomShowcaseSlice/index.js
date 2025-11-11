@@ -42,10 +42,10 @@ const RoomShowcaseSlice = ({ slice }) => {
           
         >
           <div className="flex flex-col items-center">
-            <div className="text-center font-serif font-medium lg:leading-14 leading-tight text-[30px] lg:text-[60px]">
+            <div className="text-center font-serif font-medium lg:leading-14 leading-10 text-[40px] lg:text-[60px]">
               <RichTextRenderer field={slice.primary.heading} />
             </div>
-            <div className="w-[90%] lg:w-[50%] text-center text-lg font-barlow leading-6 mt-7 mb-10">
+            <div className="w-[90%] lg:w-[50%] text-center text-[16px] font-barlow leading-6 mt-7 mb-10">
               <RichTextRenderer field={slice.primary.description} />
             </div>
           </div>

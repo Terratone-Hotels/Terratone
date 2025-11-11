@@ -65,7 +65,7 @@ const ParallaxGallery = ({ slice }) => {
   return (
     <section
       ref={galleryRef}
-      className="w-full flex flex-col gap-8 pb-[10vh] md:gap-0 md:pb-[40vh]"
+      className="w-full flex flex-col gap-8  md:gap-0 "
     >
       {/* 🛑 Safety check: Use optional chaining to prevent crash if data is null/undefined */}
       {slice.primary.parallax?.map((item, index) => (

@@ -42,7 +42,7 @@ export default function RoomCard({
           >
             <RichTextRenderer
               field={description}
-              className="m-0 font-barlow text-[15px]"
+              className="m-0 font-barlow text-[12px] lg:text-[15px]"
             />
           </div>
         )}

@@ -53,6 +53,8 @@ body {
 .line-mask {
   display: block;
   overflow: hidden;
+  padding-bottom: 0.3em; /* allows tails to show */
+ 
 }
 
 /* Each line behaves like a block for GSAP transform */

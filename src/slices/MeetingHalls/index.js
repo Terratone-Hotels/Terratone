@@ -65,8 +65,9 @@ const MeetingHalls = ({ slice }) => {
           scrollTrigger: {
             trigger: section,
             start: "top 45%",
-            end: "bottom 55%",
+            end: "bottom bottom",
             scrub: true, // ✅ This animation is always linked to the scrollbar
+            markers:true
           },
         }
       );
