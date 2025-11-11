@@ -111,6 +111,112 @@
             "constraint": {},
             "thumbnails": []
           }
+        },
+        "section_3": {
+          "type": "Text",
+          "config": {
+            "label": "Section 3",
+            "placeholder": ""
+          }
+        },
+        "section3_text_1": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Section3 Text 1",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "section_3_text_2": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Section 3 text 2",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "section_3_text_3": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Section 3 Text 3",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "marque_1_image_1": {
+          "type": "Image",
+          "config": {
+            "label": "Marque 1 Image 1",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "marque_1_image_2": {
+          "type": "Image",
+          "config": {
+            "label": "Marque 1 Image 2",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "marque_1_image_3": {
+          "type": "Image",
+          "config": {
+            "label": "Marque 1 Image 3",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "marque_2_image_1": {
+          "type": "Image",
+          "config": {
+            "label": "Marque 2 Image 1",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "marque_2_image_2": {
+          "type": "Image",
+          "config": {
+            "label": "Marque 2 Image 2",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "marque_2_image_3": {
+          "type": "Image",
+          "config": {
+            "label": "Marque 2 Image 3",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "marque_3_image_1": {
+          "type": "Image",
+          "config": {
+            "label": "Marque 3 Image 1",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "marque_3_image_2": {
+          "type": "Image",
+          "config": {
+            "label": "Marque 3 Image 2",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "marque_3_image_3": {
+          "type": "Image",
+          "config": {
+            "label": "Marque 3 Image 3",
+            "constraint": {},
+            "thumbnails": []
+          }
         }
       },
       "items": {}
