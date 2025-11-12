@@ -1,44 +1,43 @@
 "use client";
 import Bounded from "@/components/Bounded";
-import { PrismicRichText } from "@prismicio/react";
 import QuoteIcon from "@/components/quoteIcon";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
-
+import { Scrollbar, A11y } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import RichTextRenderer from "@/components/RichTextRenderer";
 
-const Testimonials = ({ slice }) => {
+export default function Testimonials({ slice }) {
   return (
-    <Bounded
-      data-slice-type={slice.slice_type}
-      data-slice-variation={slice.variation}
-    >
-      <div className="flex flex-col justify-center text-center items-center w-full md:max-w-[60rem] mx-auto ">
-        <div className="flex text-5xl font-medium font-serif ">
+    <Bounded>
+      <div className="flex flex-col items-center text-center md:max-w-[60rem] mx-auto">
+        <div className="flex text-5xl font-medium font-serif text-stone-800 mb-6">
           <QuoteIcon />
         </div>
 
         <Swiper
           spaceBetween={50}
           slidesPerView={1}
-          modules={[Navigation, A11y]}
-          className="w-full"
+          loop={true}
+          modules={[Scrollbar, A11y]}
+          scrollbar={{
+            el: ".custom-scrollbar",
+            draggable: true,
+            dragSize: 20,
+          }}
+          className="w-full custom-swiper"
         >
-          {slice.primary.testimonials.map((item, index) => (
-            <SwiperSlide key={index}>
-              <div className="p-6 mb-4 justify-center items-center font-barlow text-md mx-auto md:text-lg select-none">
+          {slice.primary.testimonials.map((item, i) => (
+            <SwiperSlide key={i}>
+              <div className="p-6 text-lg font-barlow mx-auto md:text-xl">
                 <RichTextRenderer field={item.quote} />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
+
+        <div className="custom-scrollbar relative mt-6 w-28 h-[2px] bg-gray-300 rounded-full"></div>
       </div>
     </Bounded>
   );
-};
-
-export default Testimonials;
+}

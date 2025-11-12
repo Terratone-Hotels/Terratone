@@ -67,7 +67,7 @@ const MeetingHalls = ({ slice }) => {
             start: "top 45%",
             end: "bottom bottom",
             scrub: true, // ✅ This animation is always linked to the scrollbar
-            markers:true
+            // markers:true
           },
         }
       );
