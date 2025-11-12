@@ -2907,6 +2907,156 @@ export interface HorizontalPageSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   marque_3_image_3: prismic.ImageField<never>;
+
+  /**
+   * Section 4 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_4
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_4: prismic.KeyTextField;
+
+  /**
+   * Section 4 Text field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_4_text
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  section_4_text: prismic.RichTextField;
+
+  /**
+   * Section 4 Image 1 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_4_image_1
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_4_image_1: prismic.ImageField<never>;
+
+  /**
+   * Section 4 Image 2 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_4_image_2
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_4_image_2: prismic.ImageField<never>;
+
+  /**
+   * Section 4 Image 3 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_4_image_3
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_4_image_3: prismic.ImageField<never>;
+
+  /**
+   * Section 5 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_5
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_5: prismic.KeyTextField;
+
+  /**
+   * Section 5 Image1 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_5_image1
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_5_image1: prismic.ImageField<never>;
+
+  /**
+   * Section 5 Text 1 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_5_text_1
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  section_5_text_1: prismic.RichTextField;
+
+  /**
+   * Section 5 Text 2 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_5_text_2
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  section_5_text_2: prismic.RichTextField;
+
+  /**
+   * section_5_gallery_1 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_5_gallery_1
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_5_gallery_1: prismic.ImageField<never>;
+
+  /**
+   * section_5_gallery_2 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_5_gallery_2
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_5_gallery_2: prismic.ImageField<never>;
+
+  /**
+   * section_5_gallery_3 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_5_gallery_3
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_5_gallery_3: prismic.ImageField<never>;
+
+  /**
+   * section_5_gallery_4 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_5_gallery_4
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_5_gallery_4: prismic.ImageField<never>;
+
+  /**
+   * section_5_gallery_5 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_5_gallery_5
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_5_gallery_5: prismic.ImageField<never>;
+
+  /**
+   * section_5_gallery_6 field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.section_5_gallery_6
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  section_5_gallery_6: prismic.ImageField<never>;
 }
 
 /**
