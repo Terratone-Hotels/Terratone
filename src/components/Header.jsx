@@ -59,7 +59,7 @@ export default function HeaderClient({ headerData }) {
         </div>
 
         {/* Middle: Desktop Navigation links */}
-        <div className="hidden lg:block absolute left-[38%]  xl:left-[43%]">
+        <div className="hidden lg:block absolute left-[36%]  xl:left-[43%]">
           <ul className="flex flex-row  gap-6">
             {data.navigation.map((item, index) => (
               <li key={index}>
