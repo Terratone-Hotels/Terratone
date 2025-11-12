@@ -140,7 +140,10 @@ export default function HeaderClient({ headerData }) {
           <Button
             noBorder
             field={data.nav_button_link}
-            className="bg-white font-barlowNormal text-xs px-2 py-1.5"
+            className={`
+  ${isMenuOpen ? "!bg-terra-pink" : "!bg-white"}
+  font-barlowNormal text-xs px-2 py-1.5
+`}
           >
             {data.nav_buttonlink_text}
           </Button>
