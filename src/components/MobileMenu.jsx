@@ -76,9 +76,12 @@ export default function MobileMenu({
   // When the menu is CLOSED, only render the hamburger icon.
   if (!isOpen) {
     return (
-      <div className="flex flex-row lg:hidden">
+      <div className="flex flex-row lg:hidden ">
         <div className="mr-5 sm:mr-7">
-          <Button noBorder className=" px-1.5 py-1.5 text-[11px] bg-white  lg:hidden">
+          <Button
+            noBorder
+            className=" px-1.5 py-1.5 text-[11px] bg-white  lg:hidden"
+          >
             Book stay
           </Button>
         </div>
@@ -90,10 +93,7 @@ export default function MobileMenu({
             aria-controls="mobile-menu"
             className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black pr-3 lg:hidden z-50"
           >
-            <HamburgerIcon
-              className="h-3 w-8 text-white"
-              aria-hidden="true"
-            />
+            <HamburgerIcon className="h-3 w-8 text-white" aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -117,7 +117,10 @@ export default function MobileMenu({
             {/* 2. Button (Pink BG) */}
             <div className="mr-4 sm:mr-7">
               {buttonLink && (
-                <Button noBorder className="px-1.5 py-1.5 text-[11px] bg-terra-pink ">
+                <Button
+                  noBorder
+                  className="px-1.5 py-1.5 text-[11px] bg-terra-pink "
+                >
                   <PrismicNextLink
                     field={buttonLink}
                     // New: Pink background styling
