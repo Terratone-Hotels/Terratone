@@ -2,26 +2,47 @@
 
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as Tone from "tone";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function GuitarStringsPhysics() {
   const containerRef = useRef(null);
   const linesRef = useRef([]);
   const samplerRef = useRef(null);
   const audioStartedRef = useRef(false);
-  const [vibrating, setVibrating] = useState(Array(6).fill(false));
   const prevMouseY = useRef(null);
+  const [isInteractive, setIsInteractive] = useState(false);
 
-  const notes = ["E2", "A2", "D3", "G3", "B3", "E4"]; // standard guitar tuning
+  const notes = ["E2", "A2", "D3", "G3", "B3", "E4"]; // standard tuning
 
-  // This function is now called by EITHER the pre-loader OR a direct user interaction.
-  // The check at the top ensures its core logic only ever runs once.
+  // --- 🔓 Global audio unlocker ---
+  useEffect(() => {
+    const unlockAudio = async () => {
+      try {
+        await Tone.start();
+        console.log("🔓 Tone.js audio unlocked by user gesture");
+        window.removeEventListener("mousedown", unlockAudio);
+        window.removeEventListener("touchstart", unlockAudio);
+      } catch (e) {
+        console.warn("Tone unlock failed:", e);
+      }
+    };
+
+    window.addEventListener("mousedown", unlockAudio);
+    window.addEventListener("touchstart", unlockAudio);
+
+    return () => {
+      window.removeEventListener("mousedown", unlockAudio);
+      window.removeEventListener("touchstart", unlockAudio);
+    };
+  }, []);
+
+  // --- Audio setup ---
   const initializeSampler = async () => {
     if (audioStartedRef.current) return;
     await Tone.start();
-
-    console.log("🚀 Initializing Sampler...");
-
     const sampler = new Tone.Sampler({
       urls: {
         E2: "E2.wav",
@@ -39,30 +60,35 @@ export default function GuitarStringsPhysics() {
     audioStartedRef.current = true;
   };
 
-  // Play specific string (No changes needed)
-  const handlePlayString = async (index) => {
+  // --- Play one string ---
+  const handlePlayString = async (index, { strong = false } = {}) => {
     if (!audioStartedRef.current) await initializeSampler();
     if (!samplerRef.current) return;
 
     const note = notes[index];
-    const velocity = 0.4 + Math.random() * 0.6;
+    const velocity = strong ? 1 : 0.4 + Math.random() * 0.6;
     samplerRef.current.triggerAttackRelease(note, "1n", undefined, velocity);
 
-    const line = linesRef.current[index];
+    const lineContainer = linesRef.current[index];
+    const line = lineContainer?.querySelector(".string-color-fill");
     if (!line) return;
+
+    const amplitude = strong ? 6 : 3;
 
     gsap.killTweensOf(line);
     gsap.set(line, { y: 0, filter: "blur(0px)" });
+
     const tl = gsap.timeline();
-    tl.to(line, { y: -2, duration: 0.05, ease: "power1.out" })
+    tl.to(line, { y: -amplitude, duration: 0.05, ease: "power1.out" })
       .to(line, {
-        y: 3,
+        y: amplitude,
         duration: 0.05,
         ease: "power1.inOut",
         yoyo: true,
         repeat: 2,
       })
       .to(line, { y: 0, duration: 0.1, ease: "elastic.out(1,0.3)" });
+
     gsap.fromTo(
       line,
       { filter: "blur(0.6px)" },
@@ -70,46 +96,38 @@ export default function GuitarStringsPhysics() {
     );
   };
 
-  // --- NEW: Proactive audio loading when component is NEAR the viewport ---
+  // --- Preload audio when near viewport ---
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // When the component enters our "pre-load zone"...
         if (entry.isIntersecting) {
-          console.log("Component is approaching screen, pre-loading audio...");
           initializeSampler();
-          // The job is done, disconnect the observer for performance.
           observer.disconnect();
         }
       },
-      {
-        // This creates an invisible margin around the viewport. The observer
-        // triggers when the component enters this margin, before it's on screen.
-        rootMargin: "200px",
-      }
+      { rootMargin: "200px" }
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    // Cleanup if the component unmounts before triggering.
+    if (containerRef.current) observer.observe(containerRef.current);
     return () => observer.disconnect();
-  }, []); // Empty array ensures this runs only once.
+  }, []);
 
-  // Your original mouse tracking useEffect remains unchanged. It now acts as a reliable fallback.
+  // --- Mouse detection (only when interactive) ---
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const handleMouseMove = async (e) => {
+      if (!isInteractive) return;
       if (!audioStartedRef.current) await initializeSampler();
+
       const rect = container.getBoundingClientRect();
       const y = e.clientY - rect.top;
       if (prevMouseY.current === null) {
         prevMouseY.current = y;
         return;
       }
+
       const direction = y > prevMouseY.current ? "down" : "up";
       linesRef.current.forEach((line, i) => {
         if (!line) return;
@@ -118,10 +136,9 @@ export default function GuitarStringsPhysics() {
         const crossed =
           (prevMouseY.current < lineY && y >= lineY && direction === "down") ||
           (prevMouseY.current > lineY && y <= lineY && direction === "up");
-        if (crossed) {
-          handlePlayString(i);
-        }
+        if (crossed) handlePlayString(i);
       });
+
       prevMouseY.current = y;
     };
 
@@ -135,37 +152,78 @@ export default function GuitarStringsPhysics() {
       container.removeEventListener("touchmove", handleMouseMove);
       if (samplerRef.current) samplerRef.current.disconnect();
     };
+  }, [isInteractive]);
+
+  // --- ✨ Intro animation with ScrollTrigger ---
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.set(".string-color-fill", {
+        scaleX: 0,
+        transformOrigin: "left center",
+        backgroundColor: "transparent",
+      });
+      gsap.set(".string-text", { opacity: 0, y: 30 });
+
+      const intro = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          once: true,
+        },
+        defaults: { ease: "power3.out" },
+      });
+
+      // Step 1: Words fade/slide in
+      intro.to(".string-text", {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.25,
+      });
+
+      // Step 2: Strings fill in left → right
+      intro.to(".string-color-fill", {
+        scaleX: 1,
+        backgroundColor: "black",
+        duration: 0.6,
+        stagger: 0.08,
+      });
+
+      // Step 3: Unlock interactivity
+      intro.add(() => setIsInteractive(true));
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    // Your original fallback click handlers also remain for maximum reliability.
     <div
       ref={containerRef}
       className="flex flex-col items-center justify-center py-10 bg-stone w-full"
       onMouseDown={initializeSampler}
       onTouchStart={initializeSampler}
     >
-      <div className="flex flex-col items-center w-full max-w-2xl select-none ">
+      <div className="flex flex-col items-center w-full max-w-2xl select-none">
         {notes.map((note, i) => (
           <div
             key={note}
             ref={(el) => (linesRef.current[i] = el)}
-            className="w-full bg-black h-[1px] md:h-[2px] my-4 md:my-8 rounded-full relative"
-            style={{ transformOrigin: "center center" }}
+            className="w-full h-[1px] md:h-[2px] my-4 md:my-6 rounded-full relative"
           >
-            {" "}
+            <div className="string-color-fill w-full h-full rounded-full absolute top-0 left-0" />
+
             {i === 1 && (
-              <span className="absolute -top-[1.6rem] left-0 bg-stone px-3 font-serif text-2xl md:text-5xl">
+              <span className="string-text absolute -top-[2.5rem] left-0 bg-stone pr-3 font-serif text-2xl md:text-5xl">
                 Where
               </span>
             )}
             {i === 2 && (
-              <span className="absolute -top-[1.6rem] left-1/3 bg-stone px-3 italic font-serif text-2xl md:text-5xl">
+              <span className="string-text absolute -top-[2.5rem] left-1/4 bg-stone px-3 italic font-serif text-2xl md:text-5xl">
                 Every Meal
               </span>
             )}
             {i === 3 && (
-              <span className="absolute -top-[1.6rem] right-0 bg-stone px-3 font-serif text-2xl md:text-5xl">
+              <span className="string-text absolute -top-[2.5rem] right-0 bg-stone pl-3 font-serif text-2xl md:text-5xl">
                 Is Harmony
               </span>
             )}
