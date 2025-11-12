@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import Bounded from "@/components/Bounded";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
@@ -10,122 +9,73 @@ import { PrismicRichText } from "@prismicio/react";
  * @typedef {import("@prismicio/react").SliceComponentProps<AmenitiesSlice>} AmenitiesProps
  * @type {import("react").FC<AmenitiesProps>}
  */
-const AmenitiesInteractiveListStaticImages = ({ slice }) => {
+const AmenitiesInteractiveListHover = ({ slice }) => {
   const amenities = slice.primary.amenities || [];
-  const numAmenities = amenities.length;
-
-  // --- HOOKS MOVED HERE ---
-  // Hooks must be called at the top level, before any early returns.
-  const [listActiveIndex, setListActiveIndex] = useState(0);
-
-  const imageActiveIndex = 0; // This remains a hardcoded value
-
-  const imagePrevIndex = useMemo(
-    () => (imageActiveIndex - 1 + numAmenities) % numAmenities,
-    [numAmenities] // numAmenities is available, so this is safe
-  );
-  const imageNextIndex = useMemo(
-    () => (imageActiveIndex + 1) % numAmenities,
-    [numAmenities] // numAmenities is available, so this is safe
-  );
-  // --- END OF MOVED HOOKS ---
-
-  // Now, you can safely return early if there are no amenities.
-  if (numAmenities === 0) {
-    return null;
-  }
-
-  // Handle click on an amenity item to update the list's active state
-  const handleAmenityClick = (index) => {
-    setListActiveIndex(index);
-  };
+  if (amenities.length === 0) return null;
 
   return (
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      {/* Main flex container: column on mobile, row on tablet/desktop. */}
+      {/* Main flex container: column on mobile, row on tablet/desktop */}
       <div className="flex flex-col md:flex-row md:h-[450px] lg:h-[533px] overflow-hidden">
         {/* Left side: Text and List */}
         <div className="flex flex-col justify-between md:w-1/2 lg:w-[45%] pr-4 pt-4 md:pt-0">
           {/* Heading */}
-          <div className="font-barlow text-[23px] md:text-[30px] lg:text-[40px] lg:w-[100%] font-semibold">
+          <div className="font-serif text-[23px] md:text-[30px] md:leading-8 lg:text-[40px] md:mb-4 font-semibold">
             <PrismicRichText field={slice.primary.heading} />
           </div>
 
-          {/* List of Amenities (Now Clickable) */}
-          <div className="my-6 md:my-0">
-            <ul className=" ">
+          {/* Simple bullet list of amenities */}
+          <div className="my-3 md:my-0">
+            <ul className="list-disc pl-5 space-y-1 font-barlow text-[15px] lg:text-[20px] text-gray-700">
               {amenities.map((item, index) => (
-                <li
-                  key={index}
-                  data-index={index}
-                  onClick={() => handleAmenityClick(index)} // 👈 ADDED CLICK HANDLER
-                  // Styling now based on listActiveIndex
-                  className={`font-barlow text-[15px] lg:text-[20px] flex items-center gap-1  cursor-pointer transition-colors duration-200 
-                    ${
-                      index === listActiveIndex
-                        ? "font-semibold text-black"
-                        : "text-gray-400 hover:text-black"
-                    }`}
-                >
-                  {/* The bullet point moves to the listActiveIndex */}
-                  {index === listActiveIndex && (
-                    <span className="w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-black mr-1"></span>
-                  )}
+                <li key={index}>
                   <PrismicRichText field={item.amenity} />
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Message (Desktop/Tablet) */}
-          <div className="hidden md:block md:text-[14px] md:w-[85%] lg:w-[70%] lg:text-[18px] font-barlow font-medium leading-5 mt-4">
+          {/* Message */}
+          <div className="text-[15px] md:text-[14px] font-medium font-barlow  leading-3.5  md:mt-4">
             <PrismicRichText field={slice.primary.message} />
           </div>
         </div>
 
-        {/* Right side: Three Images Container (STATIC) */}
-        <div className="flex flex-row h-[350px] md:h-full   lg:w-[55%] items-center gap-4 lg:gap-6 mt-4 md:mt-0">
-          {/* Left column of images (Stacked) - 40% width */}
+        {/* Right side: Static 3-image layout */}
+        <div className="flex flex-row h-[350px] md:h-full lg:w-[55%] items-center gap-4 lg:gap-6 mt-4 md:mt-0">
+          {/* Left column of images (stacked) */}
           <div className="flex flex-col h-full w-[40%]">
-            {/* Top Image (Always Index 'imagePrevIndex') */}
             <div className="h-[40%] w-full">
               <PrismicNextImage
-                field={amenities[imagePrevIndex]?.amenity_image}
+                field={amenities[0]?.amenity_image}
                 className="w-full h-full object-cover"
                 priority
               />
             </div>
-
-            {/* Bottom Image (Always Index 'imageNextIndex') */}
             <div className="h-[60%] w-full pt-4">
               <PrismicNextImage
-                field={amenities[imageNextIndex]?.amenity_image}
+                field={amenities[1]?.amenity_image}
                 className="w-full h-full object-cover"
                 priority
               />
             </div>
           </div>
 
+          {/* Right main image */}
           <div className="h-full w-[60%]">
             <PrismicNextImage
-              field={amenities[imageActiveIndex]?.amenity_image}
+              field={amenities[2]?.amenity_image}
               className="w-full h-full object-cover"
               priority
             />
           </div>
         </div>
-
-        {slice.primary.message && (
-          <div className="md:hidden w-full text-[15px] font-barlow leading-5 pt-6">
-            <PrismicRichText field={slice.primary.message} />
-          </div>
-        )}
       </div>
     </Bounded>
   );
 };
 
-export default AmenitiesInteractiveListStaticImages;
+export default AmenitiesInteractiveListHover;
