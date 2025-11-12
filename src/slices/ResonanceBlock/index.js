@@ -68,7 +68,7 @@ const ResonanceBlock = ({ slice }) => {
           {/* OverLapping image and text */}
           <div className="hidden w-full h-[425px] lg:flex flex-row justify-between items-center ">
             <div className="w-[35%] flex h-auto text-justify items-center justify-center">
-              <div className=" w-[50%] text-lg font-barlow font-medium">
+              <div className=" w-[60%] text-[14px]  font-barlow leading-5.5 ">
                 <RichTextRenderer field={slice.primary.description_one} />
               </div>
             </div>
@@ -79,7 +79,7 @@ const ResonanceBlock = ({ slice }) => {
               />
             </div>
             <div className=" w-[35%] flex mt-auto h-auto text-justify items-end justify-center">
-              <div className=" w-[50%] font-barlow font-medium">
+              <div className=" w-[60%] text-[14px] font-barlow  leading-[20px]">
                 <RichTextRenderer field={slice.primary.description_two} />
               </div>
             </div>

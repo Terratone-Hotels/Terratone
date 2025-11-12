@@ -198,7 +198,7 @@ const Hero = ({ slice }) => {
                       className="absolute inset-0 w-full h-full"
                       viewBox="0 0 100 100"
                       preserveAspectRatio="none"
-                      style={{ transform: "scaleX(-1)" }} // ✅ Fills left → right
+                      style={{ transform: "scaleX(-1) rotate(180deg)" }} // ✅ Fills left → right
                     >
                       <rect
                         ref={(el) => (progressBarsRef.current[index] = el)}
