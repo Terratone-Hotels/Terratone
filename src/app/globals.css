@@ -121,3 +121,58 @@ body {
   height: 75px;
   background-color: white;
 }
+
+/* Scroller below */
+
+/* track */
+.custom-scrollbar {
+  position: relative;
+  overflow: visible;
+  margin-inline: auto;
+  width: 10rem; /* example width; change as needed */
+  height: 2px;  /* track thickness */
+  background: #e6e6e6;
+  border-radius: 9999px;
+}
+
+/* make the drag element invisible (but still the draggable element Swiper moves) */
+.custom-scrollbar .swiper-scrollbar-drag {
+  position: absolute;
+  top: 0;                  /* keep at top — we will center the knob inside */
+  left: 0;
+  height: 100%;            /* keep full track height */
+  width: 100%;
+  background: transparent; /* track is drawn by .custom-scrollbar */
+  pointer-events: auto;    /* keep it draggable */
+  /* DO NOT set transform here — Swiper writes transform inline for X movement */
+}
+
+/* draw the visible knob inside the draggable element */
+.custom-scrollbar .swiper-scrollbar-drag::before {
+  content: "";
+  position: absolute;
+  left: 50%;                   /* the drag element will be moved horizontally by Swiper */
+  top: 50%;                    /* center vertically on the track */
+  transform: translate(-50%, -50%); /* center the circle on the drag element */
+  width: 14px;                 /* knob size */
+  height: 14px;
+  border-radius: 50%;
+  background: #000;
+  box-shadow: 0 0 6px rgba(0,0,0,0.25);
+  pointer-events: none;        /* clicks still hit the drag element itself */
+  transition: transform 0.18s cubic-bezier(.2,.9,.2,1);
+}
+
+/* optional ring (Saturn look) */
+.custom-scrollbar .swiper-scrollbar-drag::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  border: 2px solid rgb(0,0,0);
+  pointer-events: none;
+}
