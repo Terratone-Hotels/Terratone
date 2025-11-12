@@ -120,7 +120,7 @@ export default function HeaderClient({ headerData }) {
               <li key={index}>
                 <PrismicNextLink
                   field={item.link}
-                  className="font-barlow uppercase text-sm font-medium text-white hover:text-black "
+                  className="font-barlow uppercase text-sm font-medium text-white  "
                 >
                   {item.link_lable}
                 </PrismicNextLink>
@@ -141,7 +141,7 @@ export default function HeaderClient({ headerData }) {
             noBorder
             field={data.nav_button_link}
             className={`
-  ${isMenuOpen ? "!bg-terra-pink" : "!bg-white"}
+  ${isMenuOpen ? "!bg-terra-pink" : "bg-white"}
   font-barlowNormal text-xs px-2 py-1.5
 `}
           >
