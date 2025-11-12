@@ -6,6 +6,61 @@ import TerratoneLogo from "./terratoneLogo";
 import Bounded from "./Bounded";
 import MobileMenu from "./MobileMenu";
 import Button from "@/components/Button";
+const HamburgerIcon = (props) => (
+  <svg
+    {...props}
+    width="48"
+    height="14"
+    viewBox="0 0 48 14"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <line
+      x1="0.387695"
+      y1="1.06589"
+      x2="47.36"
+      y2="1.06589"
+      stroke="currentColor"
+      strokeWidth="1.70084"
+    />
+    <line
+      x1="20.3359"
+      y1="12.5764"
+      x2="47.3608"
+      y2="12.5764"
+      stroke="currentColor"
+      strokeWidth="1.70084"
+    />
+  </svg>
+);
+
+const XMarkIcon = (props) => (
+  <svg
+    {...props}
+    width="28"
+    height="27"
+    viewBox="0 0 28 27"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <line
+      x1="2.08864"
+      y1="1.02676"
+      x2="26.8374"
+      y2="25.7755"
+      stroke="currentColor"
+      strokeWidth="1.70084"
+    />
+    <line
+      x1="0.885968"
+      y1="25.7755"
+      x2="25.6347"
+      y2="1.02676"
+      stroke="currentColor"
+      strokeWidth="1.70084"
+    />
+  </svg>
+);
 
 export default function HeaderClient({ headerData }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -80,7 +135,7 @@ export default function HeaderClient({ headerData }) {
       {data.nav_button_link && (
         <div
           ref={buttonRef}
-          className="hidden lg:flex justify-end bg-transparent absolute fixed right-10 top-4 duration-300 z-50"
+          className="flex justify-end bg-transparent absolute fixed right-10 top-4 duration-300 z-50"
         >
           <Button
             noBorder
@@ -89,8 +144,29 @@ export default function HeaderClient({ headerData }) {
           >
             {data.nav_buttonlink_text}
           </Button>
+          {/* Mobile Toggle Button */}
+          <button
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+            className="lg:hidden block ml-4 mt-1"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? (
+              <XMarkIcon className="h-3 w-8 text-black" aria-hidden="true" />
+            ) : (
+              <HamburgerIcon
+                className="h-3 w-8 text-white"
+                aria-hidden="true"
+              />
+            )}
+          </button>
         </div>
       )}
+      <MobileMenu
+        navigation={data.navigation}
+        isOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
+        className="z-60"
+      />
     </div>
   );
 }
