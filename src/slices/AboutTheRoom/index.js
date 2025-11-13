@@ -16,8 +16,8 @@ const AboutTheRoom = ({ slice }) => {
       {/* Main Container */}
       <div className="flex flex-col lg:flex-row">
         {/* Left side */}
-        <div className="lg:w-[50%] mb-4">
-          <div className="lg:w-[80%] font-barlow text-[25px] font-medium capitalize lg:text-[42px] leading-tight lg:leading-12">
+        <div className="lg:w-[50%] mb-5">
+          <div className="lg:w-[80%] font-serif text-[25px] font-medium  lg:text-[40px] leading-7 lg:leading-11">
             <PrismicRichText field={slice.primary.quote} />
           </div>
         </div>
