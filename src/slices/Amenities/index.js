@@ -19,17 +19,17 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       {/* Main flex container: column on mobile, row on tablet/desktop */}
-      <div className="flex flex-col md:flex-row md:h-[450px] lg:h-[533px] overflow-hidden">
+      <div className="flex flex-col md:flex-row md:h-[450px] lg:h-[533px] xl:h-[735px] overflow-hidden"> 
         {/* Left side: Text and List */}
         <div className="flex flex-col justify-between md:w-1/2 lg:w-[45%] pr-4 pt-4 md:pt-0">
           {/* Heading */}
-          <div className="font-serif text-[23px] md:text-[30px] md:leading-8 lg:text-[40px] md:mb-4 font-semibold">
+          <div className="font-serif text-[23px] md:text-[30px] xl:text-[55px] 2xl:text-[60px]  md:leading-8 xl:leading-16 lg:text-[40px] md:mb-4 font-semibold">
             <PrismicRichText field={slice.primary.heading} />
           </div>
 
           {/* Simple bullet list of amenities */}
           <div className="my-3 md:my-0">
-            <ul className="list-disc pl-5 space-y-1 font-barlow text-[15px] lg:text-[20px] text-gray-700">
+            <ul className="list-disc pl-5 space-y-1 font-barlow text-[15px] lg:text-[20px] xl:text-[25px] text-gray-700">
               {amenities.map((item, index) => (
                 <li key={index}>
                   <PrismicRichText field={item.amenity} />
@@ -39,7 +39,7 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
           </div>
 
           {/* Message */}
-          <div className="text-[15px] md:text-[14px] font-medium font-barlow  leading-3.5  md:mt-4">
+          <div className="text-[15px] md:text-[14px] xl:text-[22px] xl:w-[80%] font-medium font-barlow  leading-3.5 xl:leading-7  ">
             <PrismicRichText field={slice.primary.message} />
           </div>
         </div>
@@ -50,14 +50,14 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
           <div className="flex flex-col h-full w-[40%]">
             <div className="h-[40%] w-full">
               <PrismicNextImage
-                field={amenities[0]?.amenity_image}
+                field={slice.primary.image_one}
                 className="w-full h-full object-cover"
                 priority
               />
             </div>
             <div className="h-[60%] w-full pt-4">
               <PrismicNextImage
-                field={amenities[1]?.amenity_image}
+                field={slice.primary.image_two}
                 className="w-full h-full object-cover"
                 priority
               />
@@ -67,7 +67,7 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
           {/* Right main image */}
           <div className="h-full w-[60%]">
             <PrismicNextImage
-              field={amenities[2]?.amenity_image}
+              field={slice.primary.image_three}
               className="w-full h-full object-cover"
               priority
             />
