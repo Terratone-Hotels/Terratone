@@ -1686,16 +1686,6 @@ export interface AmenitiesSliceDefaultPrimaryAmenitiesItem {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   amenity: prismic.RichTextField;
-
-  /**
-   * Amenity Image field in *Amenities → Default → Primary → Amenities*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: amenities.default.primary.amenities[].amenity_image
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  amenity_image: prismic.ImageField<never>;
 }
 
 /**
@@ -1733,6 +1723,36 @@ export interface AmenitiesSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   message: prismic.RichTextField;
+
+  /**
+   * Image One ( Small ) field in *Amenities → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: amenities.default.primary.image_one
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_one: prismic.ImageField<never>;
+
+  /**
+   * Image Two ( Small ) field in *Amenities → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: amenities.default.primary.image_two
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_two: prismic.ImageField<never>;
+
+  /**
+   * Image Three (Large) field in *Amenities → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: amenities.default.primary.image_three
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_three: prismic.ImageField<never>;
 }
 
 /**
