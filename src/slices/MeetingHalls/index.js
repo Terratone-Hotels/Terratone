@@ -121,7 +121,7 @@ const MeetingHalls = ({ slice }) => {
             <div className="max-w-3xl mx-auto text-center mb-12 px-4 mt-8 md:mt-12">
               <RichTextRenderer
                 field={slice.primary.heading}
-                className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 lg:mb-8"
+                className="text-[1.75rem] md:text-[30px] font-serif font-medium mb-2 lg:mb-8"
               />
               <RichTextRenderer
                 field={slice.primary.description}
@@ -161,7 +161,7 @@ const MeetingHalls = ({ slice }) => {
                   </div>
 
                   <div className="mt-6 flex flex-col justify-start text-left min-h-[120px]">
-                    <h3 className="text-[24px] font-medium font-serif">
+                    <h3 className="text-[22px] font-medium font-serif">
                       {item.card_title}
                     </h3>
                     <p className="text-[16px] font-barlow mt-2 leading-relaxed">
