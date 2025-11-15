@@ -159,11 +159,19 @@ const HorizontalPage = ({ slice }) => {
             );
         }
 
-        // === 🟤 SECTION 4 — MARQUEE ===
+        // === 🟤 SECTION 4 — SCRUB PARALLAX FROM BELOW ===
         if (isFourth) {
           const imgs = marqueeImagesRef.current;
-          gsap.set(imgs, { xPercent: (i) => i * 120, opacity: 1 });
-          tl.to(imgs, { xPercent: "-=360", duration: 3, ease: "none" });
+
+          // They start BELOW the screen (~50%)
+          gsap.set(imgs, { yPercent: 150 });
+
+          // As user scrolls → they rise up
+
+          tl.to(imgs, {
+            yPercent: -140,
+            ease: "none",
+          });
         }
 
         // === 🔵 SECTION 5 — TEXT + IMAGES ===
@@ -399,45 +407,40 @@ const HorizontalPage = ({ slice }) => {
           </div>
         </section>
 
-        {/* 🟤 SECTION 4 — MARQUEE */}
+        {/* 🟤 SECTION 4 — STATIC + PARALLAX */}
         <section
-          className="panel flex items-center justify-center w-screen h-screen overflow-hidden bg-[#edf1e8]"
+          className="panel flex flex-col items-center justify-center w-screen h-screen gap-10"
           data-pin="true"
         >
-          <div
-            ref={marqueeWrapperRef}
-            className="relative w-[200%] h-[50vh] flex items-center gap-8"
-          >
-            {[
-              slice.primary.marque_1_image_1,
-              slice.primary.marque_1_image_2,
-              slice.primary.marque_1_image_3,
-            ].map((img, i) => (
-              <div
-                key={i}
-                className="flex-1 aspect-[5/3]"
-                ref={(el) => (marqueeImagesRef.current[i] = el)}
-              >
-                <PrismicNextImage
-                  field={img}
-                  fill
-                  className="object-cover rounded-lg shadow-md"
-                />
-              </div>
-            ))}
-          </div>
+          {[...Array(2)].map((_, batch) => (
+            <div key={batch} className="flex flex-col items-center gap-10">
+              {[
+                slice.primary.marque_1_image_1,
+                slice.primary.marque_1_image_2,
+                slice.primary.marque_1_image_3,
+              ].map((img, i) => (
+                <div
+                  key={batch + "-" + i}
+                  ref={(el) => (marqueeImagesRef.current[batch * 3 + i] = el)}
+                  className="w-[28vw] h-[55vh] relative overflow-hidden shadow-lg"
+                >
+                  <PrismicNextImage field={img} fill className="object-cover" />
+                </div>
+              ))}
+            </div>
+          ))}
         </section>
 
         {/* 🔵 SECTION 5 — TEXT + IMAGES */}
         {/* 🔵 SECTION 5 — TEXT + IMAGES WITH GAPS */}
         <section
-          className="panel relative flex items-center justify-center w-screen h-screen overflow-hidden bg-white"
+          className="panel relative flex items-center justify-center w-screen h-screen overflow-hidden "
           data-pin="true"
         >
           {/* TEXT */}
           <div
             ref={section5TextRef}
-            className="absolute inset-0 flex items-center justify-center text-5xl text-black z-20 bg-white/70"
+            className="absolute inset-0 flex items-center justify-center text-5xl text-black z-20 "
           >
             <PrismicRichText field={slice.primary.section_4_text} />
           </div>

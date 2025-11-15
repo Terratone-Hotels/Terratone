@@ -109,8 +109,7 @@ const MeetingHalls = ({ slice }) => {
   return (
     <>
       {slice.variation === "default" && (
-        <div >
-          
+        <div>
           <Bounded
             ref={sectionRef}
             data-slice-type={slice.slice_type}
@@ -205,7 +204,7 @@ const MeetingHalls = ({ slice }) => {
         </div>
       )}
       {slice.variation === "withNumbers" && (
-        <div >
+        <div>
           <Bounded
             ref={sectionRef}
             data-slice-type={slice.slice_type}

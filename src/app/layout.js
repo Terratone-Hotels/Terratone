@@ -3,6 +3,7 @@ import "./globals.css";
 import SmoothScrollWrapper from "../components/SmoothScrollWrapper";
 import Header from "@/components/HeaderWrapper";
 import FooterServer from "@/components/FooterServer";
+import LenisScrollProvider from "@/components/LenisScrollContext";
 
 const garamond = EB_Garamond({
   variable: "--font-eb-mono",
@@ -43,11 +44,11 @@ export default async function RootLayout({ children }) {
       <body
         className={`${garamond.variable} ${barlow.variable} ${barlowNormal.variable}  antialiased`}
       >
-        <SmoothScrollWrapper>
+        <LenisScrollProvider>
           <Header />
           {children}
-          <FooterServer/>
-        </SmoothScrollWrapper>
+          <FooterServer />
+        </LenisScrollProvider>
       </body>
     </html>
   );
