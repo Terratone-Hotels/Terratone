@@ -31,6 +31,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -54,7 +55,6 @@ body {
   display: block;
   overflow: hidden;
   padding-bottom: 0.3em; /* allows tails to show */
- 
 }
 
 /* Each line behaves like a block for GSAP transform */
@@ -130,7 +130,7 @@ body {
   overflow: visible;
   margin-inline: auto;
   width: 10rem; /* example width; change as needed */
-  height: 2px;  /* track thickness */
+  height: 2px; /* track thickness */
   background: #e6e6e6;
   border-radius: 9999px;
 }
@@ -138,12 +138,12 @@ body {
 /* make the drag element invisible (but still the draggable element Swiper moves) */
 .custom-scrollbar .swiper-scrollbar-drag {
   position: absolute;
-  top: 0;                  /* keep at top — we will center the knob inside */
+  top: 0; /* keep at top — we will center the knob inside */
   left: 0;
-  height: 100%;            /* keep full track height */
+  height: 100%; /* keep full track height */
   width: 100%;
   background: transparent; /* track is drawn by .custom-scrollbar */
-  pointer-events: auto;    /* keep it draggable */
+  pointer-events: auto; /* keep it draggable */
   /* DO NOT set transform here — Swiper writes transform inline for X movement */
 }
 
@@ -151,16 +151,16 @@ body {
 .custom-scrollbar .swiper-scrollbar-drag::before {
   content: "";
   position: absolute;
-  left: 50%;                   /* the drag element will be moved horizontally by Swiper */
-  top: 50%;                    /* center vertically on the track */
+  left: 50%; /* the drag element will be moved horizontally by Swiper */
+  top: 50%; /* center vertically on the track */
   transform: translate(-50%, -50%); /* center the circle on the drag element */
-  width: 14px;                 /* knob size */
+  width: 14px; /* knob size */
   height: 14px;
   border-radius: 50%;
   background: #000;
-  box-shadow: 0 0 6px rgba(0,0,0,0.25);
-  pointer-events: none;        /* clicks still hit the drag element itself */
-  transition: transform 0.18s cubic-bezier(.2,.9,.2,1);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+  pointer-events: none; /* clicks still hit the drag element itself */
+  transition: transform 0.18s cubic-bezier(0.2, 0.9, 0.2, 1);
 }
 
 /* optional ring (Saturn look) */
@@ -173,6 +173,12 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 9999px;
-  border: 2px solid rgb(0,0,0);
+  border: 2px solid rgb(0, 0, 0);
   pointer-events: none;
+}
+body.modal-open {
+  position: fixed !important;
+  width: 100%;
+  overflow: hidden;
+  top: var(--scroll-y);
 }

@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useRef, useEffect } from "react";
@@ -22,6 +20,7 @@ export default function Button({
   className = "",
   showArrow = true,
   noBorder = false,
+  onClick,
 }) {
   // ✅ Create refs for the elements we need to animate
   const buttonRef = useRef(null);
@@ -82,6 +81,7 @@ export default function Button({
   return (
     <button
       ref={buttonRef}
+      onClick={onClick}
       className={clsx(
         "group inline-grid font-medium uppercase",
         !noBorder && "border border-black",
@@ -103,7 +103,10 @@ export default function Button({
       {/* Arrow span */}
       <span
         ref={arrowSpanRef}
-        className={clsx("flex justify-center items-center text-black", className)}
+        className={clsx(
+          "flex justify-center items-center text-black",
+          className
+        )}
       >
         {showArrow && <ArrowIcon className="w-[0.688rem] h-full" />}
       </span>

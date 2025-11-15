@@ -167,16 +167,11 @@ const HorizontalPage = ({ slice }) => {
           gsap.set(imgs, { yPercent: 150 });
 
           // As user scrolls → they rise up
-          const early = 0.9; // start 30% earlier (tune freely)
 
-          tl.to(
-            imgs,
-            {
-              yPercent: -40,
-              ease: "none",
-            },
-            `-=${early}`
-          );
+          tl.to(imgs, {
+            yPercent: -140,
+            ease: "none",
+          });
         }
 
         // === 🔵 SECTION 5 — TEXT + IMAGES ===
