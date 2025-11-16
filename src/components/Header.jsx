@@ -6,6 +6,7 @@ import TerratoneLogo from "./terratoneLogo";
 import Bounded from "./Bounded";
 import MobileMenu from "./MobileMenu";
 import Button from "@/components/Button";
+import BookNowModal from "./BookNow/BookNowModal";
 const HamburgerIcon = (props) => (
   <svg
     {...props}
@@ -67,7 +68,7 @@ export default function HeaderClient({ headerData }) {
   const headerRef = useRef(null);
   const buttonRef = useRef(null);
   const scrollTimeout = useRef(null);
-
+  const [open, setOpen] = useState(false);
   const data = headerData;
 
   // Style to hide elements when the menu is open on mobile
@@ -143,10 +144,12 @@ export default function HeaderClient({ headerData }) {
             className={`
   ${isMenuOpen ? "!bg-terra-pink" : "bg-white"}
   font-barlowNormal text-xs px-2 py-1.5
-`}
+cursor-pointer`}
+            onClick={() => setOpen(true)}
           >
             {data.nav_buttonlink_text}
           </Button>
+          <BookNowModal isOpen={open} onClose={() => setOpen(false)} />
           {/* Mobile Toggle Button */}
           <button
             onClick={() => setIsMenuOpen((prev) => !prev)}
