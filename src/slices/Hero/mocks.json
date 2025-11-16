@@ -86,6 +86,20 @@
 									"__TYPE__": "ImageContent",
 									"thumbnails": {}
 								}
+							],
+							[
+								"headings",
+								{
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Exercitation et esse tempor nulla elit enim voluptate excepteur dolor aliqua id. Id consectetur anim est adipisicing anim cupidatat incididunt."
+											}
+										}
+									]
+								}
 							]
 						]
 					}

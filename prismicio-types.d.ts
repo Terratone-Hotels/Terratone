@@ -2440,6 +2440,16 @@ export type FullImageSlice = prismic.SharedSlice<
  */
 export interface HeroSliceDefaultPrimaryCarouselItem {
   /**
+   * Headings field in *Hero → Default → Primary → Carousel*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.carousel[].headings
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  headings: prismic.RichTextField;
+
+  /**
    * Image field in *Hero → Default → Primary → Carousel*
    *
    * - **Field Type**: Image
@@ -2697,6 +2707,16 @@ export interface HorizontalPageSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   our_story: prismic.RichTextField;
+
+  /**
+   * story field in *HorizontalPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: horizontal_page.default.primary.story
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  story: prismic.RichTextField;
 
   /**
    * Section 2 field in *HorizontalPage → Default → Primary*

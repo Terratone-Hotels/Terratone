@@ -688,6 +688,17 @@
 				"credits": null,
 				"__TYPE__": "ImageContent",
 				"thumbnails": {}
+			},
+			"story": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Aliqua eu fugiat nulla excepteur aute cillum in minim sint occaecat Lorem magna magna tempor."
+						}
+					}
+				]
 			}
 		},
 		"items": []
