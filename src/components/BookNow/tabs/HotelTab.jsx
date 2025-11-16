@@ -3,33 +3,52 @@
 import { useState } from "react";
 import Calendar from "./Calendar";
 import { format } from "date-fns";
+import toast from "react-hot-toast";
+import TerratoneToast from "@/components/TerratoneToast";
 
-export default function HotelTab() {
-  const [selectedProperty, setSelectedProperty] = useState("");
-  const [openProperty, setOpenProperty] = useState(false);
-
-  // Live form fields (next room)
-  const [adults, setAdults] = useState(2); // MIN 2
-  const [children, setChildren] = useState(0); // MIN 0
-  const [checkIn, setCheckIn] = useState(null);
-  const [checkOut, setCheckOut] = useState(null);
-
-  // Saved rooms
-  const [rooms, setRooms] = useState([]);
+export default function HotelTab({ data, setData }) {
+  const { selectedProperty, adults, children, checkIn, checkOut, rooms } = data;
 
   const PROPERTY_LIST = ["Deluxe Suite", "Deluxe King", "Deluxe Twin"];
 
-  // The next room number for the live form
+  // Local-only dropdown toggle
+  const [openProperty, setOpenProperty] = useState(false);
+
   const liveRoomNumber = rooms.length + 1;
+
+  // 🔥 Stable setter functions (fix Calendar broken clicks)
+  const updateCheckIn = (v) => {
+    setData((prev) => ({ ...prev, checkIn: v }));
+  };
+
+  const updateCheckOut = (v) => {
+    setData((prev) => ({ ...prev, checkOut: v }));
+  };
 
   // ---------------------- ADD ROOM ----------------------
   const addRoom = () => {
-    if (!selectedProperty || !checkIn || !checkOut) return;
+    if (!selectedProperty) {
+      toast.custom(<TerratoneToast message="Please select a room type." />);
+      return;
+    }
 
-    const newRoomNumber = rooms.length + 1;
+    if (!checkIn || !checkOut) {
+      toast.custom(
+        <TerratoneToast message="Please select check-in and check-out dates." />
+      );
+      return;
+    }
 
+    if (adults < 1) {
+      toast.custom(
+        <TerratoneToast message="Please select number of guests." />
+      );
+      return;
+    }
+
+    // valid → create room
     const newRoom = {
-      roomName: `${newRoomNumber}`, // only number
+      roomName: `${rooms.length + 1}`,
       property: selectedProperty,
       checkIn,
       checkOut,
@@ -37,53 +56,55 @@ export default function HotelTab() {
       children,
     };
 
-    setRooms((prev) => [...prev, newRoom]);
+    setData({
+      ...data,
+      rooms: [...rooms, newRoom],
 
-    // Reset live form for the next room
-    setSelectedProperty("");
-    setCheckIn(null);
-    setCheckOut(null);
-    setAdults(2);
-    setChildren(0);
-  };
-
-  // ---------------------- DELETE ROOM (renumber remaining) ----------------------
-  const deleteRoom = (index) => {
-    setRooms((prev) => {
-      const filtered = prev.filter((_, i) => i !== index);
-
-      // Renumber rooms 1..n
-      return filtered.map((room, i) => ({
-        ...room,
-        roomName: `${i + 1}`,
-      }));
+      // reset
+      selectedProperty: "",
+      checkIn: null,
+      checkOut: null,
+      adults: 2,
+      children: 0,
     });
+
+    toast.custom(<TerratoneToast message="Room added!" />);
   };
 
-  // ---------------------- UPDATE SAVED ROOM GUESTS ----------------------
-  const updateRoomGuests = (index, type, delta) => {
-    setRooms((prev) =>
-      prev.map((room, i) => {
-        if (i !== index) return room;
+  // ---------------------- DELETE ROOM ----------------------
+  const deleteRoom = (index) => {
+    const filtered = rooms.filter((_, i) => i !== index);
 
-        return {
-          ...room,
-          adults:
-            type === "adults"
-              ? Math.max(2, room.adults + delta) // MIN = 2
-              : room.adults,
-          children:
-            type === "children"
-              ? Math.max(0, room.children + delta) // MIN = 0
-              : room.children,
-        };
-      })
-    );
+    const renumbered = filtered.map((room, i) => ({
+      ...room,
+      roomName: `${i + 1}`,
+    }));
+
+    setData({ ...data, rooms: renumbered });
+  };
+
+  // ---------------------- UPDATE ROOM GUESTS ----------------------
+  const updateRoomGuests = (index, type, delta) => {
+    const updated = rooms.map((room, i) => {
+      if (i !== index) return room;
+
+      return {
+        ...room,
+        adults:
+          type === "adults" ? Math.max(2, room.adults + delta) : room.adults,
+        children:
+          type === "children"
+            ? Math.max(0, room.children + delta)
+            : room.children,
+      };
+    });
+
+    setData({ ...data, rooms: updated });
   };
 
   return (
     <div className="space-y-6 text-sm">
-      {/* ---------------------- PROPERTY SELECTOR ---------------------- */}
+      {/* PROPERTY SELECTOR */}
       <div className="border border-neutral-700 p-4 rounded">
         <button
           onClick={() => setOpenProperty(!openProperty)}
@@ -102,12 +123,8 @@ export default function HotelTab() {
           </span>
         </button>
 
-        <div
-          className={`overflow-hidden transition-all duration-300 ${
-            openProperty ? "max-h-40 opacity-100 mt-3" : "max-h-0 opacity-0"
-          }`}
-        >
-          <div className="space-y-2 text-white">
+        {openProperty && (
+          <div className="mt-3 space-y-2 text-white">
             {PROPERTY_LIST.map((prop) => (
               <div
                 key={prop}
@@ -115,7 +132,7 @@ export default function HotelTab() {
                   selectedProperty === prop ? "bg-neutral-800" : ""
                 }`}
                 onClick={() => {
-                  setSelectedProperty(prop);
+                  setData({ ...data, selectedProperty: prop });
                   setOpenProperty(false);
                 }}
               >
@@ -123,10 +140,10 @@ export default function HotelTab() {
               </div>
             ))}
           </div>
-        </div>
+        )}
       </div>
 
-      {/* ---------------------- DATE PICKER ---------------------- */}
+      {/* DATE PICKER */}
       <div className="border border-neutral-700 p-4 rounded">
         <p className="uppercase text-neutral-300">Date of stay</p>
 
@@ -142,20 +159,18 @@ export default function HotelTab() {
 
         <Calendar
           checkIn={checkIn}
-          setCheckIn={setCheckIn}
+          setCheckIn={updateCheckIn}
           checkOut={checkOut}
-          setCheckOut={setCheckOut}
+          setCheckOut={updateCheckOut}
         />
       </div>
 
-      {/* ---------------------- LIVE ROOM FORM ---------------------- */}
+      {/* LIVE ROOM FORM */}
       <div className="border border-neutral-700 p-4 rounded space-y-4">
-        <div className="flex justify-between items-center">
-          <p className="uppercase text-neutral-300">
-            Guests ({liveRoomNumber}
-            {selectedProperty ? ` — ${selectedProperty}` : ""})
-          </p>
-        </div>
+        <p className="uppercase text-neutral-300">
+          Guests ({liveRoomNumber}
+          {selectedProperty ? ` — ${selectedProperty}` : ""})
+        </p>
 
         {/* Adults */}
         <div className="flex justify-between items-center border-t border-neutral-700 pt-2">
@@ -164,16 +179,26 @@ export default function HotelTab() {
           <div className="flex items-center gap-3">
             <button
               disabled={adults <= 2}
-              className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 disabled:cursor-not-allowed flex items-center justify-center"
-              onClick={() => setAdults(Math.max(2, adults - 1))}
+              onClick={() =>
+                setData((prev) => ({
+                  ...prev,
+                  adults: Math.max(2, prev.adults - 1),
+                }))
+              }
+              className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 flex items-center justify-center"
               type="button"
             >
               -
             </button>
             <span>{adults}</span>
             <button
+              onClick={() =>
+                setData((prev) => ({
+                  ...prev,
+                  adults: prev.adults + 1,
+                }))
+              }
               className="w-6 h-6 rounded-full border border-neutral-500 flex items-center justify-center"
-              onClick={() => setAdults(adults + 1)}
               type="button"
             >
               +
@@ -188,16 +213,26 @@ export default function HotelTab() {
           <div className="flex items-center gap-3">
             <button
               disabled={children <= 0}
-              className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 disabled:cursor-not-allowed flex items-center justify-center"
-              onClick={() => setChildren(Math.max(0, children - 1))}
+              onClick={() =>
+                setData((prev) => ({
+                  ...prev,
+                  children: Math.max(0, prev.children - 1),
+                }))
+              }
+              className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 flex items-center justify-center"
               type="button"
             >
               -
             </button>
             <span>{children}</span>
             <button
+              onClick={() =>
+                setData((prev) => ({
+                  ...prev,
+                  children: prev.children + 1,
+                }))
+              }
               className="w-6 h-6 rounded-full border border-neutral-500 flex items-center justify-center"
-              onClick={() => setChildren(children + 1)}
               type="button"
             >
               +
@@ -206,7 +241,7 @@ export default function HotelTab() {
         </div>
       </div>
 
-      {/* ---------------------- SAVED ROOMS ---------------------- */}
+      {/* SAVED ROOMS */}
       {rooms.map((room, index) => (
         <div
           key={index}
@@ -226,9 +261,8 @@ export default function HotelTab() {
             </button>
           </div>
 
-          {/* Dates */}
           <div className="text-neutral-400 text-sm tracking-wide">
-            {format(room.checkIn, "MMM dd, yy").toUpperCase()} →{" "}
+            {format(room.checkIn, "MMM dd, yy").toUpperCase()} →
             {format(room.checkOut, "MMM dd, yy").toUpperCase()}
           </div>
 
@@ -238,16 +272,16 @@ export default function HotelTab() {
             <div className="flex items-center gap-3">
               <button
                 disabled={room.adults <= 2}
-                className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 disabled:cursor-not-allowed flex items-center justify-center"
                 onClick={() => updateRoomGuests(index, "adults", -1)}
+                className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 flex items-center justify-center"
                 type="button"
               >
                 -
               </button>
               <span>{room.adults}</span>
               <button
-                className="w-6 h-6 rounded-full border border-neutral-500 flex items-center justify-center"
                 onClick={() => updateRoomGuests(index, "adults", +1)}
+                className="w-6 h-6 rounded-full border border-neutral-500 flex items-center justify-center"
                 type="button"
               >
                 +
@@ -261,16 +295,16 @@ export default function HotelTab() {
             <div className="flex items-center gap-3">
               <button
                 disabled={room.children <= 0}
-                className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 disabled:cursor-not-allowed flex items-center justify-center"
                 onClick={() => updateRoomGuests(index, "children", -1)}
+                className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 flex items-center justify-center"
                 type="button"
               >
                 -
               </button>
               <span>{room.children}</span>
               <button
-                className="w-6 h-6 rounded-full border border-neutral-500 flex items-center justify-center"
                 onClick={() => updateRoomGuests(index, "children", +1)}
+                className="w-6 h-6 rounded-full border border-neutral-500 flex items-center justify-center"
                 type="button"
               >
                 +
@@ -280,7 +314,7 @@ export default function HotelTab() {
         </div>
       ))}
 
-      {/* ---------------------- ADD ROOM BUTTON ---------------------- */}
+      {/* ADD ROOM */}
       <button
         onClick={addRoom}
         className="border border-neutral-600 px-4 py-2 rounded flex items-center gap-2"
@@ -290,13 +324,136 @@ export default function HotelTab() {
         <span className="text-lg">+</span>
       </button>
 
-      {/* ---------------------- CTA ---------------------- */}
-      <button
-        className="w-full bg-white text-black py-3 rounded flex justify-center items-center gap-2 font-semibold"
-        type="button"
-      >
-        CHECK AVAILABILITY <span>→</span>
-      </button>
+      {/* CTA */}
+      {/* CTA — NEW HOTEL STYLE BUTTONS */}
+      <div className="flex w-full items-center mt-2">
+        {/* LEFT RECTANGLE BUTTON */}
+        <button
+          type="button"
+          onClick={async () => {
+            try {
+              let finalRooms = [];
+
+              // CASE 1: Saved rooms exist
+              if (rooms.length > 0) {
+                finalRooms = rooms.map((r, i) => ({
+                  ...r,
+                  roomName: `${i + 1}`,
+                }));
+              }
+
+              // CASE 2: No saved rooms → use live form
+              if (rooms.length === 0) {
+                if (selectedProperty && checkIn && checkOut) {
+                  finalRooms = [
+                    {
+                      roomName: "1",
+                      property: selectedProperty,
+                      checkIn,
+                      checkOut,
+                      adults,
+                      children,
+                    },
+                  ];
+                } else {
+                  toast.custom(
+                    <TerratoneToast message="Please complete the booking details." />
+                  );
+                  return;
+                }
+              }
+
+              const payload = { ...data, rooms: finalRooms };
+
+              const res = await fetch("/api/hotel", {
+                method: "POST",
+                body: JSON.stringify(payload),
+              });
+
+              const json = await res.json();
+
+              if (json.success) {
+                const primary = finalRooms[0];
+                const summary = `Booked: ${primary.property} • ${primary.adults} Adults, ${primary.children} Children`;
+
+                toast.custom(
+                  <TerratoneToast message={`Hotel enquiry sent! ${summary}`} />
+                );
+              } else {
+                toast.custom(<TerratoneToast message="Something went wrong" />);
+              }
+            } catch (err) {
+              toast.custom(<TerratoneToast message="Network error" />);
+            }
+          }}
+          className="flex-1 bg-white text-black py-3  font-semibold text-sm tracking-wide uppercase"
+        >
+          Check Availability
+        </button>
+
+        {/* RIGHT CIRCLE BUTTON */}
+        <button
+          type="button"
+          onClick={async () => {
+            // SAME AS LEFT BUTTON — duplicate logic
+            try {
+              let finalRooms = [];
+
+              if (rooms.length > 0) {
+                finalRooms = rooms.map((r, i) => ({
+                  ...r,
+                  roomName: `${i + 1}`,
+                }));
+              }
+
+              if (rooms.length === 0) {
+                if (selectedProperty && checkIn && checkOut) {
+                  finalRooms = [
+                    {
+                      roomName: "1",
+                      property: selectedProperty,
+                      checkIn,
+                      checkOut,
+                      adults,
+                      children,
+                    },
+                  ];
+                } else {
+                  toast.custom(
+                    <TerratoneToast message="Please complete the booking details." />
+                  );
+                  return;
+                }
+              }
+
+              const payload = { ...data, rooms: finalRooms };
+
+              const res = await fetch("/api/hotel", {
+                method: "POST",
+                body: JSON.stringify(payload),
+              });
+
+              const json = await res.json();
+
+              if (json.success) {
+                const primary = finalRooms[0];
+                const summary = `Booked: ${primary.property} • ${primary.adults} Adults, ${primary.children} Children`;
+
+                toast.custom(
+                  <TerratoneToast message={`Hotel enquiry sent! ${summary}`} />
+                );
+              } else {
+                toast.custom(<TerratoneToast message="Something went wrong" />);
+              }
+            } catch (err) {
+              toast.custom(<TerratoneToast message="Network error" />);
+            }
+          }}
+          className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center border border-black"
+        >
+          →
+        </button>
+      </div>
     </div>
   );
 }

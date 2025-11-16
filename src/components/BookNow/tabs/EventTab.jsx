@@ -1,26 +1,27 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
+import toast from "react-hot-toast";
+import TerratoneToast from "@/components/TerratoneToast";
 
-export default function EventTab() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-
-  const [eventType, setEventType] = useState("");
-
-  const [openRoom, setOpenRoom] = useState(false);
-  const [selectedRoom, setSelectedRoom] = useState("");
-
-  const [date, setDate] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
-
-  const [people, setPeople] = useState("");
-  const [notes, setNotes] = useState("");
+export default function EventTab({ data, setData }) {
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    eventType,
+    selectedRoom,
+    date,
+    startTime,
+    endTime,
+    people,
+    notes,
+  } = data;
 
   const ROOM_LIST = ["Media Room", "Conference Room", "Banquet Hall"];
+
+  const [openRoom, setOpenRoom] = useState(false);
 
   const dateRef = useRef(null);
   const startTimeRef = useRef(null);
@@ -38,14 +39,14 @@ export default function EventTab() {
         <input
           placeholder="FIRST NAME *"
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={(e) => setData({ ...data, firstName: e.target.value })}
           className="inputbox"
         />
 
         <input
           placeholder="LAST NAME *"
           value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          onChange={(e) => setData({ ...data, lastName: e.target.value })}
           className="inputbox"
         />
 
@@ -53,14 +54,14 @@ export default function EventTab() {
           placeholder="EMAIL ADDRESS *"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setData({ ...data, email: e.target.value })}
           className="inputbox"
         />
 
         <input
           placeholder="PHONE NUMBER *"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e) => setData({ ...data, phone: e.target.value })}
           className="inputbox"
         />
       </div>
@@ -70,7 +71,7 @@ export default function EventTab() {
         <input
           placeholder="NATURE OF THIS EVENT *"
           value={eventType}
-          onChange={(e) => setEventType(e.target.value)}
+          onChange={(e) => setData({ ...data, eventType: e.target.value })}
           className="inputbox"
         />
 
@@ -91,7 +92,7 @@ export default function EventTab() {
                   key={room}
                   className="dropdown-item"
                   onClick={() => {
-                    setSelectedRoom(room);
+                    setData({ ...data, selectedRoom: room });
                     setOpenRoom(false);
                   }}
                 >
@@ -102,7 +103,7 @@ export default function EventTab() {
           )}
         </div>
 
-        {/* EVENT DATE — FULL BOX CLICKABLE */}
+        {/* EVENT DATE */}
         <div
           className="border border-neutral-700 rounded p-3 cursor-pointer"
           onClick={() => dateRef.current?.showPicker()}
@@ -119,7 +120,7 @@ export default function EventTab() {
             ref={dateRef}
             type="date"
             value={date}
-            onChange={(e) => setDate(e.target.value)}
+            onChange={(e) => setData({ ...data, date: e.target.value })}
             className="hidden-date-input"
           />
         </div>
@@ -141,7 +142,7 @@ export default function EventTab() {
             ref={startTimeRef}
             type="time"
             value={startTime}
-            onChange={(e) => setStartTime(e.target.value)}
+            onChange={(e) => setData({ ...data, startTime: e.target.value })}
             className="hidden-date-input"
           />
         </div>
@@ -163,12 +164,12 @@ export default function EventTab() {
             ref={endTimeRef}
             type="time"
             value={endTime}
-            onChange={(e) => setEndTime(e.target.value)}
+            onChange={(e) => setData({ ...data, endTime: e.target.value })}
             className="hidden-date-input"
           />
         </div>
 
-        {/* NUMBER OF PEOPLE — SINGLE OUTER BORDER ONLY */}
+        {/* NUMBER OF PEOPLE */}
         <div className="border border-neutral-700 rounded p-3 space-y-2">
           <span className="text-xs uppercase text-neutral-300">
             NUMBER OF PEOPLE *
@@ -177,12 +178,12 @@ export default function EventTab() {
             type="number"
             min={1}
             value={people}
-            onChange={(e) => setPeople(e.target.value)}
+            onChange={(e) => setData({ ...data, people: e.target.value })}
             className="w-full bg-transparent outline-none text-sm text-neutral-200 uppercase no-spinner"
           />
         </div>
 
-        {/* ADDITIONAL INFORMATION — SINGLE OUTER BORDER ONLY */}
+        {/* ADDITIONAL INFORMATION */}
         <div className="border border-neutral-700 rounded p-3 space-y-2">
           <span className="text-xs uppercase text-neutral-300">
             ADDITIONAL INFORMATION
@@ -191,25 +192,74 @@ export default function EventTab() {
           <textarea
             rows={4}
             value={notes}
-            onChange={(e) => setNotes(e.target.value)}
+            onChange={(e) => setData({ ...data, notes: e.target.value })}
             className="w-full bg-transparent outline-none text-sm text-neutral-200 uppercase resize-none"
           />
         </div>
       </div>
 
       {/* SUBMIT */}
-      <button
-        type="button"
-        className="w-full flex items-center bg-white text-black rounded-full overflow-hidden"
-      >
-        <span className="flex-1 text-center py-3 uppercase tracking-wider text-sm font-medium">
-          Submit Enquiry
-        </span>
-        <span className="w-10 h-10 bg-white border border-black rounded-full flex items-center justify-center mr-1">
-          →
-        </span>
-      </button>
 
+      {/* SUBMIT — NEW MATCHING CTA */}
+      <div className="flex w-full items-center  mt-2">
+        {/* LEFT RECTANGLE BUTTON */}
+        <button
+          type="button"
+          onClick={async () => {
+            try {
+              const res = await fetch("/api/event", {
+                method: "POST",
+                body: JSON.stringify(data),
+              });
+
+              const json = await res.json();
+
+              if (json.success) {
+                toast.custom(
+                  <TerratoneToast message="Event enquiry sent successfully!" />
+                );
+              } else {
+                toast.custom(<TerratoneToast message="Something went wrong" />);
+              }
+            } catch (err) {
+              toast.custom(<TerratoneToast message="Network error" />);
+            }
+          }}
+          className="flex-1 bg-white text-black py-3  font-semibold text-sm uppercase tracking-wide"
+        >
+          Submit Enquiry
+        </button>
+
+        {/* RIGHT CIRCLE BUTTON */}
+        <button
+          type="button"
+          onClick={async () => {
+            try {
+              const res = await fetch("/api/event", {
+                method: "POST",
+                body: JSON.stringify(data),
+              });
+
+              const json = await res.json();
+
+              if (json.success) {
+                toast.custom(
+                  <TerratoneToast message="Event enquiry sent successfully!" />
+                );
+              } else {
+                toast.custom(<TerratoneToast message="Something went wrong" />);
+              }
+            } catch (err) {
+              toast.custom(<TerratoneToast message="Network error" />);
+            }
+          }}
+          className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center border border-black"
+        >
+          →
+        </button>
+      </div>
+
+      {/* styles unchanged */}
       <style>{`
         .inputbox {
           width: 100%;
@@ -222,20 +272,6 @@ export default function EventTab() {
           text-transform: uppercase;
           color: #e5e5e5;
           letter-spacing: 0.5px;
-        }
-
-        .textarea {
-          width: 100%;
-          background: transparent;
-          outline: none;
-          border: 1px solid #3f3f3f;
-          border-radius: 0.375rem;
-          padding: 0.75rem;
-          font-size: 0.875rem;
-          text-transform: uppercase;
-          color: #e5e5e5;
-          letter-spacing: 0.5px;
-          resize: none;
         }
 
         .hidden-date-input {
@@ -251,6 +287,7 @@ export default function EventTab() {
           -webkit-appearance: none;
           margin: 0;
         }
+
         .no-spinner {
           -moz-appearance: textfield;
         }

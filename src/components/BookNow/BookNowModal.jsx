@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
@@ -27,6 +28,45 @@ export default function BookNowModal({
 
   const [activeTab, setActiveTab] = useState(initialTab);
 
+  // ---------------------------------------------------------
+  // ⭐ LIFTED STATE FOR ALL TABS
+  // ---------------------------------------------------------
+
+  const [hotelData, setHotelData] = useState({
+    selectedProperty: "",
+    adults: 2,
+    children: 0,
+    checkIn: null,
+    checkOut: null,
+    rooms: [],
+  });
+
+  const [diningData, setDiningData] = useState({
+    fullName: "",
+    phone: "",
+    date: "",
+    time: "",
+    guests: 2,
+  });
+
+  const [eventData, setEventData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    eventType: "",
+    selectedRoom: "",
+    date: "",
+    startTime: "",
+    endTime: "",
+    people: "",
+    notes: "",
+  });
+
+  // ---------------------------------------------------------
+  // END LIFTED STATE
+  // ---------------------------------------------------------
+
   useEffect(() => {
     let root = document.getElementById("booknow-portal");
     if (!root) {
@@ -42,14 +82,13 @@ export default function BookNowModal({
 
     if (isOpen) {
       setMounted(true);
+
       requestAnimationFrame(() =>
         requestAnimationFrame(() => setAnimateIn(true))
       );
 
-      // Lock scroll using Lenis
       stopScroll();
 
-      // Pause GSAP's ticker to freeze all animations, including ScrollTriggers
       gsap.ticker.lagSmoothing(0);
       gsap.ticker.remove(gsap.updateRoot);
 
@@ -60,16 +99,10 @@ export default function BookNowModal({
       closeTimer.current = setTimeout(() => {
         setMounted(false);
 
-        // Restore scroll using Lenis
         startScroll();
 
-        // Resume GSAP's ticker
         gsap.ticker.add(gsap.updateRoot);
         gsap.ticker.lagSmoothing(500, 33);
-
-        // Optional: A quick refresh of ScrollTrigger might be needed
-        // in some edge cases, but try without it first.
-        // ScrollTrigger.refresh();
       }, ANIM);
     }
 
@@ -84,14 +117,14 @@ export default function BookNowModal({
       aria-modal="true"
       role="dialog"
     >
-      {/* ... rest of your JSX is unchanged ... */}
+      {/* BACKDROP */}
       <div
         onClick={onClose}
         className={`absolute inset-0 bg-black/70 transition-opacity duration-200
-          ${animateIn ? "opacity-100" : "opacity-0"}
-        `}
+          ${animateIn ? "opacity-100" : "opacity-0"}`}
       />
 
+      {/* SIDEBAR MODAL */}
       <aside
         data-lenis-prevent
         onClick={(e) => e.stopPropagation()}
@@ -100,6 +133,7 @@ export default function BookNowModal({
           transition-transform duration-200 ease-out
           ${animateIn ? "translate-x-0" : "translate-x-full"}`}
       >
+        {/* HEADER */}
         <div className="flex items-center justify-between px-6 py-4">
           <h3 className="text-2xl font-semibold">Book</h3>
 
@@ -111,14 +145,24 @@ export default function BookNowModal({
           </button>
         </div>
 
+        {/* TABS HEADER */}
         <div className="px-6 py-5">
           <TabsHeader active={activeTab} setActive={setActiveTab} />
         </div>
 
+        {/* TAB CONTENT */}
         <div className="p-6 flex-1 overflow-y-auto" data-lenis-prevent>
-          {activeTab === "hotel" && <HotelTab />}
-          {activeTab === "dining" && <DiningTab />}
-          {activeTab === "event" && <EventTab />}
+          {activeTab === "hotel" && (
+            <HotelTab data={hotelData} setData={setHotelData} />
+          )}
+
+          {activeTab === "dining" && (
+            <DiningTab data={diningData} setData={setDiningData} />
+          )}
+
+          {activeTab === "event" && (
+            <EventTab data={eventData} setData={setEventData} />
+          )}
         </div>
       </aside>
     </div>,
