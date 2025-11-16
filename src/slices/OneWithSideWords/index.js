@@ -7,6 +7,7 @@ import Bounded from "@/components/Bounded";
 import Button from "@/components/Button";
 import VideoComponent from "@/components/VideoComponent";
 import RichTextRenderer from "@/components/RichTextRenderer";
+import { PrismicRichText } from "@prismicio/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,40 +15,80 @@ export default function OneWithSideWords({ slice }) {
   const sectionRef = useRef(null);
   const leftCurtainRef = useRef(null);
   const rightCurtainRef = useRef(null);
+  const leftTextRef = useRef(null);
+  const rightTextRef = useRef(null);
 
   useEffect(() => {
     const leftCurtain = leftCurtainRef.current;
     const rightCurtain = rightCurtainRef.current;
+
     if (!leftCurtain || !rightCurtain) return;
 
-    // Initial state: both curtains fully closed
+    // Initial curtain state
     gsap.set([leftCurtain, rightCurtain], { scaleX: 1 });
+
+    // ⭐ Initial SIDE TEXT states (THIS FIXES THE ISSUE)
+    gsap.set([leftTextRef.current, rightTextRef.current], {
+      opacity: 0,
+      y: 30,
+    });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top 80%",
+        start: "top 40%",
         toggleActions: "play none none none",
         once: true,
+
+        markers: true,
       },
     });
 
-    // Animate curtains opening horizontally
-    tl.to(leftCurtain, {
-      scaleX: 0,
-      transformOrigin: "left center",
-      duration: 1.3,
-      ease: "power3.inOut",
-    });
+    // Curtains start opening immediately
+    tl.to(
+      leftCurtain,
+      {
+        scaleX: 0,
+        transformOrigin: "left center",
+        duration: 2,
+        ease: "power3.inOut",
+      },
+      0
+    );
+
     tl.to(
       rightCurtain,
       {
         scaleX: 0,
         transformOrigin: "right center",
-        duration: 1.3,
+        duration: 2,
         ease: "power3.inOut",
       },
-      "<"
+      0
+    );
+
+    // Left text reveals
+    tl.to(
+      leftTextRef.current,
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+      },
+      0
+    );
+
+    // Right text reveals
+    tl.to(
+      rightTextRef.current,
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+      },
+      ">"
     );
 
     return () => {
@@ -73,7 +114,9 @@ export default function OneWithSideWords({ slice }) {
         {/* Left Word */}
         <div className="relative flex-1 w-[20%] lg:w-auto flex items-center justify-center">
           <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium -rotate-90 lg:rotate-0 lg:text-right lg:pr-4 ">
-            <RichTextRenderer field={slice.primary.left_word} />
+            <div ref={leftTextRef}>
+              <PrismicRichText field={slice.primary.left_word} />
+            </div>
           </div>
         </div>
 
@@ -100,20 +143,22 @@ export default function OneWithSideWords({ slice }) {
         {/* Right Word */}
         <div className="relative flex-1 w-[20%] lg:w-auto flex items-center justify-center">
           <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium rotate-90 lg:rotate-0 lg:pl-5 ">
-            <RichTextRenderer field={slice.primary.right_word} />
+            <div ref={rightTextRef}>
+              <PrismicRichText field={slice.primary.right_word} />
+            </div>
           </div>
         </div>
       </div>
 
       {/* =================== Description =================== */}
-      <div className="mt-9 leading-tight font-barlow text-sm md:text-[18px] text-black text-center">
+      <div className="mt-5 leading-tight font-barlow text-sm md:text-[18px] text-black text-center">
         <RichTextRenderer field={slice.primary.description} />
       </div>
 
       {/* =================== Buttons =================== */}
-      <div className="mt-6 lg:mt-9 flex justify-center items-center gap-2">
-        <Button  className="font-barlow px-2.5 py-1 tracking-tighter">
-          ABOUT US
+      <div className="mt-6 lg:mt-4 flex justify-center items-center gap-2">
+        <Button className="font-barlow px-2.5 py-1 tracking-wide">
+          OUR STORY
         </Button>
       </div>
     </Bounded>

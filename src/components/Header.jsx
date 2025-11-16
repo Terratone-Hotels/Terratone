@@ -108,7 +108,7 @@ export default function HeaderClient({ headerData }) {
         ref={headerRef}
         className=" fixed top-0 mix-blend-difference  z-50 w-full flex flex-row items-center justify-between  lg:px-6 py-4 transition-transform duration-300 ease-in-out"
       >
-        <div className={`   text-white n sm:ml-8 lg:ml-5`}>
+        <div className={`   text-white`}>
           <PrismicNextLink href={"/"} className="inline-block">
             <TerratoneLogo className="scale-79 sm:scale-85 lg:scale-100" />
           </PrismicNextLink>
@@ -136,7 +136,7 @@ export default function HeaderClient({ headerData }) {
       {data.nav_button_link && (
         <div
           ref={buttonRef}
-          className="flex justify-end bg-transparent absolute fixed right-10 top-4 duration-300 z-50"
+          className="flex justify-end bg-transparent cursor-pointer absolute fixed right-6 top-4 duration-300 z-50"
         >
           <Button
             noBorder
