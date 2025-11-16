@@ -17,15 +17,15 @@ const ReversedDestinationHighlights = ({ slice }) => {
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className={"overflow-hidden "}
+          
         >
           <div className="flex flex-col-reverse md:flex-row gap-5 items-start ">
             {/* Left Side Text */}
-            <div className="md:w-1/2 space-y-5">
+            <div className="md:sticky md:top-2 md:w-1/2 space-y-5">
               {/* Animated Heading */}
               <RichTextRenderer
                 field={slice.primary.heading}
-                className="text-[1.75rem] md:text-[2.625rem] xl:text-6xl font-serif font-medium leading-7 md:leading-[3rem]"
+                className="text-[1.75rem] md:text-[25px] lg:text-[42px]  font-serif font-medium leading-7 md:leading-[2rem]"
               />
 
               {/* Animated Description */}

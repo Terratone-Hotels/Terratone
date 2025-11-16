@@ -83,7 +83,7 @@ export default function Button({
     <button
       ref={buttonRef}
       className={clsx(
-        "group inline-grid font-medium uppercase",
+        "group cursor-pointer inline-grid font-medium uppercase",
         !noBorder && "border border-black",
         "grid-cols-[auto_auto]"
       )}

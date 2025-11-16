@@ -6,6 +6,8 @@ import { PrismicNextImage } from "@prismicio/next";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DotWave from "@/components/DotWave";
+import AnimatedBrandIcon from "@/components/AnimatedBrandIcon";
+import AnimatedBrandIconOL from "@/components/AnimatedBrandIconOL"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,6 +30,7 @@ const HorizontalPage = ({ slice }) => {
   const dotWaveRef = useRef(null);
   const section3Text2Ref = useRef(null);
   const section3Text3Ref = useRef(null);
+  const brandIconRef = useRef(null);
 
   // 🟠 SECTION 5 REFS
   const section5TextRef = useRef(null);
@@ -40,8 +43,9 @@ const HorizontalPage = ({ slice }) => {
   const section6TextRef = useRef(null);
 
   // 🟤 MARQUEE REFS
+
   const marqueeWrapperRef = useRef(null);
-  const marqueeImagesRef = useRef([]);
+  const marqueeImagesRef = useRef([[], [], []]); // 3 columns
 
   const galleryImagesRef = useRef([]);
 
@@ -62,7 +66,7 @@ const HorizontalPage = ({ slice }) => {
           trigger: container,
           pin: true,
           scrub: 1,
-          end: () => "+=" + container.scrollWidth * 2.5,
+          end: () => "+=" + container.scrollWidth * 3,
           // markers: true,
         },
       });
@@ -76,7 +80,11 @@ const HorizontalPage = ({ slice }) => {
         const isFifth = stop === 4;
         const isSixth = stop === 5; // 👈 added for section 6
 
-        tl.to(sections, { xPercent: -(100 * stop), duration: 1 });
+        // 👇 UPDATED LINE (only this logic changed)
+        tl.to(sections, {
+          xPercent: -(isFourth ? 100 * stop : 100 * stop),
+          duration: isFourth ? 1 : 1,
+        });
 
         // === 🟣 SECTION 2 ===
         if (isSecond) {
@@ -102,8 +110,12 @@ const HorizontalPage = ({ slice }) => {
             .to(text2, { opacity: 1, duration: 1 })
             .to({}, { duration: 1 })
             .to([text2, bg], { opacity: 0, duration: 1.2 })
+
+            .set(imgTop, { y: "-100vh" })
+            .set(imgBottom, { y: "100vh" })
             .to([imgTop, imgBottom], {
               opacity: 1,
+              y: 0,
               duration: 2,
               ease: "power2.out",
             })
@@ -131,51 +143,156 @@ const HorizontalPage = ({ slice }) => {
         }
 
         // === 🟡 SECTION 3 ===
+        // === 🟡 SECTION 3 ===
         if (isThird) {
           const text1 = section3TextRef.current;
           const wave = dotWaveRef.current;
           const text2 = section3Text2Ref.current;
           const text3 = section3Text3Ref.current;
+          const icon = brandIconRef.current;
 
+          // INITIAL STATES
           gsap.set([text1, wave], { opacity: 1 });
-          gsap.set([text2, text3], { opacity: 0, y: 0 });
+          gsap.set(text2, { opacity: 0, y: -40 });
+          gsap.set(text3, { opacity: 0, y: 20 });
+          gsap.set(icon, { opacity: 0, scale: 0.9, y: -80 });
+          gsap.set(".brand-line-1", {
+            rotation: 0,
+            transformOrigin: "center center",
+          });
+          gsap.set(".brand-line-2", {
+            rotation: 0,
+            transformOrigin: "center center",
+          });
 
-          tl.to([text1, wave], { opacity: 0, duration: 1.5 })
-            .to(
-              [text2, text3],
-              { opacity: 1, duration: 1.8, stagger: 0.2, ease: "power2.out" },
-              ">-0.3"
-            )
-            .to({}, { duration: 0.8 })
+          tl
+            // 1️⃣ Fade out text1 + wave
+            .to([text1, wave], { opacity: 0, duration: 1.5 })
+
+            // 2️⃣ Fade-in text2 + text3 (from slightly apart positions)
             .to(
               text2,
-              { y: -60, opacity: 0, duration: 1.2, ease: "power2.inOut" },
-              "fadeout"
+              {
+                opacity: 1,
+                y: -10,
+                duration: 1.2,
+                ease: "power2.out",
+              },
+              ">-0.3"
             )
             .to(
               text3,
-              { y: 60, opacity: 0, duration: 1.2, ease: "power2.inOut" },
-              "fadeout"
+              {
+                opacity: 1,
+                y: 10,
+                duration: 1.2,
+                ease: "power2.out",
+              },
+              "<+0.1"
+            )
+
+            // small pause before split
+            .to({}, { duration: 0.8 })
+
+            // 3️⃣ Move text2 up & text3 down (creating the gap)
+            .to(
+              text2,
+              {
+                y: -100,
+                opacity: 1,
+                duration: 1.2,
+                ease: "power2.inOut",
+              },
+              "split"
+            )
+            .to(
+              text3,
+              {
+                y: 80,
+                opacity: 1,
+                duration: 1.2,
+                ease: "power2.inOut",
+              },
+              "split"
+            )
+
+            // 4️⃣ BrandIcon appears WHEN the gap is fully open
+            .fromTo(
+              icon,
+              {
+                opacity: 0,
+                scale: 0.85,
+              },
+              {
+                opacity: 1,
+                scale: 1,
+                duration: 1.2,
+                ease: "power2.out",
+                onStart: () => {
+                  gsap.to(".brand-line-1", {
+                    rotation: 36,
+                    duration: 0.9,
+                    ease: "power2.out",
+                  });
+                  gsap.to(".brand-line-2", {
+                    rotation: 36,
+                    duration: 0.9,
+                    ease: "power2.out",
+                  });
+                },
+              },
+              "split+=1.0"
+            )
+
+            // 5️⃣ Fade out text2 + text3 AFTER icon appears
+            .to(text2, { opacity: 0, duration: 0.8 }, ">0.3")
+            .to(text3, { opacity: 0, duration: 0.8 }, "<")
+
+            // 6️⃣ Icon fades out after some time
+            .to(
+              icon,
+              {
+                opacity: 0,
+                duration: 1.2,
+                ease: "power2.inOut",
+              },
+              ">0.3"
             );
         }
 
         // === 🟤 SECTION 4 — SCRUB PARALLAX FROM BELOW ===
         if (isFourth) {
-          const imgs = marqueeImagesRef.current;
+          const col1 = marqueeImagesRef.current[0];
+          const col2 = marqueeImagesRef.current[1];
+          const col3 = marqueeImagesRef.current[2];
 
-          // They start BELOW the screen (~50%)
-          gsap.set(imgs, { yPercent: 150 });
+          // Only col1 and col3 start below screen
 
-          // As user scrolls → they rise up
-          const early = 0.9; // start 30% earlier (tune freely)
+          // Column 1 (upward spin)
+          tl.fromTo(
+            col1,
+            { yPercent: 310 }, // START outside screen
+            { yPercent: -310, ease: "none", duration: 4 }
+          );
 
-          tl.to(
-            imgs,
+          // Column 2 (custom fromTo)
+          tl.fromTo(
+            col2,
+            { yPercent: -310 }, // START below screen (further out)
             {
-              yPercent: -40,
+              yPercent: 310, // END position
               ease: "none",
+              duration: 4,
             },
-            `-=${early}`
+            "<"
+          );
+
+          // Column 3 (upward)
+          tl.fromTo(
+            col3,
+            { yPercent: 310 }, // START outside screen
+            { yPercent: -310, ease: "none", duration: 4 },
+            "<" // END same as before
           );
         }
 
@@ -301,9 +418,17 @@ const HorizontalPage = ({ slice }) => {
     >
       <div className="panels flex flex-nowrap h-screen">
         {/* 🟢 SECTION 1 */}
-        <section className="panel w-screen h-screen flex items-center justify-start px-24 font-barlow">
-          <div className="text-left max-w-[600px] text-[340px] leading-tight">
+        <section className="panel w-screen h-screen flex items-center justify-start px-24 ">
+          <div className="text-left max-w-[600px] text-[278px] font-medium leading-60 font-serif">
             <PrismicRichText field={slice.primary.our_story} />
+            <div className="flex items-baseline flex-row ">
+              <div className="px-20">
+                <AnimatedBrandIconOL/>
+              </div>
+              <div>
+                <PrismicRichText field={slice.primary.story} />
+              </div>
+            </div>
           </div>
         </section>
 
@@ -322,7 +447,7 @@ const HorizontalPage = ({ slice }) => {
           </div>
           <div
             ref={imgTopRef}
-            className="absolute top-0 left-[75%] -translate-x-1/2 w-[30%] h-[65vh] opacity-0"
+            className="absolute top-0 left-[80%] -translate-x-1/2 w-[23%] h-[65vh] opacity-0"
           >
             <PrismicNextImage
               field={slice.primary.image_2}
@@ -332,7 +457,7 @@ const HorizontalPage = ({ slice }) => {
           </div>
           <div
             ref={imgBottomRef}
-            className="absolute bottom-0 left-[25%] -translate-x-1/2 w-[30%] h-[65vh] opacity-0"
+            className="absolute bottom-0 left-[20%] -translate-x-1/2 w-[23%] h-[65vh] opacity-0"
           >
             <PrismicNextImage
               field={slice.primary.image_3}
@@ -352,7 +477,7 @@ const HorizontalPage = ({ slice }) => {
           </div>
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative flex flex-col items-center justify-center text-center max-w-[700px] w-full px-6 translate-y-[-5%]">
+            <div className="relative flex flex-col items-center justify-center font-barlow font-medium text-center max-w-[700px] w-full px-6 translate-y-[-5%]">
               <div ref={text1Ref}>
                 <PrismicRichText field={slice.primary.text_1} />
               </div>
@@ -364,7 +489,7 @@ const HorizontalPage = ({ slice }) => {
               </div>
               <div
                 ref={text3Ref}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-black opacity-0"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[85%] -translate-y-1/2 text-black opacity-0"
               >
                 <PrismicRichText field={slice.primary.text_3} />
               </div>
@@ -391,49 +516,88 @@ const HorizontalPage = ({ slice }) => {
         >
           <div
             ref={section3TextRef}
-            className="max-w-[800px] mb-8 text-3xl text-black relative z-10"
+            className=" relative top-10   text-3xl font-barlow text-black  z-10"
           >
             <PrismicRichText field={slice.primary.section3_text_1} />
           </div>
-          <div ref={dotWaveRef} className="z-10">
+          <div ref={dotWaveRef} className=" relative top-18 z-10">
             <DotWave />
           </div>
           <div
             ref={section3Text2Ref}
-            className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 text-4xl text-black z-20"
+            className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 font-barlow opacity-0 text-4xl text-black z-20"
           >
             <PrismicRichText field={slice.primary.section_3_text_2} />
           </div>
+          <div ref={brandIconRef} className="opacity-0">
+            <AnimatedBrandIcon />
+          </div>
           <div
             ref={section3Text3Ref}
-            className="absolute top-[50%] left-1/2 -translate-x-1/2 text-4xl text-black opacity-0 z-20"
+            className="absolute top-[50%] left-1/2 -translate-x-1/2 font-barlow text-4xl text-black opacity-0 z-20"
           >
             <PrismicRichText field={slice.primary.section_3_text_3} />
           </div>
         </section>
 
-        {/* 🟤 SECTION 4 — STATIC + PARALLAX */}
+        {/* 🟤 SECTION 4 — SLOT MACHINE STYLE */}
         <section
-          className="panel flex flex-col items-center justify-center w-screen h-screen gap-10"
+          className="panel flex items-center justify-center w-screen h-screen gap-20"
           data-pin="true"
         >
-          {[...Array(2)].map((_, batch) => (
-            <div key={batch} className="flex flex-col items-center gap-10">
-              {[
-                slice.primary.marque_1_image_1,
-                slice.primary.marque_1_image_2,
-                slice.primary.marque_1_image_3,
-              ].map((img, i) => (
-                <div
-                  key={batch + "-" + i}
-                  ref={(el) => (marqueeImagesRef.current[batch * 3 + i] = el)}
-                  className="w-[28vw] h-[55vh] relative overflow-hidden shadow-lg"
-                >
-                  <PrismicNextImage field={img} fill className="object-cover" />
-                </div>
-              ))}
-            </div>
-          ))}
+          {/* COLUMN 1 */}
+          <div className="flex flex-col gap-10">
+            {[
+              slice.primary.marque_1_image_1,
+              slice.primary.marque_1_image_2,
+              slice.primary.marque_1_image_3,
+              slice.primary.marque_1_image_1,
+            ].map((img, i) => (
+              <div
+                key={"col1-" + i}
+                ref={(el) => (marqueeImagesRef.current[0][i] = el)}
+                className="w-[28vw] h-[55vh] relative overflow-hidden shadow-lg"
+              >
+                <PrismicNextImage field={img} fill className="object-cover" />
+              </div>
+            ))}
+          </div>
+
+          {/* COLUMN 2 */}
+          <div className="flex flex-col gap-10">
+            {[
+              slice.primary.marque_2_image_1,
+              slice.primary.marque_2_image_2,
+              slice.primary.marque_2_image_3,
+              slice.primary.marque_2_image_1,
+            ].map((img, i) => (
+              <div
+                key={"col2-" + i}
+                ref={(el) => (marqueeImagesRef.current[1][i] = el)}
+                className="w-[28vw] h-[55vh] relative overflow-hidden shadow-lg"
+              >
+                <PrismicNextImage field={img} fill className="object-cover" />
+              </div>
+            ))}
+          </div>
+
+          {/* COLUMN 3 */}
+          <div className="flex flex-col gap-10">
+            {[
+              slice.primary.marque_3_image_1,
+              slice.primary.marque_3_image_2,
+              slice.primary.marque_3_image_3,
+              slice.primary.marque_3_image_1,
+            ].map((img, i) => (
+              <div
+                key={"col3-" + i}
+                ref={(el) => (marqueeImagesRef.current[2][i] = el)}
+                className="w-[28vw] h-[55vh] relative overflow-hidden shadow-lg"
+              >
+                <PrismicNextImage field={img} fill className="object-cover" />
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 🔵 SECTION 5 — TEXT + IMAGES */}
@@ -445,7 +609,7 @@ const HorizontalPage = ({ slice }) => {
           {/* TEXT */}
           <div
             ref={section5TextRef}
-            className="absolute inset-0 flex items-center justify-center text-5xl text-black z-20 "
+            className="absolute inset-0 flex left-1/2 -translate-x-1/2 font-barlow text-center items-center justify-center text-5xl text-black z-20 "
           >
             <PrismicRichText field={slice.primary.section_4_text} />
           </div>
@@ -539,14 +703,14 @@ const HorizontalPage = ({ slice }) => {
           {/* Text */}
           <div
             ref={section6TextRef}
-            className="absolute bottom-[20%] text-center text-3xl px-6 z-30"
+            className="absolute bottom-[15%]  text-center font-barlow text-3xl px-6 z-30"
           >
             <PrismicRichText field={slice.primary.section_5_text_1} />
           </div>
           {/* Final reveal text */}
           <div
             ref={section6Text2Ref}
-            className="absolute inset-0 flex items-center justify-center text-center text-4xl px-6 opacity-0 z-30"
+            className="absolute inset-0 flex items-center justify-center font-barlow text-center text-4xl px-6 opacity-0 z-30"
           >
             <PrismicRichText field={slice.primary.section_5_text_2} />
           </div>

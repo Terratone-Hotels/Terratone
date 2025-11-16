@@ -26,11 +26,16 @@ export default function RoomCard({
       </div>
 
       {/* Title */}
-      {title && (
+      <div className="flex flex-row w-full items-baseline justify-between">
         <div className={`mt-4 ${titleClassName}`}>
           <RichTextRenderer field={title} />
         </div>
-      )}
+        <div>
+          <Button className={`px-2 py-1  ${buttonClassNames}`}>
+            <PrismicNextLink field={bookingLink}>{linkText}</PrismicNextLink>
+          </Button>
+        </div>
+      </div>
 
       <div className="w-auto border-b-1"></div>
 
@@ -38,7 +43,7 @@ export default function RoomCard({
       <div className="flex mt-3 flex-row items-end justify-between relative">
         {description && (
           <div
-            className={`font-barlow w-[60%] md:w-[70%] ${descriptionClassName}`}
+            className={`font-barlow  ${descriptionClassName}`}
           >
             <RichTextRenderer
               field={description}
@@ -46,10 +51,6 @@ export default function RoomCard({
             />
           </div>
         )}
-
-        <Button className={`px-1 py-1  ${buttonClassNames}`}>
-          <PrismicNextLink field={bookingLink}>{linkText}</PrismicNextLink>
-        </Button>
       </div>
     </div>
   );

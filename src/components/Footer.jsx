@@ -11,7 +11,7 @@ export default function Footer({ footerData }) {
   const data = footerData.data;
   return (
     <Bounded>
-      <footer className="w-full">
+      <footer className="w-full mb-2">
         {/* Main div */}
         <div className="hidden lg:block w-full">
           {/* First Row */}

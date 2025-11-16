@@ -53,7 +53,7 @@ export default function BanquetHalls({ slice }) {
     // Set the initial state for the image animations
     gsap.set(imageWrapper, {
       scale: 0.5,
-      borderRadius: "400px",
+
       overflow: "hidden",
     });
     gsap.set(image, { scale: 1.5 });
@@ -102,49 +102,55 @@ export default function BanquetHalls({ slice }) {
   return (
     <Bounded
       ref={containerRef}
-      className="relative mt-15 lg:mt-35 h-auto overflow-hidden"
+      className="relative mt-15 lg:mt-35 h-auto items-center overflow-hidden"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      {/* Background Image JSX */}
-      <div ref={imageWrapperRef} className="absolute inset-0 z-0">
-        <div ref={imageRef} className="w-full h-full">
-          <PrismicNextImage
-            field={slice.primary.banquet_image}
-            className="w-full h-full object-cover will-change-transform"
-            fill
-          />
+      {/* Everything must be inside the internal bounded div */}
+      <div className="relative">
+        {/* Background Image JSX (now inside bounded padding area) */}
+        <div
+          ref={imageWrapperRef}
+          className="absolute inset-0 z-0 flex items-center justify-center"
+        >
+          <div ref={imageRef} className="w-full h-full">
+            <PrismicNextImage
+              field={slice.primary.banquet_image}
+              className="w-full h-full object-cover object-center will-change-transform"
+            />
+          </div>
         </div>
-      </div>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col justify-end h-[40.6875rem] md:h-[46.5rem] px-4 sm:px-6 md:px-0">
-        <div className="absolute top-4 sm:top-10 left-4 md:top-26 lg:left-35 text-white max-w-[90%] sm:max-w-[80%] md:max-w-none">
-          {/* --- MODIFICATION 4: Attach refs to individual elements --- */}
-          {/* Heading */}
-          <div ref={headingRef}>
-            <RichTextRenderer
-              field={slice.primary.heading}
-              className="text-[1.4rem] xs:text-[1.6rem] sm:text-[1.9rem] md:text-[2.625rem] font-serif font-medium leading-snug md:leading-12"
-            />
-          </div>
-          {/* Description */}
-          <div
-            ref={descriptionRef}
-            className="my-3 sm:my-4 lg:my-6 w-[65%] lg:w-[30%]"
-          >
-            <RichTextRenderer
-              field={slice.primary.description}
-              className="text-[0.8125rem] sm:text-[0.9375rem] md:text-lg font-barlow text-white tracking-wide leading-snug md:leading-tight"
-            />
-          </div>
-          {/* Button */}
-          <div ref={buttonRef} className="inline-block">
-            <Button className="bg-white px-2.5 py-1">
-              <PrismicNextLink field={slice.primary.button_link}>
-                {slice.primary.button_text}
-              </PrismicNextLink>
-            </Button>
+        {/* Content */}
+        <div className="relative z-10 flex flex-col justify-end h-[40.6875rem] md:h-[46.5rem]">
+          <div className="absolute top-4 sm:top-10 left-4 md:top-26 lg:left-5 xl:left-19 text-white max-w-[90%] sm:max-w-[80%] md:max-w-none">
+            {/* Heading */}
+            <div ref={headingRef}>
+              <RichTextRenderer
+                field={slice.primary.heading}
+                className="text-[1.4rem] xs:text-[1.6rem] sm:text-[1.9rem] md:text-[2.625rem] font-serif font-medium leading-snug md:leading-12"
+              />
+            </div>
+
+            {/* Description */}
+            <div
+              ref={descriptionRef}
+              className="my-3 sm:my-4 lg:my-6 w-[65%] lg:w-[30%]"
+            >
+              <RichTextRenderer
+                field={slice.primary.description}
+                className="text-[0.8125rem] sm:text-[0.9375rem] md:text-lg font-barlow text-white tracking-wide leading-snug md:leading-tight"
+              />
+            </div>
+
+            {/* Button */}
+            <div ref={buttonRef} className="inline-block">
+              <Button className="bg-white px-2.5 py-1">
+                <PrismicNextLink field={slice.primary.button_link}>
+                  {slice.primary.button_text}
+                </PrismicNextLink>
+              </Button>
+            </div>
           </div>
         </div>
       </div>

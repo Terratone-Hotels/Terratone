@@ -30,7 +30,7 @@ const Hero = ({ slice }) => {
     const logoRight = logoRightRef.current;
 
     gsap.set(".curtain", { yPercent: 0 });
-    gsap.set([headingRef.current, thumbsRef.current], { opacity: 0 });
+    gsap.set(headingRef.current, { opacity: 0 });
     gsap.set([logoLeft, logoRight], {
       opacity: 0,
       xPercent: (i) => (i === 0 ? -400 : 400),
@@ -51,7 +51,7 @@ const Hero = ({ slice }) => {
         ease: "power3.out",
         rotate: 25,
       })
-      .to(".curtain", { yPercent: -100, duration: 0.8 }, "-=0.5")
+      .to(".curtain", { yPercent: -100, duration: 0.8 })
       .set(".curtain", { display: "none" })
       .fromTo(
         headingRef.current,
@@ -65,11 +65,16 @@ const Hero = ({ slice }) => {
         },
         "-=1.3"
       )
-      .fromTo(
-        thumbsRef.current,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 1.4, ease: "power3.out" },
-        "-=1"
+      .from(
+        ".thumb",
+        {
+          opacity: 0,
+          y: 40,
+          duration: 0.35,
+          ease: "power3.out",
+          stagger: 0.12,
+        },
+        "-=1.0" // appear during heading animation
       );
 
     return () => tl.kill();
@@ -167,12 +172,14 @@ const Hero = ({ slice }) => {
             ref={headingRef}
             className="font-serif sm:leading-17 text-start sm:text-center w-full text-[36px] sm:text-[3.25rem] text-white mb-4 opacity-0 [clip-path:inset(100%_0%_0%_0%)]"
           >
-            <PrismicRichText field={slice.primary.heading} />
+            <PrismicRichText
+              field={slice.primary.carousel[activeIndex]?.headings}
+            />
           </div>
 
           <div
             ref={thumbsRef}
-            className="md:w-full md:flex md:justify-center opacity-0"
+            className="md:w-full md:flex md:justify-center"
             style={{ pointerEvents: "auto" }}
           >
             <Swiper
@@ -186,7 +193,7 @@ const Hero = ({ slice }) => {
               className="!w-auto"
             >
               {slice.primary.carousel.map((item, index) => (
-                <SwiperSlide key={index} className="!w-auto">
+                <SwiperSlide key={index} className=" thumb !w-auto">
                   <div className="relative">
                     <PrismicNextImage
                       field={item.video ? item.thumbnail : item.image}
@@ -198,9 +205,10 @@ const Hero = ({ slice }) => {
                       className="absolute inset-0 w-full h-full"
                       viewBox="0 0 100 100"
                       preserveAspectRatio="none"
-                      style={{ transform: "scaleX(-1) rotate(180deg)" }} // ✅ Fills left → right
+                      style={{ transform: "scaleX(1) rotate(360deg)" }} // ✅ Fills left → right
                     >
                       <rect
+                        transform="rotate(-90 50 50)" // ⬅️ Start from Top Center
                         ref={(el) => (progressBarsRef.current[index] = el)}
                         pathLength="1"
                         className={`fill-transparent stroke-white stroke-[3] ${
@@ -211,7 +219,7 @@ const Hero = ({ slice }) => {
                         y="1.5"
                         width="97"
                         height="97"
-                        rx="2"
+                        rx="0"
                       />
                     </svg>
                   </div>
