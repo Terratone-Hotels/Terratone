@@ -4,7 +4,7 @@ import SmoothScrollWrapper from "../components/SmoothScrollWrapper";
 import Header from "@/components/HeaderWrapper";
 import FooterServer from "@/components/FooterServer";
 import LenisScrollProvider from "@/components/LenisScrollContext";
-
+import { Toaster } from "react-hot-toast";
 const garamond = EB_Garamond({
   variable: "--font-eb-mono",
   subsets: ["latin"],
@@ -45,6 +45,17 @@ export default async function RootLayout({ children }) {
         className={`${garamond.variable} ${barlow.variable} ${barlowNormal.variable}  antialiased`}
       >
         <LenisScrollProvider>
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              duration: 3000,
+              style: {
+                background: "transparent",
+                padding: 0,
+                border: "none",
+              },
+            }}
+          />
           <Header />
           {children}
           <FooterServer />
