@@ -40,7 +40,7 @@ export default function OneWithSideWords({ slice }) {
         toggleActions: "play none none none",
         once: true,
 
-        markers: true,
+        // markers: true,
       },
     });
 
