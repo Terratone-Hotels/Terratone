@@ -19,12 +19,16 @@ import { gsap } from "gsap";
 import VideoComponent from "@/components/VideoComponent";
 import Bounded from "@/components/Bounded";
 
-// All hooks must be here at top, before any conditional or return!
 const Hero = ({ slice }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
+
+  // This ref tracks if the INITIAL HEADING ANIMATION (via the curtain timeline) has run.
+  const hasAnimatedInitialHeading = useRef(false);
 
   const curtainRef = useRef(null);
+  const headingWrapperRef = useRef(null);
   const headingRef = useRef(null);
   const thumbsRef = useRef(null);
   const logoLeftRef = useRef(null);
@@ -33,10 +37,9 @@ const Hero = ({ slice }) => {
   const swiperRef = useRef(null);
   const swiperHandlersRef = useRef({});
 
-  // Safe data access and fallback
   const slides = slice?.primary?.carousel || [];
 
-  // Animate heading text in on reveal
+  // Animate heading inside wrapper on slide change only
   const animateHeadingIn = useCallback(() => {
     if (headingRef.current) {
       gsap.fromTo(
@@ -55,24 +58,28 @@ const Hero = ({ slice }) => {
     }
   }, []);
 
-  /* --------------------------------------------------
-    GSAP LOADER + HEADING + THUMBS ANIMATION
-  -------------------------------------------------- */
+  // Curtain timeline including wrapper heading reveal
   useLayoutEffect(() => {
     const curtain = curtainRef.current;
     const left = logoLeftRef.current;
     const right = logoRightRef.current;
+    const headingWrapper = headingWrapperRef.current;
     const heading = headingRef.current;
 
-    if (!curtain || !left || !right || !heading) return;
+    if (!curtain || !left || !right || !headingWrapper || !heading) return;
 
     gsap.set(curtain, { yPercent: 0 });
-    gsap.set(heading, { opacity: 0 });
+
+    // Prevent heading flash
+    gsap.set(heading, { opacity: 0, clipPath: "inset(100% 0% 0% 0%)" });
+
     gsap.set([left, right], {
       opacity: 0,
       xPercent: (i) => (i === 0 ? -400 : 400),
       rotate: 0,
     });
+
+    gsap.set(headingWrapper, { opacity: 0, y: 50 });
 
     const tl = gsap.timeline({ defaults: { ease: "power4.inOut" } });
 
@@ -90,40 +97,48 @@ const Hero = ({ slice }) => {
       })
       .to(curtain, { yPercent: -100, duration: 0.8 })
       .set(curtain, { display: "none" })
+      // Animate the heading wrapper AFTER curtain reveals
+      .to(headingWrapper, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+      })
+      // Then animate heading itself on initial reveal
       .fromTo(
         heading,
-        { clipPath: "inset(100% 0% 0% 0%)", opacity: 0, y: 40 },
+        { opacity: 0, clipPath: "inset(100% 0% 0% 0%)" },
         {
-          clipPath: "inset(0% 0% 0% 0%)",
           opacity: 1,
-          y: 0,
-          duration: 1.8,
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 1,
           ease: "power3.out",
         },
-        "-=1.3"
-      );
-
-    const thumbsNodes = thumbsRef.current?.querySelectorAll(".thumb");
-    if (thumbsNodes?.length) {
-      tl.from(
-        thumbsNodes,
+        "-=0.8"
+      )
+      // Thumbnails reveal
+      .from(
+        thumbsRef.current?.querySelectorAll(".thumb"),
         {
           opacity: 0,
           y: 40,
-          duration: 0.35,
+          duration: 0.6,
           ease: "power3.out",
-          stagger: 0.12,
+          stagger: 0.3,
         },
-        "-=1.0"
-      );
-    }
+        "-=0.5"
+      )
+      // FIX: Set the flag here after the animation is visually complete.
+      .call(() => {
+        setIsLoadingComplete(true);
+        // Mark initial heading animation as done
+        hasAnimatedInitialHeading.current = true;
+      });
 
     return () => tl.kill();
   }, []);
 
-  /* --------------------------------------------------
-    SWIPER INIT + EVENT HANDLERS + CLEANUP
-  -------------------------------------------------- */
+  // Swiper initialization and handlers
   const handleSwiper = useCallback(
     (swiper) => {
       swiperRef.current = swiper;
@@ -133,7 +148,7 @@ const Hero = ({ slice }) => {
           if (!bar) return;
           gsap.set(bar, {
             opacity: i === index ? 1 : 0.2,
-            strokeDashoffset: 1, // original logic
+            strokeDashoffset: 1,
           });
         });
       };
@@ -141,42 +156,66 @@ const Hero = ({ slice }) => {
       const slideChangeHandler = () => {
         setActiveIndex(swiper.realIndex);
         updateBars(swiper.realIndex);
-        animateHeadingIn(); // Animate heading on each slide reveal
+
+        // FIX: Only animate the heading if the initial load is complete.
+        // The check for hasAnimatedInitialHeading.current is now handled by
+        // the flag being set in the GSAP timeline.
+        if (hasAnimatedInitialHeading.current && headingRef.current) {
+          // Immediately hide the old heading before animating the new one
+          gsap.set(headingRef.current, { opacity: 0 });
+          animateHeadingIn();
+        }
       };
 
       const autoplayTimeLeftHandler = (s, time, progress) => {
         const activeBar = progressBarsRef.current[s.realIndex];
         if (activeBar) {
           gsap.to(activeBar, {
-            strokeDashoffset: progress, // original logic
+            strokeDashoffset: progress,
             ease: "none",
             duration: 0.1,
           });
         }
       };
 
-      // Attach
       swiper.on("slideChange", slideChangeHandler);
       swiper.on("autoplayTimeLeft", autoplayTimeLeftHandler);
 
-      // Store handlers for cleanup
       swiperHandlersRef.current = {
         slideChange: slideChangeHandler,
         autoplayTimeLeft: autoplayTimeLeftHandler,
       };
-
-      updateBars(swiper.realIndex);
-      setActiveIndex(swiper.realIndex);
-      animateHeadingIn(); // Initial animation also, for first heading
     },
     [animateHeadingIn]
   );
 
-  // Clean up listeners on unmount
+  // Start autoplay after curtain animation finished
+  useEffect(() => {
+    if (!isLoadingComplete) return;
+    const swiper = swiperRef.current;
+    if (!swiper) return;
+
+    // Initialize progress bars correctly for the active slide
+    progressBarsRef.current.forEach((bar, i) => {
+      if (!bar) return;
+      gsap.set(bar, {
+        opacity: i === swiper.realIndex ? 1 : 0.2,
+        strokeDashoffset: 1,
+      });
+    });
+
+    setActiveIndex(swiper.realIndex);
+
+    // Only start autoplay once the component is fully loaded
+    if (swiper.autoplay) swiper.autoplay.start();
+  }, [isLoadingComplete]);
+
+  // Cleanup swiper event listeners
   useEffect(() => {
     return () => {
       const swiper = swiperRef.current;
       const { slideChange, autoplayTimeLeft } = swiperHandlersRef.current;
+
       if (swiper && swiper.off) {
         if (slideChange) swiper.off("slideChange", slideChange);
         if (autoplayTimeLeft) swiper.off("autoplayTimeLeft", autoplayTimeLeft);
@@ -184,26 +223,24 @@ const Hero = ({ slice }) => {
     };
   }, []);
 
-  /* --------------------------------------------------
-    THUMB CLICK HANDLER
-  -------------------------------------------------- */
+  // Thumbs click handler
   const onClickThumb = (index) => {
+    if (!isLoadingComplete) return;
     const swiper = swiperRef.current;
     if (!swiper) return;
 
-    if (typeof swiper.slideToLoop === "function") {
-      swiper.slideToLoop(index);
-    } else {
-      swiper.slideTo(index);
+    // Ensure heading transition on manual click
+    if (headingRef.current) {
+      gsap.set(headingRef.current, { opacity: 0 });
+      animateHeadingIn();
     }
+
+    if (swiper.slideToLoop) swiper.slideToLoop(index);
+    else swiper.slideTo(index);
   };
 
-  // Don't conditionally call hooks: short-circuit early for empty slides
   if (!slides.length) return null;
 
-  /* --------------------------------------------------
-    RENDER
-  -------------------------------------------------- */
   return (
     <Bounded full className="hero-section relative overflow-hidden">
       {/* Curtain Loader */}
@@ -222,6 +259,7 @@ const Hero = ({ slice }) => {
           />
         </div>
       </div>
+
       {/* Hero Slider */}
       <div className="relative z-10 origin-bottom">
         <Swiper
@@ -236,6 +274,7 @@ const Hero = ({ slice }) => {
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
+            enabled: false, // Starts disabled, enabled in useEffect
           }}
         >
           {slides.map((item, index) => (
@@ -257,22 +296,27 @@ const Hero = ({ slice }) => {
           ))}
         </Swiper>
 
-        {/* Heading + Thumbs */}
+        {/* Heading Wrapper + Heading + Thumbs */}
         <div
           className="absolute bottom-0 w-full flex flex-col sm:items-center z-20 pb-6 md:pb-10 px-[22px]"
           style={{ pointerEvents: "none" }}
         >
-          <div
-            ref={headingRef}
-            className="font-serif sm:leading-17 text-start sm:text-center w-full text-[36px] sm:text-[3.25rem] text-white mb-4 opacity-0 [clip-path:inset(100%_0%_0%_0%)]"
-          >
-            <PrismicRichText field={slides[activeIndex]?.headings} />
+          <div ref={headingWrapperRef} className="heading-wrapper w-full">
+            <div
+              ref={headingRef}
+              className="font-serif sm:leading-17 text-start sm:text-center w-full text-[36px] sm:text-[3.25rem] text-white mb-4 opacity-0 [clip-path:inset(100%_0%_0%_0%)]"
+            >
+              {/* Ensure slides[activeIndex] exists before rendering */}
+              {slides[activeIndex]?.headings && (
+                <PrismicRichText field={slides[activeIndex].headings} />
+              )}
+            </div>
           </div>
 
           <div
             ref={thumbsRef}
             className="md:w-full md:flex md:justify-center"
-            style={{ pointerEvents: "auto" }}
+            style={{ pointerEvents: isLoadingComplete ? "auto" : "none" }}
           >
             <Swiper
               onSwiper={setThumbsSwiper}
@@ -298,13 +342,15 @@ const Hero = ({ slice }) => {
                       className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer"
                       onClick={() => onClickThumb(index)}
                     />
-                    {/* Progress Bar (unchanged) */}
+
+                    {/* Progress Bar */}
                     <svg
                       className="absolute inset-0 w-full h-full"
                       viewBox="0 0 100 100"
                       preserveAspectRatio="none"
                       style={{ transform: "scaleX(1) rotate(360deg)" }}
                     >
+                      {/* Rect for the progress path */}
                       <rect
                         transform="rotate(-90 50 50)"
                         ref={(el) => (progressBarsRef.current[index] = el)}
