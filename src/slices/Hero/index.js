@@ -19,6 +19,7 @@ import { gsap } from "gsap";
 import VideoComponent from "@/components/VideoComponent";
 import Bounded from "@/components/Bounded";
 
+// All hooks must be here at top, before any conditional or return!
 const Hero = ({ slice }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -29,13 +30,11 @@ const Hero = ({ slice }) => {
   const logoLeftRef = useRef(null);
   const logoRightRef = useRef(null);
   const progressBarsRef = useRef([]);
-
-  // Store swiper and event handlers safely
   const swiperRef = useRef(null);
   const swiperHandlersRef = useRef({});
 
+  // Safe data access and fallback
   const slides = slice?.primary?.carousel || [];
-  if (!slides.length) return null;
 
   // Animate heading text in on reveal
   const animateHeadingIn = useCallback(() => {
@@ -44,12 +43,10 @@ const Hero = ({ slice }) => {
         headingRef.current,
         {
           opacity: 0,
-
           clipPath: "inset(100% 0% 0% 0%)",
         },
         {
           opacity: 1,
-
           clipPath: "inset(0% 0% 0% 0%)",
           duration: 1,
           ease: "power3.out",
@@ -59,7 +56,7 @@ const Hero = ({ slice }) => {
   }, []);
 
   /* --------------------------------------------------
-     GSAP LOADER + HEADING + THUMBS ANIMATION
+    GSAP LOADER + HEADING + THUMBS ANIMATION
   -------------------------------------------------- */
   useLayoutEffect(() => {
     const curtain = curtainRef.current;
@@ -125,7 +122,7 @@ const Hero = ({ slice }) => {
   }, []);
 
   /* --------------------------------------------------
-     SWIPER INIT + EVENT HANDLERS + CLEANUP
+    SWIPER INIT + EVENT HANDLERS + CLEANUP
   -------------------------------------------------- */
   const handleSwiper = useCallback(
     (swiper) => {
@@ -188,7 +185,7 @@ const Hero = ({ slice }) => {
   }, []);
 
   /* --------------------------------------------------
-     THUMB CLICK HANDLER
+    THUMB CLICK HANDLER
   -------------------------------------------------- */
   const onClickThumb = (index) => {
     const swiper = swiperRef.current;
@@ -201,8 +198,11 @@ const Hero = ({ slice }) => {
     }
   };
 
+  // Don't conditionally call hooks: short-circuit early for empty slides
+  if (!slides.length) return null;
+
   /* --------------------------------------------------
-     RENDER
+    RENDER
   -------------------------------------------------- */
   return (
     <Bounded full className="hero-section relative overflow-hidden">
@@ -222,7 +222,6 @@ const Hero = ({ slice }) => {
           />
         </div>
       </div>
-
       {/* Hero Slider */}
       <div className="relative z-10 origin-bottom">
         <Swiper
@@ -249,7 +248,7 @@ const Hero = ({ slice }) => {
               ) : (
                 <PrismicNextImage
                   field={item.image}
-                  alt={item.image?.alt || ""}
+                  alt={item.image?.alt?.trim() || `Hero slide ${index + 1}`}
                   className="w-full h-dvh object-cover"
                 />
               )}
@@ -290,7 +289,12 @@ const Hero = ({ slice }) => {
                   <div className="relative">
                     <PrismicNextImage
                       field={item.video ? item.thumbnail : item.image}
-                      alt={item.image?.alt || ""}
+                      alt={
+                        item.video
+                          ? item.thumbnail?.alt?.trim() ||
+                            `Video thumbnail ${index + 1}`
+                          : item.image?.alt?.trim() || `Hero slide ${index + 1}`
+                      }
                       className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer"
                       onClick={() => onClickThumb(index)}
                     />
@@ -308,7 +312,10 @@ const Hero = ({ slice }) => {
                         className={`fill-transparent stroke-white stroke-[3] ${
                           index === activeIndex ? "opacity-100" : "opacity-20"
                         }`}
-                        style={{ strokeDasharray: 1, strokeDashoffset: 1 }}
+                        style={{
+                          strokeDasharray: 1,
+                          strokeDashoffset: 1,
+                        }}
                         x="1.5"
                         y="1.5"
                         width="97"
