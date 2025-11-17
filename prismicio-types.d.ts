@@ -2053,9 +2053,107 @@ export type DestinationHighlightSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *DestinationHighlight → Order Reversed → Primary*
+ */
+export interface DestinationHighlightSliceOrderReversedPrimary {
+  /**
+   * Heading field in *DestinationHighlight → Order Reversed → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.orderReversed.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *DestinationHighlight → Order Reversed → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.orderReversed.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Explore Button field in *DestinationHighlight → Order Reversed → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.orderReversed.primary.explore_button
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  explore_button: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *DestinationHighlight → Order Reversed → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.orderReversed.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+
+  /**
+   * Image field in *DestinationHighlight → Order Reversed → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.orderReversed.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Video Link field in *DestinationHighlight → Order Reversed → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: destination_highlight.orderReversed.primary.video_link
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  video_link: prismic.KeyTextField;
+
+  /**
+   * Video field in *DestinationHighlight → Order Reversed → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: destination_highlight.orderReversed.primary.video
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  video: prismic.BooleanField;
+}
+
+/**
+ * Order Reversed variation for DestinationHighlight Slice
+ *
+ * - **API ID**: `orderReversed`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type DestinationHighlightSliceOrderReversed =
+  prismic.SharedSliceVariation<
+    "orderReversed",
+    Simplify<DestinationHighlightSliceOrderReversedPrimary>,
+    never
+  >;
+
+/**
  * Slice variation for *DestinationHighlight*
  */
-type DestinationHighlightSliceVariation = DestinationHighlightSliceDefault;
+type DestinationHighlightSliceVariation =
+  | DestinationHighlightSliceDefault
+  | DestinationHighlightSliceOrderReversed;
 
 /**
  * DestinationHighlight Shared Slice
@@ -5254,6 +5352,16 @@ export interface TestimonialsSliceDefaultPrimaryTestimonialsItem {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   quote: prismic.RichTextField;
+
+  /**
+   * Names field in *Testimonials → Default → Primary → Testimonials*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: testimonials.default.primary.testimonials[].names
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  names: prismic.KeyTextField;
 }
 
 /**
@@ -5474,8 +5582,10 @@ declare module "@prismicio/client" {
       CallToActionBannerSliceDefault,
       DestinationHighlightSlice,
       DestinationHighlightSliceDefaultPrimary,
+      DestinationHighlightSliceOrderReversedPrimary,
       DestinationHighlightSliceVariation,
       DestinationHighlightSliceDefault,
+      DestinationHighlightSliceOrderReversed,
       DestinationHighlightSliceSlice,
       DestinationHighlightSliceSliceVariation,
       DestinationHighlightSliceSliceDefault,
