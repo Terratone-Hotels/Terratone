@@ -22,6 +22,14 @@
 										}
 									]
 								}
+							],
+							[
+								"names",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "solution",
+									"type": "Text"
+								}
 							]
 						]
 					}

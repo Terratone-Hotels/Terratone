@@ -76,7 +76,7 @@ export default function OneWithSideWords({ slice }) {
         duration: 0.8,
         ease: "power3.out",
       },
-      0
+      0.5
     );
 
     // Right text reveals
@@ -151,7 +151,7 @@ export default function OneWithSideWords({ slice }) {
       </div>
 
       {/* =================== Description =================== */}
-      <div className="mt-5 leading-tight font-barlow text-sm md:text-[18px] text-black text-center">
+      <div className="mt-8 leading-tight font-barlow text-sm md:text-[18px] text-black text-center">
         <RichTextRenderer field={slice.primary.description} />
       </div>
 

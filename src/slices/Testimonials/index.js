@@ -29,9 +29,10 @@ export default function Testimonials({ slice }) {
         >
           {slice.primary.testimonials.map((item, i) => (
             <SwiperSlide key={i}>
-              <div className="p-6 text-lg font-barlow mx-auto md:text-xl">
+              <div className="p-6 text-lg font-barlow mx-auto md:text-xl select-none">
                 <RichTextRenderer field={item.quote} />
               </div>
+              <div className="text-gray-600 font-serif text-2xl select-none">{item.names}</div>
             </SwiperSlide>
           ))}
         </Swiper>
