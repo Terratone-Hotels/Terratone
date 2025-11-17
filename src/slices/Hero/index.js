@@ -62,8 +62,7 @@ const Hero = ({ slice }) => {
           y: 0,
           duration: 1.8,
           ease: "power3.out",
-        },
-        "-=1.3"
+        }
       )
       .from(
         ".thumb",
