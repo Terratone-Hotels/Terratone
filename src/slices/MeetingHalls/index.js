@@ -53,7 +53,7 @@ const MeetingHalls = ({ slice }) => {
 
     const timeout = setTimeout(() => {
       // --- ANIMATION 1: CARD SLIDE-UP (with scrub) ---
-      const tlCards = gsap.fromTo(
+      const tlCards = gsap.fromTo(  
         cards,
         { y: 650 },
         {
