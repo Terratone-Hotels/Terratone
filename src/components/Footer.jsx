@@ -1,4 +1,5 @@
 "use client";
+import { useRef, useLayoutEffect } from "react";
 import { PrismicNextLink, PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 import Bounded from "@/components/Bounded";
@@ -7,26 +8,93 @@ import FooterLogo from "./FooterLogo";
 import FooterLink from "./FooterLink";
 import FooterLinkMobile from "./FooterLinkMobile";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Footer({ footerData }) {
   const data = footerData.data;
+
+  const footerRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const footer = footerRef.current;
+
+      const horizontalLines = footer.querySelectorAll(
+        ".footer-line-horizontal"
+      );
+      const verticalLines = footer.querySelectorAll(".footer-line-vertical");
+      const logo = footer.querySelector(".footer-logo"); // <- add this class to FooterLogo wrapper
+
+      // INITIAL STATES
+      gsap.set(horizontalLines, { width: 0 });
+      gsap.set(verticalLines, { height: 0 });
+      gsap.set(logo, { opacity: 0 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: footer,
+          start: "top 85%", // adjust if needed
+        },
+      });
+
+      // 1️⃣ HORIZONTAL LINES (start first, together)
+      tl.to(horizontalLines, {
+        width: "100%",
+        duration: 2,
+        ease: "power4.out",
+        stagger: 0, // all together
+      });
+
+      // 2️⃣ VERTICAL LINES (start halfway through horizontals)
+      tl.to(
+        verticalLines,
+        {
+          height: "100%",
+          duration: 1.2,
+          ease: "power2.out",
+        },
+        "-=1.2" // halfway overlap
+      );
+
+      // 3️⃣ LOGO (fade in, synced with vertical lines)
+      tl.to(
+        logo,
+        {
+          opacity: 1,
+          duration: 1.2,
+          ease: "power2.out",
+        },
+        "-=1.2"
+      );
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <Bounded>
-      <footer className="w-full mb-2">
-        {/* Main div */}
+      <footer ref={footerRef} className="w-full mb-2">
+        {/* MAIN DESKTOP FOOTER */}
         <div className="hidden lg:block w-full">
-          {/* First Row */}
-          <div className="flex md:justify-between lg:justify-normal border-t border-b  border-[#C7C7C7] ">
-            {/* First Column */}
-            <div className="md:w-[28%] lg:w-[20%] h-full">
-              <div className="mb-12 pt-5 ">
-                <div className="font-barlow uppercase tracking-widest font-medium text-sm">
-                  <PrismicRichText field={data.menu} />
-                </div>
-                <div>
+          {/* ------------------------------ */}
+          {/* 1) FIRST ROW WRAPPER + TOP LINE */}
+          {/* ------------------------------ */}
+          <div className="relative w-full mt-1">
+            {/* HORIZONTAL LINE 1 (TOP) */}
+            <div className="footer-line-horizontal footer-line-1 absolute top-0 left-0 h-[1px] w-full bg-[#C7C7C7]" />
+
+            {/* FIRST ROW CONTENT */}
+            <div className="flex md:justify-between lg:justify-normal ">
+              {/* LEFT COLUMN */}
+              <div className="md:w-[28%] lg:w-[20%]">
+                <div className=" mt-2 mb-12">
                   {data.footer_links.map((item, index) => (
                     <div
                       key={index}
-                      className="font-serif md:text-[37px] lg:text-[2.625rem]  leading-tight"
+                      className="font-serif md:text-[37px] lg:text-[2.625rem] leading-tight"
                     >
                       <FooterLink
                         field={item.page_link}
@@ -39,83 +107,91 @@ export default function Footer({ footerData }) {
                   ))}
                 </div>
               </div>
-            </div>
-            {/* Second Column */}
-            <div className="md:w-[33%] lg:w-[30%] h-auto flex flex-col  font-barlow  ">
-              <div className="grid grid-cols-2  pt-5 h-full border-x  border-[#C7C7C7]">
-                <div className="flex flex-col justify-self-center">
-                  <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
-                    <FooterLink
-                      field={data.page_link_1}
-                      arrowSpan={"self-center"}
-                      arrowClassName={"w-[0.8em]"}
-                    >
-                      {data.page_title_1}
-                    </FooterLink>
+
+              {/* MIDDLE COLUMN (WITH VERTICAL LINES) */}
+              <div className="relative md:w-[33%] flex flex-col  font-barlow lg:w-[30%]">
+                {/* VERTICAL LINE 1 */}
+                <div className="footer-line-vertical footer-vert-1 absolute top-0 left-0 w-[1px] h-full bg-[#C7C7C7]" />
+
+                {/* VERTICAL LINE 2 */}
+                <div className="footer-line-vertical footer-vert-2 absolute top-0 right-0 w-[1px] h-full bg-[#C7C7C7]" />
+
+                <div className="flex flex-row gap-10 h-[50%] mt-4 ">
+                  <div className="flex flex-col  pl-15">
+                    <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
+                      <FooterLink
+                        field={data.page_link_1}
+                        arrowSpan={"self-center"}
+                        arrowClassName={"w-[0.8em]"}
+                      >
+                        {data.page_title_1}
+                      </FooterLink>
+                    </div>
+                    {data.page_sublinks.map((item, index) => (
+                      <div key={index} className="text-[#8E8E8E] text-sm">
+                        <FooterLink
+                          field={item.link}
+                          arrowSpan={"self-center"}
+                          arrowClassName={"w-[0.7em]"}
+                        >
+                          {item.link_text}
+                        </FooterLink>
+                      </div>
+                    ))}
                   </div>
-                  {data.page_sublinks.map((item, index) => (
-                    <div key={index} className="text-[#8E8E8E] text-sm">
+
+                  <div className="flex flex-col  px-10">
+                    <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
                       <FooterLink
-                        field={item.link}
+                        field={data.page_link_2}
                         arrowSpan={"self-center"}
                         arrowClassName={"w-[0.7em]"}
                       >
-                        {item.link_text}
+                        {data.page_title_2}
                       </FooterLink>
                     </div>
-                  ))}
-                </div>
-                <div className="flex flex-col justify-self-center">
-                  <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
-                    <FooterLink
-                      field={data.page_link_2}
-                      arrowSpan={"self-center"}
-                      arrowClassName={"w-[0.7em]"}
-                    >
-                      {data.page_title_2}
-                    </FooterLink>
+                    {data.page_sublinks_2.map((item, index) => (
+                      <div key={index} className="text-[#8E8E8E] text-sm">
+                        <FooterLink
+                          field={item.link}
+                          arrowSpan={"self-center"}
+                          arrowClassName={"w-[0.7em]"}
+                        >
+                          {item.link_text}
+                        </FooterLink>
+                      </div>
+                    ))}
                   </div>
-                  {data.page_sublinks_2.map((item, index) => (
-                    <div key={index} className="text-[#8E8E8E] text-sm">
-                      <FooterLink
-                        field={item.link}
-                        arrowSpan={"self-center"}
-                        arrowClassName={"w-[0.7em]"}
-                      >
-                        {item.link_text}
-                      </FooterLink>
-                    </div>
-                  ))}
                 </div>
-                <div className=" flex flex-col justify-self-center  font-barlow uppercase tracking-[0.2rem] font-medium text-sm">
-                  {data.page_links.map((item, index) => (
-                    <div key={index}>
-                      <FooterLink
-                        field={item.page_link}
-                        arrowSpan={"self-center"}
-                        arrowClassName={"w-[0.7em]"}
-                      >
-                        {item.page_title}
-                      </FooterLink>
-                    </div>
-                  ))}
+
+                <div className=" flex flex-row ">
+                  <div className="flex flex-col px-15 font-barlow uppercase tracking-[0.2rem] font-medium text-sm ">
+                    {data.page_links.map((item, index) => (
+                      <div key={index}>
+                        <FooterLink
+                          field={item.page_link}
+                          arrowSpan={"self-center"}
+                          arrowClassName={"w-[0.7em]"}
+                        >
+                          {item.page_title}
+                        </FooterLink>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-            {/* Third COlumn */}
-            <div className=" md:w-[34%] flex flex-1 font-barlow">
-              {/* Padding Div */}
-              <div className="flex flex-col  pt-5 pl-8 h-full w-full">
-                {/* Location blow */}
-                <div className="lg:pl-17">
-                  <div>
+
+              {/* RIGHT COLUMN */}
+              <div className="md:w-[34%] flex flex-1 font-barlow ">
+                <div className="mt-4 w-full">
+                  <div className="lg:px-15">
                     <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
                       <PrismicRichText field={data.address_heading} />
                     </div>
-                    <div className="text-sm text-[#8E8E8E] font-medium leading-3.5 mb-1 lg:w-[45%]">
+                    <div className="text-sm text-black font-medium leading-3.5 mb-1 lg:w-[45%]">
                       <PrismicRichText field={data.address} />
                     </div>
-                    <div className="text-sm text-[#8E8E8E] font-medium  mb-3">
+                    <div className="text-sm text-[#8E8E8E] font-medium mt-3">
                       <FooterLink
                         field={data.direction}
                         arrowSpan={"self-center"}
@@ -124,64 +200,67 @@ export default function Footer({ footerData }) {
                         {data.direction_text}
                       </FooterLink>
                     </div>
-                  </div>
-                  <div className="flex gap-7">
-                    {data.directions.map((item, index) => (
-                      <div key={index} className="flex gap-0.5">
-                        <span className="text-sm text-[#8E8E8E] font-medium ">
-                          {" "}
-                          {item.place}
-                        </span>
-                        <div className=" text-sm text-[#5B5B5B] font-medium">
-                          <FooterLink field={item.distance_link} noArrow>
-                            {item.distance}
-                          </FooterLink>
-                        </div>
+
+                    <div className="flex flex-col gap-1.5 mt-8">
+                      <div className="uppercase tracking-[0.2rem] font-medium text-sm">
+                        <PrismicRichText field={data.heading_for_directions} />
                       </div>
-                    ))}
-                  </div>
-                </div>
-                {/* Contacts below */}
-                <div className="lg:mt-14.5 md:mt-13 lg:pl-17">
-                  <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
-                    <PrismicRichText field={data.contacts} />
-                  </div>
-                  <div className="flex md:flex-wrap text-sm text-[#8E8E8E] md:gap-5 lg:gap-10 font-medium">
-                    {data.contacts_list.map((item, index) => (
-                      <div key={index}>
-                        <div>
-                          <FooterLink
-                            field={item.link}
-                            arrowSpan={"self-center"}
-                            arrowClassName={"w-0"}
-                            method={item.method}
-                            noArrow
-                          >
-                            {item.link_text}
-                          </FooterLink>
-                        </div>
+                      <div className="flex gap-7 flex-row">
+                        {data.directions.map((item, index) => (
+                          <div key={index} className="flex gap-0.5">
+                            <span className="text-sm text-[#8E8E8E] font-medium">
+                              {item.place}
+                            </span>
+                            <div className="text-sm text-[#5B5B5B] font-medium">
+                              <FooterLink field={item.distance_link} noArrow>
+                                {item.distance}
+                              </FooterLink>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
+
+                    <div className="lg:mt-14.5 md:mt-13">
+                      <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
+                        <PrismicRichText field={data.contacts} />
+                      </div>
+                      <div className="flex md:flex-wrap text-sm text-[#8E8E8E] md:gap-5 lg:gap-10 font-medium">
+                        {data.contacts_list.map((item, index) => (
+                          <div key={index}>
+                            <FooterLink
+                              field={item.link}
+                              arrowSpan={"self-center"}
+                              arrowClassName={"w-0"}
+                              method={item.method}
+                              noArrow
+                            >
+                              {item.link_text}
+                            </FooterLink>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          {/* Second Row */}
-          <div className="flex  items-center font-barlow py-3 border-b border-[#C7C7C7] mb-3">
-            {/* First col */}
-            <div className=" md:w-[28%] lg:w-[20%] flex flex-col items-start xl:flex-row xl:items-center  text-[#A9A9A9] md:gap-1 lg:gap-3  ">
-              <div>
+
+          {/* SECOND ROW + MIDDLE LINE */}
+          <div className="relative w-full mt-[0.15px] ">
+            <div className="footer-line-horizontal footer-line-2 absolute top-0 left-0 h-[1px] w-full bg-[#C7C7C7]" />
+
+            <div className="flex items-center font-barlow py-3">
+              <div className="md:w-[28%] lg:w-[20%] flex items-center gap-3 text-[#A9A9A9]">
                 <RatingStars rating={data.rating} starClassName="w-6 h-6" />
+                <div className="flex items-center md:text-xs lg:text-sm gap-1 font-barlow mt-1">
+                  <PrismicRichText field={data.review_count} />
+                  <span className="text-[15px]">reviews</span>
+                </div>
               </div>
-              <div className=" flex  items-center justify-center md:text-xs lg:text-sm font-barlow mt-1">
-                <PrismicRichText field={data.review_count} />{" "}
-                <span>reviews</span>
-              </div>
-            </div>
-            {/* second col */}
-            <div className="flex lg:flex-none md:w-[33%] lg:w-[30%]">
-              <div className=" flex justify-evenly lg:flex-row  md:text-[13px]   lg:text-sm  w-full font-medium ">
+
+              <div className="flex md:w-[33%] lg:w-[30%] justify-evenly font-medium text-sm">
                 {data.follow_links.map((item, index) => (
                   <div key={index}>
                     <FooterLink
@@ -194,27 +273,31 @@ export default function Footer({ footerData }) {
                   </div>
                 ))}
               </div>
-            </div>
-            {/* third col */}
-            <div className="md:w-auto lg:pl-17 ">
-              <div className="flex gap-5 font-medium text-sm">
-                {data.booking_sites.map((item, index) => (
-                  <div key={index}>
+
+              <div className="md:w-auto lg:pl-17">
+                <div className="flex gap-5 font-medium text-sm">
+                  {data.booking_sites.map((item, index) => (
                     <FooterLink
+                      key={index}
                       field={item.link}
                       arrowSpan={"self-center"}
                       arrowClassName={"w-[0.7em] h-[0.6em]"}
                     >
                       {item.link_text}
                     </FooterLink>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-          {/* Third Row */}
-          <div className="w-full">
-            <FooterLogo />
+
+          {/* THIRD ROW + LOGO LINE */}
+          <div className="relative w-full mt-[2px] ">
+            <div className="footer-line-horizontal footer-line-3 absolute top-0 left-0 h-[1px] w-full bg-[#C7C7C7]" />
+
+            <div className="footer-logo">
+              <FooterLogo />
+            </div>
           </div>
         </div>
 
@@ -230,10 +313,10 @@ export default function Footer({ footerData }) {
         {/* R */}
         {/* E */}
 
-        {/*----- Mobile Version ------*/}
+        {/* ----- Mobile Version ------ */}
         <div className="lg:hidden font-barlow  border-t border-[#c7c7c7] flex flex-col">
           {/* First Row */}
-          <div className="flex flex-col items-center border-b border-[#c7c7c7] py-6">
+          <div className="flex flex-col items-center lg:hidden border-b border-[#c7c7c7] py-6">
             <div className="uppercase text-xs font-medium tracking-widest">
               <PrismicRichText field={data.menu} />
             </div>
@@ -248,7 +331,7 @@ export default function Footer({ footerData }) {
             </div>
           </div>
           {/* Second Row */}
-          <div className="flex border-b border-[#c7c7c7] py-6 px-2 justify-between">
+          <div className="flex border-b lg:hidden border-[#c7c7c7] py-6 px-2 justify-between">
             <div className="flex flex-col gap-1">
               <div className="font-medium uppercase text-xs tracking-widest">
                 <PrismicNextLink field={data.page_link_1}>
@@ -299,7 +382,7 @@ export default function Footer({ footerData }) {
           </div>
           {/* Third Row */}
           {/* Locations */}
-          <div className="flex  px-2 py-6 border-b border-[#c7c7c7]">
+          <div className="flex  px-2 py-6 border-b lg:hidden border-[#c7c7c7]">
             <div className="w-[50%]">
               <div className="font-medium uppercase text-xs tracking-widest mb-1.5">
                 <PrismicRichText field={data.address_heading} />
