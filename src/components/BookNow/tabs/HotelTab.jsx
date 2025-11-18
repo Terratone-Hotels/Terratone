@@ -25,7 +25,14 @@ export default function HotelTab({ data, setData }) {
 
   // ---------------------- ADD ROOM ----------------------
   const addRoom = () => {
-    if (!selectedProperty || !checkIn || !checkOut || adults < 1) {
+    if (
+      !data.fullName ||
+      !data.phone ||
+      !selectedProperty ||
+      !checkIn ||
+      !checkOut ||
+      adults < 1
+    ) {
       toast.custom(
         <TerratoneToast message="Please complete the booking details." />
       );
@@ -136,7 +143,7 @@ export default function HotelTab({ data, setData }) {
           className="w-full flex justify-between items-center"
           type="button"
         >
-          <span className="uppercase tracking-wide text-neutral-800">
+          <span className="uppercase tracking-wide ">
             {selectedProperty || "Choose a Room *"}
           </span>
           <span
@@ -149,7 +156,7 @@ export default function HotelTab({ data, setData }) {
         </button>
 
         {openProperty && (
-          <div className="mt-3 space-y-2 text-neutral-900">
+          <div className="mt-3 space-y-2 ">
             {PROPERTY_LIST.map((prop) => (
               <div
                 key={prop}
@@ -369,30 +376,18 @@ export default function HotelTab({ data, setData }) {
         <button
           type="button"
           onClick={async () => {
+            if (rooms.length === 0) {
+              toast.custom(
+                <TerratoneToast message="Please add at least one room." />
+              );
+              return;
+            }
+
             try {
-              let finalRooms = [];
-
-              if (rooms.length > 0) {
-                finalRooms = rooms.map((r, i) => ({
-                  ...r,
-                  roomName: `${i + 1}`,
-                }));
-              }
-
-              if (rooms.length === 0) {
-                if (selectedProperty && checkIn && checkOut) {
-                  finalRooms = [
-                    {
-                      roomName: "1",
-                      property: selectedProperty,
-                      checkIn,
-                      checkOut,
-                      adults,
-                      children,
-                    },
-                  ];
-                } else return;
-              }
+              const finalRooms = rooms.map((r, i) => ({
+                ...r,
+                roomName: `${i + 1}`,
+              }));
 
               const payload = {
                 ...data,
@@ -426,30 +421,18 @@ export default function HotelTab({ data, setData }) {
         <button
           type="button"
           onClick={async () => {
+            if (rooms.length === 0) {
+              toast.custom(
+                <TerratoneToast message="Please add at least one room." />
+              );
+              return;
+            }
+
             try {
-              let finalRooms = [];
-
-              if (rooms.length > 0) {
-                finalRooms = rooms.map((r, i) => ({
-                  ...r,
-                  roomName: `${i + 1}`,
-                }));
-              }
-
-              if (rooms.length === 0) {
-                if (selectedProperty && checkIn && checkOut) {
-                  finalRooms = [
-                    {
-                      roomName: "1",
-                      property: selectedProperty,
-                      checkIn,
-                      checkOut,
-                      adults,
-                      children,
-                    },
-                  ];
-                } else return;
-              }
+              const finalRooms = rooms.map((r, i) => ({
+                ...r,
+                roomName: `${i + 1}`,
+              }));
 
               const payload = { ...data, rooms: finalRooms };
 
