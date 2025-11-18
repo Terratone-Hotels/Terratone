@@ -11,8 +11,8 @@ export default function DiningTab({ data, setData }) {
 
       <div className="space-y-4 mt-6">
         {/* FULL NAME */}
-        <div className="border border-neutral-700 rounded p-3">
-          <label className="block text-xs uppercase text-neutral-300 mb-1">
+        <div className="border border-neutral-700  p-3">
+          <label className="block text-xs uppercase text-black mb-1">
             Full Name *
           </label>
           <input
@@ -20,13 +20,13 @@ export default function DiningTab({ data, setData }) {
             value={fullName}
             onChange={(e) => setData({ ...data, fullName: e.target.value })}
             placeholder="Enter your name"
-            className="w-full bg-transparent outline-none text-sm text-neutral-200"
+            className="w-full bg-transparent outline-none text-sm text-neutral-800"
           />
         </div>
 
         {/* PHONE NUMBER */}
-        <div className="border border-neutral-700 rounded p-3">
-          <label className="block text-xs uppercase text-neutral-300 mb-1">
+        <div className="border border-neutral-700  p-3">
+          <label className="block text-xs uppercase text-black mb-1">
             Phone Number *
           </label>
           <input
@@ -34,44 +34,44 @@ export default function DiningTab({ data, setData }) {
             value={phone}
             onChange={(e) => setData({ ...data, phone: e.target.value })}
             placeholder="+91 9876543210"
-            className="w-full bg-transparent outline-none text-sm text-neutral-200"
+            className="w-full bg-transparent outline-none text-sm text-neutral-800"
           />
         </div>
 
         {/* DATE */}
-        <div className="border border-neutral-700 rounded p-3 cursor-pointer">
-          <label className="block text-xs uppercase text-neutral-300 mb-1">
+        <div className="border border-neutral-700  p-3 cursor-pointer">
+          <label className="block text-xs uppercase text-neutral-800 mb-1">
             Date *
           </label>
           <input
             type="date"
             value={date}
             onChange={(e) => setData({ ...data, date: e.target.value })}
-            className="w-full bg-transparent outline-none text-sm text-neutral-200 no-calendar-icon"
+            className="w-full bg-transparent outline-none text-sm text-neutral-800 no-calendar-icon"
           />
         </div>
 
         {/* TIME */}
-        <div className="border border-neutral-700 rounded p-3 cursor-pointer">
-          <label className="block text-xs uppercase text-neutral-300 mb-1">
+        <div className="border border-neutral-700  p-3 cursor-pointer">
+          <label className="block text-xs uppercase text-neutral-800 mb-1">
             Time *
           </label>
           <input
             type="time"
             value={time}
             onChange={(e) => setData({ ...data, time: e.target.value })}
-            className="w-full bg-transparent outline-none text-sm text-neutral-200 no-time-icon"
+            className="w-full bg-transparent outline-none text-sm text-neutral-800 no-time-icon"
           />
         </div>
 
         {/* NUMBER OF GUESTS */}
-        <div className="border border-neutral-700 rounded p-3">
-          <label className="block text-xs uppercase text-neutral-300 mb-2">
+        <div className="border border-neutral-700  p-3">
+          <label className="block text-xs uppercase text-neutral-800 mb-2">
             Number of Guests *
           </label>
 
           <div className="flex items-center justify-between">
-            <span className="text-neutral-200">{guests}</span>
+            <span className="text-neutral-800">{guests}</span>
 
             <div className="flex gap-2">
               <button
@@ -124,7 +124,7 @@ export default function DiningTab({ data, setData }) {
                 );
               }
             }}
-            className="flex-1 bg-white text-black py-3 font-semibold text-sm tracking-wide uppercase"
+            className="flex-1 bg-white text-black py-3 font-semibold text-sm tracking-wide uppercase hover:text-white transition-all hover:bg-green-600 border-black cursor-pointer border-1"
           >
             Reserve Table
           </button>
@@ -156,7 +156,7 @@ export default function DiningTab({ data, setData }) {
                 );
               }
             }}
-            className="w-12 h-12 bg-white text-black  rounded-full flex items-center justify-center border border-black"
+            className="w-12 h-12 bg-white text-black  rounded-full flex items-center justify-center border border-black hover:text-white transition-all hover:bg-green-600 cursor-pointer "
           >
             →
           </button>

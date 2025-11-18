@@ -60,7 +60,7 @@ export default function Calendar({
     checkIn && checkOut && day > checkIn && day < checkOut;
 
   return (
-    <div className="text-white mt-4 select-none pb-4">
+    <div className="text-black mt-4 select-none pb-4">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <button onClick={prevMonth} className="p-2 hover:text-white">
@@ -71,13 +71,13 @@ export default function Calendar({
           {format(currentMonth, "yyyy")} &nbsp; {format(currentMonth, "LLLL")}
         </div>
 
-        <button onClick={nextMonth} className="p-2 hover:text-white">
+        <button onClick={nextMonth} className="p-2 hover:text-black">
           →
         </button>
       </div>
 
       {/* Week Labels */}
-      <div className="grid grid-cols-7 text-center text-neutral-500 text-xs mb-3 border-b pb-2">
+      <div className="grid grid-cols-7 text-center text-neutral-900 text-xs mb-3 border-b pb-2">
         {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
           <div key={i}>{d}</div>
         ))}
@@ -105,7 +105,7 @@ export default function Calendar({
                   ${
                     isPast
                       ? "text-neutral-600 opacity-40 cursor-not-allowed"
-                      : "text-white cursor-pointer"
+                      : "text-black cursor-pointer"
                   }
 
                   ${isSelected ? "bg-green-600 text-white font-semibold" : ""}

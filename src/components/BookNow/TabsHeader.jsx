@@ -15,8 +15,8 @@ export default function TabsHeader({ active = "hotel", setActive }) {
           onClick={() => setActive(t.id)}
           className={`px-4 py-3  text-sm font-medium border ${
             active === t.id
-              ? "bg-white text-black border-white/20"
-              : "bg-transparent text-neutral-300 border-neutral-700"
+              ? "bg-black text-white border-white/20"
+              : "bg-transparent text-black border-neutral-700"
           }`}
         >
           {t.label}
