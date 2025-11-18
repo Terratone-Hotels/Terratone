@@ -104,6 +104,48 @@ export default function HotelTab({ data, setData }) {
 
   return (
     <div className="space-y-6 text-sm">
+      {/* FULL NAME */}
+      {/* FULL NAME */}
+      <div className="border border-neutral-700 rounded p-3">
+        <label className="block text-xs uppercase text-neutral-300 mb-1">
+          Full Name *
+        </label>
+        <input
+          type="text"
+          value={data.fullName || ""}
+          onChange={(e) => {
+            const v = e.target.value;
+            if (/^[A-Za-z\s]*$/.test(v)) {
+              setData((prev) => ({ ...prev, fullName: v }));
+            }
+          }}
+          placeholder="Enter your name"
+          className="w-full bg-transparent outline-none text-sm text-neutral-200"
+        />
+      </div>
+
+      {/* PHONE NUMBER */}
+
+      <div className="border border-neutral-700 rounded p-3">
+        <label className="block text-xs uppercase text-neutral-300 mb-1">
+          Phone Number *
+        </label>
+        <input
+          type="text"
+          value={data.phone || ""}
+          onChange={(e) => {
+            const v = e.target.value;
+
+            // Allow only digits AND max length 10
+            if (/^\d{0,10}$/.test(v)) {
+              setData((prev) => ({ ...prev, phone: v }));
+            }
+          }}
+          placeholder="9876543210"
+          className="w-full bg-transparent outline-none text-sm text-neutral-200"
+        />
+      </div>
+
       {/* PROPERTY SELECTOR */}
       <div className="border border-neutral-700 p-4 rounded">
         <button
@@ -363,7 +405,12 @@ export default function HotelTab({ data, setData }) {
                 }
               }
 
-              const payload = { ...data, rooms: finalRooms };
+              const payload = {
+                ...data,
+                fullName: data.fullName || "",
+                phone: data.phone || "",
+                rooms: finalRooms,
+              };
 
               const res = await fetch("/api/hotel", {
                 method: "POST",
