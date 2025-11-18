@@ -242,141 +242,144 @@ const Hero = ({ slice }) => {
   if (!slides.length) return null;
 
   return (
-    <Bounded full className="hero-section relative overflow-hidden">
-      {/* Curtain Loader */}
-      <div
-        ref={curtainRef}
-        className="curtain fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black"
-      >
-        <div className="flex items-center justify-center space-x-6">
-          <div
-            ref={logoLeftRef}
-            className="w-[10px] h-[60px] md:w-[14px] md:h-[80px] bg-white opacity-0"
-          />
-          <div
-            ref={logoRightRef}
-            className="w-[10px] h-[60px] md:w-[14px] md:h-[80px] bg-white opacity-0"
-          />
-        </div>
-      </div>
-
-      {/* Hero Slider */}
-      <div className="relative z-10 origin-bottom">
-        <Swiper
-          loop
-          spaceBetween={0}
-          navigation={false}
-          thumbs={{ swiper: thumbsSwiper }}
-          modules={[FreeMode, Navigation, Thumbs, Autoplay]}
-          onSwiper={handleSwiper}
-          effect="fade"
-          speed={1200}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-            enabled: false, // Starts disabled, enabled in useEffect
-          }}
-        >
-          {slides.map((item, index) => (
-            <SwiperSlide key={index}>
-              {item.video ? (
-                <VideoComponent
-                  srcMp4={item.youtube_video_id}
-                  className="w-full h-dvh object-cover"
-                />
-              ) : (
-                <PrismicNextImage
-                  field={item.image}
-                  alt={item.image?.alt?.trim() || `Hero slide ${index + 1}`}
-                  className="w-full h-dvh object-cover"
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
-        {/* Heading Wrapper + Heading + Thumbs */}
+    <section data-hero-slice className="data-hero-slice">
+      <Bounded full className="hero-section relative overflow-hidden">
+        {/* Curtain Loader */}
         <div
-          className="absolute bottom-0 w-full flex flex-col sm:items-center z-20 pb-6 md:pb-10 px-[22px]"
-          style={{ pointerEvents: "none" }}
+          ref={curtainRef}
+          className="curtain fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black"
         >
-          <div ref={headingWrapperRef} className="heading-wrapper w-full">
+          <div className="flex items-center justify-center space-x-6">
             <div
-              ref={headingRef}
-              className="font-serif sm:leading-17 text-start sm:text-center w-full text-[36px] sm:text-[3.25rem] text-white mb-4 opacity-0 [clip-path:inset(100%_0%_0%_0%)]"
+              ref={logoLeftRef}
+              className="w-[10px] h-[60px] md:w-[14px] md:h-[80px] bg-white opacity-0"
+            />
+            <div
+              ref={logoRightRef}
+              className="w-[10px] h-[60px] md:w-[14px] md:h-[80px] bg-white opacity-0"
+            />
+          </div>
+        </div>
+
+        {/* Hero Slider */}
+        <div className="relative z-10 origin-bottom">
+          <Swiper
+            loop
+            spaceBetween={0}
+            navigation={false}
+            thumbs={{ swiper: thumbsSwiper }}
+            modules={[FreeMode, Navigation, Thumbs, Autoplay]}
+            onSwiper={handleSwiper}
+            effect="fade"
+            speed={1200}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+              enabled: false, // Starts disabled, enabled in useEffect
+            }}
+          >
+            {slides.map((item, index) => (
+              <SwiperSlide key={index}>
+                {item.video ? (
+                  <VideoComponent
+                    srcMp4={item.youtube_video_id}
+                    className="w-full h-dvh object-cover"
+                  />
+                ) : (
+                  <PrismicNextImage
+                    field={item.image}
+                    alt={item.image?.alt?.trim() || `Hero slide ${index + 1}`}
+                    className="w-full h-dvh object-cover"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {/* Heading Wrapper + Heading + Thumbs */}
+          <div
+            className="absolute bottom-0 w-full flex flex-col sm:items-center z-20 pb-6 md:pb-10 px-[22px]"
+            style={{ pointerEvents: "none" }}
+          >
+            <div ref={headingWrapperRef} className="heading-wrapper w-full">
+              <div
+                ref={headingRef}
+                className="font-serif sm:leading-17 text-start sm:text-center w-full text-[36px] sm:text-[3.25rem] text-white mb-4 opacity-0 [clip-path:inset(100%_0%_0%_0%)]"
+              >
+                {/* Ensure slides[activeIndex] exists before rendering */}
+                {slides[activeIndex]?.headings && (
+                  <PrismicRichText field={slides[activeIndex].headings} />
+                )}
+              </div>
+            </div>
+
+            <div
+              ref={thumbsRef}
+              className="md:w-full md:flex md:justify-center"
+              style={{ pointerEvents: isLoadingComplete ? "auto" : "none" }}
             >
-              {/* Ensure slides[activeIndex] exists before rendering */}
-              {slides[activeIndex]?.headings && (
-                <PrismicRichText field={slides[activeIndex].headings} />
-              )}
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                loop
+                spaceBetween={20}
+                slidesPerView="auto"
+                freeMode
+                watchSlidesProgress
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="!w-auto"
+              >
+                {slides.map((item, index) => (
+                  <SwiperSlide key={index} className="thumb !w-auto">
+                    <div className="relative">
+                      <PrismicNextImage
+                        field={item.video ? item.thumbnail : item.image}
+                        alt={
+                          item.video
+                            ? item.thumbnail?.alt?.trim() ||
+                              `Video thumbnail ${index + 1}`
+                            : item.image?.alt?.trim() ||
+                              `Hero slide ${index + 1}`
+                        }
+                        className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer"
+                        onClick={() => onClickThumb(index)}
+                      />
+
+                      {/* Progress Bar */}
+                      <svg
+                        className="absolute inset-0 w-full h-full"
+                        viewBox="0 0 100 100"
+                        preserveAspectRatio="none"
+                        style={{ transform: "scaleX(1) rotate(360deg)" }}
+                      >
+                        {/* Rect for the progress path */}
+                        <rect
+                          transform="rotate(-90 50 50)"
+                          ref={(el) => (progressBarsRef.current[index] = el)}
+                          pathLength="1"
+                          className={`fill-transparent stroke-white stroke-[3] ${
+                            index === activeIndex ? "opacity-100" : "opacity-20"
+                          }`}
+                          style={{
+                            strokeDasharray: 1,
+                            strokeDashoffset: 1,
+                          }}
+                          x="1.5"
+                          y="1.5"
+                          width="97"
+                          height="97"
+                          rx="0"
+                        />
+                      </svg>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
           </div>
-
-          <div
-            ref={thumbsRef}
-            className="md:w-full md:flex md:justify-center"
-            style={{ pointerEvents: isLoadingComplete ? "auto" : "none" }}
-          >
-            <Swiper
-              onSwiper={setThumbsSwiper}
-              loop
-              spaceBetween={20}
-              slidesPerView="auto"
-              freeMode
-              watchSlidesProgress
-              modules={[FreeMode, Navigation, Thumbs]}
-              className="!w-auto"
-            >
-              {slides.map((item, index) => (
-                <SwiperSlide key={index} className="thumb !w-auto">
-                  <div className="relative">
-                    <PrismicNextImage
-                      field={item.video ? item.thumbnail : item.image}
-                      alt={
-                        item.video
-                          ? item.thumbnail?.alt?.trim() ||
-                            `Video thumbnail ${index + 1}`
-                          : item.image?.alt?.trim() || `Hero slide ${index + 1}`
-                      }
-                      className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer"
-                      onClick={() => onClickThumb(index)}
-                    />
-
-                    {/* Progress Bar */}
-                    <svg
-                      className="absolute inset-0 w-full h-full"
-                      viewBox="0 0 100 100"
-                      preserveAspectRatio="none"
-                      style={{ transform: "scaleX(1) rotate(360deg)" }}
-                    >
-                      {/* Rect for the progress path */}
-                      <rect
-                        transform="rotate(-90 50 50)"
-                        ref={(el) => (progressBarsRef.current[index] = el)}
-                        pathLength="1"
-                        className={`fill-transparent stroke-white stroke-[3] ${
-                          index === activeIndex ? "opacity-100" : "opacity-20"
-                        }`}
-                        style={{
-                          strokeDasharray: 1,
-                          strokeDashoffset: 1,
-                        }}
-                        x="1.5"
-                        y="1.5"
-                        width="97"
-                        height="97"
-                        rx="0"
-                      />
-                    </svg>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
         </div>
-      </div>
-    </Bounded>
+      </Bounded>
+    </section>
   );
 };
 

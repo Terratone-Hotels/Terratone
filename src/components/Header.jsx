@@ -7,6 +7,8 @@ import Bounded from "./Bounded";
 import MobileMenu from "./MobileMenu";
 import Button from "@/components/Button";
 import BookNowModal from "./BookNow/BookNowModal";
+import { usePathname } from "next/navigation";
+
 const HamburgerIcon = (props) => (
   <svg
     {...props}
@@ -70,27 +72,27 @@ export default function HeaderClient({ headerData }) {
   const scrollTimeout = useRef(null);
   const [open, setOpen] = useState(false);
   const data = headerData;
+  const pathname = usePathname();
 
   // Style to hide elements when the menu is open on mobile
   const hideOnMobileOpen = isMenuOpen ? "invisible lg:visible" : "";
 
+  // 1) Scroll hide/show effect — runs once
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const headerEl = headerRef.current;
 
     const handleScroll = () => {
-      // Hide header immediately while scrolling
-      if (headerRef.current && buttonRef.current)
-        buttonRef.current.style.transform = "translateY(-220%)";
-      headerRef.current.style.transform = "translateY(-220%)";
+      if (!headerEl || !buttonRef.current) return;
 
-      // Clear previous timeout
+      buttonRef.current.style.transform = "translateY(-220%)";
+      headerEl.style.transform = "translateY(-220%)";
+
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
 
-      // Show header after 250ms of no scrolling
       scrollTimeout.current = setTimeout(() => {
-        if (headerRef.current && buttonRef.current)
-          headerRef.current.style.transform = "translateY(0%)";
         buttonRef.current.style.transform = "translateY(0%)";
+        headerEl.style.transform = "translateY(0%)";
       }, 150);
     };
 
@@ -101,12 +103,41 @@ export default function HeaderClient({ headerData }) {
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
   }, []);
+  // 2) Hero intersection observer — runs on every route change
+  useEffect(() => {
+    const headerEl = headerRef.current;
+    if (!headerEl) return;
+
+    // always start with blend ON
+    headerEl.classList.add("mix-blend-difference");
+
+    const hero = document.querySelector("[data-hero-slice]");
+    if (!hero) {
+      // no hero slice -> keep blend
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          headerEl.classList.remove("mix-blend-difference");
+        } else {
+          headerEl.classList.add("mix-blend-difference");
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(hero);
+
+    return () => observer.disconnect();
+  }, [pathname]);
 
   return (
     <div className="relative">
       <header
         ref={headerRef}
-        className=" fixed top-0 mix-blend-difference  z-50 w-full flex flex-row items-center justify-between  lg:px-6 py-4 transition-transform duration-300 ease-in-out"
+        className=" fixed top-0   z-50 w-full flex flex-row items-center justify-between  lg:px-6 py-4 transition-transform duration-300 ease-in-out"
       >
         <div className={`   text-white`}>
           <PrismicNextLink href={"/"} className="inline-block">
