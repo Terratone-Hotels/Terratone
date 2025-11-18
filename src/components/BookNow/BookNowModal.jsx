@@ -128,7 +128,7 @@ export default function BookNowModal({
       <aside
         data-lenis-prevent
         onClick={(e) => e.stopPropagation()}
-        className={`relative z-10 h-full w-[90vw] md:w-[420px] bg-neutral-900 text-white shadow-xl
+        className={`relative z-10 h-full w-[100vw] md:w-[420px] bg-neutral-900 text-white shadow-xl
           overflow-y-auto
           transition-transform duration-200 ease-out
           ${animateIn ? "translate-x-0" : "translate-x-full"}`}

@@ -72,6 +72,33 @@
           "label": "Nav Button-Link Text",
           "placeholder": ""
         }
+      },
+      "mobile_sub_links": {
+        "type": "Group",
+        "config": {
+          "label": "Mobile Sub Links",
+          "repeat": true,
+          "fields": {
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "Link",
+                "placeholder": "",
+                "select": null,
+                "allowTargetBlank": true,
+                "allowText": true,
+                "repeat": false
+              }
+            },
+            "link_label": {
+              "type": "Text",
+              "config": {
+                "label": "Link Label",
+                "placeholder": ""
+              }
+            }
+          }
+        }
       }
     }
   }
