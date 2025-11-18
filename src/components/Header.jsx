@@ -85,8 +85,8 @@ export default function HeaderClient({ headerData }) {
     const handleScroll = () => {
       if (!headerEl || !buttonRef.current) return;
 
-      buttonRef.current.style.transform = "translateY(-220%)";
-      headerEl.style.transform = "translateY(-220%)";
+      buttonRef.current.style.transform = "translateY(-260%)";
+      headerEl.style.transform = "translateY(-260%)";
 
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
 

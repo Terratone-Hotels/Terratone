@@ -42,12 +42,10 @@ export default function RoomCard({
       {/* Description + Button */}
       <div className="flex mt-3 flex-row items-end justify-between relative">
         {description && (
-          <div
-            className={`font-barlow  ${descriptionClassName}`}
-          >
+          <div className={`font-barlow `}>
             <RichTextRenderer
               field={description}
-              className="m-0 font-barlow text-[12px] lg:text-[14px]"
+              className={`m-0 font-barlow text-[14px] lg:text-[14px]  ${descriptionClassName}`}
             />
           </div>
         )}

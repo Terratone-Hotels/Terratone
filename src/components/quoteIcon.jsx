@@ -1,12 +1,34 @@
 import * as React from "react";
 
-const QuoteIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="16" fill="none">
-    <path
-      fill="#3e5b39"
-      d="M19.503.508q1.17 0 1.17.72 0 .276-.279.442-.222.166-.668.277a8.5 8.5 0 0 0-2.507.996 5.74 5.74 0 0 0-1.95 1.827q-.724 1.107-.724 2.823 0 .774.668 1.55.669.72 1.56.885 1.17.165 1.839.886.724.665.724 1.716 0 1.217-1.059 2.048-1.003.83-2.284.83-2.228 0-3.621-1.55t-1.393-3.985q0-2.103.836-3.82.836-1.77 2.117-3.044 1.337-1.272 2.785-1.937 1.505-.664 2.786-.664m-10.306 0q1.17 0 1.17.72 0 .276-.28.442-.221.166-.668.277a8.5 8.5 0 0 0-2.507.996A5.3 5.3 0 0 0 5.018 4.77q-.724 1.107-.724 2.823 0 .774.669 1.55.668.72 1.56.885 1.113.165 1.782.886.724.665.724 1.716 0 1.217-1.002 2.048-1.004.83-2.34.83-2.174 0-3.621-1.55Q.673 12.408.673 9.973q0-2.103.836-3.82A10.1 10.1 0 0 1 3.68 3.11q1.34-1.273 2.787-1.938Q7.914.508 9.197.508"
-    ></path>
-  </svg>
-);
+const QuoteIcon = React.forwardRef(function QuoteIcon(
+  { className = "w-6 h-6", size, color, style, ...props },
+  ref
+) {
+  // if `size` prop is provided, we set width/height attributes (still overridable by className)
+  const width = size ?? 94;
+  const height = size ?? 68;
+
+  // Allow explicit color prop, otherwise inherit from currentColor (Tailwind text-*)
+  const fillValue = color ?? "currentColor";
+
+  return (
+    <svg
+      ref={ref}
+      width={width}
+      height={height}
+      viewBox="0 0 94 68"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      style={style}
+      {...props}
+    >
+      {/* set fill on the path so there's no confusion about inheritance */}
+      <path
+        d="M20.2793 67.7598H0L32.1436 0H52.4229L20.2793 67.7598ZM61.2783 67.7598H41L73.1426 0H93.4219L61.2783 67.7598Z"
+        fill={fillValue}
+      />
+    </svg>
+  );
+});
 
 export default QuoteIcon;

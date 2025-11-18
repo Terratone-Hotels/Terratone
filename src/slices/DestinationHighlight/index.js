@@ -17,10 +17,11 @@ const DestinationHighlight = ({ slice }) => {
           ref={sectionRef}
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
+          className={"mt-6 lg:mt-35 "}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
+          <div className="flex flex-col md:flex-row gap-2 lg:gap-5 items-start">
             {/* Left Side Text */}
-            <div className="md:w-[28.1875rem] space-y-5  md:sticky md:top-15">
+            <div className="md:w-1/2 space-y-3 lg:space-y-5  md:sticky md:top-15">
               {/* Animated Heading */}
               <RichTextRenderer
                 field={slice.primary.heading}
@@ -47,16 +48,15 @@ const DestinationHighlight = ({ slice }) => {
             </div>
 
             {/* Right Side Media */}
-            <div className="w-full flex gap-6 ">
+            <div className="w-full flex flex-row-reverse md:flex-row gap-3 lg:gap-6 ">
               {/* LEFT SMALL BLOCK */}
               <div
                 className="
-                  hidden md:block
-                  w-1/4
-                         /* half size */
-               
-                  self-end          /* push to bottom */
-                  overflow-hidden
+                    w-1/4
+             /* half size */
+   
+      self-end          /* push to bottom */
+      overflow-hidden
                 "
               >
                 {slice.primary.video_id ? (
@@ -75,12 +75,11 @@ const DestinationHighlight = ({ slice }) => {
               {/* RIGHT BIG BLOCK (YOUR EXISTING ONE) */}
               <div
                 className="
-                  w-full
-                  md:w-3/4 
-                  h-[21.875rem]
-                  md:h-[32rem]
-                  lg:h-[40rem]
-                  overflow-hidden
+                    w-3/4 
+      h-[10rem]
+      md:h-[25rem]
+      lg:h-[40rem]
+      overflow-hidden
                 "
               >
                 {slice.primary.video_id ? (

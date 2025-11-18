@@ -63,7 +63,7 @@ const MeetingHalls = ({ slice }) => {
             ref={sectionRef}
             data-slice-type={slice.slice_type}
             data-slice-variation={slice.variation}
-            className="max-w-[90rem] mx-auto"
+            className="max-w-[90rem]"
           >
             <DotWave />
 
@@ -71,7 +71,7 @@ const MeetingHalls = ({ slice }) => {
             <div className="max-w-3xl mx-auto text-center mb-14 px-4 mt-8 md:mt-12">
               <RichTextRenderer
                 field={slice.primary.heading}
-                className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 lg:mb-8"
+                className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 leading-6 lg:leading-10 lg:mb-8"
               />
               <RichTextRenderer
                 field={slice.primary.description}

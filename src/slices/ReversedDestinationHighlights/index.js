@@ -20,11 +20,11 @@ const ReversedDestinationHighlights = ({ slice }) => {
         >
           <div className="flex flex-col-reverse md:flex-row gap-5 items-start ">
             {/* Left Side Text */}
-            <div className="md:sticky md:top-10 md:w-1/2 space-y-5">
+            <div className="md:sticky md:top-10 md:w-1/2 space-y-3 lg:space-y-5">
               {/* Animated Heading */}
               <RichTextRenderer
                 field={slice.primary.heading}
-                className="text-[1.75rem] md:text-[25px] lg:text-[42px]  font-serif font-medium leading-7 md:leading-[2rem]"
+                className="text-[1.75rem] md:text-[25px] lg:text-[42px]  font-serif font-medium leading-5 md:leading-[2rem] "
               />
 
               {/* Animated Description */}
@@ -47,11 +47,11 @@ const ReversedDestinationHighlights = ({ slice }) => {
             </div>
 
             {/* Right Side Media */}
-            <div className="w-full flex gap-6 ">
+            <div className="w-full flex gap-3 md:gap-6 ">
               {/* LEFT SMALL BLOCK */}
               <div
                 className="
-      hidden md:block
+      
       w-1/4
              /* half size */
    
@@ -75,10 +75,10 @@ const ReversedDestinationHighlights = ({ slice }) => {
               {/* RIGHT BIG BLOCK (YOUR EXISTING ONE) */}
               <div
                 className="
-      w-full
-      md:w-3/4 
-      h-[21.875rem]
-      md:h-[32rem]
+      
+     w-3/4 
+      h-[10rem]
+      md:h-[25rem]
       lg:h-[40rem]
       overflow-hidden
     "
