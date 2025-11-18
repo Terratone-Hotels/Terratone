@@ -36,7 +36,7 @@ export async function POST(req) {
         <div style="margin-bottom:30px;">
    <img 
 style="display:block"
-  src="https://terratone.vercel.app/mail-logo.svg"
+  src="https://terratone.vercel.app/mail-logo.png"
   alt="Terratone"
   style="height:38px;"
 />
@@ -45,7 +45,7 @@ style="display:block"
 
         <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
      <img 
-  src="https://terratone.vercel.app/mail-dinner-logo.svg"
+  src="https://terratone.vercel.app/mail-dinner-logo.png"
   alt="Terratone"
   style="height:32px;"
 />

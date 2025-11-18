@@ -128,7 +128,7 @@ export default function BookNowModal({
       <aside
         data-lenis-prevent
         onClick={(e) => e.stopPropagation()}
-        className={`relative z-10 h-full w-[100vw] md:w-[420px] bg-neutral-900 text-white shadow-xl
+        className={`relative z-10 h-full w-[100vw] md:w-[420px] bg-white text-black shadow-xl
           overflow-y-auto
           transition-transform duration-200 ease-out
           ${animateIn ? "translate-x-0" : "translate-x-full"}`}
@@ -139,7 +139,7 @@ export default function BookNowModal({
 
           <button
             onClick={onClose}
-            className="relative px-4 py-2 border border-white text-xs uppercase before:absolute before:inset-[-4px] before:border before:border-white"
+            className="relative px-4 py-2 border border-black text-xs uppercase before:absolute before:inset-[-4px] before:border before:border-black"
           >
             CLOSE ✕
           </button>

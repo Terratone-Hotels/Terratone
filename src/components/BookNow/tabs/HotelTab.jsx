@@ -92,8 +92,8 @@ export default function HotelTab({ data, setData }) {
   return (
     <div className="space-y-6 text-sm">
       {/* FULL NAME */}
-      <div className="border border-neutral-700 rounded p-3">
-        <label className="block text-xs uppercase text-neutral-300 mb-1">
+      <div className="border border-neutral-700  p-3">
+        <label className="block text-xs uppercase text-black mb-1">
           Full Name *
         </label>
         <input
@@ -106,13 +106,13 @@ export default function HotelTab({ data, setData }) {
             }
           }}
           placeholder="Enter your name"
-          className="w-full bg-transparent outline-none text-sm text-neutral-200"
+          className="w-full bg-transparent outline-none text-sm text-neutral-800"
         />
       </div>
 
       {/* PHONE NUMBER */}
-      <div className="border border-neutral-700 rounded p-3">
-        <label className="block text-xs uppercase text-neutral-300 mb-1">
+      <div className="border border-black  p-3">
+        <label className="block text-xs uppercase text-neutral-800 mb-1">
           Phone Number *
         </label>
         <input
@@ -125,19 +125,19 @@ export default function HotelTab({ data, setData }) {
             }
           }}
           placeholder="9876543210"
-          className="w-full bg-transparent outline-none text-sm text-neutral-200"
+          className="w-full bg-transparent outline-none text-sm text-neutral-800"
         />
       </div>
 
       {/* PROPERTY SELECTOR */}
-      <div className="border border-neutral-700 p-4 rounded">
+      <div className="border border-neutral-700 p-4 ">
         <button
           onClick={() => setOpenProperty(!openProperty)}
           className="w-full flex justify-between items-center"
           type="button"
         >
-          <span className="uppercase tracking-wide text-neutral-300">
-            {selectedProperty || "Choose a property*"}
+          <span className="uppercase tracking-wide text-neutral-800">
+            {selectedProperty || "Choose a Room *"}
           </span>
           <span
             className={`text-lg transition-transform duration-300 ${
@@ -149,11 +149,11 @@ export default function HotelTab({ data, setData }) {
         </button>
 
         {openProperty && (
-          <div className="mt-3 space-y-2 text-white">
+          <div className="mt-3 space-y-2 text-neutral-900">
             {PROPERTY_LIST.map((prop) => (
               <div
                 key={prop}
-                className={`p-2 rounded cursor-pointer hover:bg-neutral-800 ${
+                className={`p-2 rounded cursor-pointer hover:bg-neutral-200 ${
                   selectedProperty === prop ? "bg-neutral-800" : ""
                 }`}
                 onClick={() => {
@@ -170,8 +170,8 @@ export default function HotelTab({ data, setData }) {
 
       {/* DATE PICKER */}
       <div className="border border-neutral-700 p-4 rounded">
-        <p className="uppercase text-neutral-300">Date of stay</p>
-        <div className="flex gap-2 mt-2 text-neutral-400 tracking-wide text-sm">
+        <p className="uppercase text-black">Date of stay</p>
+        <div className="flex gap-2 mt-2 text-neutral-900 tracking-wide text-sm">
           <span>
             {checkIn ? format(checkIn, "MMM dd, yy").toUpperCase() : "--"}
           </span>
@@ -191,7 +191,7 @@ export default function HotelTab({ data, setData }) {
 
       {/* LIVE ROOM FORM */}
       <div className="border border-neutral-700 p-4 rounded space-y-4">
-        <p className="uppercase text-neutral-300">
+        <p className="uppercase text-black">
           Guests ({liveRoomNumber}
           {selectedProperty ? ` — ${selectedProperty}` : ""})
         </p>
@@ -206,7 +206,7 @@ export default function HotelTab({ data, setData }) {
 
         {/* Adults */}
         <div className="flex justify-between items-center border-t border-neutral-700 pt-2">
-          <span className="uppercase text-neutral-300">Adults</span>
+          <span className="uppercase text-black">Adults</span>
           <div className="flex items-center gap-3">
             <button
               disabled={adults <= 1}
@@ -216,7 +216,7 @@ export default function HotelTab({ data, setData }) {
                   adults: Math.max(1, prev.adults - 1),
                 }))
               }
-              className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 flex items-center justify-center"
+              className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-400 flex items-center justify-center"
               type="button"
             >
               -
@@ -240,7 +240,7 @@ export default function HotelTab({ data, setData }) {
 
         {/* Children */}
         <div className="flex justify-between items-center border-t border-neutral-700 pt-2">
-          <span className="uppercase text-neutral-300">Children</span>
+          <span className="uppercase text-black">Children</span>
           <div className="flex items-center gap-3">
             <button
               disabled={children <= 0}
@@ -283,7 +283,7 @@ export default function HotelTab({ data, setData }) {
             className="border border-neutral-700 p-4 rounded space-y-3"
           >
             <div className="flex justify-between items-center">
-              <p className="uppercase text-neutral-300">
+              <p className="uppercase text-black">
                 Guests ({room.roomName} — {room.property})
               </p>
 
@@ -296,14 +296,14 @@ export default function HotelTab({ data, setData }) {
               </button>
             </div>
 
-            <div className="text-neutral-400 text-sm tracking-wide">
+            <div className="text-black text-sm tracking-wide">
               {format(room.checkIn, "MMM dd, yy").toUpperCase()} →
               {format(room.checkOut, "MMM dd, yy").toUpperCase()}
             </div>
 
             {/* Adults */}
             <div className="flex justify-between items-center border-t border-neutral-700 pt-2">
-              <span className="uppercase text-neutral-300">Adults</span>
+              <span className="uppercase text-black">Adults</span>
               <div className="flex items-center gap-3">
                 <button
                   disabled={room.adults <= 1}
@@ -327,7 +327,7 @@ export default function HotelTab({ data, setData }) {
 
             {/* Children */}
             <div className="flex justify-between items-center border-t border-neutral-700 pt-2">
-              <span className="uppercase text-neutral-300">Children</span>
+              <span className="uppercase text-black">Children</span>
               <div className="flex items-center gap-3">
                 <button
                   disabled={room.children <= 0}
@@ -355,11 +355,13 @@ export default function HotelTab({ data, setData }) {
       {/* ADD ROOM */}
       <button
         onClick={addRoom}
-        className="border border-neutral-600 px-4 py-2 rounded flex items-center gap-2"
+        className="border border-neutral-600 px-4 py-2 rounded flex items-center gap-2 cursor-pointer group hover:bg-green-500"
         type="button"
       >
-        <span className="uppercase text-xs">Add Room</span>
-        <span className="text-lg">+</span>
+        <span className="uppercase text-xs group-hover:text-white">
+          Add Room
+        </span>
+        <span className=" group-hover:text-white text-lg">+</span>
       </button>
 
       {/* CTA BUTTONS */}
@@ -416,9 +418,9 @@ export default function HotelTab({ data, setData }) {
               }
             } catch (err) {}
           }}
-          className="flex-1 bg-white text-black py-3 font-semibold text-sm tracking-wide uppercase"
+          className="flex-1 bg-white text-black hover:text-white hover:bg-green-600 py-3 font-semibold text-sm tracking-wide uppercase cursor-pointer transition-all border-1"
         >
-          Check Availability
+          Enquire Now
         </button>
 
         <button
@@ -468,7 +470,7 @@ export default function HotelTab({ data, setData }) {
               }
             } catch (err) {}
           }}
-          className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center border border-black"
+          className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center border hover:text-white transition-all hover:bg-green-600 border-black cursor-pointer"
         >
           →
         </button>
