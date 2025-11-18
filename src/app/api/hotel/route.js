@@ -30,91 +30,81 @@ export async function POST(req) {
 
     // ---------------- EMAIL HTML (TABLE FORMAT) ----------------
     const html = `
-<div style=" padding:40px; background:#f4f1ed ;font-family:'EB Garamond', Georgia, 'Times New Roman', sans-serif; color:#333;">
-  <div style="max-width:650px; margin:0 auto;  border:1px solid #ddd; padding:40px;">
+<div style=" padding:40px; background:#ffff ;font-family:'EB Garamond', Georgia, 'Times New Roman', sans-serif; color:#333;">
+  <div style="max-width:650px; margin:0 auto;  border:1px solid #ddd; padding:40px;">
 
-    <!-- LOGO -->
-    <div style="margin-bottom:30px;">
-   <img 
-  src="https://terratone.vercel.app/mail-logo.svg"
-  alt="Terratone"
-  style="height:32px;"
+        <div style="margin-bottom:30px;">
+   <img 
+  src="https://terratone.vercel.app/mail-logo.svg"
+  alt="Terratone"
+  style="height:38px;"
 />
 
-    </div>
+    </div>
 
-    <!-- TITLE -->
-    <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
-     <img 
-  src="https://terratone.vercel.app/mail-dinner-logo.svg"
-  alt="Terratone"
-  style="height:26px;"
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+     <img 
+  src="https://terratone.vercel.app/mail-dinner-logo.svg"
+  alt="Terratone"
+  style="height:32px;"
 />
-      <h1 style="margin:0; font-size:26px;  ">
-        New Room Enquiry
-      </h1>
-    </div>
+      <h1 style="margin:0; font-size:30px;  ">
+        New Room Enquiry
+      </h1>
+    </div>
 
-    <p style="margin-top:4px; font-size:14px; color:#666;">
-      A new hotel room enquiry has been submitted
-    </p>
+    <p style="margin-top:8px; font-size:16px; color:#666;">
+      A new hotel room enquiry has been submitted
+    </p>
 
-    <!-- SECTION: Room Breakdown -->
-    <h3 style="margin-top:30px; margin-bottom:12px; font-size:18px; color:#1f1f1f;">
-      Room Breakdown
-    </h3>
+        <h3 style="margin-top:35px; margin-bottom:15px; font-size:22px; color:#1f1f1f;">
+      Room Breakdown
+    </h3>
 
-    <!-- CARD -->
-    <div style=" border:1px solid #e0dcd7;  padding:22px;">
-      <!-- ROW: ROOMS -->
-    <div style="margin-bottom:12px; display:flex; align-items:center; gap:8px;">
-  <span style="font-size:12px; color:#777; letter-spacing:1px;">ROOMS :</span>
-  <span style="font-size:14px; color:#333;">${rooms.length}</span>
+        <div style=" border:1px solid #e0dcd7;  padding:25px;">
+          <div style="margin-bottom:15px; display:flex; align-items:center; gap:10px;">
+  <span style="font-size:14px; color:#777; letter-spacing:1px; font-weight:bold;">ROOMS :</span>
+  <span style="font-size:16px; color:#333;">${rooms.length}</span>
 </div>
 
 
-      <!-- ROW: TYPE -->
-<div style="margin-bottom:12px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-  
-  <!-- LABEL -->
-  <span style="font-size:12px; color:#777; letter-spacing:1px; white-space:nowrap;">
-    TYPE :
-  </span>
+      <div style="margin-bottom:15px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+  
+    <span style="font-size:14px; color:#777; letter-spacing:1px; white-space:nowrap; font-weight:bold;">
+    TYPE :
+  </span>
 
-  <!-- BADGE GROUP -->
-  <div style="display:flex; gap:8px; flex-wrap:wrap;">
-    ${rooms
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    ${rooms
       .map(
         (room) => `
-        <span style="
-          background:#e5d5d3;
-          color:#7a3d3a;
-          font-size:12px;
-          padding:4px 10px;
-          border-radius:4px;
-          border:1px solid #d2c3c2;
-        ">
-          ${room.property}
-        </span>
-      `
+        <span style="
+          background:#e5d5d3;
+          color:#7a3d3a;
+          font-size:14px; /* Increased text size */
+          padding:5px 12px; /* Adjusted padding */
+          border-radius:4px;
+          border:1px solid #d2c3c2;
+          white-space:nowrap;
+        ">
+          ${room.property}
+        </span>
+      `
       )
       .join("")}
-  </div>
+  </div>
 
 </div>
 
 
-      <!-- ROW: DATE -->
-<div style="margin-bottom:12px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <div style="margin-bottom:15px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
 
-  <!-- LABEL -->
-  <span style="font-size:12px; color:#777; letter-spacing:1px; white-space:nowrap;">
-    DATE :
-  </span>
+    <span style="font-size:14px; color:#777; letter-spacing:1px; white-space:nowrap; font-weight:bold;">
+    DATE :
+  </span>
 
-  <!-- VALUE -->
-  <span style="font-size:14px; color:#333; white-space:nowrap;">
-    ${
+    <span style="font-size:16px; color:#333; white-space:nowrap;">
+    ${
       rooms.length > 0
         ? `${new Date(rooms[0].checkIn).toLocaleDateString("en-US", {
             month: "short",
@@ -127,30 +117,27 @@ export async function POST(req) {
           })}`
         : ""
     }
-  </span>
+  </span>
 
 </div>
 
 
-      <!-- ROW: PAX -->
-  <div style="margin-bottom:12px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+        <div style="margin-bottom:15px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
 
-  <!-- LABEL -->
-  <span style="font-size:12px; color:#777; letter-spacing:1px; white-space:nowrap;">
-    PAX :
-  </span>
+    <span style="font-size:14px; color:#777; letter-spacing:1px; white-space:nowrap; font-weight:bold;">
+    PAX :
+  </span>
 
-  <!-- VALUE -->
-  <span style="font-size:14px; color:#333; white-space:nowrap;">
-    ${rooms.reduce((a, c) => a + c.adults, 0)} Adults, 
-    ${rooms.reduce((a, c) => a + c.children, 0)} Children
-  </span>
+    <span style="font-size:16px; color:#333; white-space:nowrap;">
+    ${rooms.reduce((a, c) => a + c.adults, 0)} Adults, 
+    ${rooms.reduce((a, c) => a + c.children, 0)} Children
+  </span>
 
 </div>
 
-    </div>
+    </div>
 
-  </div>
+  </div>
 </div>
 `;
 
