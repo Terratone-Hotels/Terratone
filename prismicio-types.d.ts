@@ -1012,6 +1012,17 @@ interface FooterSettingsDocumentData {
   direction_text: prismic.KeyTextField;
 
   /**
+   * Heading for Directions field in *Footer Settings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.heading_for_directions
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading_for_directions: prismic.RichTextField;
+
+  /**
    * Directions field in *Footer Settings*
    *
    * - **Field Type**: Group
