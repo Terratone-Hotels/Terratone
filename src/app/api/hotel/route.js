@@ -30,7 +30,7 @@ export async function POST(req) {
 
     // ---------------- EMAIL HTML (TABLE FORMAT) ----------------
     const html = `
-<div style="padding:40px; background:#ffffff; font-family:'EB Garamond', Georgia, serif; color:#333;">
+<div style="padding:40px; background:#F4F1ED; font-family:'EB Garamond', Georgia, serif; color:#333;">
   <div style="max-width:650px; margin:0 auto; border:1px solid #ddd; padding:40px;">
 
     <!-- Logo -->
@@ -38,21 +38,31 @@ export async function POST(req) {
       <img
         src="https://terratone.vercel.app/mail-logo.png"
         alt="Terratone"
-        style="height:38px; display:block;"
+        style="height:18px; display:block;"
       />
     </div>
 
     <!-- Header Row -->
-    <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+   <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 10px;">
+  <tr>
+    <!-- Table cell for the logo image -->
+    <td style="padding-right: 12px; vertical-align: middle;">
       <img
         src="https://terratone.vercel.app/mail-dinner-logo.png"
         alt="Terratone"
-        style="height:32px; display:block;"
+        style="height: 32px; display: block; border: 0;"
+        width="32"
+        height="32"
       />
-      <h1 style="margin:0; font-size:30px; font-weight:600;">
+    </td>
+    <!-- Table cell for the heading text -->
+    <td style="vertical-align: middle;">
+      <h1 style="margin: 0; font-size: 50px; font-family: sans-serif; color: #000000; line-height: 1;">
         New Room Enquiry
       </h1>
-    </div>
+    </td>
+  </tr>
+</table>
 
     <p style="margin-top:8px; font-size:16px; color:#666;">
       A new hotel room enquiry has been submitted
