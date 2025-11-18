@@ -35,6 +35,7 @@ export async function POST(req) {
 
         <div style="margin-bottom:30px;">
    <img 
+style="display:block"
   src="https://terratone.vercel.app/mail-logo.svg"
   alt="Terratone"
   style="height:38px;"
@@ -126,18 +127,17 @@ export async function POST(req) {
 
     <span style="font-size:14px; color:#777; letter-spacing:1px; white-space:nowrap; font-weight:bold;">
     PAX :
-  </span>
+</span>
 
-    <span style="font-size:16px; color:#333; white-space:nowrap;">
-    ${rooms.reduce((a, c) => a + c.adults, 0)} Adults, 
-    ${rooms.reduce((a, c) => a + c.children, 0)} Children
-  </span>
+ <span style="font-size:16px; color:#333; white-space:nowrap;">
+${rooms.reduce((a, c) => a + c.adults, 0)} Adults, 
+ ${rooms.reduce((a, c) => a + c.children, 0)} Children  </span>
 
 </div>
 
-    </div>
+</div>
 
-  </div>
+ </div>
 </div>
 `;
 
