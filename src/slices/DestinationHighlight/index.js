@@ -47,26 +47,54 @@ const DestinationHighlight = ({ slice }) => {
             </div>
 
             {/* Right Side Media */}
-            <div
-              className="
-            w-full
-            h-[29.9375rem]
-            md:h-[32rem]
-            lg:h-[36rem]
-            overflow-hidden
-          "
-            >
-              {slice.primary.video_link ? (
-                <VideoComponent
-                  srcMp4={slice.primary.video_link}
-                  className="w-full h-full object-cover object-center"
-                />
-              ) : (
-                <PrismicNextImage
-                  field={slice.primary.image}
-                  className="w-full h-full object-cover object-center"
-                />
-              )}
+            <div className="w-full flex gap-6 ">
+              {/* LEFT SMALL BLOCK */}
+              <div
+                className="
+                  hidden md:block
+                  w-1/4
+                         /* half size */
+               
+                  self-end          /* push to bottom */
+                  overflow-hidden
+                "
+              >
+                {slice.primary.video_id ? (
+                  <VideoComponent
+                    srcMp4={slice.primary.video_id}
+                    className="w-full h-full object-cover object-center aspect-square"
+                  />
+                ) : (
+                  <PrismicNextImage
+                    field={slice.primary.image}
+                    className="w-full h-full object-cover object-center aspect-square"
+                  />
+                )}
+              </div>
+
+              {/* RIGHT BIG BLOCK (YOUR EXISTING ONE) */}
+              <div
+                className="
+                  w-full
+                  md:w-3/4 
+                  h-[21.875rem]
+                  md:h-[32rem]
+                  lg:h-[40rem]
+                  overflow-hidden
+                "
+              >
+                {slice.primary.video_id ? (
+                  <VideoComponent
+                    srcMp4={slice.primary.video_id}
+                    className="w-full h-full object-cover object-center "
+                  />
+                ) : (
+                  <PrismicNextImage
+                    field={slice.primary.image}
+                    className="w-full h-full object-cover object-center"
+                  />
+                )}
+              </div>
             </div>
           </div>
         </Bounded>

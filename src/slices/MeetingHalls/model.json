@@ -51,13 +51,6 @@
                   "placeholder": ""
                 }
               },
-              "card_description": {
-                "type": "Text",
-                "config": {
-                  "label": "Card Description",
-                  "placeholder": ""
-                }
-              },
               "room_link": {
                 "type": "Link",
                 "config": {
@@ -73,6 +66,13 @@
                 "type": "Text",
                 "config": {
                   "label": "Button Text ",
+                  "placeholder": ""
+                }
+              },
+              "card_description": {
+                "type": "Text",
+                "config": {
+                  "label": "Card Description",
                   "placeholder": ""
                 }
               }
@@ -111,20 +111,6 @@
                   "placeholder": ""
                 }
               },
-              "card_title": {
-                "type": "Text",
-                "config": {
-                  "label": "Card Title",
-                  "placeholder": ""
-                }
-              },
-              "card_description": {
-                "type": "Text",
-                "config": {
-                  "label": "Card Description",
-                  "placeholder": ""
-                }
-              },
               "room_link": {
                 "type": "Link",
                 "config": {
@@ -140,6 +126,20 @@
                 "type": "Text",
                 "config": {
                   "label": "Button Text",
+                  "placeholder": ""
+                }
+              },
+              "card_description": {
+                "type": "Text",
+                "config": {
+                  "label": "Card Description",
+                  "placeholder": ""
+                }
+              },
+              "card_title": {
+                "type": "Text",
+                "config": {
+                  "label": "Card Title",
                   "placeholder": ""
                 }
               }

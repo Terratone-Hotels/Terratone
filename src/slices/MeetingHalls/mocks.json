@@ -58,22 +58,6 @@
 								}
 							],
 							[
-								"card_title",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "willing",
-									"type": "Text"
-								}
-							],
-							[
-								"card_description",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "strong",
-									"type": "Text"
-								}
-							],
-							[
 								"room_link",
 								{
 									"key": "ab77bc4d-5915-4655-9421-e6952c4c9f62",
@@ -90,6 +74,22 @@
 								{
 									"__TYPE__": "FieldContent",
 									"value": "pine",
+									"type": "Text"
+								}
+							],
+							[
+								"card_title",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "game",
+									"type": "Text"
+								}
+							],
+							[
+								"card_description",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "never",
 									"type": "Text"
 								}
 							]
@@ -137,22 +137,6 @@
 								}
 							],
 							[
-								"card_title",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "system",
-									"type": "Text"
-								}
-							],
-							[
-								"card_description",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "think",
-									"type": "Text"
-								}
-							],
-							[
 								"room_link",
 								{
 									"key": "8ad0faec-f478-4c7a-a02c-e875592a7fb3",
@@ -177,6 +161,22 @@
 								{
 									"__TYPE__": "FieldContent",
 									"value": "harbor",
+									"type": "Text"
+								}
+							],
+							[
+								"card_description",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "club",
+									"type": "Text"
+								}
+							],
+							[
+								"card_title",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "leg",
 									"type": "Text"
 								}
 							]

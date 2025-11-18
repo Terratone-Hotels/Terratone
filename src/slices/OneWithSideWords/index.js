@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import VideoComponent from "@/components/VideoComponent";
 import RichTextRenderer from "@/components/RichTextRenderer";
 import { PrismicRichText } from "@prismicio/react";
+import { PrismicNextLink } from "@prismicio/next";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,6 +18,7 @@ export default function OneWithSideWords({ slice }) {
   const rightCurtainRef = useRef(null);
   const leftTextRef = useRef(null);
   const rightTextRef = useRef(null);
+  const topSentenceRef = useRef(null);
 
   useEffect(() => {
     const leftCurtain = leftCurtainRef.current;
@@ -25,6 +27,11 @@ export default function OneWithSideWords({ slice }) {
     if (!leftCurtain || !rightCurtain) return;
 
     // Initial curtain state
+    gsap.set(topSentenceRef.current, {
+      opacity: 0,
+      y: 20,
+    });
+
     gsap.set([leftCurtain, rightCurtain], { scaleX: 1 });
 
     // ⭐ Initial SIDE TEXT states (THIS FIXES THE ISSUE)
@@ -50,6 +57,16 @@ export default function OneWithSideWords({ slice }) {
       {
         scaleX: 0,
         transformOrigin: "left center",
+        duration: 2,
+        ease: "power3.inOut",
+      },
+      0
+    );
+    tl.to(
+      topSentenceRef.current,
+      {
+        opacity: 1,
+        y: 0,
         duration: 2,
         ease: "power3.inOut",
       },
@@ -105,7 +122,10 @@ export default function OneWithSideWords({ slice }) {
       className="flex flex-col items-center justify-center text-center overflow-hidden"
     >
       {/* =================== Top Heading =================== */}
-      <div className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium">
+      <div
+        ref={topSentenceRef}
+        className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium"
+      >
         <RichTextRenderer field={slice.primary.top_sentence} />
       </div>
 
@@ -158,7 +178,7 @@ export default function OneWithSideWords({ slice }) {
       {/* =================== Buttons =================== */}
       <div className="mt-6 lg:mt-4 flex justify-center items-center gap-2">
         <Button className="font-barlow px-2.5 py-1 tracking-wide">
-          OUR STORY
+          <PrismicNextLink field={slice.primary.cta_button}></PrismicNextLink>
         </Button>
       </div>
     </Bounded>

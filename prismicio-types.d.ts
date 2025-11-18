@@ -1150,6 +1150,31 @@ export interface HeaderSettingsDocumentDataNavigationItem {
 }
 
 /**
+ * Item in *Header Settings → Mobile Sub Links*
+ */
+export interface HeaderSettingsDocumentDataMobileSubLinksItem {
+  /**
+   * Link field in *Header Settings → Mobile Sub Links*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_settings.mobile_sub_links[].link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * Link Label field in *Header Settings → Mobile Sub Links*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_settings.mobile_sub_links[].link_label
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  link_label: prismic.KeyTextField;
+}
+
+/**
  * Content for Header Settings documents
  */
 interface HeaderSettingsDocumentData {
@@ -1226,6 +1251,19 @@ interface HeaderSettingsDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   nav_buttonlink_text: prismic.KeyTextField;
+
+  /**
+   * Mobile Sub Links field in *Header Settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_settings.mobile_sub_links[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  mobile_sub_links: prismic.GroupField<
+    Simplify<HeaderSettingsDocumentDataMobileSubLinksItem>
+  >;
 }
 
 /**
@@ -3522,16 +3560,6 @@ export interface MeetingHallsSliceDefaultPrimaryRoomsItem {
   card_title: prismic.KeyTextField;
 
   /**
-   * Card Description field in *MeetingHalls → Default → Primary → Rooms*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: meeting_halls.default.primary.rooms[].card_description
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  card_description: prismic.KeyTextField;
-
-  /**
    * Room Link field in *MeetingHalls → Default → Primary → Rooms*
    *
    * - **Field Type**: Link
@@ -3556,6 +3584,16 @@ export interface MeetingHallsSliceDefaultPrimaryRoomsItem {
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   button_text: prismic.KeyTextField;
+
+  /**
+   * Card Description field in *MeetingHalls → Default → Primary → Rooms*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meeting_halls.default.primary.rooms[].card_description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  card_description: prismic.KeyTextField;
 }
 
 /**
@@ -3583,26 +3621,6 @@ export interface MeetingHallsSliceWithNumbersPrimaryRoomsItem {
   serial_no: prismic.KeyTextField;
 
   /**
-   * Card Title field in *MeetingHalls → With Numbers → Primary → Rooms*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: meeting_halls.withNumbers.primary.rooms[].card_title
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  card_title: prismic.KeyTextField;
-
-  /**
-   * Card Description field in *MeetingHalls → With Numbers → Primary → Rooms*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: meeting_halls.withNumbers.primary.rooms[].card_description
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  card_description: prismic.KeyTextField;
-
-  /**
    * Room Link field in *MeetingHalls → With Numbers → Primary → Rooms*
    *
    * - **Field Type**: Link
@@ -3627,6 +3645,26 @@ export interface MeetingHallsSliceWithNumbersPrimaryRoomsItem {
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   button_text: prismic.KeyTextField;
+
+  /**
+   * Card Description field in *MeetingHalls → With Numbers → Primary → Rooms*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meeting_halls.withNumbers.primary.rooms[].card_description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  card_description: prismic.KeyTextField;
+
+  /**
+   * Card Title field in *MeetingHalls → With Numbers → Primary → Rooms*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: meeting_halls.withNumbers.primary.rooms[].card_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  card_title: prismic.KeyTextField;
 }
 
 /**
@@ -5558,6 +5596,7 @@ declare module "@prismicio/client" {
       HeaderSettingsDocument,
       HeaderSettingsDocumentData,
       HeaderSettingsDocumentDataNavigationItem,
+      HeaderSettingsDocumentDataMobileSubLinksItem,
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,

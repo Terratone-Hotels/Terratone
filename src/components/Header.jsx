@@ -200,6 +200,7 @@ cursor-pointer`}
       )}
       <MobileMenu
         navigation={data.navigation}
+        sublink={data.mobile_sub_links}
         isOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
         className="z-60"

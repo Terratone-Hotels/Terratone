@@ -33,7 +33,12 @@ const XMarkIcon = (props) => (
   </svg>
 );
 
-export default function MobileMenu({ navigation, isOpen, setIsMenuOpen }) {
+export default function MobileMenu({
+  navigation,
+  sublink,
+  isOpen,
+  setIsMenuOpen,
+}) {
   const closeMenu = () => setIsMenuOpen(false);
 
   // Prevent scroll behind open menu (optional UX touch)
@@ -45,31 +50,56 @@ export default function MobileMenu({ navigation, isOpen, setIsMenuOpen }) {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full bg-white z-40 shadow-md transition-all duration-500 ease-in-out overflow-hidden ${
-        isOpen ? "max-h-[60vh] opacity-100" : "max-h-0 opacity-0"
+      className={`fixed top-0 left-0 w-full flex flex-col items- bg-white z-40 shadow-md transition-all duration-500 ease-in-out overflow-hidden ${
+        isOpen ? "h-screen opacity-100" : "max-h-0 opacity-0"
       }`}
     >
       {/* Header Bar: Logo + Close */}
-      <div className="flex items-center justify-between  py-3 pr-3 ">
+      <div className="flex items-center justify-start  py-3 pr-3 ">
         <button
           onClick={closeMenu}
           className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black p-1"
           aria-label="Close menu"
-        ></button>
+        >
+          {/* Your close icon would go here */}
+        </button>
       </div>
 
-      {/* Navigation Links */}
-      <nav className="flex flex-col items-start px-6 py-4 sm:px-10">
-        {navigation.map((item, index) => (
-          <PrismicNextLink
-            key={index}
-            field={item.link}
-            onClick={closeMenu}
-            className="font-barlowNormal uppercase text-sm font-medium text-black hover:text-gray-600 transition-colors py-2"
-          >
-            {item.link_lable}
-          </PrismicNextLink>
-        ))}
+      {/* Wrapper to allow main nav to grow and push sublinks down */}
+      <div className="">
+        {/* Navigation Links */}
+        <nav className="flex flex-col items-start px-6 py-4 sm:px-10">
+          {navigation.map((item, index) => {
+            return (
+              <PrismicNextLink
+                key={index}
+                field={item.link}
+                onClick={closeMenu}
+                // Combine the existing styling with the new conditional classes
+                className={`font-barlowNormal uppercase text-3xl font-medium text-black hover:text-gray-600 transition-colors py-2 border-b border-black mb-2 w-full`}
+              >
+                {item.link_lable}
+              </PrismicNextLink>
+            );
+          })}
+        </nav>
+      </div>
+
+      {/* SubLink (This will now be at the bottom) */}
+      <nav className="flex flex-col px-6 py-4 sm:px-10">
+        {sublink.map((item, index) => {
+          return (
+            <PrismicNextLink
+              key={index}
+              field={item.link}
+              onClick={closeMenu}
+              // Combine the existing styling with the new conditional classes
+              className={`font-barlowNormal uppercase text-base font-medium text-black hover:text-gray-600 transition-colors py-2 border-b border-gray-200 mb-2 w-full`}
+            >
+              {item.link_label}
+            </PrismicNextLink>
+          );
+        })}
       </nav>
     </div>
   );
