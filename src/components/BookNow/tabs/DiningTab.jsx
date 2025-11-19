@@ -4,7 +4,15 @@ import TerratoneToast from "@/components/TerratoneToast";
 
 export default function DiningTab({ data, setData }) {
   const { fullName, phone, date, time, guests } = data;
-
+  const validate = () => {
+    if (!fullName || !phone || !date || !time || guests < 1) {
+      toast.custom(
+        <TerratoneToast message="Please complete all required fields." />
+      );
+      return false;
+    }
+    return true;
+  };
   return (
     <div className="space-y-6">
       <h4 className="text-lg font-medium mb-4">Reserve a table</h4>
@@ -101,6 +109,8 @@ export default function DiningTab({ data, setData }) {
           <button
             type="button"
             onClick={async () => {
+              if (!validate()) return;
+
               try {
                 const res = await fetch("/api/dining", {
                   method: "POST",
@@ -133,6 +143,8 @@ export default function DiningTab({ data, setData }) {
           <button
             type="button"
             onClick={async () => {
+              if (!validate()) return;
+
               try {
                 const res = await fetch("/api/dining", {
                   method: "POST",
