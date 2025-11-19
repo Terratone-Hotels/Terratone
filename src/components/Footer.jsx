@@ -64,7 +64,7 @@ export default function Footer({ footerData }) {
         logo,
         {
           opacity: 1,
-          y:20,
+          y:30,
           duration: 1.2,
           ease: "power2.out",
         },
@@ -77,7 +77,7 @@ export default function Footer({ footerData }) {
 
   return (
     <Bounded>
-      <footer ref={footerRef} className="w-full mb-10">
+      <footer ref={footerRef} className="w-full mb-15">
         {/* MAIN DESKTOP FOOTER */}
         <div className="hidden lg:block w-full">
           {/* ------------------------------ */}
