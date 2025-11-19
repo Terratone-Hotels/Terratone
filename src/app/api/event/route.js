@@ -7,8 +7,7 @@ export async function POST(req) {
     const data = await req.json();
 
     const {
-      firstName,
-      lastName,
+      fullName,
       email,
       phone,
       eventType,
@@ -20,6 +19,30 @@ export async function POST(req) {
       notes,
     } = data;
 
+    // ----------------------- VALIDATION -----------------------
+    const missing = [];
+
+    if (!fullName) missing.push("Full Name");
+    if (!email) missing.push("Email");
+    if (!phone) missing.push("Phone Number");
+    if (!eventType) missing.push("Event Type");
+    if (!selectedRoom) missing.push("Selected Room");
+    if (!date) missing.push("Date");
+    if (!startTime) missing.push("Start Time");
+    if (!endTime) missing.push("End Time");
+    if (!people) missing.push("Number of People");
+
+    if (missing.length > 0) {
+      return Response.json(
+        {
+          success: false,
+          error: `Missing required fields: ${missing.join(", ")}`,
+        },
+        { status: 400 }
+      );
+    }
+
+    // ----------------------- EMAIL HTML -----------------------
     await resend.emails.send({
       from: "Terratone Bookings <onboarding@resend.dev>",
       to: "marketing@terratonehotels.com",
@@ -41,7 +64,6 @@ export async function POST(req) {
     <!-- Header Row -->
    <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 10px;">
   <tr>
-    <!-- Table cell for the logo image -->
     <td style="padding-right: 12px; vertical-align: middle;">
       <img
         src="https://terratone.vercel.app/mail-dinner-logo.png"
@@ -51,17 +73,16 @@ export async function POST(req) {
         height="32"
       />
     </td>
-    <!-- Table cell for the heading text -->
     <td style="vertical-align: middle;">
       <h1 style="margin: 0; font-size: 50px; font-family: sans-serif; color: #000000; line-height: 1;">
-        Dining Reservation
+        Event Enquiry
       </h1>
     </td>
   </tr>
 </table>
 
     <p style="margin-top:8px; font-size:16px; color:#666;">
-      A new Event room enquiry has been submitted
+      A new event enquiry has been submitted.
     </p>
     <hr style="border:0; border-top:1px solid #222; margin:28px 0;" />
 
@@ -70,10 +91,10 @@ export async function POST(req) {
       Contact Details
     </h2>
 
-    <table style="width:100%; font-size:15px; line-height:1.7; text-transform:none;">
+    <table style="width:100%; font-size:15px; line-height:1.7;">
       <tr>
         <td style="color:#c6bdb5; width:150px;">Name</td>
-        <td style="color:black;">${firstName} ${lastName}</td>
+        <td style="color:black;">${fullName}</td>
       </tr>
       <tr>
         <td style="color:#c6bdb5;">Email</td>
@@ -92,7 +113,7 @@ export async function POST(req) {
       Event Details
     </h2>
 
-    <table style="width:100%; font-size:15px; line-height:1.7; text-transform:none;">
+    <table style="width:100%; font-size:15px; line-height:1.7;">
       <tr>
         <td style="color:#c6bdb5; width:150px;">Event Type</td>
         <td style="color:black;">${eventType}</td>
@@ -134,24 +155,23 @@ export async function POST(req) {
     ${
       notes?.trim()
         ? `
-      <div style=" background:#F4F1ED; font-family:'EB Garamond', Georgia, serif; color:#333;">
+      <div style="margin-top:20px;">
           <p style="color:#96703b; margin:0 0 6px; font-weight:600;">Notes:</p>
           <p style="margin:0; color:black; white-space:pre-line;">${notes}</p>
-        </div>
-      `
+        </div>`
         : ""
     }
 
-    <p style="text-align:center; margin-top:32px; color:#c6bdb5; font-size:12px;">
-      Terratone Hotels · Automated Event Notification
-    </p>
+  
 
+</div>
 </div>
 `,
     });
 
     return Response.json({ success: true });
   } catch (error) {
-    return Response.json({ error });
+    console.error("Event enquiry error:", error);
+    return Response.json({ success: false, error: error.message });
   }
 }

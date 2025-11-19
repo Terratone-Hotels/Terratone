@@ -205,6 +205,7 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_top_left}
           className="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
@@ -216,6 +217,7 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_right}
           className="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
@@ -227,6 +229,7 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_bottom_right}
           className="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
@@ -238,6 +241,7 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_top_center}
           className="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
@@ -249,6 +253,7 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_left}
           className="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
@@ -260,6 +265,7 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_extra_1}
           className="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
@@ -271,6 +277,7 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_extra_3}
           className="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
@@ -282,6 +289,7 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_bottom_left}
           className="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
@@ -293,6 +301,7 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_top_right}
           className="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
@@ -304,6 +313,7 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_bottom_center}
           className="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 

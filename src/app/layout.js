@@ -5,6 +5,7 @@ import Header from "@/components/HeaderWrapper";
 import FooterServer from "@/components/FooterServer";
 import LenisScrollProvider from "@/components/LenisScrollContext";
 import { Toaster } from "react-hot-toast";
+import WebVitals from "@/components/WebVitals";
 const garamond = EB_Garamond({
   variable: "--font-eb-mono",
   subsets: ["latin"],
@@ -56,6 +57,7 @@ export default async function RootLayout({ children }) {
               },
             }}
           />
+          <WebVitals />
           <Header />
           {children}
           <FooterServer />

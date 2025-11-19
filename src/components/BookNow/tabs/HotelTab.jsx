@@ -7,145 +7,135 @@ import toast from "react-hot-toast";
 import TerratoneToast from "@/components/TerratoneToast";
 
 export default function HotelTab({ data, setData }) {
-  const { selectedProperty, adults, children, checkIn, checkOut, rooms } = data;
+  const { selectedProperty, adults, children, checkIn, checkOut } = data;
 
   const PROPERTY_LIST = ["Deluxe Suite", "Deluxe King", "Deluxe Twin"];
-
   const [openProperty, setOpenProperty] = useState(false);
 
-  const liveRoomNumber = rooms.length + 1;
+  const updateCheckIn = (v) => setData((prev) => ({ ...prev, checkIn: v }));
+  const updateCheckOut = (v) => setData((prev) => ({ ...prev, checkOut: v }));
 
-  const updateCheckIn = (v) => {
-    setData((prev) => ({ ...prev, checkIn: v }));
-  };
-
-  const updateCheckOut = (v) => {
-    setData((prev) => ({ ...prev, checkOut: v }));
-  };
-
-  // ---------------------- ADD ROOM ----------------------
-  const addRoom = () => {
+  // ---------------------- VALIDATE & SUBMIT ----------------------
+  const submit = async () => {
     if (
       !data.fullName ||
       !data.phone ||
       !selectedProperty ||
       !checkIn ||
-      !checkOut ||
-      adults < 1
+      !checkOut
     ) {
       toast.custom(
-        <TerratoneToast message="Please complete the booking details." />
+        <TerratoneToast message="Please complete all booking details." />
       );
       return;
     }
 
-    // capacity check
-    if (adults + children > 3) return;
+    try {
+      const payload = {
+        ...data,
+        adults,
+        children,
+        rooms: [
+          {
+            roomName: "1",
+            property: selectedProperty,
+            checkIn,
+            checkOut,
+            adults,
+            children,
+          },
+        ],
+      };
 
-    const newRoom = {
-      roomName: `${rooms.length + 1}`,
-      property: selectedProperty,
-      checkIn,
-      checkOut,
-      adults,
-      children,
-    };
+      const res = await fetch("/api/hotel", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
 
-    setData({
-      ...data,
-      rooms: [...rooms, newRoom],
+      const json = await res.json();
 
-      selectedProperty: "",
-      checkIn: null,
-      checkOut: null,
-      adults: 2,
-      children: 0,
-    });
-  };
-
-  // ---------------------- DELETE ROOM ----------------------
-  const deleteRoom = (index) => {
-    const filtered = rooms.filter((_, i) => i !== index);
-    const renumbered = filtered.map((room, i) => ({
-      ...room,
-      roomName: `${i + 1}`,
-    }));
-    setData({ ...data, rooms: renumbered });
-  };
-
-  // ---------------------- UPDATE ROOM GUESTS (saved rooms) ----------------------
-  const updateRoomGuests = (index, type, delta) => {
-    const updated = rooms.map((room, i) => {
-      if (i !== index) return room;
-
-      let newAdults = room.adults;
-      let newChildren = room.children;
-
-      if (type === "adults") {
-        newAdults = Math.max(1, room.adults + delta);
-      } else {
-        newChildren = Math.max(0, room.children + delta);
+      if (json.success) {
+        const summary = `${selectedProperty} • ${adults} Adults, ${children} Children`;
+        toast.custom(
+          <TerratoneToast message={`Hotel enquiry sent! ${summary}`} />
+        );
       }
-
-      // Max capacity 3
-      if (newAdults + newChildren > 3) return room;
-
-      return { ...room, adults: newAdults, children: newChildren };
-    });
-
-    setData({ ...data, rooms: updated });
+    } catch (err) {}
   };
 
   return (
     <div className="space-y-6 text-sm">
-      {/* FULL NAME */}
-      <div className="border border-neutral-700  p-3">
-        <label className="block text-xs uppercase text-black mb-1">
+      {/* ---------------- FULL NAME ---------------- */}
+      <div className="mb-4">
+        <label className="block text-[14px] tracking-wider uppercase text-neutral-500 mb-1">
           Full Name *
         </label>
-        <input
-          type="text"
-          value={data.fullName || ""}
-          onChange={(e) => {
-            const v = e.target.value;
-            if (/^[A-Za-z\s]*$/.test(v)) {
-              setData((prev) => ({ ...prev, fullName: v }));
-            }
-          }}
-          placeholder="Enter your name"
-          className="w-full bg-transparent outline-none text-sm text-neutral-800"
-        />
+
+        <div
+          className={`bg-[#F5F2EE] p-3 border 
+            ${data.fullName ? "border-black" : "border-neutral-300"} 
+            focus-within:border-black
+          `}
+        >
+          <input
+            type="text"
+            value={data.fullName || ""}
+            onChange={(e) => {
+              const v = e.target.value;
+              if (/^[A-Za-z\s]*$/.test(v)) {
+                setData((prev) => ({ ...prev, fullName: v }));
+              }
+            }}
+            placeholder="John Doe"
+            className="w-full bg-transparent outline-none text-[15px] text-neutral-900 placeholder:text-neutral-400"
+          />
+        </div>
       </div>
 
-      {/* PHONE NUMBER */}
-      <div className="border border-black  p-3">
-        <label className="block text-xs uppercase text-neutral-800 mb-1">
-          Phone Number *
+      {/* ---------------- PHONE NUMBER ---------------- */}
+      <div className="mb-4">
+        <label className="block text-[14px] tracking-wider uppercase text-neutral-500 mb-1">
+          Ph. No *
         </label>
-        <input
-          type="text"
-          value={data.phone || ""}
-          onChange={(e) => {
-            const v = e.target.value;
-            if (/^\d{0,10}$/.test(v)) {
-              setData((prev) => ({ ...prev, phone: v }));
-            }
-          }}
-          placeholder="9876543210"
-          className="w-full bg-transparent outline-none text-sm text-neutral-800"
-        />
+
+        <div
+          className={`bg-[#F5F2EE] p-3 border 
+            ${data.phone ? "border-black" : "border-neutral-300"} 
+            focus-within:border-black
+          `}
+        >
+          <input
+            type="text"
+            value={data.phone || ""}
+            onChange={(e) => {
+              const v = e.target.value;
+              if (/^\d{0,10}$/.test(v)) {
+                setData((prev) => ({ ...prev, phone: v }));
+              }
+            }}
+            placeholder="+91 9213566646"
+            className="w-full bg-transparent outline-none text-[15px] text-neutral-900 placeholder:text-neutral-400"
+          />
+        </div>
       </div>
 
-      {/* PROPERTY SELECTOR */}
-      <div className="border border-neutral-700 p-4 ">
+      {/* ---------------- PROPERTY SELECTOR ---------------- */}
+      <div
+        className={`
+          p-4 bg-[#F5F2EE] border 
+          ${openProperty || selectedProperty ? "border-black" : "border-neutral-300"}
+          transition-colors
+        `}
+      >
         <button
           onClick={() => setOpenProperty(!openProperty)}
           className="w-full flex justify-between items-center"
           type="button"
         >
-          <span className="uppercase tracking-wide ">
+          <span className="uppercase tracking-wide text-neutral-800">
             {selectedProperty || "Choose a Room *"}
           </span>
+
           <span
             className={`text-lg transition-transform duration-300 ${
               openProperty ? "rotate-180" : ""
@@ -156,12 +146,14 @@ export default function HotelTab({ data, setData }) {
         </button>
 
         {openProperty && (
-          <div className="mt-3 space-y-2 ">
+          <div className="mt-3 space-y-2">
             {PROPERTY_LIST.map((prop) => (
               <div
                 key={prop}
-                className={`p-2 rounded cursor-pointer hover:bg-neutral-200 ${
-                  selectedProperty === prop ? "bg-neutral-800" : ""
+                className={`p-2 cursor-pointer ${
+                  selectedProperty === prop
+                    ? "bg-neutral-800 text-white"
+                    : "hover:bg-neutral-200"
                 }`}
                 onClick={() => {
                   setData({ ...data, selectedProperty: prop });
@@ -175,17 +167,23 @@ export default function HotelTab({ data, setData }) {
         )}
       </div>
 
-      {/* DATE PICKER */}
-      <div className="border border-neutral-700 p-4 rounded">
-        <p className="uppercase text-black">Date of stay</p>
-        <div className="flex gap-2 mt-2 text-neutral-900 tracking-wide text-sm">
-          <span>
-            {checkIn ? format(checkIn, "MMM dd, yy").toUpperCase() : "--"}
-          </span>
-          <span>/</span>
-          <span>
-            {checkOut ? format(checkOut, "MMM dd, yy").toUpperCase() : "--"}
-          </span>
+      {/* ---------------- DATE PICKER ---------------- */}
+      <div className="border border-neutral-800">
+        <div className="border-b border-neutral-800 p-4">
+          <p className="uppercase text-black">SELECT DATE</p>
+          <div className="flex gap-2 mt-2 text-neutral-400 tracking-wide text-sm">
+            <span>
+              {checkIn
+                ? format(checkIn, "MMM dd, yy").toUpperCase()
+                : "(CHECK-IN "}
+            </span>
+            <span>/</span>
+            <span>
+              {checkOut
+                ? format(checkOut, "MMM dd, yy").toUpperCase()
+                : "CHECK-OUT)"}
+            </span>
+          </div>
         </div>
 
         <Calendar
@@ -196,24 +194,30 @@ export default function HotelTab({ data, setData }) {
         />
       </div>
 
-      {/* LIVE ROOM FORM */}
-      <div className="border border-neutral-700 p-4 rounded space-y-4">
-        <p className="uppercase text-black">
-          Guests ({liveRoomNumber}
-          {selectedProperty ? ` — ${selectedProperty}` : ""})
-        </p>
-
-        {/* Total cap check */}
-        {/** totalGuestsLive is only for disabling buttons */}
-        {(() => {
-          const total = adults + children;
-          var disableAdultsPlus = total >= 3;
-          var disableChildrenPlus = total >= 3;
-        })()}
+      {/* ---------------- GUEST PICKER ---------------- */}
+      <div className="border border-neutral-600 p-4 space-y-4">
+        {/* Heading */}
+        {selectedProperty ? (
+          <div>
+            <p className="uppercase text-black">{selectedProperty}</p>
+            <p className="uppercase text-black text-xs tracking-wide">
+              ({checkIn ? format(checkIn, "MMM dd, yyyy") : "---"} —{" "}
+              {checkOut ? format(checkOut, "MMM dd, yyyy") : "---"})
+            </p>
+          </div>
+        ) : (
+          <div>
+            <p className="uppercase text-neutral-500">No room selected</p>
+            <p className="uppercase text-neutral-400 text-xs tracking-wide">
+              (Check-in — Check-out)
+            </p>
+          </div>
+        )}
 
         {/* Adults */}
-        <div className="flex justify-between items-center border-t border-neutral-700 pt-2">
+        <div className="flex justify-between items-center pt-2">
           <span className="uppercase text-black">Adults</span>
+
           <div className="flex items-center gap-3">
             <button
               disabled={adults <= 1}
@@ -223,12 +227,15 @@ export default function HotelTab({ data, setData }) {
                   adults: Math.max(1, prev.adults - 1),
                 }))
               }
-              className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-400 flex items-center justify-center"
-              type="button"
+              className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
             >
               -
             </button>
-            <span>{adults}</span>
+
+            <span className="w-6 text-center">
+              {adults.toString().padStart(2, "0")}
+            </span>
+
             <button
               disabled={adults + children >= 3}
               onClick={() =>
@@ -237,8 +244,7 @@ export default function HotelTab({ data, setData }) {
                   return { ...prev, adults: prev.adults + 1 };
                 })
               }
-              className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 flex items-center justify-center"
-              type="button"
+              className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
             >
               +
             </button>
@@ -246,8 +252,9 @@ export default function HotelTab({ data, setData }) {
         </div>
 
         {/* Children */}
-        <div className="flex justify-between items-center border-t border-neutral-700 pt-2">
+        <div className="flex justify-between items-center pt-2">
           <span className="uppercase text-black">Children</span>
+
           <div className="flex items-center gap-3">
             <button
               disabled={children <= 0}
@@ -257,12 +264,15 @@ export default function HotelTab({ data, setData }) {
                   children: Math.max(0, prev.children - 1),
                 }))
               }
-              className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 flex items-center justify-center"
-              type="button"
+              className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
             >
               -
             </button>
-            <span>{children}</span>
+
+            <span className="w-6 text-center">
+              {children.toString().padStart(2, "0")}
+            </span>
+
             <button
               disabled={adults + children >= 3}
               onClick={() =>
@@ -271,8 +281,7 @@ export default function HotelTab({ data, setData }) {
                   return { ...prev, children: prev.children + 1 };
                 })
               }
-              className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 flex items-center justify-center"
-              type="button"
+              className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
             >
               +
             </button>
@@ -280,182 +289,14 @@ export default function HotelTab({ data, setData }) {
         </div>
       </div>
 
-      {/* SAVED ROOMS */}
-      {rooms.map((room, index) => {
-        const total = room.adults + room.children;
-
-        return (
-          <div
-            key={index}
-            className="border border-neutral-700 p-4 rounded space-y-3"
-          >
-            <div className="flex justify-between items-center">
-              <p className="uppercase text-black">
-                Guests ({room.roomName} — {room.property})
-              </p>
-
-              <button
-                onClick={() => deleteRoom(index)}
-                className="border border-neutral-600 p-2 rounded hover:bg-neutral-800"
-                type="button"
-              >
-                🗑
-              </button>
-            </div>
-
-            <div className="text-black text-sm tracking-wide">
-              {format(room.checkIn, "MMM dd, yy").toUpperCase()} →
-              {format(room.checkOut, "MMM dd, yy").toUpperCase()}
-            </div>
-
-            {/* Adults */}
-            <div className="flex justify-between items-center border-t border-neutral-700 pt-2">
-              <span className="uppercase text-black">Adults</span>
-              <div className="flex items-center gap-3">
-                <button
-                  disabled={room.adults <= 1}
-                  onClick={() => updateRoomGuests(index, "adults", -1)}
-                  className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 flex items-center justify-center"
-                  type="button"
-                >
-                  -
-                </button>
-                <span>{room.adults}</span>
-                <button
-                  disabled={total >= 3}
-                  onClick={() => updateRoomGuests(index, "adults", +1)}
-                  className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 flex items-center justify-center"
-                  type="button"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-
-            {/* Children */}
-            <div className="flex justify-between items-center border-t border-neutral-700 pt-2">
-              <span className="uppercase text-black">Children</span>
-              <div className="flex items-center gap-3">
-                <button
-                  disabled={room.children <= 0}
-                  onClick={() => updateRoomGuests(index, "children", -1)}
-                  className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 flex items-center justify-center"
-                  type="button"
-                >
-                  -
-                </button>
-                <span>{room.children}</span>
-                <button
-                  disabled={total >= 3}
-                  onClick={() => updateRoomGuests(index, "children", +1)}
-                  className="w-6 h-6 rounded-full border border-neutral-500 disabled:border-neutral-700 disabled:text-neutral-700 flex items-center justify-center"
-                  type="button"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-
-      {/* ADD ROOM */}
-      <button
-        onClick={addRoom}
-        className="border border-neutral-600 px-4 py-2 rounded flex items-center gap-2 cursor-pointer group hover:bg-green-500"
-        type="button"
-      >
-        <span className="uppercase text-xs group-hover:text-white">
-          Add Room
-        </span>
-        <span className=" group-hover:text-white text-lg">+</span>
-      </button>
-
-      {/* CTA BUTTONS */}
-      <div className="flex w-full items-center mt-2">
+      {/* ---------------- CTA BUTTONS ---------------- */}
+      <div className="w-full mt-2">
         <button
           type="button"
-          onClick={async () => {
-            if (rooms.length === 0) {
-              toast.custom(
-                <TerratoneToast message="Please add at least one room." />
-              );
-              return;
-            }
-
-            try {
-              const finalRooms = rooms.map((r, i) => ({
-                ...r,
-                roomName: `${i + 1}`,
-              }));
-
-              const payload = {
-                ...data,
-                fullName: data.fullName || "",
-                phone: data.phone || "",
-                rooms: finalRooms,
-              };
-
-              const res = await fetch("/api/hotel", {
-                method: "POST",
-                body: JSON.stringify(payload),
-              });
-
-              const json = await res.json();
-
-              if (json.success) {
-                const primary = finalRooms[0];
-                const summary = `Booked: ${primary.property} • ${primary.adults} Adults, ${primary.children} Children`;
-
-                toast.custom(
-                  <TerratoneToast message={`Hotel enquiry sent! ${summary}`} />
-                );
-              }
-            } catch (err) {}
-          }}
-          className="flex-1 bg-white text-black hover:text-white hover:bg-green-600 py-3 font-semibold text-sm tracking-wide uppercase cursor-pointer transition-all border-1"
+          onClick={submit}
+          className="w-full bg-white text-black hover:text-white hover:bg-black  py-3 font-semibold text-sm tracking-wide uppercase cursor-pointer transition-all border border-black"
         >
-          Enquire Now
-        </button>
-
-        <button
-          type="button"
-          onClick={async () => {
-            if (rooms.length === 0) {
-              toast.custom(
-                <TerratoneToast message="Please add at least one room." />
-              );
-              return;
-            }
-
-            try {
-              const finalRooms = rooms.map((r, i) => ({
-                ...r,
-                roomName: `${i + 1}`,
-              }));
-
-              const payload = { ...data, rooms: finalRooms };
-
-              const res = await fetch("/api/hotel", {
-                method: "POST",
-                body: JSON.stringify(payload),
-              });
-
-              const json = await res.json();
-
-              if (json.success) {
-                const primary = finalRooms[0];
-                const summary = `Booked: ${primary.property} • ${primary.adults} Adults, ${primary.children} Children`;
-
-                toast.custom(
-                  <TerratoneToast message={`Hotel enquiry sent! ${summary}`} />
-                );
-              }
-            } catch (err) {}
-          }}
-          className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center border hover:text-white transition-all hover:bg-green-600 border-black cursor-pointer"
-        >
-          →
+          Check Availability →
         </button>
       </div>
     </div>

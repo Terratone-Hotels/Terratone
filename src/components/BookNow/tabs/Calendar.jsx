@@ -19,6 +19,7 @@ export default function Calendar({
   setCheckIn,
   checkOut,
   setCheckOut,
+  singleDate = false,
 }) {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const today = new Date();
@@ -39,9 +40,17 @@ export default function Calendar({
   }
 
   // Select logic
+  // Select logic
   const handleSelect = (date) => {
     if (isBefore(date, today)) return;
 
+    // ----- SINGLE DATE MODE (DiningTab) -----
+    if (singleDate) {
+      setCheckIn(date); // always overwrite selected date
+      return;
+    }
+
+    // ----- RANGE MODE (HotelTab) -----
     if (!checkIn || (checkIn && checkOut)) {
       setCheckIn(date);
       setCheckOut(null);
@@ -60,25 +69,31 @@ export default function Calendar({
     checkIn && checkOut && day > checkIn && day < checkOut;
 
   return (
-    <div className="text-black mt-4 select-none pb-4">
+    <div className="text-black font-barlow select-none p-8 ">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <button onClick={prevMonth} className="p-2 hover:text-white">
-          ←
+        {/* Left button (rotated 180°) */}
+        <button onClick={prevMonth} className="p-2 cursor-pointer">
+          <img src="/right-arrow.svg" alt="Left Arrow" className="w-5 h-5 " />
         </button>
 
-        <div className="uppercase tracking-wide text-sm">
+        <div className="uppercase tracking-wide text-lg">
           {format(currentMonth, "yyyy")} &nbsp; {format(currentMonth, "LLLL")}
         </div>
 
-        <button onClick={nextMonth} className="p-2 hover:text-black">
-          →
+        {/* Right button */}
+        <button onClick={nextMonth} className="p-2 cursor-pointer">
+          <img
+            src="/right-arrow.svg"
+            alt="Right Arrow"
+            className="w-5 h-5 rotate-180"
+          />
         </button>
       </div>
 
       {/* Week Labels */}
-      <div className="grid grid-cols-7 text-center text-neutral-900 text-xs mb-3 border-b pb-2">
-        {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
+      <div className="grid grid-cols-7 text-center text-neutral-600 text-lg mb-3 pb-2">
+        {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d, i) => (
           <div key={i}>{d}</div>
         ))}
       </div>
@@ -100,7 +115,7 @@ export default function Calendar({
                 disabled={isPast}
                 onClick={() => handleSelect(dayItem)}
                 className={`
-                  w-10 h-10 flex items-center justify-center rounded-full text-sm transition-all
+                  w-10 h-10 flex items-center justify-center  text-lg transition-all
 
                   ${
                     isPast
@@ -108,18 +123,13 @@ export default function Calendar({
                       : "text-black cursor-pointer"
                   }
 
-                  ${isSelected ? "bg-green-600 text-white font-semibold" : ""}
+                  ${isSelected ? "bg-black text-white font-semibold" : ""}
 
-                  ${isInRange(dayItem) ? "bg-green-600/20" : ""}
+                  ${isInRange(dayItem) ? "bg-gray-400/20" : ""}
                 `}
               >
                 {dayNumber}
               </button>
-
-              {/* Dot for checkout date */}
-              {isCheckOutDay && (
-                <div className="absolute bottom-1 w-1.5 h-1.5 bg-white rounded-full pointer-events-none"></div>
-              )}
             </div>
           );
         })}
