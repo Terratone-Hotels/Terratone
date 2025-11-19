@@ -39,12 +39,6 @@ body {
   padding: 0;
   background-color: var(--color-stone);
 }
-.fix-mobile {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  will-change: transform;
-}
-
 .hero-section [clip-path],
 .hero-section img {
   will-change: opacity, transform, clip-path;
