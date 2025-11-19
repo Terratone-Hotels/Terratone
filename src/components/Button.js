@@ -31,6 +31,7 @@ export default function Button({
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ paused: true });
 
+      // Hover animation (same as before)
       tl.to(textSpanRef.current, {
         x: -4,
         backgroundColor: "#e4a3a2",
@@ -59,19 +60,29 @@ export default function Button({
 
       const button = buttonRef.current;
 
+      // DESKTOP
       const onMouseEnter = () => tl.play();
       const onMouseLeave = () => tl.reverse();
 
-      // 🆕 Fix: reset animation on click
+      // 🟢 MOBILE — TAP SHOULD DO SAME AS DESKTOP HOVER
+      const onTouchStart = () => tl.play(); // play hover animation
+      const onTouchEnd = () => tl.reverse(); // reverse animation
+
+      // Prevent hover from staying active after click
       const onClickReset = () => tl.reverse();
 
+      // EVENT LISTENERS
       button.addEventListener("mouseenter", onMouseEnter);
       button.addEventListener("mouseleave", onMouseLeave);
+      button.addEventListener("touchstart", onTouchStart, { passive: true });
+      button.addEventListener("touchend", onTouchEnd, { passive: true });
       button.addEventListener("click", onClickReset);
 
       return () => {
         button.removeEventListener("mouseenter", onMouseEnter);
         button.removeEventListener("mouseleave", onMouseLeave);
+        button.removeEventListener("touchstart", onTouchStart);
+        button.removeEventListener("touchend", onTouchEnd);
         button.removeEventListener("click", onClickReset);
       };
     }, buttonRef);
