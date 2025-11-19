@@ -50,7 +50,7 @@ export default function MobileMenu({
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full flex flex-col items- bg-white z-40 shadow-md transition-all duration-500 ease-in-out overflow-hidden ${
+      className={`fixed top-0 left-0 w-full flex flex-col items- bg-stone z-40 shadow-md transition-all duration-500 ease-in-out overflow-hidden ${
         isOpen ? "h-screen opacity-100" : "max-h-0 opacity-0"
       }`}
     >

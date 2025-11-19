@@ -263,6 +263,7 @@ const Hero = ({ slice }) => {
 
         {/* Hero Slider */}
         <div className="relative z-10 origin-bottom">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-9 pointer-events-none" />
           <Swiper
             loop
             spaceBetween={0}
@@ -292,7 +293,6 @@ const Hero = ({ slice }) => {
                     className="w-full h-dvh object-cover"
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
               </SwiperSlide>
             ))}
           </Swiper>

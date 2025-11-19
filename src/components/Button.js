@@ -28,14 +28,11 @@ export default function Button({
   const arrowSpanRef = useRef(null);
 
   useEffect(() => {
-    // ✅ Use GSAP context for safe cleanup in React
     const ctx = gsap.context(() => {
-      // Create a single, pausable timeline for the hover effect
       const tl = gsap.timeline({ paused: true });
 
-      // Add animations to the timeline
       tl.to(textSpanRef.current, {
-        x: -4, // Equivalent to -0.25rem
+        x: -4,
         backgroundColor: "#e4a3a2",
         duration: 0.3,
         ease: "power2.out",
@@ -43,12 +40,12 @@ export default function Button({
         .to(
           arrowSpanRef.current,
           {
-            x: 4, // Equivalent to 0.25rem
+            x: 4,
             backgroundColor: "#e4a3a2",
             duration: 0.3,
             ease: "power2.out",
           },
-          "<" // Starts this animation at the same time as the previous one
+          "<"
         )
         .to(
           buttonRef.current,
@@ -57,25 +54,29 @@ export default function Button({
             duration: 0.3,
             ease: "power2.out",
           },
-          "<" // Starts this animation at the same time as the previous one
+          "<"
         );
 
-      // Event handlers to play and reverse the timeline
+      const button = buttonRef.current;
+
       const onMouseEnter = () => tl.play();
       const onMouseLeave = () => tl.reverse();
 
-      const button = buttonRef.current;
+      // 🆕 Fix: reset animation on click
+      const onClickReset = () => tl.reverse();
+
       button.addEventListener("mouseenter", onMouseEnter);
       button.addEventListener("mouseleave", onMouseLeave);
+      button.addEventListener("click", onClickReset);
 
-      // Cleanup function
       return () => {
         button.removeEventListener("mouseenter", onMouseEnter);
         button.removeEventListener("mouseleave", onMouseLeave);
+        button.removeEventListener("click", onClickReset);
       };
-    }, buttonRef); // Scope the context to the button element
+    }, buttonRef);
 
-    return () => ctx.revert(); // Cleanup GSAP animations
+    return () => ctx.revert();
   }, []);
 
   return (
