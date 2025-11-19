@@ -11,9 +11,10 @@ const PictureSection = ({ slice }) => {
   return (
     <>
       {slice.variation === "default" && (
-        <Bounded
+        <section
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
+          className="px-[0.9375rem] md:px-6 mt-15 lg:mt-20"
         >
           <div className="w-full h-dvh">
             <CurtainRevealImage
@@ -21,7 +22,7 @@ const PictureSection = ({ slice }) => {
               className="w-full h-full object-cover"
             />
           </div>
-        </Bounded>
+        </section>
       )}
 
       {slice.variation === "doublePictures" && (

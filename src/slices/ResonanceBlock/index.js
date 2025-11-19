@@ -51,10 +51,10 @@ const ResonanceBlock = ({ slice }) => {
         </Bounded>
       )}
       {slice.variation === "roomNarrative" && (
-        <Bounded
+        <section
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className={" h-auto relative "}
+          className="px-[0.9375rem] md:px-6 mt-15 lg:mt-33"
         >
           <div className="text-black capitalize font-medium text-center font-serif text-[32px] md:text-[2.813rem] lg:text-[42px] leading-11 mb-5 md:mb-10">
             <RichTextRenderer field={slice.primary.heading} />
@@ -62,7 +62,7 @@ const ResonanceBlock = ({ slice }) => {
           <div>
             <CurtainRevealImage
               field={slice.primary.horizontal_image}
-              className="h-[196px] w-full object-cover lg:h-[33.938rem] "
+              className="h-[196px] w-full object-cover lg:h-[620px] "
             />
           </div>
           {/* OverLapping image and text */}
@@ -104,7 +104,7 @@ const ResonanceBlock = ({ slice }) => {
               <div></div>
             </div>
           </div>
-        </Bounded>
+        </section>
       )}
     </>
   );
