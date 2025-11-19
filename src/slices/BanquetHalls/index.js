@@ -100,9 +100,9 @@ export default function BanquetHalls({ slice }) {
   }, []);
 
   return (
-    <Bounded
+    <section
       ref={containerRef}
-      className="relative  h-[80vh] md:h-auto items-center overflow-hidden"
+      className="relative  h-[80vh] md:h-auto items-center px-[0.9375rem] md:px-6 mt-5 lg:mt-35 overflow-hidden"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
@@ -154,6 +154,6 @@ export default function BanquetHalls({ slice }) {
           </div>
         </div>
       </div>
-    </Bounded>
+    </section>
   );
 }

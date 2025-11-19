@@ -73,7 +73,7 @@ const RoomShowcaseSlice = ({ slice }) => {
               <RichTextRenderer field={slice.primary.heading} />
             </div>
           </div>
-          <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center gap-6 ">
+          <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap justify-center items-center gap-6 ">
             {slice.primary.room_card.map((item, index) => (
               <RoomCard
                 key={index}
@@ -84,7 +84,7 @@ const RoomShowcaseSlice = ({ slice }) => {
                 linkText={item.button_text}
                 className="group relative"
                 titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
-                descriptionClassName="font-barlow text-xs"
+                descriptionClassName="font-barlow text-sm"
                 showMobileButton={true}
               />
             ))}

@@ -8,6 +8,7 @@ import MobileMenu from "./MobileMenu";
 import Button from "@/components/Button";
 import BookNowModal from "./BookNow/BookNowModal";
 import { usePathname } from "next/navigation";
+import { gsap } from "gsap";
 
 const HamburgerIcon = (props) => (
   <svg
@@ -78,14 +79,8 @@ export default function HeaderClient({ headerData }) {
   const hideOnMobileOpen = isMenuOpen ? "invisible lg:visible" : "";
 
   // 1) Scroll hide/show effect — runs once
-  // 1) Scroll hide/show effect — DESKTOP ONLY
   useEffect(() => {
     if (typeof window === "undefined") return;
-
-    // Only run scroll animation on desktop screens (lg: 1024px+)
-    const mq = window.matchMedia("(min-width: 1024px)");
-    if (!mq.matches) return; // <-- Mobile/tablet: STOP here
-
     const headerEl = headerRef.current;
 
     const handleScroll = () => {
@@ -99,7 +94,7 @@ export default function HeaderClient({ headerData }) {
       scrollTimeout.current = setTimeout(() => {
         buttonRef.current.style.transform = "translateY(0%)";
         headerEl.style.transform = "translateY(0%)";
-      }, 150);
+      }, 60);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -109,26 +104,19 @@ export default function HeaderClient({ headerData }) {
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
   }, []);
-
   // 2) Hero intersection observer — runs on every route change
-  // 2) Hero intersection observer — DESKTOP ONLY
   useEffect(() => {
     const headerEl = headerRef.current;
     if (!headerEl) return;
 
-    // Only run blend-difference on desktop screens
-    const mq = window.matchMedia("(min-width: 1024px)");
-    if (!mq.matches) {
-      // Mobile/tablet → ensure blend is OFF
-      headerEl.classList.remove("mix-blend-difference");
-      return;
-    }
-
-    // Desktop → blend ON by default
+    // always start with blend ON
     headerEl.classList.add("mix-blend-difference");
 
     const hero = document.querySelector("[data-hero-slice]");
-    if (!hero) return;
+    if (!hero) {
+      // no hero slice -> keep blend
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -146,13 +134,46 @@ export default function HeaderClient({ headerData }) {
     return () => observer.disconnect();
   }, [pathname]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const links = document.querySelectorAll(".navlink");
+
+    links.forEach((link) => {
+      const bar = link.querySelector(".underline-bar");
+
+      link.addEventListener("mouseenter", () => {
+        gsap.to(bar, {
+          scaleX: 1,
+          duration: 0.35,
+          ease: "power3.out",
+        });
+      });
+
+      link.addEventListener("mouseleave", () => {
+        gsap.to(bar, {
+          scaleX: 0,
+          duration: 0.35,
+          ease: "power3.inOut",
+        });
+      });
+    });
+
+    return () => {
+      links.forEach((link) => {
+        const bar = link.querySelector(".underline-bar");
+        gsap.killTweensOf(bar);
+      });
+    };
+  }, []);
+
   return (
     <div className="relative">
       <header
         ref={headerRef}
-        className=" fixed top-0 bg-stone lg:bg-transparent  z-50 w-full flex flex-row items-center justify-between  lg:px-6 py-4 transition-transform duration-300 ease-in-out"
+        className=" fixed top-0   z-50 w-full flex flex-row items-center justify-between  lg:px-6 py-4 transition-transform duration-300 ease-in-out"
       >
-        <div className={`   text-black lg:text-white`}>
+        <div className={`   text-white`}>
           <PrismicNextLink href={"/"} className="inline-block">
             <TerratoneLogo className="scale-79 sm:scale-85 lg:scale-100" />
           </PrismicNextLink>
@@ -165,9 +186,10 @@ export default function HeaderClient({ headerData }) {
               <li key={index}>
                 <PrismicNextLink
                   field={item.link}
-                  className="font-barlow uppercase text-sm font-medium text-white  "
+                  className="navlink font-barlow uppercase text-sm font-medium text-white relative inline-block"
                 >
                   {item.link_lable}
+                  <span className="underline-bar absolute left-0 bottom-[-2px] h-[1px] w-full bg-white scale-x-0 origin-left"></span>
                 </PrismicNextLink>
               </li>
             ))}
@@ -195,30 +217,19 @@ cursor-pointer`}
           </Button>
           <BookNowModal isOpen={open} onClose={() => setOpen(false)} />
           {/* Mobile Toggle Button */}
-          {/* Mobile Toggle Button */}
           <button
             onClick={() => setIsMenuOpen((prev) => !prev)}
-            className="lg:hidden block ml-4 mt-1 relative w-8 h-6"
+            className="lg:hidden block ml-4 mt-1"
             aria-label="Toggle menu"
           >
-            {/* Hamburger → X transition */}
-            <span
-              className={`
-      absolute inset-0 flex items-center justify-center transition-all duration-300
-      ${isMenuOpen ? "opacity-0 rotate-45 scale-75" : "opacity-100 rotate-0 scale-100"}
-    `}
-            >
-              <HamburgerIcon className="h-3 w-8 text-black lg:text-white" />
-            </span>
-
-            <span
-              className={`
-      absolute inset-0 flex items-center justify-center transition-all duration-300
-      ${isMenuOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-45 scale-75"}
-    `}
-            >
-              <XMarkIcon className="h-4 w-8 text-black" />
-            </span>
+            {isMenuOpen ? (
+              <XMarkIcon className="h-3 w-8 text-black" aria-hidden="true" />
+            ) : (
+              <HamburgerIcon
+                className="h-3 w-8 text-white"
+                aria-hidden="true"
+              />
+            )}
           </button>
         </div>
       )}
