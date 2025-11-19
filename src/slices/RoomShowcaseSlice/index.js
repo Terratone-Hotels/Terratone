@@ -60,7 +60,7 @@ const RoomShowcaseSlice = ({ slice }) => {
                 linkText={item.button_text}
                 className="group relative"
                 titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
-                descriptionClassName="font-barlow text-xs"
+                descriptionClassName="font-barlow text-sm"
                 showMobileButton={true}
               />
             ))}
@@ -72,7 +72,7 @@ const RoomShowcaseSlice = ({ slice }) => {
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
         >
-          <div className="flex flex-col items-center mb-10">
+          <div className="flex flex-col items-center mb-4 lg:mb-10">
             <div className="text-center font-serif font-medium lg:leading-14 leading-tight text-[30px] lg:text-[60px]">
               <RichTextRenderer field={slice.primary.heading} />
             </div>
@@ -88,7 +88,7 @@ const RoomShowcaseSlice = ({ slice }) => {
                 linkText={item.button_text}
                 className="group relative"
                 titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
-                descriptionClassName="font-barlow text-xs"
+                descriptionClassName="font-barlow text-sm"
                 showMobileButton={true}
               />
             ))}
