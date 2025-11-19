@@ -8,6 +8,7 @@ import MobileMenu from "./MobileMenu";
 import Button from "@/components/Button";
 import BookNowModal from "./BookNow/BookNowModal";
 import { usePathname } from "next/navigation";
+import useBookNowModal from "../hooks/useBookNowModal";
 
 const HamburgerIcon = (props) => (
   <svg
@@ -73,12 +74,19 @@ export default function HeaderClient({ headerData }) {
   const [open, setOpen] = useState(false);
   const data = headerData;
   const pathname = usePathname();
+  const openGlobal = useBookNowModal((s) => s.openGlobal);
+  const closeGlobal = useBookNowModal((s) => s.closeFromOutside);
 
   // Style to hide elements when the menu is open on mobile
   const hideOnMobileOpen = isMenuOpen ? "invisible lg:visible" : "";
 
-  // 1) Scroll hide/show effect — runs once
-  // 1) Scroll hide/show effect — DESKTOP ONLY
+  useEffect(() => {
+    if (openGlobal) {
+      setOpen(true); // Open your modal
+      closeGlobal(); // Reset global state
+    }
+  }, [openGlobal, closeGlobal]);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
