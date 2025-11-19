@@ -150,9 +150,9 @@ export default function HeaderClient({ headerData }) {
     <div className="relative">
       <header
         ref={headerRef}
-        className=" fixed top-0 bg-stone md:bg-transparent  z-50 w-full flex flex-row items-center justify-between  lg:px-6 py-4 transition-transform duration-300 ease-in-out"
+        className=" fixed top-0 bg-stone lg:bg-transparent  z-50 w-full flex flex-row items-center justify-between  lg:px-6 py-4 transition-transform duration-300 ease-in-out"
       >
-        <div className={`   text-black md:text-white`}>
+        <div className={`   text-black lg:text-white`}>
           <PrismicNextLink href={"/"} className="inline-block">
             <TerratoneLogo className="scale-79 sm:scale-85 lg:scale-100" />
           </PrismicNextLink>
@@ -208,7 +208,7 @@ cursor-pointer`}
       ${isMenuOpen ? "opacity-0 rotate-45 scale-75" : "opacity-100 rotate-0 scale-100"}
     `}
             >
-              <HamburgerIcon className="h-3 w-8 text-black md:text-white" />
+              <HamburgerIcon className="h-3 w-8 text-black lg:text-white" />
             </span>
 
             <span
