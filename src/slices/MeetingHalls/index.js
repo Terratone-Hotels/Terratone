@@ -68,7 +68,7 @@ const MeetingHalls = ({ slice }) => {
             <DotWave />
 
             {/* Headings */}
-            <div className="max-w-3xl mx-auto text-center mb-14 px-4 mt-8 md:mt-12">
+            <div className="max-w-3xl mx-auto text-center mb-5 lg:mb-14 px-4 mt-8 md:mt-12">
               <RichTextRenderer
                 field={slice.primary.heading}
                 className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 leading-6 lg:leading-10 lg:mb-8"

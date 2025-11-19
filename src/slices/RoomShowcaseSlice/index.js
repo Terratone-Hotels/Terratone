@@ -68,7 +68,7 @@ const RoomShowcaseSlice = ({ slice }) => {
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
         >
-          <div className="flex flex-col items-center mb-10">
+          <div className="flex flex-col items-center mb-5 lg:mb-10">
             <div className="text-center font-serif font-medium lg:leading-14 leading-tight text-[30px] lg:text-[60px]">
               <RichTextRenderer field={slice.primary.heading} />
             </div>

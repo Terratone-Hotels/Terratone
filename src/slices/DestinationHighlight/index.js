@@ -13,7 +13,11 @@ const DestinationHighlight = ({ slice }) => {
   return (
     <>
       {slice.variation === "default" && (
-        <div className="flex flex-col md:flex-row md:justify-between gap-2 lg:gap-5 items-start px-[0.9375rem] md:px-6 mt-5 lg:mt-35">
+        <div
+          data-slice-type={slice.slice_type}
+          data-slice-variation={slice.variation}
+          className="flex flex-col md:flex-row md:justify-between gap-2 lg:gap-5 items-start px-[0.9375rem] md:px-6 mt-15 lg:mt-35"
+        >
           {/* Left Side Text */}
           <div className="md:w-[33%] space-y-3 lg:space-y-5  md:sticky md:top-15">
             {/* Animated Heading */}
