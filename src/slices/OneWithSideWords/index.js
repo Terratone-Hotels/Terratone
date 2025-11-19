@@ -119,7 +119,7 @@ export default function OneWithSideWords({ slice }) {
       ref={sectionRef}
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex flex-col items-center justify-center text-center overflow-hidden"
+      className="flex flex-col items-center justify-center text-center overflow-hidden pb-10 lg:pb-0"
     >
       {/* =================== Top Heading =================== */}
       <div
@@ -130,7 +130,7 @@ export default function OneWithSideWords({ slice }) {
       </div>
 
       {/* =================== Video + Side Words =================== */}
-      <div className="flex justify-evenly  w-full h-auto mt-4 relative">
+      <div className="flex justify-evenly  w-full h-auto mt-3 lg:mt-4 relative">
         {/* Left Word */}
         <div className="relative flex-1 w-[20%] lg:w-auto flex items-center justify-center">
           <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium -rotate-90 lg:rotate-0 lg:text-right lg:pr-4 ">
@@ -171,12 +171,12 @@ export default function OneWithSideWords({ slice }) {
       </div>
 
       {/* =================== Description =================== */}
-      <div className="mt-8 leading-tight font-barlow text-sm md:text-[18px] text-black text-center">
+      <div className="mt-4 lg:mt-8 leading-tight font-barlow text-sm md:text-[18px] text-black text-center">
         <RichTextRenderer field={slice.primary.description} />
       </div>
 
       {/* =================== Buttons =================== */}
-      <div className="mt-6 lg:mt-4 flex justify-center items-center gap-2">
+      <div className="mt-4 lg:mt-4 flex justify-center items-center gap-2">
         <Button className="font-barlow px-2.5 py-1 tracking-wide">
           <PrismicNextLink field={slice.primary.cta_button}></PrismicNextLink>
         </Button>

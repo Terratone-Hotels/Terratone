@@ -102,7 +102,7 @@ export default function BanquetHalls({ slice }) {
   return (
     <Bounded
       ref={containerRef}
-      className="relative  h-auto items-center overflow-hidden"
+      className="relative  h-[80vh] md:h-auto items-center overflow-hidden"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
@@ -139,7 +139,7 @@ export default function BanquetHalls({ slice }) {
             >
               <RichTextRenderer
                 field={slice.primary.description}
-                className="text-[0.8125rem] sm:text-[0.9375rem] md:text-lg font-barlow text-white tracking-wide leading-snug md:leading-tight"
+                className="text-sm sm:text-[0.9375rem] md:text-lg font-barlow text-white tracking-wide leading-snug md:leading-tight"
               />
             </div>
 

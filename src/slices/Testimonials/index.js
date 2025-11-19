@@ -11,8 +11,8 @@ export default function Testimonials({ slice }) {
   return (
     <Bounded>
       <div className="flex flex-col items-center text-center md:max-w-[60rem] mx-auto">
-        <div className="flex text-5xl font-medium font-serif text-stone-800 mb-6">
-          <QuoteIcon />
+        <div className="flex text-5xl font-medium font-serif text-stone-800 mb-4 lg:mb-6">
+          <QuoteIcon color="#3E5B39" />
         </div>
 
         <Swiper
@@ -29,10 +29,10 @@ export default function Testimonials({ slice }) {
         >
           {slice.primary.testimonials.map((item, i) => (
             <SwiperSlide key={i}>
-              <div className="p-6 text-lg font-barlow mx-auto md:text-xl select-none">
+              <div className="px-6 text-[1rem] leading-tight font-barlow md:text-xl select-none">
                 <RichTextRenderer field={item.quote} />
               </div>
-              <div className="text-gray-600 font-serif text-2xl select-none">{item.names}</div>
+              <div className="text-gray-600 font-serif text-[1rem] mt-4 font-medium select-none">{item.names}</div>
             </SwiperSlide>
           ))}
         </Swiper>

@@ -64,6 +64,7 @@ export default function Footer({ footerData }) {
         logo,
         {
           opacity: 1,
+          y:20,
           duration: 1.2,
           ease: "power2.out",
         },
@@ -76,7 +77,7 @@ export default function Footer({ footerData }) {
 
   return (
     <Bounded>
-      <footer ref={footerRef} className="w-full mb-2">
+      <footer ref={footerRef} className="w-full mb-10">
         {/* MAIN DESKTOP FOOTER */}
         <div className="hidden lg:block w-full">
           {/* ------------------------------ */}
@@ -293,9 +294,9 @@ export default function Footer({ footerData }) {
 
           {/* THIRD ROW + LOGO LINE */}
           <div className="relative w-full mt-[2px] ">
-            <div className="footer-line-horizontal footer-line-3 absolute top-0 left-0 h-[1px] w-full bg-[#C7C7C7]" />
+            <div className="footer-line-horizontal footer-line-3 absolute top-0 left-0 h-[1px] w-full bg-[#C7C7C7] " />
 
-            <div className="footer-logo">
+            <div className="footer-logo ">
               <FooterLogo />
             </div>
           </div>
@@ -320,14 +321,28 @@ export default function Footer({ footerData }) {
             <div className="uppercase text-xs font-medium tracking-widest">
               <PrismicRichText field={data.menu} />
             </div>
-            <div className="flex font-serif text-[28px] font-medium flex-wrap justify-center">
-              {data.footer_links.map((item, index) => (
-                <div key={index} className="basis-1/3 text-center">
-                  <PrismicNextLink field={item.page_link}>
-                    {item.page_name}
-                  </PrismicNextLink>
-                </div>
-              ))}
+            <div className="font-serif text-[28px] font-medium">
+              {/* Row 1 */}
+              <div className="flex flex-wrap gap-7 justify-center max-w-[600px] mx-auto">
+                {data.footer_links.slice(0, 3).map((item, index) => (
+                  <div key={index} className=" text-center">
+                    <PrismicNextLink field={item.page_link}>
+                      {item.page_name}
+                    </PrismicNextLink>
+                  </div>
+                ))}
+              </div>
+
+              {/* Row 2 */}
+              <div className="flex flex-wrap gap-7 justify-center">
+                {data.footer_links.slice(3).map((item, index) => (
+                  <div key={index} className="basis-1/3 text-center">
+                    <PrismicNextLink field={item.page_link}>
+                      {item.page_name}
+                    </PrismicNextLink>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           {/* Second Row */}
@@ -370,20 +385,11 @@ export default function Footer({ footerData }) {
                 ))}
               </div>
             </div>
-            <div className="font-medium uppercase text-xs tracking-widest">
-              {data.page_links.map((item, index) => (
-                <div key={index}>
-                  <PrismicNextLink field={item.page_link}>
-                    {item.page_title}
-                  </PrismicNextLink>
-                </div>
-              ))}
-            </div>
           </div>
           {/* Third Row */}
           {/* Locations */}
-          <div className="flex  px-2 py-6 border-b lg:hidden border-[#c7c7c7]">
-            <div className="w-[50%]">
+          <div className="flex flex-row justify-between px-2 py-6 border-b lg:hidden border-[#c7c7c7]">
+            <div className="w-[50%] sm:w-[40%]">
               <div className="font-medium uppercase text-xs tracking-widest mb-1.5">
                 <PrismicRichText field={data.address_heading} />
               </div>
@@ -396,19 +402,25 @@ export default function Footer({ footerData }) {
                 </PrismicNextLink>
               </div>
             </div>
-            <div className="flex w-[50%] mt-5.5 justify-center gap-2 flex-row">
-              {data.directions.map((item, index) => (
-                <div key={index} className="flex  gap-0.5">
-                  <span className="text-xs text-[#8E8E8E] font-medium ">
-                    {item.place}
-                  </span>
-                  <div className=" text-xs text-[#5B5B5B] font-medium underline underline-offset-2">
-                    <FooterLinkMobile field={item.distance_link}>
-                      {item.distance}
-                    </FooterLinkMobile>
+            {/* Distance to Nearest */}
+            <div className="flex flex-col ">
+              <div className="text-xs tracking-widest uppercase mb-1.5 font-medium">
+                <PrismicRichText field={data.heading_for_directions} />
+              </div>
+              <div className="flex self-end flex-col gap-3 ">
+                {data.directions.map((item, index) => (
+                  <div key={index} className="flex  text-start gap-0.5">
+                    <span className="text-xs text-[#8E8E8E] font-medium ">
+                      {item.place}
+                    </span>
+                    <div className=" text-xs text-[#5B5B5B] font-medium underline underline-offset-2">
+                      <FooterLinkMobile field={item.distance_link}>
+                        {item.distance}
+                      </FooterLinkMobile>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
           {/* Fourth Row */}
@@ -452,7 +464,7 @@ export default function Footer({ footerData }) {
               </div>
             </div>
             <div>
-              <div className=" flex  flex-col text-center justify-end text-xs">
+              <div className=" flex  flex-col text-start justify-end text-xs">
                 {data.follow_links.map((item, index) => (
                   <div key={index}>
                     <PrismicNextLink field={item.link}>

@@ -58,7 +58,7 @@ const TaglineHeroSlice = ({ slice }) => {
 
   return (
     <Bounded
-      className="max-w-[90rem] mx-auto"
+      className="max-w-[90rem]"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
@@ -68,7 +68,7 @@ const TaglineHeroSlice = ({ slice }) => {
       >
         {/* First Line */}
         <div className="flex flex-row gap-2 md:gap-6 items-center">
-          <div className="hero-text text-[2rem] md:text-[4rem] lg:text-[6.188rem] font-serif italic">
+          <div className="hero-text text-[35px] md:text-[4rem] lg:text-[6.188rem] font-serif italic">
             <PrismicRichText field={slice.primary.textfieldone} />
           </div>
 
@@ -87,14 +87,14 @@ const TaglineHeroSlice = ({ slice }) => {
             )}
           </div>
 
-          <div className="hero-text font-serif text-[2rem] md:text-[4rem] lg:text-[6.188rem]">
+          <div className="hero-text font-serif text-[35px] md:text-[4rem] lg:text-[6.188rem]">
             <PrismicRichText field={slice.primary.textfieldtwo} />
           </div>
         </div>
 
         {/* Second Line */}
         <div className="flex flex-row items-center gap-2 md:gap-6">
-          <div className="hero-text font-serif text-[2rem] md:text-[4rem] lg:text-[6.188rem]">
+          <div className="hero-text font-serif text-[35px] md:text-[4rem] lg:text-[6.188rem]">
             <PrismicRichText field={slice.primary.textfieldthree} />
           </div>
 
@@ -113,14 +113,14 @@ const TaglineHeroSlice = ({ slice }) => {
             )}
           </div>
 
-          <div className="hero-text font-serif italic text-[2rem] md:text-[4rem] lg:text-[6.188rem]">
+          <div className="hero-text font-serif italic text-[35px] md:text-[4rem] lg:text-[6.188rem]">
             <PrismicRichText field={slice.primary.textfieldfour} />
           </div>
         </div>
 
         {/* Third Line */}
         <div className="flex flex-row gap-2 md:gap-6 items-center">
-          <div className="hero-text font-serif text-[2rem] md:text-[4rem] lg:text-[6.188rem]">
+          <div className="hero-text font-serif text-[35px] md:text-[4rem] lg:text-[6.188rem]">
             <PrismicRichText field={slice.primary.textfieldfive} />
           </div>
 
@@ -139,7 +139,7 @@ const TaglineHeroSlice = ({ slice }) => {
             )}
           </div>
 
-          <div className="hero-text font-serif text-[2rem] md:text-[4rem] lg:text-[6.188rem]">
+          <div className="hero-text font-serif text-[35px] md:text-[4rem] lg:text-[6.188rem]">
             <PrismicRichText field={slice.primary.textfieldsix} />
           </div>
         </div>
