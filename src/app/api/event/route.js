@@ -25,26 +25,44 @@ export async function POST(req) {
       to: "marketing@terratonehotels.com",
       subject: "New Event Enquiry",
       html: `
-<div style="background:#000; padding:40px; font-family:Arial, sans-serif;">
-  <div style="
-      max-width:650px; 
-      margin:0 auto; 
-      background:#0d0d0d; 
-      padding:32px; 
-      border-radius:14px; 
-      border:1px solid #1a1a1a;
-      color:#f4f1ed;
-  ">
+<div style="padding:40px; background:#F4F1ED; font-family:'EB Garamond', Georgia, serif; color:#333;">
+ 
+<div style="max-width:650px; margin:0 auto; border:1px solid #ddd; padding:40px;">
 
-    <!-- HEADER -->
-    <h1 style="margin:0; color:#e4a3a2; font-size:28px; font-weight:600;">
-      Terratone | Event Enquiry
-    </h1>
+    <!-- Logo -->
+    <div style="margin-bottom:30px;">
+      <img
+        src="https://terratone.vercel.app/mail-logo.png"
+        alt="Terratone"
+        style="height:18px; display:block;"
+      />
+    </div>
 
-    <p style="color:#c6bdb5; margin-top:10px; font-size:15px;">
-      A new event enquiry has been submitted.
+    <!-- Header Row -->
+   <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 10px;">
+  <tr>
+    <!-- Table cell for the logo image -->
+    <td style="padding-right: 12px; vertical-align: middle;">
+      <img
+        src="https://terratone.vercel.app/mail-dinner-logo.png"
+        alt="Terratone"
+        style="height: 32px; display: block; border: 0;"
+        width="52"
+        height="32"
+      />
+    </td>
+    <!-- Table cell for the heading text -->
+    <td style="vertical-align: middle;">
+      <h1 style="margin: 0; font-size: 50px; font-family: sans-serif; color: #000000; line-height: 1;">
+        Dining Reservation
+      </h1>
+    </td>
+  </tr>
+</table>
+
+    <p style="margin-top:8px; font-size:16px; color:#666;">
+      A new Event room enquiry has been submitted
     </p>
-
     <hr style="border:0; border-top:1px solid #222; margin:28px 0;" />
 
     <!-- CONTACT -->
@@ -55,15 +73,15 @@ export async function POST(req) {
     <table style="width:100%; font-size:15px; line-height:1.7; text-transform:none;">
       <tr>
         <td style="color:#c6bdb5; width:150px;">Name</td>
-        <td style="color:#f4f1ed;">${firstName} ${lastName}</td>
+        <td style="color:black;">${firstName} ${lastName}</td>
       </tr>
       <tr>
         <td style="color:#c6bdb5;">Email</td>
-        <td style="color:#f4f1ed;">${email}</td>
+        <td style="color:black;">${email}</td>
       </tr>
       <tr>
         <td style="color:#c6bdb5;">Phone</td>
-        <td style="color:#f4f1ed;">${phone}</td>
+        <td style="color:black;">${phone}</td>
       </tr>
     </table>
 
@@ -77,17 +95,17 @@ export async function POST(req) {
     <table style="width:100%; font-size:15px; line-height:1.7; text-transform:none;">
       <tr>
         <td style="color:#c6bdb5; width:150px;">Event Type</td>
-        <td style="color:#f4f1ed;">${eventType}</td>
+        <td style="color:black;">${eventType}</td>
       </tr>
 
       <tr>
         <td style="color:#c6bdb5;">Room</td>
-        <td style="color:#f4f1ed;">${selectedRoom}</td>
+        <td style="color:black;">${selectedRoom}</td>
       </tr>
 
       <tr>
         <td style="color:#c6bdb5;">Date</td>
-        <td style="color:#f4f1ed;">
+        <td style="color:black;">
           ${new Date(date).toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
@@ -98,17 +116,17 @@ export async function POST(req) {
 
       <tr>
         <td style="color:#c6bdb5;">Starts</td>
-        <td style="color:#f4f1ed;">${startTime}</td>
+        <td style="color:black;">${startTime}</td>
       </tr>
 
       <tr>
         <td style="color:#c6bdb5;">Ends</td>
-        <td style="color:#f4f1ed;">${endTime}</td>
+        <td style="color:black;">${endTime}</td>
       </tr>
 
       <tr>
         <td style="color:#c6bdb5;">People</td>
-        <td style="color:#f4f1ed;">${people}</td>
+        <td style="color:black;">${people}</td>
       </tr>
     </table>
 
@@ -116,9 +134,9 @@ export async function POST(req) {
     ${
       notes?.trim()
         ? `
-        <div style="margin-top:30px; border:1px solid #1f1f1f; padding:18px 20px; border-radius:10px; background:#0b0b0b;">
+      <div style=" background:#F4F1ED; font-family:'EB Garamond', Georgia, serif; color:#333;">
           <p style="color:#96703b; margin:0 0 6px; font-weight:600;">Notes:</p>
-          <p style="margin:0; color:#c6bdb5; white-space:pre-line;">${notes}</p>
+          <p style="margin:0; color:black; white-space:pre-line;">${notes}</p>
         </div>
       `
         : ""
@@ -128,7 +146,6 @@ export async function POST(req) {
       Terratone Hotels · Automated Event Notification
     </p>
 
-  </div>
 </div>
 `,
     });

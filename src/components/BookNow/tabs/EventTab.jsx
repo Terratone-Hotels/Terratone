@@ -26,6 +26,27 @@ export default function EventTab({ data, setData }) {
   const dateRef = useRef(null);
   const startTimeRef = useRef(null);
   const endTimeRef = useRef(null);
+  const validate = () => {
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phone ||
+      !eventType ||
+      !selectedRoom ||
+      !date ||
+      !startTime ||
+      !endTime ||
+      !people ||
+      people < 1
+    ) {
+      toast.custom(
+        <TerratoneToast message="Please complete all required fields." />
+      );
+      return false;
+    }
+    return true;
+  };
 
   return (
     <div className="space-y-8">
@@ -119,7 +140,7 @@ export default function EventTab({ data, setData }) {
         >
           <span
             className={`text-sm uppercase ${
-              date ? "text-neutral-200" : "text-neutral-500"
+              date ? "text-neutral-500" : "text-neutral-800"
             }`}
           >
             {date || "EVENT DATE *"}
@@ -141,7 +162,7 @@ export default function EventTab({ data, setData }) {
         >
           <span
             className={`text-sm uppercase ${
-              startTime ? "text-neutral-200" : "text-neutral-500"
+              startTime ? "text-neutral-500" : "text-neutral-800"
             }`}
           >
             {startTime || "START TIME *"}
@@ -163,7 +184,7 @@ export default function EventTab({ data, setData }) {
         >
           <span
             className={`text-sm uppercase ${
-              endTime ? "text-neutral-200" : "text-neutral-500"
+              endTime ? "text-neutral-500" : "text-neutral-800"
             }`}
           >
             {endTime || "END TIME *"}
@@ -188,7 +209,7 @@ export default function EventTab({ data, setData }) {
             min={1}
             value={people}
             onChange={(e) => setData({ ...data, people: e.target.value })}
-            className="w-full bg-transparent outline-none text-sm text-neutral-200 uppercase no-spinner"
+            className="w-full bg-transparent outline-none text-sm text-neutral-800 uppercase no-spinner"
           />
         </div>
 
@@ -202,7 +223,7 @@ export default function EventTab({ data, setData }) {
             rows={4}
             value={notes}
             onChange={(e) => setData({ ...data, notes: e.target.value })}
-            className="w-full bg-transparent outline-none text-sm text-neutral-200 uppercase resize-none"
+            className="w-full bg-transparent outline-none text-sm text-neutral-800 uppercase resize-none"
           />
         </div>
       </div>
@@ -215,6 +236,8 @@ export default function EventTab({ data, setData }) {
         <button
           type="button"
           onClick={async () => {
+            if (!validate()) return;
+
             try {
               const res = await fetch("/api/event", {
                 method: "POST",
@@ -234,7 +257,7 @@ export default function EventTab({ data, setData }) {
               toast.custom(<TerratoneToast message="Network error" />);
             }
           }}
-          className="flex-1 bg-white text-black py-3  font-semibold text-sm uppercase tracking-wide border hover:text-white transition-all hover:bg-green-600 border-black cursor-pointer"
+          className="flex-1 bg-white text-black py-3 font-semibold text-sm uppercase tracking-wide border hover:text-white transition-all hover:bg-green-600 border-black cursor-pointer"
         >
           Submit Enquiry
         </button>
@@ -243,6 +266,8 @@ export default function EventTab({ data, setData }) {
         <button
           type="button"
           onClick={async () => {
+            if (!validate()) return;
+
             try {
               const res = await fetch("/api/event", {
                 method: "POST",

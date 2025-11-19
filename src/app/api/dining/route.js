@@ -17,26 +17,46 @@ export async function POST(req) {
       to: "marketing@terratonehotels.com",
       subject: "New Dining Reservation",
       html: `
-<div style="background:#000; padding:40px; font-family:Arial, sans-serif;">
-  <div style="
-      max-width:650px;
-      margin:0 auto;
-      background:#0d0d0d;
-      padding:32px;
-      border-radius:14px;
-      border:1px solid #1a1a1a;
-      color:#f4f1ed;
-  ">
+<div style="padding:40px; background:#F4F1ED; font-family:'EB Garamond', Georgia, serif; color:#333;">
+
 
     <!-- HEADER -->
-    <h1 style="margin:0; color:#e4a3a2; font-size:26px; font-weight:600;">
-      Terratone | Dining Reservation
-    </h1>
+  <div style="max-width:650px; margin:0 auto; border:1px solid #ddd; padding:40px;">
 
-    <p style="font-size:15px; margin-top:10px; color:#c6bdb5;">
-      A new dining reservation has been submitted.
+    <!-- Logo -->
+    <div style="margin-bottom:30px;">
+      <img
+        src="https://terratone.vercel.app/mail-logo.png"
+        alt="Terratone"
+        style="height:18px; display:block;"
+      />
+    </div>
+
+    <!-- Header Row -->
+   <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 10px;">
+  <tr>
+    <!-- Table cell for the logo image -->
+    <td style="padding-right: 12px; vertical-align: middle;">
+      <img
+        src="https://terratone.vercel.app/mail-dinner-logo.png"
+        alt="Terratone"
+        style="height: 32px; display: block; border: 0;"
+        width="52"
+        height="32"
+      />
+    </td>
+    <!-- Table cell for the heading text -->
+    <td style="vertical-align: middle;">
+      <h1 style="margin: 0; font-size: 50px; font-family: sans-serif; color: #000000; line-height: 1;">
+        Dining Reservation
+      </h1>
+    </td>
+  </tr>
+</table>
+
+    <p style="margin-top:8px; font-size:16px; color:#666;">
+      A new hotel dining reservation enquiry has been submitted
     </p>
-
     <hr style="border:0; border-top:1px solid #222; margin:28px 0;" />
 
     <!-- RESERVATION DETAILS -->
@@ -44,36 +64,32 @@ export async function POST(req) {
       Reservation Details
     </h2>
 
-    <table style="width:100%; font-size:15px; line-height:1.7; text-transform:none;">
+    <table cellspacing="0" cellpadding="0" border="0" style="margin-bottom:15px; width:auto;">
       <tr>
-        <td style="color:#c6bdb5; width:150px;">Full Name</td>
-        <td style="color:#f4f1ed;">${data.fullName}</td>
+        <td style="color:#c6bdb5; padding-right:10px;">Full Name :</td>
+        <td style="color:black;">${data.fullName}</td>
       </tr>
 
       <tr>
-        <td style="color:#c6bdb5;">Phone</td>
-        <td style="color:#f4f1ed;">${data.phone}</td>
+        <td style="color:#c6bdb5;">Phone :</td>
+        <td style="color:black;">${data.phone}</td>
       </tr>
 
       <tr>
-        <td style="color:#c6bdb5;">Date</td>
-        <td style="color:#f4f1ed;">${formattedDate}</td>
+        <td style="color:#c6bdb5;">Date :</td>
+        <td style="color:black;">${formattedDate}</td>
       </tr>
 
       <tr>
-        <td style="color:#c6bdb5;">Time</td>
-        <td style="color:#f4f1ed;">${data.time}</td>
+        <td style="color:#c6bdb5;">Time :</td>
+        <td style="color:black;">${data.time}</td>
       </tr>
 
       <tr>
-        <td style="color:#c6bdb5;">Guests</td>
-        <td style="color:#f4f1ed;">${data.guests}</td>
+        <td style="color:#c6bdb5;">Guests :</td>
+        <td style="color:black;">${data.guests}</td>
       </tr>
     </table>
-
-    <p style="text-align:center; margin-top:32px; color:#c6bdb5; font-size:12px;">
-      Terratone Hotels · Automated Dining Notification
-    </p>
 
   </div>
 </div>
