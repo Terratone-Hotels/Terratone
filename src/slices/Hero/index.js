@@ -24,7 +24,6 @@ const Hero = ({ slice }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
 
-  // prevents initial heading animation from rerunning
   const hasAnimatedInitialHeading = useRef(false);
 
   const curtainRef = useRef(null);
@@ -35,32 +34,37 @@ const Hero = ({ slice }) => {
   const logoRightRef = useRef(null);
   const progressBarsRef = useRef([]);
   const swiperRef = useRef(null);
-  const swiperHandlersRef = useRef({});
+  const headingTimelineRef = useRef(null);
 
   const slides = slice?.primary?.carousel || [];
 
-  // Wrapped in RAFrame to prevent stutter
+  // --- 1. Clean Animation Trigger ---
   const animateHeadingIn = useCallback(() => {
     if (!headingRef.current) return;
 
-    requestAnimationFrame(() => {
-      gsap.fromTo(
-        headingRef.current,
-        {
-          opacity: 0,
-          clipPath: "inset(100% 0% 0% 0%)",
-        },
-        {
-          opacity: 1,
-          clipPath: "inset(0% 0% 0% 0%)",
-          duration: 1,
-          ease: "power3.out",
-        }
-      );
+    gsap.killTweensOf(headingRef.current);
+
+    gsap.set(headingRef.current, {
+      opacity: 0,
+      clipPath: "inset(100% 0% 0% 0%)",
     });
+
+    headingTimelineRef.current = gsap.fromTo(
+      headingRef.current,
+      {
+        opacity: 0,
+        clipPath: "inset(100% 0% 0% 0%)",
+      },
+      {
+        opacity: 1,
+        clipPath: "inset(0% 0% 0% 0%)",
+        duration: 1,
+        ease: "power3.out",
+      }
+    );
   }, []);
 
-  // Curtain timeline
+  // --- 2. Curtain Animation ---
   useLayoutEffect(() => {
     const curtain = curtainRef.current;
     const left = logoLeftRef.current;
@@ -72,13 +76,11 @@ const Hero = ({ slice }) => {
 
     gsap.set(curtain, { yPercent: 0 });
     gsap.set(heading, { opacity: 0, clipPath: "inset(100% 0% 0% 0%)" });
-
     gsap.set([left, right], {
       opacity: 0,
       xPercent: (i) => (i === 0 ? -400 : 400),
       rotate: 0,
     });
-
     gsap.set(headingWrapper, { opacity: 0, y: 50 });
 
     const tl = gsap.timeline({ defaults: { ease: "power4.inOut" } });
@@ -103,17 +105,9 @@ const Hero = ({ slice }) => {
         duration: 1,
         ease: "power3.out",
       })
-      .fromTo(
-        heading,
-        { opacity: 0, clipPath: "inset(100% 0% 0% 0%)" },
-        {
-          opacity: 1,
-          clipPath: "inset(0% 0% 0% 0%)",
-          duration: 1,
-          ease: "power3.out",
-        },
-        "-=0.8"
-      )
+      .add(() => {
+        animateHeadingIn();
+      }, "-=0.8")
       .from(
         thumbsRef.current?.querySelectorAll(".thumb"),
         {
@@ -131,112 +125,102 @@ const Hero = ({ slice }) => {
       });
 
     return () => tl.kill();
-  }, []);
+  }, [animateHeadingIn]);
 
-  // Swiper init
+  // --- 3. Swiper Logic ---
   const handleSwiper = useCallback(
     (swiper) => {
       swiperRef.current = swiper;
 
-      const updateBars = (index) => {
-        requestAnimationFrame(() => {
-          progressBarsRef.current.forEach((bar, i) => {
-            if (!bar) return;
-            gsap.set(bar, {
-              opacity: i === index ? 1 : 0.2,
-              strokeDashoffset: 1,
-            });
+      const resetBars = (activeIndex) => {
+        progressBarsRef.current.forEach((bar, i) => {
+          if (!bar) return;
+          gsap.killTweensOf(bar);
+          gsap.set(bar, {
+            opacity: i === activeIndex ? 1 : 0.2,
+            strokeDashoffset: 1,
+            overwrite: true,
           });
         });
-      };
-
-      const slideChangeHandler = () => {
-        setActiveIndex(swiper.realIndex);
-        updateBars(swiper.realIndex);
-
-        if (hasAnimatedInitialHeading.current && headingRef.current) {
-          requestAnimationFrame(() => {
-            gsap.set(headingRef.current, { opacity: 0 });
-            requestAnimationFrame(() => {
-              animateHeadingIn();
-            });
-          });
-        }
       };
 
       const autoplayTimeLeftHandler = (s, time, progress) => {
+        if (s.subsequentSlide || s.touchEventsData?.isTouched) return;
+
         const activeBar = progressBarsRef.current[s.realIndex];
         if (!activeBar) return;
 
-        requestAnimationFrame(() => {
-          gsap.to(activeBar, {
-            strokeDashoffset: progress,
-            ease: "none",
-            duration: 0.1,
-          });
+        gsap.to(activeBar, {
+          strokeDashoffset: progress,
+          ease: "none",
+          duration: 0.1,
+          overwrite: "auto",
         });
       };
 
-      swiper.on("slideChange", slideChangeHandler);
-      swiper.on("autoplayTimeLeft", autoplayTimeLeftHandler);
+      const onSlideChangeTransitionStart = () => {
+        setActiveIndex(swiper.realIndex);
+        resetBars(swiper.realIndex);
 
-      swiperHandlersRef.current = {
-        slideChange: slideChangeHandler,
-        autoplayTimeLeft: autoplayTimeLeftHandler,
+        if (headingRef.current) {
+          gsap.killTweensOf(headingRef.current);
+          gsap.set(headingRef.current, { opacity: 0 });
+        }
       };
+
+      const onSlideChangeTransitionEnd = () => {
+        if (hasAnimatedInitialHeading.current) {
+          animateHeadingIn();
+        }
+      };
+
+      const onTouchStart = () => {
+        const activeBar = progressBarsRef.current[swiper.realIndex];
+        if (activeBar) gsap.killTweensOf(activeBar);
+      };
+
+      swiper.on("autoplayTimeLeft", autoplayTimeLeftHandler);
+      swiper.on("slideChangeTransitionStart", onSlideChangeTransitionStart);
+      swiper.on("slideChangeTransitionEnd", onSlideChangeTransitionEnd);
+      swiper.on("touchStart", onTouchStart);
     },
     [animateHeadingIn]
   );
 
-  // Start autoplay after curtain
+  // --- 4. Start Autoplay ONLY when Curtain is done ---
   useEffect(() => {
     if (!isLoadingComplete) return;
 
     const swiper = swiperRef.current;
     if (!swiper) return;
 
-    requestAnimationFrame(() => {
-      progressBarsRef.current.forEach((bar, i) => {
-        if (!bar) return;
-        gsap.set(bar, {
-          opacity: i === swiper.realIndex ? 1 : 0.2,
-          strokeDashoffset: 1,
-        });
-      });
-    });
+    const firstBar = progressBarsRef.current[swiper.realIndex];
+
+    // 1. Ensure the bar is clean and ready
+    if (firstBar) {
+      gsap.killTweensOf(firstBar); // Kill any background animation
+      gsap.set(firstBar, { opacity: 1, strokeDashoffset: 1 });
+    }
 
     setActiveIndex(swiper.realIndex);
 
-    if (swiper.autoplay) swiper.autoplay.start();
+    // 2. Start autoplay explicitly now
+    if (swiper.autoplay) {
+      swiper.autoplay.stop(); // Safety stop to reset internal timer
+      swiper.autoplay.start();
+    }
   }, [isLoadingComplete]);
-
-  // Cleanup
-  useEffect(() => {
-    return () => {
-      const swiper = swiperRef.current;
-
-      const { slideChange, autoplayTimeLeft } = swiperHandlersRef.current;
-
-      if (swiper && swiper.off) {
-        if (slideChange) swiper.off("slideChange", slideChange);
-        if (autoplayTimeLeft) swiper.off("autoplayTimeLeft", autoplayTimeLeft);
-      }
-    };
-  }, []);
 
   // Thumb click
   const onClickThumb = (index) => {
     if (!isLoadingComplete) return;
-
     const swiper = swiperRef.current;
     if (!swiper) return;
 
-    requestAnimationFrame(() => {
-      if (headingRef.current) {
-        gsap.set(headingRef.current, { opacity: 0 });
-        requestAnimationFrame(() => animateHeadingIn());
-      }
-    });
+    if (headingRef.current) {
+      gsap.killTweensOf(headingRef.current);
+      gsap.set(headingRef.current, { opacity: 0 });
+    }
 
     if (swiper.slideToLoop) swiper.slideToLoop(index);
     else swiper.slideTo(index);
@@ -252,6 +236,7 @@ const Hero = ({ slice }) => {
           ref={curtainRef}
           className="curtain fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black"
         >
+          {/* Logo Animation Parts */}
           <div className="flex items-center justify-center space-x-6">
             <div
               ref={logoLeftRef}
@@ -277,10 +262,12 @@ const Hero = ({ slice }) => {
             onSwiper={handleSwiper}
             effect="fade"
             speed={1200}
+            // --- CRITICAL FIX: Enabled MUST be false here ---
             autoplay={{
               delay: 5000,
+              enabled: false, // <--- Prevents auto-start behind curtain
               disableOnInteraction: false,
-              enabled: false,
+              pauseOnMouseEnter: false,
             }}
           >
             {slides.map((item, index) => (
@@ -303,7 +290,7 @@ const Hero = ({ slice }) => {
             ))}
           </Swiper>
 
-          {/* Heading + Thumbnails */}
+          {/* Bottom Content */}
           <div
             className="absolute bottom-0 w-full flex flex-col sm:items-center z-20 pb-6 md:pb-10 px-[22px]"
             style={{ pointerEvents: "none" }}
@@ -339,17 +326,10 @@ const Hero = ({ slice }) => {
                     <div className="relative">
                       <PrismicNextImage
                         field={item.video ? item.thumbnail : item.image}
-                        alt={
-                          item.video
-                            ? item.thumbnail?.alt?.trim() ||
-                              `Video thumbnail ${index + 1}`
-                            : item.image?.alt?.trim() ||
-                              `Hero slide ${index + 1}`
-                        }
+                        alt={`Thumb ${index}`}
                         className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer"
                         onClick={() => onClickThumb(index)}
                       />
-
                       <svg
                         className="absolute inset-0 w-full h-full"
                         viewBox="0 0 100 100"
@@ -360,7 +340,7 @@ const Hero = ({ slice }) => {
                           transform="rotate(-90 50 50)"
                           ref={(el) => (progressBarsRef.current[index] = el)}
                           pathLength="1"
-                          className={`fill-transparent stroke-white stroke-[3] ${
+                          className={`fill-transparent stroke-white stroke-[3] transition-opacity duration-300 ${
                             index === activeIndex ? "opacity-100" : "opacity-20"
                           }`}
                           style={{
