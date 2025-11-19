@@ -302,9 +302,18 @@ const Hero = ({ slice }) => {
           {/* Heading Wrapper + Heading + Thumbs */}
           <div
             className="absolute bottom-0 w-full flex flex-col sm:items-center z-20 pb-6 md:pb-10 px-[22px]"
-            style={{ pointerEvents: "none" }}
+            style={{
+              pointerEvents: "none",
+              position: "fixed", // <— FIX to prevent bottom jump when toolbar appears
+              bottom: "0",
+              left: 0,
+              right: 0,
+            }}
           >
-            <div ref={headingWrapperRef} className="heading-wrapper w-full">
+            <div
+              ref={headingWrapperRef}
+              className="heading-wrapper w-full  fix-mobile"
+            >
               <div
                 ref={headingRef}
                 className="font-serif sm:leading-17 text-start sm:text-center w-full text-[36px] sm:text-[3.25rem] text-white mb-4 opacity-0 [clip-path:inset(100%_0%_0%_0%)]"
@@ -349,10 +358,10 @@ const Hero = ({ slice }) => {
 
                       {/* Progress Bar */}
                       <svg
-                        className="absolute inset-0 w-full h-full"
+                        className="absolute inset-0 w-full h-full fix-mobile"
                         viewBox="0 0 100 100"
                         preserveAspectRatio="none"
-                        style={{ transform: "scaleX(1) rotate(360deg)" }}
+                        style={{ transform: "none" }}
                       >
                         {/* Rect for the progress path */}
                         <rect
