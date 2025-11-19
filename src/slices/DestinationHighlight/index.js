@@ -13,90 +13,83 @@ const DestinationHighlight = ({ slice }) => {
   return (
     <>
       {slice.variation === "default" && (
-        <Bounded
-          ref={sectionRef}
-          data-slice-type={slice.slice_type}
-          data-slice-variation={slice.variation}
-          className={"mt-6 lg:mt-35 "}
-        >
-          <div className="flex flex-col md:flex-row gap-2 lg:gap-5 items-start">
-            {/* Left Side Text */}
-            <div className="md:w-1/2 space-y-3 lg:space-y-5  md:sticky md:top-15">
-              {/* Animated Heading */}
-              <RichTextRenderer
-                field={slice.primary.heading}
-                className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium leading-7 md:leading-[3rem]"
-              />
+        <div className="flex flex-col md:flex-row gap-2 lg:gap-5 items-start px-[0.9375rem] md:px-6 mt-5 lg:mt-35">
+          {/* Left Side Text */}
+          <div className="md:w-1/2 space-y-3 lg:space-y-5  md:sticky md:top-15">
+            {/* Animated Heading */}
+            <RichTextRenderer
+              field={slice.primary.heading}
+              className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium leading-7 md:leading-[3rem]"
+            />
 
-              {/* Animated Description */}
-              <RichTextRenderer
-                field={slice.primary.description}
-                className="text-sm md:text-lg font-barlow text-black leading-tight"
-              />
+            {/* Animated Description */}
+            <RichTextRenderer
+              field={slice.primary.description}
+              className="text-sm md:text-lg font-barlow text-black leading-tight"
+            />
 
-              {/* Button */}
-              <div>
-                <Button className="font-barlowNormal px-2.5 py-1">
-                  {slice.primary.button_text}
-                </Button>
-              </div>
-
-              {/* Optional Link */}
-              {slice.primary.explore_button?.url && (
-                <PrismicNextLink field={slice.primary.explore_button} />
-              )}
+            {/* Button */}
+            <div>
+              <Button className="font-barlowNormal px-2.5 py-1">
+                {slice.primary.button_text}
+              </Button>
             </div>
 
-            {/* Right Side Media */}
-            <div className="w-full flex flex-row-reverse md:flex-row gap-3 lg:gap-6 ">
-              {/* LEFT SMALL BLOCK */}
-              <div
-                className="
+            {/* Optional Link */}
+            {slice.primary.explore_button?.url && (
+              <PrismicNextLink field={slice.primary.explore_button} />
+            )}
+          </div>
+
+          {/* Right Side Media */}
+          <div className="w-full flex flex-row-reverse md:flex-row gap-3 lg:gap-6 ">
+            {/* LEFT SMALL BLOCK */}
+            <div
+              className="
                     w-1/4
              /* half size */
    
       self-end          /* push to bottom */
       overflow-hidden
                 "
-              >
-                {slice.primary.video_id ? (
-                  <VideoComponent
-                    srcMp4={slice.primary.video_id}
-                    className="w-full h-full object-cover object-center aspect-square"
-                  />
-                ) : (
-                  <PrismicNextImage
-                    field={slice.primary.image}
-                    className="w-full h-full object-cover object-center aspect-square"
-                  />
-                )}
-              </div>
+            >
+              {slice.primary.video_id ? (
+                <VideoComponent
+                  srcMp4={slice.primary.video_id}
+                  className="w-full h-full object-cover object-center aspect-square"
+                />
+              ) : (
+                <PrismicNextImage
+                  field={slice.primary.image}
+                  className="w-full h-full object-cover object-center aspect-square"
+                />
+              )}
+            </div>
 
-              {/* RIGHT BIG BLOCK (YOUR EXISTING ONE) */}
-              <div
-                className="
+            {/* RIGHT BIG BLOCK (YOUR EXISTING ONE) */}
+            <div
+              className="
                     w-3/4 
       h-[10rem]
       md:h-[25rem]
       lg:h-[40rem]
       overflow-hidden
                 "
-              >
-                {slice.primary.video_id ? (
-                  <VideoComponent
-                    srcMp4={slice.primary.video_id}
-                    className="w-full h-full object-cover object-center "
-                  />
-                ) : (
-                  <PrismicNextImage
-                    field={slice.primary.image}
-                    className="w-full h-full object-cover object-center"
-                  />
-                )}
-              </div>
+            >
+              {slice.primary.video_id ? (
+                <VideoComponent
+                  srcMp4={slice.primary.video_id}
+                  className="w-full h-full object-cover object-center "
+                />
+              ) : (
+                <PrismicNextImage
+                  field={slice.primary.image}
+                  className="w-full h-full object-cover object-center"
+                />
+              )}
             </div>
           </div>
-        </Bounded>
+        </div>
       )}
       {slice.variation === "orderReversed" && (
         <Bounded

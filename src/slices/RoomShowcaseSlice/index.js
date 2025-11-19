@@ -1,9 +1,7 @@
 "use client";
-
 import Bounded from "@/components/Bounded";
 import RichTextRenderer from "@/components/RichTextRenderer";
 import RoomCard from "@/components/RoomCard";
-
 /**
  * @typedef {import("@prismicio/client").Content.RoomShowcaseSliceSlice} RoomShowcaseSliceSlice
  */
@@ -34,12 +32,10 @@ const RoomShowcaseSlice = ({ slice }) => {
           </div>
         </Bounded>
       )}
-
       {slice.variation === "withHeading" && (
         <Bounded
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          
         >
           <div className="flex flex-col items-center">
             <div className="text-center font-serif font-medium lg:leading-14 leading-10 text-[40px] lg:text-[60px]">
@@ -60,7 +56,7 @@ const RoomShowcaseSlice = ({ slice }) => {
                 linkText={item.button_text}
                 className="group relative"
                 titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
-                descriptionClassName="font-barlow text-sm"
+                descriptionClassName="font-barlow text-xs"
                 showMobileButton={true}
               />
             ))}
@@ -72,7 +68,7 @@ const RoomShowcaseSlice = ({ slice }) => {
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
         >
-          <div className="flex flex-col items-center mb-4 lg:mb-10">
+          <div className="flex flex-col items-center mb-10">
             <div className="text-center font-serif font-medium lg:leading-14 leading-tight text-[30px] lg:text-[60px]">
               <RichTextRenderer field={slice.primary.heading} />
             </div>
@@ -88,7 +84,7 @@ const RoomShowcaseSlice = ({ slice }) => {
                 linkText={item.button_text}
                 className="group relative"
                 titleClassName="font-serif font-medium text-[1.375rem] md:text-[1.75rem]"
-                descriptionClassName="font-barlow text-sm"
+                descriptionClassName="font-barlow text-xs"
                 showMobileButton={true}
               />
             ))}
@@ -98,5 +94,4 @@ const RoomShowcaseSlice = ({ slice }) => {
     </>
   );
 };
-
 export default RoomShowcaseSlice;
