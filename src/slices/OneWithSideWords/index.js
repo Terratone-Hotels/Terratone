@@ -115,11 +115,11 @@ export default function OneWithSideWords({ slice }) {
   }, []);
 
   return (
-    <Bounded
+    <section
       ref={sectionRef}
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex flex-col items-center justify-center text-center overflow-hidden pb-10 lg:pb-0"
+      className="flex flex-col items-center justify-center text-center overflow-hidden mt-15 lg:mt-26 mb-10 lg:mb-0"
     >
       {/* =================== Top Heading =================== */}
       <div
@@ -133,7 +133,7 @@ export default function OneWithSideWords({ slice }) {
       <div className="flex justify-evenly  w-full h-auto mt-3 lg:mt-4 relative">
         {/* Left Word */}
         <div className="relative flex-1 w-[20%] lg:w-auto flex items-center justify-center">
-          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium -rotate-90 lg:rotate-0 lg:text-right lg:pr-4 ">
+          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium -rotate-90 lg:rotate-0 lg:text-right tracking-tight  ">
             <div ref={leftTextRef}>
               <PrismicRichText field={slice.primary.left_word} />
             </div>
@@ -162,7 +162,7 @@ export default function OneWithSideWords({ slice }) {
 
         {/* Right Word */}
         <div className="relative flex-1 w-[20%] lg:w-auto flex items-center justify-center">
-          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium rotate-90 lg:rotate-0 lg:pl-5 ">
+          <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium rotate-90 lg:rotate-0 ">
             <div ref={rightTextRef}>
               <PrismicRichText field={slice.primary.right_word} />
             </div>
@@ -181,6 +181,6 @@ export default function OneWithSideWords({ slice }) {
           <PrismicNextLink field={slice.primary.cta_button}></PrismicNextLink>
         </Button>
       </div>
-    </Bounded>
+    </section>
   );
 }
