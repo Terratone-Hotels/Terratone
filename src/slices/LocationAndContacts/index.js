@@ -4,6 +4,7 @@ import Button from "@/components/Button";
 import CurtainRevealImage from "@/components/CurtainRevealImage";
 import RichTextRenderer from "@/components/RichTextRenderer";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
+import { PrismicRichText } from "@prismicio/react";
 
 
 
@@ -14,9 +15,10 @@ import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
  */
 const LocationAndContacts = ({ slice }) => {
   return (
-    <Bounded
+    <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
+      className="px-[0.9375rem] md:px-6 mt-15 lg:mt-20"
      
     >
       <div className="flex flex-col lg:flex-row w-full justify-between font-serif  ">
@@ -62,8 +64,8 @@ const LocationAndContacts = ({ slice }) => {
         {/* Address and contacts */}
 
         <div className="w-full lg:font-medium mt-10 lg:mt-0 lg:self-end lg:w-1/2">
-          <div className="border-l-2 border-black pl-4  lg:pl-6">
-            <div className="flex flex-col  md:flex-row justify-between items-start w-full border-t-2 border-black pb-9 pt-2 lg:pb-5 lg:pt-2 ">
+          <div className="border-l-1 border-black pl-4  lg:pl-6">
+            <div className="flex flex-col  md:flex-row justify-between items-start w-full border-t-1 border-black pb-9 pt-2 lg:pb-5 lg:pt-2 ">
               <div className=" text-[18px] font-medium lg:text-[22px] pb-4 lg:pb-0">
                 <RichTextRenderer field={slice.primary.address} />
               </div>
@@ -72,27 +74,27 @@ const LocationAndContacts = ({ slice }) => {
               </div>
             </div>
 
-            <div className="flex font-barlow uppercase justify-between items-center w-full border-t border-black pt-3 pb-5">
+            <div className="flex font-barlow uppercase justify-between items-center w-full border-t border-black pt-3 pb-3">
               <div className="text-[13px] lg:text-[14px]">
-                <RichTextRenderer field={slice.primary.section_one} />
+                <PrismicRichText field={slice.primary.section_one} />
               </div>
               <div className="text-[13px] lg:text-[14px]">
-                <RichTextRenderer field={slice.primary.section_one_email} />
+                <PrismicRichText field={slice.primary.section_one_email} />
               </div>
             </div>
 
             <div className="flex  font-barlow uppercase justify-between items-center w-full border-t border-black pt-3 ">
               <div className="text-[13px] lg:text-[14px] leading-3">
-                <RichTextRenderer field={slice.primary.section_two} />
+                <PrismicRichText field={slice.primary.section_two} />
               </div>
               <div className="text-[13px] lg:text-[14px] leading-3">
-                <RichTextRenderer field={slice.primary.section_two_email} />
+                <PrismicRichText field={slice.primary.section_two_email} />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </Bounded>
+    </section>
   );
 };
 

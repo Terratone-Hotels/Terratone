@@ -12,9 +12,10 @@ import { PrismicRichText } from "@prismicio/react";
  */
 const CallToActionBanner = ({ slice }) => {
   return (
-    <Bounded
+    <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
+      className="px-[0.9375rem] md:px-6 mt-15 lg:mt-20"
     >
       {/* Container for the image and content, with a fixed height and relative positioning */}
       <div className="relative w-full h-[524px]">
@@ -30,10 +31,10 @@ const CallToActionBanner = ({ slice }) => {
 
         {/* Content Container: Centers the text and button */}
 
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="absolute inset-0 top-10 flex flex-col items-center justify-center">
 
           {/* Text/Message container */}
-          <div className="z-10 max-w-[80%] text-center text-white font-serif tracking-tight text-3xl sm:text-4xl md:text-5xl font-light leading-tight">
+          <div className="z-10 max-w-[80%] text-center text-white font-serif tracking-tight text-3xl sm:text-4xl md:text-5xl font-light leading-tight lg:leading-10">
             <RichTextRenderer
               field={slice.primary.message}
              
@@ -52,7 +53,7 @@ const CallToActionBanner = ({ slice }) => {
 
     
       </div>
-    </Bounded>
+    </section>
   );
 };
 
