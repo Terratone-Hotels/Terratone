@@ -26,11 +26,32 @@ export default function EventTab({ data, setData }) {
   const dateRef = useRef(null);
   const startTimeRef = useRef(null);
   const endTimeRef = useRef(null);
+  const validate = () => {
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phone ||
+      !eventType ||
+      !selectedRoom ||
+      !date ||
+      !startTime ||
+      !endTime ||
+      !people ||
+      people < 1
+    ) {
+      toast.custom(
+        <TerratoneToast message="Please complete all required fields." />
+      );
+      return false;
+    }
+    return true;
+  };
 
   return (
     <div className="space-y-8">
       <h4 className="text-lg font-medium mb-2">Event enquiry</h4>
-      <p className="text-sm text-neutral-300">
+      <p className="text-sm text-black">
         Full form (name, email, date, guests, notes).
       </p>
 
@@ -76,21 +97,30 @@ export default function EventTab({ data, setData }) {
         />
 
         {/* ROOM SELECTOR */}
-        <div className="border border-neutral-700 rounded p-3 relative">
+        <div className="border border-neutral-700 p-3 relative flex items-center">
           <button
-            className="w-full bg-transparent outline-none text-sm text-neutral-200 uppercase text-left"
+            className="w-full bg-transparent outline-none text-sm text-black uppercase text-left"
             onClick={() => setOpenRoom(!openRoom)}
             type="button"
           >
             {selectedRoom || "TYPE OF ROOM *"}
           </button>
 
+          {/* Arrow */}
+          <span
+            className={`absolute right-3 top-1/2 -translate-y-1/2 text-neutral-600 transition-transform duration-200 ${
+              openRoom ? "rotate-180" : "rotate-0"
+            }`}
+          >
+            ▼
+          </span>
+
           {openRoom && (
-            <div className="dropdown">
+            <div className="dropdown absolute left-0 top-full mt-2 w-full bg-white border border-neutral-700 z-10">
               {ROOM_LIST.map((room) => (
                 <div
                   key={room}
-                  className="dropdown-item"
+                  className="dropdown-item p-2 hover:bg-neutral-200 cursor-pointer"
                   onClick={() => {
                     setData({ ...data, selectedRoom: room });
                     setOpenRoom(false);
@@ -105,12 +135,12 @@ export default function EventTab({ data, setData }) {
 
         {/* EVENT DATE */}
         <div
-          className="border border-neutral-700 rounded p-3 cursor-pointer"
+          className="border border-neutral-700  p-3 cursor-pointer"
           onClick={() => dateRef.current?.showPicker()}
         >
           <span
             className={`text-sm uppercase ${
-              date ? "text-neutral-200" : "text-neutral-500"
+              date ? "text-neutral-500" : "text-neutral-800"
             }`}
           >
             {date || "EVENT DATE *"}
@@ -127,12 +157,12 @@ export default function EventTab({ data, setData }) {
 
         {/* START TIME */}
         <div
-          className="border border-neutral-700 rounded p-3 cursor-pointer"
+          className="border border-neutral-700  p-3 cursor-pointer"
           onClick={() => startTimeRef.current?.showPicker()}
         >
           <span
             className={`text-sm uppercase ${
-              startTime ? "text-neutral-200" : "text-neutral-500"
+              startTime ? "text-neutral-500" : "text-neutral-800"
             }`}
           >
             {startTime || "START TIME *"}
@@ -149,12 +179,12 @@ export default function EventTab({ data, setData }) {
 
         {/* END TIME */}
         <div
-          className="border border-neutral-700 rounded p-3 cursor-pointer"
+          className="border border-neutral-700  p-3 cursor-pointer"
           onClick={() => endTimeRef.current?.showPicker()}
         >
           <span
             className={`text-sm uppercase ${
-              endTime ? "text-neutral-200" : "text-neutral-500"
+              endTime ? "text-neutral-500" : "text-neutral-800"
             }`}
           >
             {endTime || "END TIME *"}
@@ -170,8 +200,8 @@ export default function EventTab({ data, setData }) {
         </div>
 
         {/* NUMBER OF PEOPLE */}
-        <div className="border border-neutral-700 rounded p-3 space-y-2">
-          <span className="text-xs uppercase text-neutral-300">
+        <div className="border border-neutral-700  p-3 space-y-2">
+          <span className="text-xs uppercase text-neutral-800">
             NUMBER OF PEOPLE *
           </span>
           <input
@@ -179,13 +209,13 @@ export default function EventTab({ data, setData }) {
             min={1}
             value={people}
             onChange={(e) => setData({ ...data, people: e.target.value })}
-            className="w-full bg-transparent outline-none text-sm text-neutral-200 uppercase no-spinner"
+            className="w-full bg-transparent outline-none text-sm text-neutral-800 uppercase no-spinner"
           />
         </div>
 
         {/* ADDITIONAL INFORMATION */}
-        <div className="border border-neutral-700 rounded p-3 space-y-2">
-          <span className="text-xs uppercase text-neutral-300">
+        <div className="border border-neutral-700  p-3 space-y-2">
+          <span className="text-xs uppercase text-neutral-800">
             ADDITIONAL INFORMATION
           </span>
 
@@ -193,7 +223,7 @@ export default function EventTab({ data, setData }) {
             rows={4}
             value={notes}
             onChange={(e) => setData({ ...data, notes: e.target.value })}
-            className="w-full bg-transparent outline-none text-sm text-neutral-200 uppercase resize-none"
+            className="w-full bg-transparent outline-none text-sm text-neutral-800 uppercase resize-none"
           />
         </div>
       </div>
@@ -206,6 +236,8 @@ export default function EventTab({ data, setData }) {
         <button
           type="button"
           onClick={async () => {
+            if (!validate()) return;
+
             try {
               const res = await fetch("/api/event", {
                 method: "POST",
@@ -225,7 +257,7 @@ export default function EventTab({ data, setData }) {
               toast.custom(<TerratoneToast message="Network error" />);
             }
           }}
-          className="flex-1 bg-white text-black py-3  font-semibold text-sm uppercase tracking-wide"
+          className="flex-1 bg-white text-black py-3 font-semibold text-sm uppercase tracking-wide border hover:text-white transition-all hover:bg-green-600 border-black cursor-pointer"
         >
           Submit Enquiry
         </button>
@@ -234,6 +266,8 @@ export default function EventTab({ data, setData }) {
         <button
           type="button"
           onClick={async () => {
+            if (!validate()) return;
+
             try {
               const res = await fetch("/api/event", {
                 method: "POST",
@@ -253,7 +287,7 @@ export default function EventTab({ data, setData }) {
               toast.custom(<TerratoneToast message="Network error" />);
             }
           }}
-          className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center border border-black"
+          className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center border hover:text-white transition-all hover:bg-green-600 border-black cursor-pointer"
         >
           →
         </button>
@@ -266,11 +300,11 @@ export default function EventTab({ data, setData }) {
           background: transparent;
           outline: none;
           border: 1px solid #3f3f3f;
-          border-radius: 0.375rem;
+        
           padding: 0.75rem;
           font-size: 0.875rem;
           text-transform: uppercase;
-          color: #e5e5e5;
+          color: #black;
           letter-spacing: 0.5px;
         }
 
@@ -293,9 +327,9 @@ export default function EventTab({ data, setData }) {
         }
 
         .dropdown {
-          background: #0e0e0e;
+          background: #ffff;
           border: 1px solid #3f3f3f;
-          border-radius: 0.375rem;
+          
           width: 100%;
           overflow: hidden;
           z-index: 50;
@@ -309,11 +343,11 @@ export default function EventTab({ data, setData }) {
           text-transform: uppercase;
           cursor: pointer;
           font-size: 0.875rem;
-          color: #e5e5e5;
+          color: black;
         }
 
         .dropdown-item:hover {
-          background: #1a1a1a;
+          background: #E8E9EB;
         }
       `}</style>
     </div>

@@ -24,7 +24,7 @@ const TaglineHeroSlice = ({ slice }) => {
 
       // Set initial states to avoid empty gaps
       gsap.set(textBlocks, { opacity: 0, y: 40 });
-      gsap.set(mediaBlocks, { opacity: 0, y: 40 });
+      gsap.set(mediaBlocks, { opacity: 0, clipPath: "inset(100% 0% 0% 0%)" });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -45,8 +45,8 @@ const TaglineHeroSlice = ({ slice }) => {
         mediaBlocks,
         {
           opacity: 1,
-          y: 0,
-          duration: 0.8,
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 1.2,
           ease: "power3.out",
         },
         "-=0.2"
