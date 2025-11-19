@@ -196,3 +196,17 @@ body.modal-open {
 .animate-enter {
   animation: toastEnter 0.25s ease-out;
 }
+
+.footer-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background: #c7c7c7;
+  transform-origin: left;
+  transform: scaleX(0);
+  pointer-events: none;
+  display: block;
+  content: "";
+}

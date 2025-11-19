@@ -119,7 +119,7 @@ export default function OneWithSideWords({ slice }) {
       ref={sectionRef}
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex flex-col items-center justify-center text-center overflow-hidden mt-15 lg:mt-26 mb-10 lg:mb-0"
+      className="flex flex-col items-center justify-center text-center overflow-hidden mt-15 lg:mt-26 mb-30 lg:mb-0"
     >
       {/* =================== Top Heading =================== */}
       <div

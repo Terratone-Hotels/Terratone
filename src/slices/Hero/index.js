@@ -298,7 +298,7 @@ const Hero = ({ slice }) => {
             <div ref={headingWrapperRef} className="heading-wrapper w-full">
               <div
                 ref={headingRef}
-                className="font-serif sm:leading-17 text-start sm:text-center w-full text-[36px] sm:text-[3.25rem] text-white mb-4 opacity-0 [clip-path:inset(100%_0%_0%_0%)]"
+                className="font-serif  leading-tight text-start sm:text-center w-full text-[24px] sm:text-[28px] lg:text-[32px] xl:text-[44px] text-white mb-4 opacity-0 [clip-path:inset(100%_0%_0%_0%)]"
               >
                 {slides[activeIndex]?.headings && (
                   <PrismicRichText field={slides[activeIndex].headings} />

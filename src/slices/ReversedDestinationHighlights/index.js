@@ -47,18 +47,9 @@ const ReversedDestinationHighlights = ({ slice }) => {
             </div>
 
             {/* Right Side Media */}
-            <div className="w-full items-end flex gap-3 md:gap-6 ">
+            <div className="w-full items-end flex flex-row-reverse md:flex-row gap-3 md:gap-6 ">
               {/* LEFT SMALL BLOCK */}
-              <div
-                className="
-      
-      w-[15%]
-             /* half size */
-   
-      self-end          /* push to bottom */
-      overflow-hidden
-    "
-              >
+              <div className="w-[15%] self-end overflow-hidden ">
                 {slice.primary.video_id ? (
                   <VideoComponent
                     srcMp4={slice.primary.video_id}

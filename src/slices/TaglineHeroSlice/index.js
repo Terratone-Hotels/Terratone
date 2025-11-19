@@ -47,16 +47,16 @@ const TaglineHeroSlice = ({ slice }) => {
   }, []);
   return (
     <Bounded
-      className="max-w-[90rem] mx-auto select-none mt-15 lg:mt-35"
+      className="max-w-[90rem] mx-auto select-none mt-20 lg:mt-35"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
       <div
         ref={containerRef}
-        className="flex flex-col items-center justify-center leading-tight"
+        className="flex flex-col items-center gap-3 justify-center leading-tight"
       >
         {/* First Line */}
-        <div className="flex flex-row gap-2 md:gap-6 items-center">
+        <div className="flex flex-row gap-4 md:gap-6 items-center">
           <div className="hero-text text-[2rem] md:text-[4rem] lg:text-[6.188rem] font-serif italic">
             <PrismicRichText field={slice.primary.textfieldone} />
           </div>
@@ -79,7 +79,7 @@ const TaglineHeroSlice = ({ slice }) => {
           </div>
         </div>
         {/* Second Line */}
-        <div className="flex flex-row items-center gap-2 md:gap-6">
+        <div className="flex flex-row items-center gap-4 md:gap-6">
           <div className="hero-text font-serif text-[2rem] md:text-[4rem] lg:text-[6.188rem]">
             <PrismicRichText field={slice.primary.textfieldthree} />
           </div>
@@ -102,7 +102,7 @@ const TaglineHeroSlice = ({ slice }) => {
           </div>
         </div>
         {/* Third Line */}
-        <div className="flex flex-row gap-2 md:gap-6 items-center">
+        <div className="flex flex-row gap-4 md:gap-6 items-center">
           <div className="hero-text font-serif text-[2rem] md:text-[4rem] lg:text-[6.188rem]">
             <PrismicRichText field={slice.primary.textfieldfive} />
           </div>

@@ -102,7 +102,7 @@ export default function BanquetHalls({ slice }) {
   return (
     <section
       ref={containerRef}
-      className="relative  h-[80vh] md:h-auto items-center px-[0.9375rem] md:px-6 mt-5 lg:mt-35 overflow-hidden"
+      className="relative  h-[80vh] md:h-auto items-center px-[0.9375rem] md:px-6 mt-15 lg:mt-35 overflow-hidden"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
@@ -123,12 +123,12 @@ export default function BanquetHalls({ slice }) {
 
         {/* Content */}
         <div className="relative z-10 flex flex-col justify-end h-[40.6875rem] md:h-[46.5rem]">
-          <div className="absolute top-4 sm:top-10 left-4 md:top-26 lg:left-5 xl:left-19 text-white max-w-[90%] sm:max-w-[80%] md:max-w-none">
+          <div className="absolute top-10 sm:top-10 left-4 md:top-26 lg:left-5 xl:left-19 text-white max-w-[90%] sm:max-w-[80%] md:max-w-none">
             {/* Heading */}
             <div ref={headingRef}>
               <RichTextRenderer
                 field={slice.primary.heading}
-                className="text-[1.4rem] xs:text-[1.6rem] sm:text-[1.9rem] md:text-[2.625rem] font-serif font-medium leading-snug md:leading-12"
+                className="text-[28px] sm:text-[1.9rem] md:text-[2.625rem] font-serif font-medium leading-5 md:leading-8"
               />
             </div>
 
