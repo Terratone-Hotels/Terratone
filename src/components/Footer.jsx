@@ -99,7 +99,7 @@ export default function Footer({ footerData }) {
   }, []);
 
   return (
-    <Bounded>
+    <section className="px-[0.9375rem] md:px-6 mt-15 lg:mt-20">
       <footer ref={footerRef} className="w-full mb-15">
         {/* MAIN DESKTOP FOOTER */}
         <div className="hidden lg:block w-full">
@@ -515,6 +515,6 @@ export default function Footer({ footerData }) {
           </div>
         </div>
       </footer>
-    </Bounded>
+    </section>
   );
 }
