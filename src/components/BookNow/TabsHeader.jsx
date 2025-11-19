@@ -2,26 +2,39 @@
 
 export default function TabsHeader({ active = "hotel", setActive }) {
   const tabs = [
-    { id: "hotel", label: "Hotel" },
-    { id: "dining", label: "Dining" },
-    { id: "event", label: "Event" },
+    { id: "hotel", label: "HOTEL", icon: "/dining-icon.svg" },
+    { id: "dining", label: "DINING", icon: "/hotel-icon.svg" },
+    { id: "event", label: "EVENT", icon: "/event-icon.svg" },
   ];
 
   return (
-    <div className="flex gap-1">
-      {tabs.map((t) => (
-        <button
-          key={t.id}
-          onClick={() => setActive(t.id)}
-          className={`px-4 py-3  text-sm font-medium border ${
-            active === t.id
-              ? "bg-black text-white border-white/20"
-              : "bg-transparent text-black border-neutral-700"
-          }`}
-        >
-          {t.label}
-        </button>
-      ))}
+    <div className="flex gap-1.5">
+      {tabs.map((t) => {
+        const isActive = active === t.id;
+
+        return (
+          <button
+            key={t.id}
+            onClick={() => setActive(t.id)}
+            className={`px-6 py-3 text-md font-medium font-barlow cursor-pointer flex items-center gap-2
+              ${
+                isActive
+                  ? "bg-black text-white"
+                  : "bg-transparent text-black hover:bg-[#EBE5DE]"
+              }`}
+          >
+            <span>{t.label}</span>
+
+            <img
+              src={t.icon}
+              alt={t.label}
+              className={`w-5 h-5 object-contain 
+                ${isActive ? "invert brightness-0" : "invert-0 brightness-0"}
+              `}
+            />
+          </button>
+        );
+      })}
     </div>
   );
 }

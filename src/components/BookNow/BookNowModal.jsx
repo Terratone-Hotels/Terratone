@@ -128,18 +128,18 @@ export default function BookNowModal({
       <aside
         data-lenis-prevent
         onClick={(e) => e.stopPropagation()}
-        className={`relative z-10 h-full w-[100vw] md:w-[420px] bg-white text-black shadow-xl
+        className={`relative z-10 h-full w-[100vw] md:w-[420px] bg-stone text-black shadow-xl
           overflow-y-auto
           transition-transform duration-200 ease-out
           ${animateIn ? "translate-x-0" : "translate-x-full"}`}
       >
         {/* HEADER */}
-        <div className="flex items-center justify-between px-6 py-4">
-          <h3 className="text-2xl font-semibold">Book</h3>
+        <div className="flex font-serif items-center  justify-between px-6 py-4 mt-10">
+          <h3 className="text-2xl lg:text-5xl ">Book</h3>
 
           <button
             onClick={onClose}
-            className="relative px-4 py-2 border border-black text-xs uppercase before:absolute before:inset-[-4px] before:border before:border-black"
+            className="relative text-lg font-semibold px-1 font-barlow  border-b-2 cursor-pointer"
           >
             CLOSE ✕
           </button>

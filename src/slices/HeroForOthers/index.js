@@ -20,6 +20,8 @@ const HeroForOthers = ({ slice }) => {
               <PrismicNextImage
                 field={slice.primary.hero_image}
                 className="w-full h-full object-cover"
+                priority
+                sizes="100vw"
               />
 
               <div className="absolute bottom-16 lg:bottom-10 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-10 lg:leading-[3.4rem] tracking-tight">
@@ -39,6 +41,8 @@ const HeroForOthers = ({ slice }) => {
               <PrismicNextImage
                 field={slice.primary.hero_image}
                 className="w-full h-full object-cover"
+                priority
+                sizes="100vw"
               />
 
               {/* HEADING */}
