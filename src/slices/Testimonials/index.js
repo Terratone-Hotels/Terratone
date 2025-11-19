@@ -10,9 +10,9 @@ import RichTextRenderer from "@/components/RichTextRenderer";
 export default function Testimonials({ slice }) {
   return (
     <Bounded>
-      <div className="flex flex-col items-center text-center md:max-w-[60rem] mx-auto">
-        <div className="flex text-5xl font-medium font-serif text-stone-800 mb-4 lg:mb-6">
-          <QuoteIcon color="#3E5B39" />
+      <div className="flex flex-col cursor-grab items-center text-center md:max-w-[60rem] mx-auto">
+        <div className="flex text-5xl font-medium font-serif text-stone-800 mb-4 lg:mb-12">
+          <QuoteIcon className="w-12 h-12"/>
         </div>
 
         <Swiper
@@ -29,7 +29,7 @@ export default function Testimonials({ slice }) {
         >
           {slice.primary.testimonials.map((item, i) => (
             <SwiperSlide key={i}>
-              <div className="px-6 text-[1rem] leading-tight font-barlow md:text-xl select-none">
+              <div className="px-6 text-[1rem]  leading-tight font-barlow md:text-xl select-none">
                 <RichTextRenderer field={item.quote} />
               </div>
               <div className="text-gray-600 font-serif text-[1rem] mt-4 font-medium select-none">{item.names}</div>

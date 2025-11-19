@@ -47,7 +47,7 @@ const TaglineHeroSlice = ({ slice }) => {
   }, []);
   return (
     <Bounded
-      className="max-w-[90rem] mx-auto mt-15 lg:mt-35"
+      className="max-w-[90rem] mx-auto select-none mt-15 lg:mt-35"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >

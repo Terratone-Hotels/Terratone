@@ -13,13 +13,13 @@ const DestinationHighlight = ({ slice }) => {
   return (
     <>
       {slice.variation === "default" && (
-        <div className="flex flex-col md:flex-row gap-2 lg:gap-5 items-start px-[0.9375rem] md:px-6 mt-5 lg:mt-35">
+        <div className="flex flex-col md:flex-row md:justify-between gap-2 lg:gap-5 items-start px-[0.9375rem] md:px-6 mt-5 lg:mt-35">
           {/* Left Side Text */}
-          <div className="md:w-1/2 space-y-3 lg:space-y-5  md:sticky md:top-15">
+          <div className="md:w-[33%] space-y-3 lg:space-y-5  md:sticky md:top-15">
             {/* Animated Heading */}
             <RichTextRenderer
               field={slice.primary.heading}
-              className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium leading-7 md:leading-[3rem]"
+              className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium leading-7 "
             />
 
             {/* Animated Description */}
@@ -42,37 +42,17 @@ const DestinationHighlight = ({ slice }) => {
           </div>
 
           {/* Right Side Media */}
-          <div className="w-full flex flex-row-reverse md:flex-row gap-3 lg:gap-6 ">
+          <div className="w-full lg:w-[55%]">
             {/* LEFT SMALL BLOCK */}
-            <div
-              className="
-                    w-1/4
-             /* half size */
-   
-      self-end          /* push to bottom */
-      overflow-hidden
-                "
-            >
-              {slice.primary.video_id ? (
-                <VideoComponent
-                  srcMp4={slice.primary.video_id}
-                  className="w-full h-full object-cover object-center aspect-square"
-                />
-              ) : (
-                <PrismicNextImage
-                  field={slice.primary.image}
-                  className="w-full h-full object-cover object-center aspect-square"
-                />
-              )}
-            </div>
 
             {/* RIGHT BIG BLOCK (YOUR EXISTING ONE) */}
             <div
               className="
-                    w-3/4 
-      h-[10rem]
+                    w-full
+      h-[15rem]
+      
       md:h-[25rem]
-      lg:h-[40rem]
+    lg:h-[35rem]
       overflow-hidden
                 "
             >
