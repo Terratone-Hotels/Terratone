@@ -261,7 +261,7 @@ const Hero = ({ slice }) => {
             modules={[FreeMode, Navigation, Thumbs, Autoplay]}
             onSwiper={handleSwiper}
             effect="fade"
-            speed={1200}
+            speed={200}
             // --- CRITICAL FIX: Enabled MUST be false here ---
             autoplay={{
               delay: 5000,
