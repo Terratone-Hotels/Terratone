@@ -10,6 +10,7 @@ import DiningTab from "./tabs/DiningTab";
 import EventTab from "./tabs/EventTab";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useHotelBooking } from "@/store/useHotelBooking";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,14 +33,8 @@ export default function BookNowModal({
   // ⭐ LIFTED STATE FOR ALL TABS
   // ---------------------------------------------------------
 
-  const [hotelData, setHotelData] = useState({
-    selectedProperty: "",
-    adults: 2,
-    children: 0,
-    checkIn: null,
-    checkOut: null,
-    rooms: [],
-  });
+  const hotelData = useHotelBooking((s) => s.data);
+  const setHotelData = useHotelBooking((s) => s.setData);
 
   const [diningData, setDiningData] = useState({
     fullName: "",

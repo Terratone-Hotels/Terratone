@@ -7,13 +7,20 @@ import toast from "react-hot-toast";
 import TerratoneToast from "@/components/TerratoneToast";
 
 export default function HotelTab({ data, setData }) {
-  const { selectedProperty, adults, children, checkIn, checkOut } = data;
+  const {
+    selectedProperty,
+    adults = 2,
+    children = 0,
+    checkIn,
+    checkOut,
+  } = data || {};
 
   const PROPERTY_LIST = ["Deluxe Suite", "Deluxe King", "Deluxe Twin"];
   const [openProperty, setOpenProperty] = useState(false);
 
-  const updateCheckIn = (v) => setData((prev) => ({ ...prev, checkIn: v }));
-  const updateCheckOut = (v) => setData((prev) => ({ ...prev, checkOut: v }));
+  // NEW: use setData with partial objects (Zustand expects partial object)
+  const updateCheckIn = (v) => setData({ checkIn: v });
+  const updateCheckOut = (v) => setData({ checkOut: v });
 
   // ---------------------- VALIDATE & SUBMIT ----------------------
   const submit = async () => {
@@ -60,7 +67,9 @@ export default function HotelTab({ data, setData }) {
           <TerratoneToast message={`Hotel enquiry sent! ${summary}`} />
         );
       }
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -83,7 +92,7 @@ export default function HotelTab({ data, setData }) {
             onChange={(e) => {
               const v = e.target.value;
               if (/^[A-Za-z\s]*$/.test(v)) {
-                setData((prev) => ({ ...prev, fullName: v }));
+                setData({ fullName: v });
               }
             }}
             placeholder="John Doe"
@@ -110,7 +119,7 @@ export default function HotelTab({ data, setData }) {
             onChange={(e) => {
               const v = e.target.value;
               if (/^\d{0,10}$/.test(v)) {
-                setData((prev) => ({ ...prev, phone: v }));
+                setData({ phone: v });
               }
             }}
             placeholder="+91 9213566646"
@@ -156,7 +165,8 @@ export default function HotelTab({ data, setData }) {
                     : "hover:bg-neutral-200"
                 }`}
                 onClick={() => {
-                  setData({ ...data, selectedProperty: prop });
+                  // pass partial object
+                  setData({ selectedProperty: prop });
                   setOpenProperty(false);
                 }}
               >
@@ -187,10 +197,10 @@ export default function HotelTab({ data, setData }) {
         </div>
 
         <Calendar
-          checkIn={checkIn}
-          setCheckIn={updateCheckIn}
-          checkOut={checkOut}
-          setCheckOut={updateCheckOut}
+          checkIn={data.checkIn}
+          setCheckIn={(d) => setData({ checkIn: d })}
+          checkOut={data.checkOut}
+          setCheckOut={(d) => setData({ checkOut: d })}
         />
       </div>
 
@@ -221,29 +231,25 @@ export default function HotelTab({ data, setData }) {
           <div className="flex items-center gap-3">
             <button
               disabled={adults <= 1}
-              onClick={() =>
-                setData((prev) => ({
-                  ...prev,
-                  adults: Math.max(1, prev.adults - 1),
-                }))
-              }
+              onClick={() => {
+                const newAdults = Math.max(1, adults - 1);
+                setData({ adults: newAdults });
+              }}
               className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
             >
               -
             </button>
 
             <span className="w-6 text-center">
-              {adults.toString().padStart(2, "0")}
+              {String(adults).padStart(2, "0")}
             </span>
 
             <button
               disabled={adults + children >= 3}
-              onClick={() =>
-                setData((prev) => {
-                  if (prev.adults + prev.children >= 3) return prev;
-                  return { ...prev, adults: prev.adults + 1 };
-                })
-              }
+              onClick={() => {
+                if (adults + children >= 3) return;
+                setData({ adults: adults + 1 });
+              }}
               className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
             >
               +
@@ -258,29 +264,25 @@ export default function HotelTab({ data, setData }) {
           <div className="flex items-center gap-3">
             <button
               disabled={children <= 0}
-              onClick={() =>
-                setData((prev) => ({
-                  ...prev,
-                  children: Math.max(0, prev.children - 1),
-                }))
-              }
+              onClick={() => {
+                const newChildren = Math.max(0, children - 1);
+                setData({ children: newChildren });
+              }}
               className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
             >
               -
             </button>
 
             <span className="w-6 text-center">
-              {children.toString().padStart(2, "0")}
+              {String(children).padStart(2, "0")}
             </span>
 
             <button
               disabled={adults + children >= 3}
-              onClick={() =>
-                setData((prev) => {
-                  if (prev.adults + prev.children >= 3) return prev;
-                  return { ...prev, children: prev.children + 1 };
-                })
-              }
+              onClick={() => {
+                if (adults + children >= 3) return;
+                setData({ children: children + 1 });
+              }}
               className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
             >
               +
