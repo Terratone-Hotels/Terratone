@@ -71,6 +71,21 @@
             "placeholder_true": "true",
             "default_value": false
           }
+        },
+        "small_image": {
+          "type": "Image",
+          "config": {
+            "label": "Small Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "small_video_id": {
+          "type": "Text",
+          "config": {
+            "label": "Small Video Id",
+            "placeholder": ""
+          }
         }
       },
       "items": {}

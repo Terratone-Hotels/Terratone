@@ -50,14 +50,14 @@ const ReversedDestinationHighlights = ({ slice }) => {
             <div className="w-full items-end flex flex-row-reverse md:flex-row gap-3 md:gap-6 ">
               {/* LEFT SMALL BLOCK */}
               <div className="w-[15%] self-end overflow-hidden ">
-                {slice.primary.video_id ? (
+                {slice.primary.small_video_id ? (
                   <VideoComponent
-                    srcMp4={slice.primary.video_id}
+                    srcMp4={slice.primary.small_video_id}
                     className="w-full h-full object-cover object-center aspect-square"
                   />
                 ) : (
                   <PrismicNextImage
-                    field={slice.primary.image}
+                    field={slice.primary.small_image}
                     className="w-full h-full object-cover object-center aspect-square"
                   />
                 )}
