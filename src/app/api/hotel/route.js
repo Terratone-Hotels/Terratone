@@ -172,19 +172,28 @@ export async function POST(req) {
     </td>
     <!-- Table cell for the value -->
     <td style="font-size:16px; color:#333; white-space:nowrap; font-family:'EB Garamond', Georgia, serif;">
-      ${
-        rooms.length > 0
-          ? `${new Date(rooms[0].checkIn).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })} – ${new Date(rooms[0].checkOut).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })}`
-          : ""
-      }
+     ${
+       rooms.length > 0
+         ? `${(() => {
+             const d = new Date(rooms[0].checkIn);
+             const IST = new Date(d.getTime() + 5.5 * 60 * 60 * 1000);
+             return IST.toLocaleDateString("en-US", {
+               month: "short",
+               day: "numeric",
+               year: "numeric",
+             });
+           })()} – ${(() => {
+             const d = new Date(rooms[0].checkOut);
+             const IST = new Date(d.getTime() + 5.5 * 60 * 60 * 1000);
+             return IST.toLocaleDateString("en-US", {
+               month: "short",
+               day: "numeric",
+               year: "numeric",
+             });
+           })()}`
+         : ""
+     }
+
     </td>
   </tr>
 </table>

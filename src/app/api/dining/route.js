@@ -35,7 +35,11 @@ export async function POST(req) {
 
     try {
       const dateObj = new Date(data.date);
-      formattedDate = dateObj.toLocaleDateString("en-US", {
+
+      // Convert to IST manually → UTC + 5h30m
+      const IST = new Date(dateObj.getTime() + 5.5 * 60 * 60 * 1000);
+
+      formattedDate = IST.toLocaleDateString("en-US", {
         weekday: "long",
         month: "long",
         day: "numeric",
@@ -44,7 +48,6 @@ export async function POST(req) {
     } catch (e) {
       console.log("Date formatting error:", e);
     }
-
     // ---------- Email HTML ----------
     const html = `
 <div style="padding:40px; background:#F4F1ED; font-family:'EB Garamond', Georgia, serif; color:#333;">
