@@ -9,14 +9,11 @@ export default function FooterLinkMobile({
   innerSpanClassName,
 }) {
   // Telephone
-  const rawValue =
-    typeof field === "string"
-      ? field
-      : field?.text || field?.value || field?.url || "";
+
   if (method === "Telephone") {
     return (
       <PrismicNextLink
-        href={`tel:${rawValue}`}
+        href={`tel:${field}`}
         className={`group inline-flex items-end relative ${nextLinkClasses}`}
       >
         <div className="flex flex-row hover:text-black font-medium gap-1">
@@ -30,7 +27,7 @@ export default function FooterLinkMobile({
   if (method === "Mail") {
     return (
       <PrismicNextLink
-        href={`mailto:${rawValue}`}
+        href={`mailto:${field}`}
         className={`group inline-flex items-end relative ${nextLinkClasses}`}
       >
         <div className="flex flex-row hover:text-black font-medium gap-1">
