@@ -21,6 +21,7 @@ export default function Button({
   showArrow = true,
   noBorder = false,
   onClick,
+  buttonClass
 }) {
   // ✅ Create refs for the elements we need to animate
   const buttonRef = useRef(null);
@@ -95,7 +96,7 @@ export default function Button({
       ref={buttonRef}
       onClick={onClick}
       className={clsx(
-        "group cursor-pointer inline-grid font-medium uppercase",
+        "group cursor-pointer inline-grid font-medium uppercase",buttonClass,
         !noBorder && "border border-black",
         "grid-cols-[auto_auto]"
       )}
