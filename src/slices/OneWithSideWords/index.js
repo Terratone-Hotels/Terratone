@@ -43,7 +43,7 @@ export default function OneWithSideWords({ slice }) {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top 40%",
+        start: "top bottom",
         toggleActions: "play none none none",
         once: true,
 

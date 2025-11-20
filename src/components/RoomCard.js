@@ -23,21 +23,17 @@ export default function RoomCard({
   const cardRef = useRef(null);
   const titleRef = useRef(null);
   const buttonRef = useRef(null);
+  const imageRef = useRef(null);
   const descRef = useRef(null);
   const lineRef = useRef(null);
-
-  // ⭐ NEW — refs for parallax wrapper + image
-  const parallaxWrapperRef = useRef(null);
-  const parallaxImageRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const DURATION = 1.3;
 
-      // ------------ EXISTING REVEAL SETTINGS ----------
       const revealSettings = {
         opacity: 0,
-        clipPath: "inset(0 100% 0 0)",
+        clipPath: "inset(0 100% 0 0)", // hidden from right
       };
 
       const revealTo = {
@@ -55,31 +51,17 @@ export default function RoomCard({
         },
       });
 
-      // IMAGE → TITLE → BUTTON → LINE → DESCRIPTION
-      tl.fromTo(parallaxWrapperRef.current, revealSettings, revealTo)
+      // IMAGE → TITLE → BUTTON → LINE (grouped animations)
+      tl.fromTo(imageRef.current, revealSettings, revealTo)
         .fromTo(titleRef.current, revealSettings, revealTo, "-=1.1")
         .fromTo(buttonRef.current, revealSettings, revealTo, "-=1.0")
         .fromTo(lineRef.current, revealSettings, revealTo, "-=0.9")
+
+        // DESCRIPTION LAST (no overlap)
         .fromTo(descRef.current, revealSettings, {
           ...revealTo,
           duration: 0.5,
         });
-
-      // ------------ ⭐ NEW PARALLAX ANIMATION ----------
-      gsap.fromTo(
-        parallaxImageRef.current,
-        { y: "-10%" },
-        {
-          y: "10%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: parallaxWrapperRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        }
-      );
     }, cardRef);
 
     return () => ctx.revert();
@@ -90,17 +72,12 @@ export default function RoomCard({
       ref={cardRef}
       className="group w-full md:w-90 flex flex-col relative overflow-hidden"
     >
-      {/* ⭐ IMAGE WITH PARALLAX WRAPPER */}
-      <div
-        ref={parallaxWrapperRef}
-        className="parallax-container overflow-hidden"
-      >
-        <div ref={parallaxImageRef} className="parallax-img w-full h-full">
-          <CurtainRevealImage
-            field={image}
-            className="w-full h-90 md:h-100 object-cover"
-          />
-        </div>
+      {/* IMAGE */}
+      <div ref={imageRef} className="overflow-hidden">
+        <CurtainRevealImage
+          field={image}
+          className="w-full h-90 md:h-100 object-cover"
+        />
       </div>
 
       {/* Title + Button */}

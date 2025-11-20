@@ -150,7 +150,7 @@ const HeroForOthers = ({ slice }) => {
       {slice.variation === "withAvailabilityBar" && (
         <section data-hero-slice>
           <Bounded full>
-            <div className="relative h-screen">
+            <div className="relative z-10 h-screen">
               <PrismicNextImage
                 field={slice.primary.hero_image}
                 className="w-full h-full object-cover"
@@ -159,7 +159,7 @@ const HeroForOthers = ({ slice }) => {
               />
 
               <div className="absolute bottom-20 lg:bottom-30 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-7 lg:leading-10 tracking-tight">
-                <HeroTextRenderer field={slice.primary.hero_heading} />
+                <PrismicRichText field={slice.primary.hero_heading} />
               </div>
 
               {/* AVAILABILITY BAR */}
@@ -200,8 +200,8 @@ const HeroForOthers = ({ slice }) => {
                     {roomOpen && (
                       <div
                         className="
-          absolute left-0 bottom-full mb-3
-          w-full bg-white font-barlow shadow-xl border border-neutral-300 p-4 z-[9999]
+          absolute left-0 top-full mb-3
+          w-full bg-white font-barlow shadow-xl border border-neutral-300 p-4 z-[999]
           rounded-xs
         "
                       >
@@ -253,9 +253,9 @@ const HeroForOthers = ({ slice }) => {
                     {guestsOpen && (
                       <div
                         className="
-          absolute left-0 bottom-full mb-3
+          absolute left-0 top-full mb-3
           w-full bg-white shadow-xl border border-neutral-300 p-4
-          rounded-xs z-[9999]
+          rounded-xs z-[999]
         "
                       >
                         {/* Adults */}
@@ -341,9 +341,9 @@ const HeroForOthers = ({ slice }) => {
                     {calendarOpen && (
                       <div
                         className="
-          absolute left-0 bottom-full mb-3
+          absolute left-0 top-full mb-3
           w-full bg-white shadow-2xl border border-neutral-300 p-4
-          rounded-xs z-[9999]
+          rounded-xs z-[999]
         "
                       >
                         <Calendar

@@ -34,10 +34,12 @@ export default function BanquetHalls({ slice }) {
     const imageWrapper = imageWrapperRef.current;
     const image = imageRef.current;
 
+    // Get individual content elements from their refs
     const heading = headingRef.current;
     const description = descriptionRef.current;
     const button = buttonRef.current;
 
+    // Guard clause to ensure all elements are mounted
     if (
       !container ||
       !imageWrapper ||
@@ -48,56 +50,53 @@ export default function BanquetHalls({ slice }) {
     )
       return;
 
-    // Initial states
+    // Set the initial state for the image animations
     gsap.set(imageWrapper, {
       scale: 0.5,
+
       overflow: "hidden",
     });
+    gsap.set(image, { scale: 1.5 });
 
-    gsap.set(image, {
-      scale: 1,
-      y: "-10%", // ⭐ start parallax above
-    });
-
+    // --- MODIFICATION 2: Set initial state for EACH content element ---
+    // We group them in an array to set them all at once.
     gsap.set([heading, description, button], { scale: 0.9, y: 40, opacity: 0 });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
-        start: "top bottom",
-        end: "bottom top",
+        start: "top 65%",
+        end: "center center",
         scrub: 1.3,
       },
     });
 
-    // Animation timeline
-    tl.to(imageWrapper, {
-      scale: 1,
-      borderRadius: "0px",
-      ease: "power2.out",
-    })
+    // Animate the image wrapper (scale and border radius)
+    tl.to(
+      imageWrapper,
+      // ✅ MODIFIED: Changed borderRadius to "0px" for sharp corners
+      { scale: 1, borderRadius: "0px", ease: "power2.out" },
+      "<"
+    )
+      // Animate the inner image (parallax effect)
+      .to(image, { scale: 1, ease: "power2.out" }, "<")
+      // Animate the content elements IN SEQUENCE
       .to(
-        image,
-        {
-          scale: 1,
-          y: "10%", // ⭐ END of parallax movement
-          ease: "none",
-        },
-        "<"
-      )
-      .to(
-        [heading, description, button],
+        [heading, description, button], // Target all three elements
         {
           scale: 1,
           y: 0,
           opacity: 1,
-          stagger: 0.1,
+          stagger: 0.1, // Add a 0.1s delay between each element's animation
           ease: "power2.out",
         },
-        "<"
+        "<" // Start this animation at the same time as the image animations
       );
 
-    return () => tl.kill();
+    // Cleanup function
+    return () => {
+      tl.kill();
+    };
   }, []);
 
   return (

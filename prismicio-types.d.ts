@@ -2643,16 +2643,6 @@ export interface HeroSliceDefaultPrimaryCarouselItem {
  */
 export interface HeroSliceDefaultPrimary {
   /**
-   * Heading field in *Hero → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.default.primary.heading
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  heading: prismic.RichTextField;
-
-  /**
    * Carousel field in *Hero → Default → Primary*
    *
    * - **Field Type**: Group

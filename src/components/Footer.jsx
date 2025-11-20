@@ -245,7 +245,7 @@ export default function Footer({ footerData }) {
                       </div>
                     </div>
 
-                    <div className="lg:mt-14.5 md:mt-13">
+                    <div className="lg:mt-14.5 md:mt-13 lg:mb-4">
                       <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
                         <PrismicRichText field={data.contacts} />
                       </div>
