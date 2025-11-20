@@ -11,6 +11,7 @@ import EventTab from "./tabs/EventTab";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useHotelBooking } from "@/store/useHotelBooking";
+import useBookNowModal from "@/hooks/useBookNowModal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,6 +20,15 @@ export default function BookNowModal({
   onClose,
   initialTab = "hotel",
 }) {
+  const openGlobal = useBookNowModal((s) => s.openGlobal);
+  const closeGlobal = useBookNowModal((s) => s.closeFromOutside);
+  const [openInternal, setOpenInternal] = useState(false);
+
+  const closeModal = () => {
+    setOpenInternal(false);
+    onClose?.();
+    closeGlobal();
+  };
   const [portalReady, setPortalReady] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [animateIn, setAnimateIn] = useState(false);
@@ -148,7 +158,11 @@ export default function BookNowModal({
         {/* TAB CONTENT */}
         <div className="p-6 flex-1 overflow-y-auto" data-lenis-prevent>
           {activeTab === "hotel" && (
-            <HotelTab data={hotelData} setData={setHotelData} />
+            <HotelTab
+              data={hotelData}
+              setData={setHotelData}
+              closeModal={closeModal}
+            />
           )}
 
           {activeTab === "dining" && (
