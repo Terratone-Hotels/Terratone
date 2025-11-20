@@ -13,7 +13,6 @@ import RichTextRenderer from "@/components/RichTextRenderer";
  */
 const DiningCta = ({ slice }) => {
   return (
-    // The Bounded component wraps the entire slice content
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
@@ -22,8 +21,6 @@ const DiningCta = ({ slice }) => {
       {/* Section 1: The main CTA content */}
       <div className="flex flex-col md:flex-row-reverse justify-between items-start gap-6">
         <div className="h-[290px] w-full md:w-[40%] lg:w-[45%] md:h-[320px] lg:h-[440px] flex-shrink-0">
-          {/* --- CHANGE 1: Use PrismicNextImage for the single CTA image --- */}
-          {/* ParallaxGallery is for a list of images, so PrismicNextImage is the correct component for a single image field. */}
           <PrismicNextImage
             field={slice.primary.image_one}
             className="w-full h-full object-cover"
@@ -47,13 +44,8 @@ const DiningCta = ({ slice }) => {
             </Button>
           </div>
         </div>
-
-        {/* --- CHANGE 2: The old simple image map is removed from here --- */}
       </div>
 
-      {/* --- CHANGE 3: The ParallaxGallery component is added here --- */}
-      {/* It sits outside the flex container to take up its own space and follows the CTA. */}
-      {/* We pass the entire 'slice' object to it, as the component is designed to find the parallax images within it. */}
       <div className="mt-20">
         <ParallaxGallery slice={slice} />
       </div>
