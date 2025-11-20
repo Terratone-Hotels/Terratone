@@ -5,8 +5,10 @@ import Calendar from "./Calendar";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
 import TerratoneToast from "@/components/TerratoneToast";
+import useBookNowModal from "@/hooks/useBookNowModal";
+import { useHotelBooking } from "@/store/useHotelBooking";
 
-export default function HotelTab({ data, setData }) {
+export default function HotelTab({ data, setData, closeModal }) {
   const {
     selectedProperty,
     adults = 2,
@@ -17,6 +19,8 @@ export default function HotelTab({ data, setData }) {
 
   const PROPERTY_LIST = ["Deluxe Suite", "Deluxe King", "Deluxe Twin"];
   const [openProperty, setOpenProperty] = useState(false);
+  const closeFromOutside = useBookNowModal((s) => s.closeFromOutside);
+  const clear = useHotelBooking((s) => s.clear);
 
   // NEW: use setData with partial objects (Zustand expects partial object)
   const updateCheckIn = (v) => setData({ checkIn: v });
@@ -64,8 +68,14 @@ export default function HotelTab({ data, setData }) {
       if (json.success) {
         const summary = `${selectedProperty} • ${adults} Adults, ${children} Children`;
         toast.custom(
-          <TerratoneToast message={`Hotel enquiry sent! ${summary}`} />
+          <TerratoneToast
+            message={`Hotel enquiry sent!  We will get back to you soon`}
+          />
         );
+        setTimeout(() => {
+          closeModal(); // close modal
+          clear(); // reset all fields
+        }, 400);
       }
     } catch (err) {
       console.error(err);
