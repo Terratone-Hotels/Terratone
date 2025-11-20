@@ -253,7 +253,12 @@ export default function Footer({ footerData }) {
                         {data.contacts_list.map((item, index) => (
                           <div key={index}>
                             <FooterLink
-                              field={item.link}
+                              field={
+                                item.method === "Telephone" ||
+                                item.method === "Mail"
+                                  ? item.link_text
+                                  : item.link
+                              }
                               arrowSpan={"self-center"}
                               arrowClassName={"w-0"}
                               method={item.method}
@@ -463,7 +468,14 @@ export default function Footer({ footerData }) {
               {data.contacts_list.map((item, index) => (
                 <div key={index}>
                   <div className="text-black underline underline-offset-2">
-                    <FooterLinkMobile field={item.link} method={item.method}>
+                    <FooterLinkMobile
+                      field={
+                        item.method === "Telephone" || item.method === "Mail"
+                          ? item.link_text
+                          : item.link
+                      }
+                      method={item.method}
+                    >
                       {item.link_text}
                     </FooterLinkMobile>
                   </div>
