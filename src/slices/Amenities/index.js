@@ -10,6 +10,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const AmenitiesInteractiveListHover = ({ slice }) => {
   const amenities = slice.primary.amenities || [];
+
+  // ❗ FIX: Return early BEFORE any hooks
   if (amenities.length === 0) return null;
 
   /* ------------------ PARALLAX –10% → +10% ------------------ */
@@ -66,11 +68,10 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
           </div>
         </div>
 
-        {/* Right side: 3 images */}
+        {/* Right side images */}
         <div className="flex flex-row h-[350px] md:h-full lg:w-[55%] items-center gap-4 lg:gap-6 mt-4 md:mt-0">
           {/* Left vertical stack */}
           <div className="flex flex-col gap-4 lg:gap-6 h-full w-[40%]">
-            {/* Top image */}
             <div className="h-[40%] w-full">
               <div className="parallax-box relative overflow-hidden w-full h-full">
                 <div className="parallax-img absolute inset-0 w-full h-full">
@@ -82,7 +83,6 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
               </div>
             </div>
 
-            {/* Bottom image */}
             <div className="h-[60%] w-full">
               <div className="parallax-box relative overflow-hidden w-full h-full">
                 <div className="parallax-img absolute inset-0 w-full h-full">
@@ -95,7 +95,7 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
             </div>
           </div>
 
-          {/* Right big image */}
+          {/* Right main image */}
           <div className="h-full w-[60%]">
             <div className="parallax-box relative overflow-hidden w-full h-full">
               <div className="parallax-img absolute inset-0 w-full h-full">
