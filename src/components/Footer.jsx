@@ -288,7 +288,7 @@ export default function Footer({ footerData }) {
                 {data.follow_links.map((item, index) => (
                   <div key={index}>
                     <FooterLink
-                      field={item.link_text}
+                      field={item.link}
                       arrowSpan={"self-center"}
                       arrowClassName={"w-[0.7em]"}
                     >
