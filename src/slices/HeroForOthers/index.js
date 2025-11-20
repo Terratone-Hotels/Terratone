@@ -9,9 +9,11 @@ import { PrismicNextImage } from "@prismicio/next";
 
 import { useHotelBooking } from "@/store/useHotelBooking";
 import useBookNowModal from "@/hooks/useBookNowModal";
-
+import Button from "@/components/Button";
 import Calendar from "@/components/BookNow/tabs/Calendar";
 import { format } from "date-fns";
+import ArrowIcon from "@/components/ArrowIcon";
+import { PrismicRichText } from "@prismicio/react";
 
 const HeroForOthers = ({ slice }) => {
   // --------------------------------------
@@ -135,8 +137,8 @@ const HeroForOthers = ({ slice }) => {
                 sizes="100vw"
               />
 
-              <div className="absolute bottom-16 lg:bottom-10 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-10 lg:leading-[3.4rem] tracking-tight">
-                <HeroTextRenderer field={slice.primary.hero_heading} />
+              <div className="absolute bottom-0 lg:bottom-10 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-1 lg:leading-[3.4rem] tracking-tight">
+                <PrismicRichText field={slice.primary.hero_heading} />
               </div>
             </div>
           </Bounded>
@@ -155,12 +157,12 @@ const HeroForOthers = ({ slice }) => {
                 sizes="100vw"
               />
 
-              <div className="absolute bottom-40 lg:bottom-28 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-10 lg:leading-[3.4rem] tracking-tight">
+              <div className="absolute bottom-20 lg:bottom-28 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-7 lg:leading-[3.4rem] tracking-tight">
                 <HeroTextRenderer field={slice.primary.hero_heading} />
               </div>
 
               {/* AVAILABILITY BAR */}
-              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[95%] lg:w-[80%] shadow-xl rounded-md overflow-visible">
+              <div className="absolute bottom-5 lg:bottom-10 left-1/2 -translate-x-1/2 w-[95%] lg:w-[80%] lg:shadow-xl rounded-md overflow-visible">
                 <div
                   className="
     flex flex-wrap lg:flex-nowrap 
@@ -171,9 +173,9 @@ const HeroForOthers = ({ slice }) => {
                   {/* ROOM */}
                   <div
                     ref={roomRef}
-                    className="relative basis-[48%] lg:w-1/4 
+                    className="hidden lg:block relative basis-[48%] lg:w-1/4 
                border border-neutral-300  rounded-md 
-               bg-white px-4 py-3"
+               lg:bg-white px-4 py-3"
                   >
                     <label className="block text-[14px] font-barlow uppercase tracking-wide text-neutral-500 mb-1">
                       Room
@@ -215,7 +217,7 @@ const HeroForOthers = ({ slice }) => {
                   {/* GUESTS */}
                   <div
                     ref={guestsRef}
-                    className="relative basis-[48%] lg:w-1/4 
+                    className="hidden lg:block relative basis-[48%] lg:w-1/4 
                border border-neutral-300 rounded-md 
                bg-white px-4 py-3"
                   >
@@ -288,7 +290,7 @@ const HeroForOthers = ({ slice }) => {
                   {/* DATE PICKER */}
                   <div
                     ref={calendarRef}
-                    className="relative basis-full lg:w-1/4 
+                    className="hidden lg:block  relative basis-full lg:w-1/4 
                border border-neutral-300 rounded-md 
                bg-white px-4 py-3"
                   >
@@ -334,9 +336,10 @@ const HeroForOthers = ({ slice }) => {
                   </div>
 
                   {/* CTA BUTTON */}
+                  
                   <button
                     onClick={handleCheckAvailability}
-                    className="flex w-full  bg-black text-white rounded-md overflow-hidden cursor-pointer"
+                    className=" hidden lg:flex w-full  bg-black text-white rounded-md overflow-hidden cursor-pointer"
                   >
                     {/* Left section with padding */}
                     <span className="flex-1 flex items-center justify-center px-6 py-6 text-xs uppercase tracking-wide">
@@ -348,6 +351,15 @@ const HeroForOthers = ({ slice }) => {
                       →
                     </span>
                   </button>
+                  {/* Mobile Button */}
+                  <div className="lg:hidden flex-1">
+                    <button onClick={handleCheckAvailability} className="bg-black flex items-center justify-center gap-2 w-full uppercase font-barlow text-white text-xs px-6 py-3">
+                      Check Availability{" "}
+                      <span>
+                        <ArrowIcon fill="#ffff" />
+                      </span>{" "}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

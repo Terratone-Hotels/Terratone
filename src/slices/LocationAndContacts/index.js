@@ -18,7 +18,7 @@ const LocationAndContacts = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="px-[0.9375rem] md:px-6 mt-15 lg:mt-20"
+      className="px-[0.9375rem] md:px-6 mt-10 lg:mt-20"
      
     >
       <div className="flex flex-col lg:flex-row w-full justify-between font-serif  ">
