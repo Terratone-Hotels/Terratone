@@ -86,15 +86,13 @@ const DiscoverHero = ({ slice }) => {
         allImages,
         {
           opacity: 0,
-          clipPath: "inset(50% 50% 50% 50%)", // collapsed center
+          clipPath: "inset(100% 0% 0% 0%)", // collapsed center
         },
         {
           opacity: 1,
           clipPath: "inset(0% 0% 0% 0%)", // fully revealed
           duration: 0.9,
-          ease: "power3.out",
-          stagger: 0.25,
-          delay: 1.3,
+          ease: "circ.out",
         }
       );
 
@@ -107,7 +105,7 @@ const DiscoverHero = ({ slice }) => {
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: "+=80%",
+          end: "+=350%",
           scrub: true,
           pin: true,
           // markers: true,
@@ -128,7 +126,7 @@ const DiscoverHero = ({ slice }) => {
           scrollTrigger: {
             trigger: container,
             start: "center+=45% bottom", // start as soon as hero hits top
-            end: "bottom-=20%", // finish quickly within first 10% of scroll
+            end: "bottom+=280%", // finish quickly within first 10% of scroll
             scrub: true, // tie to scroll progress (no snap)
             // markers:true,
           },

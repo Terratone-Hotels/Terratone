@@ -60,7 +60,7 @@ export default function RoomCard({
         // DESCRIPTION LAST (no overlap)
         .fromTo(descRef.current, revealSettings, {
           ...revealTo,
-          duration: 1.1,
+          duration: 0.5,
         });
     }, cardRef);
 
