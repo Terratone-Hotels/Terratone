@@ -138,7 +138,7 @@ const HeroForOthers = ({ slice }) => {
                 sizes="100vw"
               />
 
-              <div className="absolute bottom-10 lg:bottom-10 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-7 lg:leading-[3.4rem] tracking-tight">
+              <div className="absolute bottom-10 lg:bottom-10 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-10 lg:leading-15 tracking-tight">
                 <PrismicRichText field={slice.primary.hero_heading} />
               </div>
             </div>
@@ -382,7 +382,7 @@ const HeroForOthers = ({ slice }) => {
                   <div className="lg:hidden flex-1">
                     <button
                       onClick={handleCheckAvailability}
-                      className="bg-black flex items-center justify-center gap-2 w-full uppercase font-barlow text-white text-xs px-6 py-1"
+                      className="bg-black flex items-center justify-center gap-2 w-full uppercase font-barlow text-white text-sm px-6 py-3"
                     >
                       Check Availability
                       <span>

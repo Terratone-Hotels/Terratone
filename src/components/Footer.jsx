@@ -100,7 +100,7 @@ export default function Footer({ footerData }) {
 
   return (
     <section className="px-[0.9375rem] md:px-6 mt-15 lg:mt-20">
-      <footer ref={footerRef} className="w-full pb-2 lg:mb-15">
+      <footer ref={footerRef} className="w-full pb-2 lg:mb-10">
         {/* MAIN DESKTOP FOOTER */}
         <div className="hidden lg:block w-full">
           {/* ------------------------------ */}

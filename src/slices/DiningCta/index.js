@@ -17,25 +17,24 @@ const DiningCta = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="px-[0.9375rem] md:px-6 mt-15 lg:mt-30"
+      className="px-[0.9375rem] md:px-6  lg:mt-30"
     >
       {/* Section 1: The main CTA content */}
       <div className="flex flex-col md:flex-row-reverse justify-between items-start gap-6">
-        <div className="h-[290px] w-full md:w-[40%] md:h-[320px] lg:h-[440px] flex-shrink-0">
-          {/* --- CHANGE 1: Use PrismicNextImage for the single CTA image --- */}
-          {/* ParallaxGallery is for a list of images, so PrismicNextImage is the correct component for a single image field. */}
+        <div className="h-[290px] w-full md:w-[48%] md:h-[320px] lg:h-[440px] flex-shrink-0">
+         
           <PrismicNextImage
             field={slice.primary.image_one}
             className="w-full h-full object-cover"
           />
         </div>
 
-        <div className="w-full md:w-1/2 flex flex-col">
-          <div className="font-serif font-medium capitalize text-[25px] md:text-[38px] lg:text-[42px] leading-8  items-start">
+        <div className="w-full md:sticky md:top-15 md:w-1/2 flex flex-col">
+          <div className="font-serif font-medium capitalize text-[25px] md:text-[38px] lg:text-[42px] leading-5 lg:leading-8  items-start">
             <RichTextRenderer field={slice.primary.heading} />
           </div>
 
-          <div className="text-sm lg:text-lg font-barlow md:w-[70%] lg:w-[80%] pt-2 pb-5 md:pt-8 md:pb-10">
+          <div className="text-sm lg:text-lg font-barlow md:w-[70%] lg:w-[80%] pt-2 pb-5 md:pt-4 md:pb-8">
             <RichTextRenderer field={slice.primary.description} />
           </div>
 

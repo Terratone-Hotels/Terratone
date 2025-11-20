@@ -26,9 +26,10 @@ const PictureSection = ({ slice }) => {
       )}
 
       {slice.variation === "doublePictures" && (
-        <Bounded
+        <section
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
+          className="px-[0.9375rem] md:px-6 mt-15 lg:mt-30"
         
         >
           <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
@@ -45,7 +46,7 @@ const PictureSection = ({ slice }) => {
               />
             </div>
           </div>
-        </Bounded>
+        </section>
       )}
       {slice.variation === "trippleImage" && (
         <Bounded

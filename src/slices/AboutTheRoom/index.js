@@ -9,21 +9,22 @@ import { PrismicRichText } from "@prismicio/react";
  */
 const AboutTheRoom = ({ slice }) => {
   return (
-    <Bounded
+    <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
+      className="px-[0.9375rem] md:px-6 mt-15 lg:mt-30"
     >
       {/* Main Container */}
       <div className="flex flex-col lg:flex-row">
         {/* Left side */}
-        <div className="lg:w-[50%] mb-5">
+        <div className="lg:w-[51%] mb-5">
           <div className="lg:w-[80%] font-serif text-[25px] font-medium  lg:text-[40px] leading-7 lg:leading-11">
             <PrismicRichText field={slice.primary.quote} />
           </div>
         </div>
         {/* Right side  */}
-        <div className="lg:w-[50%]">
-          <div className=" font-barlow  leading-tight">
+        <div className="lg:w-[49%]">
+          <div className=" font-barlow  leading-tight lg:w-[70%]">
             <PrismicRichText field={slice.primary.description} />
           </div>
           <div className="mt-9">
@@ -35,7 +36,7 @@ const AboutTheRoom = ({ slice }) => {
           </div>
         </div>
       </div>
-    </Bounded>
+    </section>
   );
 };
 
