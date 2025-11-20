@@ -474,18 +474,18 @@ export default function Footer({ footerData }) {
           </div>
 
           {/* Fifth Row */}
-          <div className="flex justify-between w-full relative px-2 py-6">
+          <div className="flex flex-col gap-3 justify-between w-full relative px-2 py-4.5">
             <div className="footer-line" /> {/* line */}
             <div className="flex flex-col gap-2">
-              <div className="flex gap-2 text-xs">
+              <div className="flex gap-5 text-xs">
                 <RatingStars rating={data.rating} starClassName="w-3 h-4" />
                 <div className="text-[#5B5B5B] mt-0.5 flex text-xs font-barlow">
                   <PrismicRichText field={data.review_count} />
-                  <span>reviews</span>
+                  <span> reviews</span>
                 </div>
               </div>
 
-              <div className="flex gap-5 text-xs">
+              <div className="flex flex-wrap gap-x-5  text-xs">
                 {data.booking_sites.map((item, index) => (
                   <div key={index}>
                     <PrismicNextLink field={item.link}>
@@ -493,9 +493,10 @@ export default function Footer({ footerData }) {
                     </PrismicNextLink>
                   </div>
                 ))}
+             
               </div>
             </div>
-            <div className="flex flex-col text-start justify-end text-xs">
+            <div className="flex flex-col text-start  text-xs">
               {data.follow_links.map((item, index) => (
                 <div key={index}>
                   <PrismicNextLink field={item.link}>
@@ -503,6 +504,7 @@ export default function Footer({ footerData }) {
                   </PrismicNextLink>
                 </div>
               ))}
+              
             </div>
             <div className="footer-line" /> {/* line */}
           </div>

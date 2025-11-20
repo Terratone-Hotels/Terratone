@@ -205,17 +205,17 @@ export default function GuitarStringsPhysics() {
             <div className="string-color-fill w-full h-full rounded-full absolute top-0 left-0"></div>
 
             {i === 1 && (
-              <span className="string-text absolute -top-[2.5rem] left-0 bg-stone pr-3 font-serif text-2xl md:text-5xl">
+              <span className="string-text absolute -top-[22px] md:-top-[2.5rem] left-0 bg-stone pr-3 font-serif text-2xl md:text-5xl">
                 Where
               </span>
             )}
             {i === 2 && (
-              <span className="string-text absolute -top-[2.5rem] left-1/4 bg-stone px-3 italic font-serif text-2xl md:text-5xl">
+              <span className="string-text absolute -top-[22px] md:-top-[2.5rem] left-1/4 bg-stone px-3 italic font-serif text-2xl md:text-5xl">
                 Every Meal
               </span>
             )}
             {i === 3 && (
-              <span className="string-text absolute -top-[2.5rem] right-0 bg-stone pl-3 font-serif text-2xl md:text-5xl">
+              <span className="string-text absolute -top-[22px] md:-top-[2.5rem] right-0 bg-stone pl-3 font-serif text-2xl md:text-5xl">
                 Is Harmony
               </span>
             )}
