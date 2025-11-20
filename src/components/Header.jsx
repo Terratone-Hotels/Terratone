@@ -9,6 +9,7 @@ import Button from "@/components/Button";
 import BookNowModal from "./BookNow/BookNowModal";
 import { usePathname } from "next/navigation";
 import useBookNowModal from "../hooks/useBookNowModal";
+import gsap from "gsap";
 
 const HamburgerIcon = (props) => (
   <svg
@@ -153,6 +154,31 @@ export default function HeaderClient({ headerData }) {
 
     return () => observer.disconnect();
   }, [pathname]);
+  useEffect(() => {
+    const links = document.querySelectorAll(".nav-link");
+
+    links.forEach((link) => {
+      const underline = link.querySelector(".nav-underline");
+      const tl = gsap.timeline({ paused: true });
+
+      tl.to(underline, {
+        scaleX: 1,
+        duration: 0.35,
+        ease: "power3.out",
+      });
+
+      link.addEventListener("mouseenter", () => tl.play());
+      link.addEventListener("mouseleave", () => tl.reverse());
+    });
+
+    return () => {
+      links.forEach((link) => {
+        const underline = link.querySelector(".nav-underline");
+        link.removeEventListener("mouseenter", () => tl.play());
+        link.removeEventListener("mouseleave", () => tl.reverse());
+      });
+    };
+  }, []);
 
   return (
     <div className="relative">
@@ -173,9 +199,12 @@ export default function HeaderClient({ headerData }) {
               <li key={index}>
                 <PrismicNextLink
                   field={item.link}
-                  className="font-barlow uppercase text-sm font-medium text-white  "
+                  className="nav-link relative inline-block font-barlow uppercase text-sm font-medium text-white"
                 >
                   {item.link_lable}
+
+                  {/* underline */}
+                  <span className="nav-underline absolute left-0 bottom-0 h-[1px] w-full bg-white scale-x-0 origin-left"></span>
                 </PrismicNextLink>
               </li>
             ))}

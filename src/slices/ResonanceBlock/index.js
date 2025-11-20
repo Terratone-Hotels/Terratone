@@ -14,10 +14,10 @@ const ResonanceBlock = ({ slice }) => {
   return (
     <>
       {slice.variation === "default" && (
-        <Bounded
+        <section
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className={" h-auto relative"}
+          className="px-[0.9375rem] md:px-6 mt-15 lg:mt-30"
         >
           <div className="">
             <PrismicNextImage
@@ -48,13 +48,13 @@ const ResonanceBlock = ({ slice }) => {
           <section className=" flex items-center justify-center">
             <GuitarStrings />
           </section>
-        </Bounded>
+        </section>
       )}
       {slice.variation === "roomNarrative" && (
         <section
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
-          className="px-[0.9375rem] md:px-6 mt-15 lg:mt-33"
+          className="px-[0.9375rem] md:px-6 mt-15 lg:mt-30"
         >
           <div className="text-black capitalize font-medium text-center font-serif text-[32px] md:text-[2.813rem] lg:text-[42px] leading-8 lg:leading-11 mb-5 md:mb-10">
             <RichTextRenderer field={slice.primary.heading} />
@@ -90,7 +90,7 @@ const ResonanceBlock = ({ slice }) => {
               <div>
                 <CurtainRevealImage
                   field={slice.primary.vertical_image}
-                  className=" h-[14rem] w-[10rem] z-100 object-cover"
+                  className=" h-[14rem] w-[10rem] z-10 object-cover"
                 />
               </div>
               <div className=" mt-5 w-[71%] font-barlow ">
