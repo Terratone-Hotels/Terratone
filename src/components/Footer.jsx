@@ -253,7 +253,7 @@ export default function Footer({ footerData }) {
                         {data.contacts_list.map((item, index) => (
                           <div key={index}>
                             <FooterLink
-                              field={item.link}
+                              field={item.link_text}
                               arrowSpan={"self-center"}
                               arrowClassName={"w-0"}
                               method={item.method}
@@ -288,7 +288,7 @@ export default function Footer({ footerData }) {
                 {data.follow_links.map((item, index) => (
                   <div key={index}>
                     <FooterLink
-                      field={item.link}
+                      field={item.link_text}
                       arrowSpan={"self-center"}
                       arrowClassName={"w-[0.7em]"}
                     >
