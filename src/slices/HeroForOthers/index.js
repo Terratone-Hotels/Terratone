@@ -14,6 +14,7 @@ import Calendar from "@/components/BookNow/tabs/Calendar";
 import { format } from "date-fns";
 import ArrowIcon from "@/components/ArrowIcon";
 import { PrismicRichText } from "@prismicio/react";
+import DropdownArrow from "@/components/DropDownIcon";
 
 const HeroForOthers = ({ slice }) => {
   // --------------------------------------
@@ -137,7 +138,7 @@ const HeroForOthers = ({ slice }) => {
                 sizes="100vw"
               />
 
-              <div className="absolute bottom-0 lg:bottom-10 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-1 lg:leading-[3.4rem] tracking-tight">
+              <div className="absolute bottom-10 lg:bottom-10 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-7 lg:leading-[3.4rem] tracking-tight">
                 <PrismicRichText field={slice.primary.hero_heading} />
               </div>
             </div>
@@ -157,43 +158,51 @@ const HeroForOthers = ({ slice }) => {
                 sizes="100vw"
               />
 
-              <div className="absolute bottom-20 lg:bottom-28 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-7 lg:leading-[3.4rem] tracking-tight">
+              <div className="absolute bottom-20 lg:bottom-30 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-7 lg:leading-10 tracking-tight">
                 <HeroTextRenderer field={slice.primary.hero_heading} />
               </div>
 
               {/* AVAILABILITY BAR */}
-              <div className="absolute bottom-5 lg:bottom-10 left-1/2 -translate-x-1/2 w-[95%] lg:w-[80%] lg:shadow-xl rounded-md overflow-visible">
+              <div className="absolute bottom-5 lg:bottom-10 left-1/2 -translate-x-1/2 w-[95%] lg:w-[96%] lg:shadow-xl rounded-xs overflow-visible">
                 <div
                   className="
-    flex flex-wrap lg:flex-nowrap 
-    gap-y-3 gap-x-3 
-    relative overflow-visible
-  "
+                    flex flex-wrap lg:flex-nowrap 
+                     gap-x-0.5 
+                    relative overflow-visible
+                  "
                 >
                   {/* ROOM */}
                   <div
                     ref={roomRef}
-                    className="hidden lg:block relative basis-[48%] lg:w-1/4 
-               border border-neutral-300  rounded-md 
-               lg:bg-white px-4 py-3"
+                    className="hidden lg:flex items-center relative basis-[48%] lg:w-1/4 
+                    border border-neutral-300 font-barlow rounded-xs 
+                     lg:bg-white px-4 py-1"
                   >
-                    <label className="block text-[14px] font-barlow uppercase tracking-wide text-neutral-500 mb-1">
-                      Room
-                    </label>
+                    <div className="flex-1">
+                      <label className="block text-[12px] font-medium font-barlow uppercase tracking-wide text-neutral-500 mb-1">
+                        Room
+                      </label>
 
-                    <button
+                      <button
+                        onClick={() => setRoomOpen(!roomOpen)}
+                        className="w-full text-left bg-transparent text-lg outline-none cursor-pointer"
+                      >
+                        {room}
+                      </button>
+                    </div>
+                    <span
+                      className="cursor-pointer"
                       onClick={() => setRoomOpen(!roomOpen)}
-                      className="w-full text-left bg-transparent text-lg outline-none cursor-pointer"
                     >
-                      {room}
-                    </button>
+                      <DropdownArrow />
+                    </span>
 
                     {roomOpen && (
                       <div
                         className="
           absolute left-0 bottom-full mb-3
-          w-full bg-white shadow-xl border border-neutral-300 p-4 z-[9999]
-          rounded-md
+          w-full bg-white font-barlow shadow-xl border border-neutral-300 p-4 z-[9999]
+          rounded-xs
         "
                       >
                         {["Deluxe King", "Deluxe Suite", "Deluxe Twin"].map(
@@ -204,7 +213,7 @@ const HeroForOthers = ({ slice }) => {
                                 setRoom(r);
                                 setRoomOpen(false);
                               }}
-                              className="py-2 text-lg cursor-pointer hover:bg-neutral-100"
+                              className="py-1 text-lg cursor-pointer hover:bg-neutral-100"
                             >
                               {r}
                             </div>
@@ -217,31 +226,40 @@ const HeroForOthers = ({ slice }) => {
                   {/* GUESTS */}
                   <div
                     ref={guestsRef}
-                    className="hidden lg:block relative basis-[48%] lg:w-1/4 
-               border border-neutral-300 rounded-md 
-               bg-white px-4 py-3"
+                    className="hidden lg:flex items-center relative basis-[48%] lg:w-1/4 
+               border border-neutral-300 rounded-xs 
+               bg-white px-4 py-1"
                   >
-                    <label className="block text-[14px] font-barlow uppercase tracking-wide text-neutral-500 mb-1">
-                      Guest(s)
-                    </label>
+                    <div className="flex-1">
+                      <label className="block text-[12px] font-medium font-barlow uppercase tracking-wide text-neutral-500 mb-1">
+                        Guest(s)
+                      </label>
 
-                    <button
+                      <button
+                        onClick={() => setGuestsOpen(!guestsOpen)}
+                        className="w-full text-left bg-transparent  font-barlow text-lg outline-none cursor-pointer"
+                      >
+                        {adults + children} Guests
+                      </button>
+                    </div>
+
+                    <span
+                      className="cursor-pointer"
                       onClick={() => setGuestsOpen(!guestsOpen)}
-                      className="w-full text-left bg-transparent  font-barlow text-lg outline-none cursor-pointer"
                     >
-                      {adults + children} Guests
-                    </button>
+                      <DropdownArrow />
+                    </span>
 
                     {guestsOpen && (
                       <div
                         className="
           absolute left-0 bottom-full mb-3
           w-full bg-white shadow-xl border border-neutral-300 p-4
-          rounded-md z-[9999]
+          rounded-xs z-[9999]
         "
                       >
                         {/* Adults */}
-                        <div className="flex justify-between items-center py-2">
+                        <div className="flex justify-between items-center py-1">
                           <span className="uppercase">Adults</span>
                           <div className="flex items-center gap-3">
                             <button
@@ -263,7 +281,7 @@ const HeroForOthers = ({ slice }) => {
                         </div>
 
                         {/* Children */}
-                        <div className="flex justify-between items-center py-2 border-t">
+                        <div className="flex justify-between items-center py-1 border-t">
                           <span className="uppercase">Children</span>
                           <div className="flex items-center gap-3">
                             <button
@@ -290,32 +308,42 @@ const HeroForOthers = ({ slice }) => {
                   {/* DATE PICKER */}
                   <div
                     ref={calendarRef}
-                    className="hidden lg:block  relative basis-full lg:w-1/4 
-               border border-neutral-300 rounded-md 
-               bg-white px-4 py-3"
+                    className="hidden lg:flex  items-center  relative basis-full lg:w-1/4 
+               border border-neutral-300 rounded-xs 
+               bg-white px-4 py-1"
                   >
-                    <label className="block text-[14px] font-barlow uppercase tracking-wide text-neutral-500 mb-1">
-                      Dates of Stay
-                    </label>
+                    <div className="flex-1">
+                      <label className="block text-[12px] font-medium font-barlow uppercase tracking-wide text-neutral-500 mb-1">
+                        Dates of Stay
+                      </label>
 
-                    <button
+                      <button
+                        onClick={() => setCalendarOpen(!calendarOpen)}
+                        className="w-full flex justify-between items-center bg-transparent text-left font-barlow text-lg outline-none cursor-pointer"
+                      >
+                        <span>
+                          {checkIn && checkOut
+                            ? `${format(checkIn, "MMM dd, yyyy")} / ${format(
+                                checkOut,
+                                "MMM dd, yyyy"
+                              )}`
+                            : "Select Dates"}
+                        </span>
+                      </button>
+                    </div>
+                    <span
+                      className="cursor-pointer"
                       onClick={() => setCalendarOpen(!calendarOpen)}
-                      className="w-full bg-transparent text-left font-barlow text-lg outline-none cursor-pointer"
                     >
-                      {checkIn && checkOut
-                        ? `${format(checkIn, "MMM dd, yyyy")} / ${format(
-                            checkOut,
-                            "MMM dd, yyyy"
-                          )}`
-                        : "Select Dates"}
-                    </button>
+                      <DropdownArrow />
+                    </span>
 
                     {calendarOpen && (
                       <div
                         className="
           absolute left-0 bottom-full mb-3
           w-full bg-white shadow-2xl border border-neutral-300 p-4
-          rounded-md z-[9999]
+          rounded-xs z-[9999]
         "
                       >
                         <Calendar
@@ -327,7 +355,7 @@ const HeroForOthers = ({ slice }) => {
 
                         <button
                           onClick={() => setCalendarOpen(false)}
-                          className="w-full bg-black text-white mt-3 py-2 text-sm uppercase rounded-md"
+                          className="w-full bg-black text-white mt-3 py-1 text-sm uppercase rounded-xs"
                         >
                           Done
                         </button>
@@ -336,25 +364,27 @@ const HeroForOthers = ({ slice }) => {
                   </div>
 
                   {/* CTA BUTTON */}
-                  
+
                   <button
                     onClick={handleCheckAvailability}
-                    className=" hidden lg:flex w-full  bg-black text-white rounded-md overflow-hidden cursor-pointer"
+                    className=" hidden lg:inline-flex w-full items-center justify-center gap-2 bg-black text-white rounded-xs overflow-hidden cursor-pointer"
                   >
                     {/* Left section with padding */}
-                    <span className="flex-1 flex items-center justify-center px-6 py-6 text-xs uppercase tracking-wide">
+                    <span className="flex items-center px-2 py-1 text-xs font-barlow uppercase tracking-wide">
                       Check Availability
                     </span>
-
                     {/* Right square arrow area */}
-                    <span className="w-20 flex items-center justify-center bg-neutral-900 text-lg">
-                      →
-                    </span>
+                    <span>
+                      <ArrowIcon fill="#ffff" />
+                    </span>{" "}
                   </button>
                   {/* Mobile Button */}
                   <div className="lg:hidden flex-1">
-                    <button onClick={handleCheckAvailability} className="bg-black flex items-center justify-center gap-2 w-full uppercase font-barlow text-white text-xs px-6 py-3">
-                      Check Availability{" "}
+                    <button
+                      onClick={handleCheckAvailability}
+                      className="bg-black flex items-center justify-center gap-2 w-full uppercase font-barlow text-white text-xs px-6 py-1"
+                    >
+                      Check Availability
                       <span>
                         <ArrowIcon fill="#ffff" />
                       </span>{" "}

@@ -13,16 +13,17 @@ import SplitButton from "@/components/SplitButton";
  */
 const IntroBlock = ({ slice }) => {
   return (
-    <Bounded
+    <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className={"pt-15 lg:pt-35"}
+      className="px-[0.9375rem] md:px-6 mt-15 lg:mt-30"
+      
     >
       <div className="flex flex-col justify-center items-center">
-        <div className="text-center font-serif font-medium text-[28px] lg:text-[2.625rem] capitalize leading-8 lg:leading-12">
+        <div className="text-center font-serif font-medium text-[28px] lg:text-[2.625rem] capitalize leading-8 lg:leading-9">
           <RichTextRenderer field={slice.primary.heading} />
         </div>
-        <div className="lg:w-[35%] w-[95%] md:w-[33%] text-center font-barlow  text-sm lg:text-lg leading-tight lg:pt-7 pt-5 pb-7 lg:pb-12">
+        <div className="lg:w-[35%] w-[95%] md:w-[33%] text-center font-barlow  text-sm lg:text-lg leading-tight lg:pt-7 pt-5 pb-7 lg:pb-6">
           <RichTextRenderer field={slice.primary.description} />
         </div>
         <div>
@@ -34,7 +35,7 @@ const IntroBlock = ({ slice }) => {
         
         </div>
       </div>
-    </Bounded>
+    </section>
   );
 };
 

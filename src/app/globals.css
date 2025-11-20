@@ -210,3 +210,14 @@ body.modal-open {
   display: block;
   content: "";
 }
+.footer-line-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background-color: #c7c7c7;
+  transform-origin: left;
+  transform: scaleX(0);
+  pointer-events: none;
+}
