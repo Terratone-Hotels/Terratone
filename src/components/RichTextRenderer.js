@@ -59,7 +59,7 @@ export default function RichTextRenderer({
 
         gsap.fromTo(
           splitLines,
-          { yPercent: 100 },
+          { yPercent: 110 },
           {
             yPercent: 0,
             duration: animationDuration,

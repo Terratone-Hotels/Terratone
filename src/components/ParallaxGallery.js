@@ -25,7 +25,6 @@ const ParallaxGallery = ({ slice }) => {
 
         // --- REVEAL ANIMATION (Smooth entrance on scroll) ---
         gsap.from(container, {
-          autoAlpha: 0,
           y: 80,
           duration: 0.9,
           ease: "power2.out",
@@ -63,10 +62,7 @@ const ParallaxGallery = ({ slice }) => {
   }, [slice.primary.parallax?.length]);
 
   return (
-    <section
-      ref={galleryRef}
-      className="w-full flex flex-col gap-8  md:gap-0 "
-    >
+    <section ref={galleryRef} className="w-full flex flex-col gap-8  md:gap-0 ">
       {/* 🛑 Safety check: Use optional chaining to prevent crash if data is null/undefined */}
       {slice.primary.parallax?.map((item, index) => (
         <div
