@@ -53,7 +53,7 @@ const ReversedDestinationHighlights = ({ slice }) => {
         >
           <div className="flex flex-col-reverse md:flex-row gap-5 items-start justify-between">
             {/* Left Side Text */}
-            <div className="md:sticky md:top-10 md:w-1/2 space-y-3 lg:space-y-5">
+            <div className="md:sticky md:top-10  md:w-[33%]  space-y-3 lg:space-y-5">
               <RichTextRenderer
                 field={slice.primary.heading}
                 className="text-[1.75rem] md:text-[25px] lg:text-[42px]  font-serif font-medium leading-5 md:leading-[2rem]"
@@ -76,26 +76,9 @@ const ReversedDestinationHighlights = ({ slice }) => {
             </div>
 
             {/* Right Side Media */}
-            <div className="w-full items-end flex flex-row-reverse md:flex-row gap-3 md:gap-6 ">
-              {/* LEFT SMALL BLOCK */}
-              <div className="w-[15%] self-end overflow-hidden">
-                {slice.primary.small_video_id ? (
-                  <VideoComponent
-                    srcMp4={slice.primary.small_video_id}
-                    className="w-full h-full object-cover object-center aspect-square"
-                  />
-                ) : (
-                  <div className="parallax-container overflow-hidden">
-                    <PrismicNextImage
-                      field={slice.primary.small_image}
-                      className="parallax-img w-full h-full object-cover object-center aspect-square"
-                    />
-                  </div>
-                )}
-              </div>
-
+            <div className="w-full lg:w-[50%]  ">
               {/* RIGHT BIG BLOCK */}
-              <div className="w-[85%] h-[10rem] md:h-[25rem] lg:h-[35rem] overflow-hidden">
+              <div className="  md:h-[25rem] lg:h-[35rem] overflow-hidden">
                 {slice.primary.video_id ? (
                   <VideoComponent
                     srcMp4={slice.primary.video_id}
