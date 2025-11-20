@@ -17,14 +17,14 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-       className="px-[0.9375rem] md:px-6 mt-15 lg:mt-20"
+       className="px-[0.9375rem] md:px-6 mt-10 lg:mt-20"
     >
       {/* Main flex container: column on mobile, row on tablet/desktop */}
       <div className="flex flex-col md:flex-row md:h-[450px] lg:h-[533px] xl:h-[735px] overflow-hidden"> 
         {/* Left side: Text and List */}
         <div className="flex flex-col justify-between md:w-1/2 lg:w-[45%] pr-4 pt-4 md:pt-0">
           {/* Heading */}
-          <div className="font-serif text-[23px] md:text-[30px]  2xl:text-[50px]  md:leading-8 xl:leading-12 lg:text-[40px] md:mb-4 font-medium">
+          <div className="font-serif text-[23px] md:text-[30px]  2xl:text-[50px] leading-6 md:leading-8 xl:leading-12 lg:text-[40px] md:mb-4 font-medium">
             <PrismicRichText field={slice.primary.heading} />
           </div>
 
@@ -40,7 +40,7 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
           </div>
 
           {/* Message */}
-          <div className="text-[15px] md:text-[14px] xl:text-[16px] xl:w-[80%] font-barlow  leading-3.5 xl:leading-5  ">
+          <div className="text-[15px] md:text-[14px] xl:text-[16px] xl:w-[80%] font-barlow  leading-4 xl:leading-5  ">
             <PrismicRichText field={slice.primary.message} />
           </div>
         </div>
@@ -48,7 +48,7 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
         {/* Right side: Static 3-image layout */}
         <div className="flex flex-row h-[350px] md:h-full lg:w-[55%] items-center gap-4 lg:gap-6 mt-4 md:mt-0">
           {/* Left column of images (stacked) */}
-          <div className="flex flex-col lg:gap-6 h-full w-[40%]">
+          <div className="flex flex-col gap-4 lg:gap-6 h-full w-[40%]">
             <div className="h-[40%] w-full">
               <PrismicNextImage
                 field={slice.primary.image_one}

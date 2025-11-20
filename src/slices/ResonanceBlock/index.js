@@ -56,7 +56,7 @@ const ResonanceBlock = ({ slice }) => {
           data-slice-variation={slice.variation}
           className="px-[0.9375rem] md:px-6 mt-15 lg:mt-33"
         >
-          <div className="text-black capitalize font-medium text-center font-serif text-[32px] md:text-[2.813rem] lg:text-[42px] leading-11 mb-5 md:mb-10">
+          <div className="text-black capitalize font-medium text-center font-serif text-[32px] md:text-[2.813rem] lg:text-[42px] leading-8 lg:leading-11 mb-5 md:mb-10">
             <RichTextRenderer field={slice.primary.heading} />
           </div>
           <div>
