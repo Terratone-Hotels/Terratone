@@ -131,8 +131,8 @@ export async function POST(req) {
 
     // ---------- Send Email ----------
     await resend.emails.send({
-      from: "Terratone Dining <onboarding@resend.dev>",
-      to: "marketing@terratonehotels.com", // ← your target dining email
+      from: "Terratone Bookings <marketing@terratonehotels.com>",
+      to: "bookings@terratonehotels.com",
       subject: `New Table Reservation: ${formattedDate} @ ${data.time}`,
       html,
     });

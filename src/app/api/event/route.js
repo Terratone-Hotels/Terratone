@@ -44,8 +44,8 @@ export async function POST(req) {
 
     // ----------------------- EMAIL HTML -----------------------
     await resend.emails.send({
-      from: "Terratone Bookings <onboarding@resend.dev>",
-      to: "marketing@terratonehotels.com",
+      from: "Terratone Bookings <marketing@terratonehotels.com>",
+      to: "bookings@terratonehotels.com",
       subject: "New Event Enquiry",
       html: `
 <div style="padding:40px; background:#F4F1ED; font-family:'EB Garamond', Georgia, serif; color:#333;">
