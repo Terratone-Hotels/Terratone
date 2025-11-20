@@ -221,7 +221,7 @@ export async function POST(req) {
     // SEND EMAIL
     await resend.emails.send({
       from: "Terratone Bookings <onboarding@resend.dev>",
-      to: "marketing@terratonehotels.com",
+      to: "sumesh@gradical.xyz",
       subject: "New Hotel Booking Request",
       html,
     });
