@@ -127,11 +127,16 @@ export async function POST(req) {
       <tr>
         <td style="color:#c6bdb5;">Date</td>
         <td style="color:black;">
-          ${new Date(date).toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          })}
+         ${(() => {
+           const d = new Date(date);
+           const IST = new Date(d.getTime() + 5.5 * 60 * 60 * 1000);
+           return IST.toLocaleDateString("en-US", {
+             month: "short",
+             day: "numeric",
+             year: "numeric",
+           });
+         })()}
+
         </td>
       </tr>
 
