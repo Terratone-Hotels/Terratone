@@ -4441,6 +4441,26 @@ export interface ReversedDestinationHighlightsSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/boolean
    */
   video: prismic.BooleanField;
+
+  /**
+   * Small Image field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.small_image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  small_image: prismic.ImageField<never>;
+
+  /**
+   * Small Video Id field in *ReversedDestinationHighlights → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: reversed_destination_highlights.default.primary.small_video_id
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  small_video_id: prismic.KeyTextField;
 }
 
 /**

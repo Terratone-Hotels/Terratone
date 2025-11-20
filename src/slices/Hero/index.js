@@ -281,7 +281,6 @@ const Hero = ({ slice }) => {
                   <PrismicNextImage
                     field={item.image}
                     priority={index === 0}
-                    sizes="100vw"
                     alt={item.image?.alt?.trim() || `Hero slide ${index + 1}`}
                     className="w-full h-dvh object-cover"
                   />
