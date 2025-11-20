@@ -12,15 +12,6 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "heading": {
-          "type": "StructuredText",
-          "config": {
-            "label": "Heading",
-            "placeholder": "",
-            "allowTargetBlank": true,
-            "multi": "heading1,em,strong"
-          }
-        },
         "carousel": {
           "type": "Group",
           "config": {
