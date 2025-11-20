@@ -79,7 +79,7 @@ export default function Footer({ footerData }) {
     const footer = footerRef.current;
     if (!footer) return;
 
-    const lines = footer.querySelectorAll(".footer-line");
+    const lines = footer.querySelectorAll(".footer-line, .footer-line-top");
     if (!lines.length) return;
 
     gsap.fromTo(
@@ -100,7 +100,7 @@ export default function Footer({ footerData }) {
 
   return (
     <section className="px-[0.9375rem] md:px-6 mt-15 lg:mt-20">
-      <footer ref={footerRef} className="w-full mb-15">
+      <footer ref={footerRef} className="w-full pb-2 lg:mb-15">
         {/* MAIN DESKTOP FOOTER */}
         <div className="hidden lg:block w-full">
           {/* ------------------------------ */}
@@ -324,7 +324,6 @@ export default function Footer({ footerData }) {
             </div>
           </div>
         </div>
-
         {/* M */}
         {/* O */}
         {/* B */}
@@ -336,12 +335,12 @@ export default function Footer({ footerData }) {
         {/* E */}
         {/* R */}
         {/* E */}
-
         {/* ----- Mobile Version ------ */}
+
         <div className="lg:hidden font-barlow flex flex-col">
           {/* First Row */}
           <div className="flex flex-col items-center lg:hidden relative py-6">
-            <div className="footer-line" /> {/* line */}
+            <div className="footer-line-top" /> {/* line */}
             <div className="uppercase text-xs font-medium tracking-widest">
               <PrismicRichText field={data.menu} />
             </div>
@@ -509,9 +508,8 @@ export default function Footer({ footerData }) {
           </div>
 
           {/* Sixth Row */}
-          <div className="w-full relative">
+          <div className="w-full mt-2 relative">
             <FooterLogo />
-            <div className="footer-line" /> {/* line */}
           </div>
         </div>
       </footer>

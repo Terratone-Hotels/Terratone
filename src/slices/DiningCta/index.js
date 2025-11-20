@@ -14,9 +14,10 @@ import RichTextRenderer from "@/components/RichTextRenderer";
 const DiningCta = ({ slice }) => {
   return (
     // The Bounded component wraps the entire slice content
-    <Bounded
+    <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
+      className="px-[0.9375rem] md:px-6 mt-15 lg:mt-30"
     >
       {/* Section 1: The main CTA content */}
       <div className="flex flex-col md:flex-row-reverse justify-between items-start gap-6">
@@ -30,7 +31,7 @@ const DiningCta = ({ slice }) => {
         </div>
 
         <div className="w-full md:w-1/2 flex flex-col">
-          <div className="font-serif font-medium capitalize text-[25px] md:text-[38px] lg:text-[42px] leading-8 lg:leading-12 items-start">
+          <div className="font-serif font-medium capitalize text-[25px] md:text-[38px] lg:text-[42px] leading-8  items-start">
             <RichTextRenderer field={slice.primary.heading} />
           </div>
 
@@ -56,7 +57,7 @@ const DiningCta = ({ slice }) => {
       <div className="mt-20">
         <ParallaxGallery slice={slice} />
       </div>
-    </Bounded>
+    </section>
   );
 };
 
