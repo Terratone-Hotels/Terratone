@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Bounded from "@/components/Bounded";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 import gsap from "gsap";
@@ -9,20 +8,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * @typedef {import("@prismicio/client").Content.AmenitiesSlice} AmenitiesSlice
- * @typedef {import("@prismicio/react").SliceComponentProps<AmenitiesSlice>} AmenitiesProps
- * @type {import("react").FC<AmenitiesProps>}
- */
 const AmenitiesInteractiveListHover = ({ slice }) => {
   const amenities = slice.primary.amenities || [];
+  if (amenities.length === 0) return null;
 
-  /* ------------------ GLOBAL PARALLAX (–10% to +10%) ------------------ */
+  /* ------------------ PARALLAX –10% → +10% ------------------ */
   useEffect(() => {
-    const containers = gsap.utils.toArray(".parallax-container");
+    const containers = gsap.utils.toArray(".parallax-box");
 
-    containers.forEach((wrapper) => {
-      const img = wrapper.querySelector(".parallax-img");
+    containers.forEach((box) => {
+      const img = box.querySelector(".parallax-img");
       if (!img) return;
 
       gsap.fromTo(
@@ -32,7 +27,7 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
           y: "10%",
           ease: "none",
           scrollTrigger: {
-            trigger: wrapper,
+            trigger: box,
             start: "top bottom",
             end: "bottom top",
             scrub: 1.1,
@@ -41,9 +36,6 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
       );
     });
   }, []);
-
-  // ❗ SAFE – return AFTER hooks
-  if (amenities.length === 0) return null;
 
   return (
     <section
@@ -74,43 +66,42 @@ const AmenitiesInteractiveListHover = ({ slice }) => {
           </div>
         </div>
 
-        {/* Right side images */}
+        {/* Right side: 3 images */}
         <div className="flex flex-row h-[350px] md:h-full lg:w-[55%] items-center gap-4 lg:gap-6 mt-4 md:mt-0">
-          {/* Left small column */}
+          {/* Left vertical stack */}
           <div className="flex flex-col gap-4 lg:gap-6 h-full w-[40%]">
+            {/* Top image */}
             <div className="h-[40%] w-full">
-              <div className="parallax-container overflow-hidden w-full h-full">
-                <div className="parallax-img w-full h-full">
+              <div className="parallax-box relative overflow-hidden w-full h-full">
+                <div className="parallax-img absolute inset-0 w-full h-full">
                   <PrismicNextImage
                     field={slice.primary.image_one}
                     className="w-full h-full object-cover"
-                    priority
                   />
                 </div>
               </div>
             </div>
 
+            {/* Bottom image */}
             <div className="h-[60%] w-full">
-              <div className="parallax-container overflow-hidden w-full h-full">
-                <div className="parallax-img w-full h-full">
+              <div className="parallax-box relative overflow-hidden w-full h-full">
+                <div className="parallax-img absolute inset-0 w-full h-full">
                   <PrismicNextImage
                     field={slice.primary.image_two}
                     className="w-full h-full object-cover"
-                    priority
                   />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right large image */}
+          {/* Right big image */}
           <div className="h-full w-[60%]">
-            <div className="parallax-container overflow-hidden w-full h-full">
-              <div className="parallax-img w-full h-full">
+            <div className="parallax-box relative overflow-hidden w-full h-full">
+              <div className="parallax-img absolute inset-0 w-full h-full">
                 <PrismicNextImage
                   field={slice.primary.image_three}
                   className="w-full h-full object-cover"
-                  priority
                 />
               </div>
             </div>
