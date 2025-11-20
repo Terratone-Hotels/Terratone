@@ -138,7 +138,7 @@ const HeroForOthers = ({ slice }) => {
                 sizes="100vw"
               />
 
-              <div className="absolute bottom-10 lg:bottom-10 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-7 lg:leading-[3.4rem] tracking-tight">
+              <div className="absolute bottom-10 lg:bottom-10 left-1/2 -translate-x-1/2 text-white font-serif text-center text-[35px] w-[80%] lg:text-[3.25rem] leading-10  lg:leading-[3.4rem] tracking-tight">
                 <PrismicRichText field={slice.primary.hero_heading} />
               </div>
             </div>

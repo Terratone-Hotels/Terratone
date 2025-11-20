@@ -53,7 +53,7 @@ const DestinationHighlight = ({ slice }) => {
           <div className="md:w-[33%] space-y-3 lg:space-y-5 md:sticky md:top-15">
             <RichTextRenderer
               field={slice.primary.heading}
-              className="text-[1.75rem] md:text-[2.625rem] font-serif font-medium leading-7"
+              className="text-[1.75rem] md:text-[25px] lg:text-[2.625rem] font-serif font-medium leading-6 lg:leading-7"
             />
 
             <RichTextRenderer
@@ -73,7 +73,7 @@ const DestinationHighlight = ({ slice }) => {
           </div>
 
           {/* Right Side Media */}
-          <div className="w-full lg:w-[55%]">
+          <div className="w-full md:w-[55%]">
             <div
               className="
                 w-full

@@ -62,7 +62,7 @@ const ResonanceBlock = ({ slice }) => {
           </div>
 
           <div className="-mt-45 md:-mt-55 lg:-mt-110 flex flex-col items-center top-0 ">
-            <div className="text-white font-serif text-[2.75rem] md:text-[2.813rem] lg:text-8xl ">
+            <div className="text-white font-serif text-[2.75rem] md:text-[2.813rem] lg:text-8xl z-10 ">
               <PrismicRichText field={slice.primary.horizontal_image_text} />
 
               {/*Table*/}
