@@ -6,7 +6,10 @@ import Button from "@/components/Button";
 import CurtainRevealImage from "./CurtainRevealImage";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import RichTextRenderer from "./RichTextRenderer";
+
 gsap.registerPlugin(ScrollTrigger);
+
 export default function RoomCard({
   image,
   title,
@@ -22,19 +25,24 @@ export default function RoomCard({
   const buttonRef = useRef(null);
   const imageRef = useRef(null);
   const descRef = useRef(null);
+  const lineRef = useRef(null);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const DURATION = 1.3; // More slow, more premium
+      const DURATION = 1.3;
+
       const revealSettings = {
         opacity: 0,
-        clipPath: "inset(0 100% 0 0)", // Hidden from right
+        clipPath: "inset(0 100% 0 0)", // hidden from right
       };
+
       const revealTo = {
         opacity: 1,
-        clipPath: "inset(0 0% 0 0)", // Reveal to full
+        clipPath: "inset(0 0% 0 0)",
         duration: DURATION,
-        ease: "power4.in",
+        ease: "circ.out",
       };
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: cardRef.current,
@@ -42,46 +50,55 @@ export default function RoomCard({
           once: true,
         },
       });
-      // TITLE
-      tl.fromTo(titleRef.current, revealSettings, revealTo)
-        // BUTTON
-        .fromTo(
-          buttonRef.current,
-          revealSettings,
-          { ...revealTo },
-          "-=0.9" // overlap for flow
-        )
-        // IMAGE (fade + clip)
-        .fromTo(imageRef.current, revealSettings, { ...revealTo }, "-=0.9")
-        // DESCRIPTION
-        .fromTo(descRef.current, revealSettings, { ...revealTo }, "-=0.9");
+
+      // IMAGE → TITLE → BUTTON → LINE (grouped animations)
+      tl.fromTo(imageRef.current, revealSettings, revealTo)
+        .fromTo(titleRef.current, revealSettings, revealTo, "-=1.1")
+        .fromTo(buttonRef.current, revealSettings, revealTo, "-=1.0")
+        .fromTo(lineRef.current, revealSettings, revealTo, "-=0.9")
+
+        // DESCRIPTION LAST (no overlap)
+        .fromTo(descRef.current, revealSettings, {
+          ...revealTo,
+          duration: 1.1,
+        });
     }, cardRef);
+
     return () => ctx.revert();
   }, []);
+
   return (
     <div
       ref={cardRef}
-      className="group w-full md:w-90 xl:w-110 flex flex-col relative overflow-hidden"
+      className="group w-full md:w-90 flex flex-col relative overflow-hidden"
     >
       {/* IMAGE */}
       <div ref={imageRef} className="overflow-hidden">
         <CurtainRevealImage
           field={image}
-          className="w-full h-90 md:h-110 object-cover"
+          className="w-full h-90 md:h-100 object-cover"
         />
       </div>
+
       {/* Title + Button */}
       <div className="flex flex-row w-full items-baseline justify-between mt-4">
         <div ref={titleRef} className={`${titleClassName} overflow-hidden`}>
-          <PrismicRichText field={title} />
+          <RichTextRenderer field={title} />
         </div>
+
         <div ref={buttonRef} className="overflow-hidden">
           <Button className={`px-2 py-1 ${buttonClassNames}`}>
             <PrismicNextLink field={bookingLink}>{linkText}</PrismicNextLink>
           </Button>
         </div>
       </div>
-      <div className="w-auto border-b-1 mt-2"></div>
+
+      {/* Animated Line */}
+      <div
+        ref={lineRef}
+        className="mt-2 h-[1px] bg-black w-full overflow-hidden"
+      />
+
       {/* Description */}
       <div className="flex mt-3 flex-row items-end justify-between relative">
         {description && (

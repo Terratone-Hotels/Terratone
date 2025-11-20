@@ -188,13 +188,13 @@ export default function HeaderClient({ headerData }) {
       {data.nav_button_link && (
         <div
           ref={buttonRef}
-          className="flex justify-end bg-transparent cursor-pointer absolute fixed right-6 top-4 duration-300 z-50"
+          className="flex justify-end bg-transparent cursor-pointer absolute fixed right-6 top-3 duration-300 z-50"
         >
           <Button
             noBorder
             field={data.nav_button_link}
             className={`
-  ${isMenuOpen ? "!bg-terra-pink" : "bg-white"}
+  ${isMenuOpen ? "!bg-terra-pink" : "bg-black text-white md:text-black md:bg-white"}
   font-barlowNormal text-xs px-2 py-1.5
 cursor-pointer`}
             onClick={() => setOpen(true)}
