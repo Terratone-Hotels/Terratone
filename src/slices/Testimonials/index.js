@@ -32,7 +32,7 @@ export default function Testimonials({ slice }) {
               <div className="px-6 text-[1rem]  leading-tight font-barlow md:text-xl select-none">
                 <RichTextRenderer field={item.quote} />
               </div>
-              <div className="text-gray-600 font-serif text-[1rem] mt-4 font-medium select-none">{item.names}</div>
+              <div className="text-gray-500 font-serif text-lg mt-4 font-medium select-none">{item.names}</div>
             </SwiperSlide>
           ))}
         </Swiper>

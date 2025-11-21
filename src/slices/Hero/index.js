@@ -97,7 +97,7 @@ const Hero = ({ slice }) => {
         ease: "power3.out",
         rotate: 25,
       })
-      .to(curtain, { yPercent: -100, duration: 0.8 })
+      .to(curtain, { yPercent: -100, duration: 1.6, ease:"expo.inOut" })
       .set(curtain, { display: "none" })
       .to(headingWrapper, {
         opacity: 1,

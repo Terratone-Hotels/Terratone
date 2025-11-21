@@ -73,7 +73,7 @@ const DestinationHighlight = ({ slice }) => {
           </div>
 
           {/* Right Side Media */}
-          <div className="w-full md:w-[55%]">
+          <div className="w-full md:w-[50%]">
             <div
               className="
                 w-full
