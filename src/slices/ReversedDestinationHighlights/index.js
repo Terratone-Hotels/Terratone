@@ -66,13 +66,11 @@ const ReversedDestinationHighlights = ({ slice }) => {
 
               <div>
                 <Button className="px-2.5 py-1">
-                  {slice.primary.button_text}
+                  <PrismicNextLink field={slice.primary.button_link}>
+                    {slice.primary.button_text}
+                  </PrismicNextLink>
                 </Button>
               </div>
-
-              {slice.primary.explore_button?.url && (
-                <PrismicNextLink field={slice.primary.explore_button} />
-              )}
             </div>
 
             {/* Right Side Media */}
@@ -136,13 +134,11 @@ const ReversedDestinationHighlights = ({ slice }) => {
 
               <div>
                 <Button className="px-2.5 py-1">
-                  {slice.primary.button_text}
+                  <PrismicNextLink field={slice.primary.button_link}>
+                    {slice.primary.button_text}
+                  </PrismicNextLink>
                 </Button>
               </div>
-
-              {slice.primary.explore_button?.url && (
-                <PrismicNextLink field={slice.primary.explore_button} />
-              )}
             </div>
           </div>
         </Bounded>

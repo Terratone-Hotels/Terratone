@@ -71,7 +71,7 @@ const MeetingHalls = ({ slice }) => {
             <div className="max-w-3xl mx-auto text-center mb-5 lg:mb-14 px-4 mt-8 md:mt-12">
               <RichTextRenderer
                 field={slice.primary.heading}
-                className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 leading-6 lg:leading-10 lg:mb-8"
+                className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 leading-6 md:leading-10 lg:mb-8"
               />
               <RichTextRenderer
                 field={slice.primary.description}
@@ -137,13 +137,6 @@ const MeetingHalls = ({ slice }) => {
                       />
 
                       {/* Button */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 z-20">
-                        <Button className="bg-white px-2 py-1 text-sm font-barlowNormal">
-                          <PrismicNextLink field={item.room_link}>
-                            {item.button_text}
-                          </PrismicNextLink>
-                        </Button>
-                      </div>
                     </div>
 
                     {/* Text */}
@@ -155,7 +148,12 @@ const MeetingHalls = ({ slice }) => {
                         {item.card_description}
                       </p>
                       <div className="mt-4">
-                        <Button className="px-1.5 py-1">VIEW ROOM</Button>
+                        <Button className="px-1.5 py-1">
+                          {" "}
+                          <PrismicNextLink field={item.room_link}>
+                            {item.button_text}
+                          </PrismicNextLink>
+                        </Button>
                       </div>
                     </div>
                   </div>
