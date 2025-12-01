@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import TerratoneToast from "@/components/TerratoneToast";
 import useBookNowModal from "@/hooks/useBookNowModal";
 import { useHotelBooking } from "@/store/useHotelBooking";
+import ArrowIcon from "@/components/ArrowIcon";
 
 export default function HotelTab({ data, setData, closeModal }) {
   const {
@@ -306,9 +307,9 @@ export default function HotelTab({ data, setData, closeModal }) {
         <button
           type="button"
           onClick={submit}
-          className="w-full bg-white text-black hover:text-white hover:bg-black  py-3 font-semibold text-sm tracking-wide uppercase cursor-pointer transition-all border border-black"
+          className="w-full flex items-baseline justify-center gap-2 bg-white text-black hover:text-white hover:bg-black  py-3 font-semibold text-sm tracking-wide uppercase cursor-pointer transition-all border border-black"
         >
-          Check Availability →
+          Enquire Now <ArrowIcon/>
         </button>
       </div>
     </div>

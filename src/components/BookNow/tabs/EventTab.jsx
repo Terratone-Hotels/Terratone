@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import TerratoneToast from "@/components/TerratoneToast";
 import Calendar from "./Calendar";
 import { format } from "date-fns";
+import ArrowIcon from "@/components/ArrowIcon";
 
 export default function EventTab({ data, setData }) {
   const {
@@ -470,9 +471,9 @@ export default function EventTab({ data, setData }) {
                 );
               }
             }}
-            className="w-full bg-white text-black border border-black py-3 font-semibold text-sm tracking-wide uppercase hover:text-white hover:bg-black transition-all cursor-pointer"
+            className="w-full flex items-baseline justify-center gap-2 bg-white text-black border border-black py-3 font-semibold text-sm tracking-wide uppercase hover:text-white hover:bg-black transition-all cursor-pointer"
           >
-            Submit Enquiry →
+            Submit Enquiry <ArrowIcon/>
           </button>
         </div>
       </div>

@@ -1,4 +1,4 @@
-// src/slices/FullImage/index.jsx
+
 "use client";
 
 import { useRef, useEffect } from "react";

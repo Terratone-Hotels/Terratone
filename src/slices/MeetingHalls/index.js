@@ -39,13 +39,13 @@ const MeetingHalls = ({ slice }) => {
 
     gsap.to(cards, {
       y: 0,
-      duration: 2.5, // smoother + slower
-      ease: "power3.out",
-      stagger: 0.3, // reveal one-by-one slowly
+      duration: 8, // smoother + slower
+      ease: "circ.out",
+      stagger: 1, // reveal one-by-one slowly
       scrollTrigger: {
         trigger: section,
         start: " 10%", // starts when section enters viewport
-        end: "bottom center", // ends at mid-point
+        end: "bottom bottom", // ends at mid-point
         scrub: true, // tied to scroll
         // markers: true,
       },
@@ -80,7 +80,7 @@ const MeetingHalls = ({ slice }) => {
             </div>
 
             {/* ---------------------- DESKTOP GRID (WITH ANIMATION) ---------------------- */}
-            <div className="hidden lg:grid lg:grid-cols-3 gap-20 max-w-[95%] mx-auto items-start">
+            <div className="hidden xl:grid xl:grid-cols-3 gap-20 max-w-[95%] mx-auto items-start">
               {slice.primary.rooms.map((item, index) => (
                 <div
                   key={index}
@@ -122,7 +122,7 @@ const MeetingHalls = ({ slice }) => {
           </Bounded>
 
           {/* ---------------------- MOBILE SWIPER (NO ANIMATION) ---------------------- */}
-          <div className="lg:hidden pl-4">
+          <div className="xl:hidden pl-4">
             <Swiper spaceBetween={20} slidesPerView={1.2} grabCursor={true}>
               {slice.primary.rooms.map((item, index) => (
                 <SwiperSlide key={index}>
@@ -141,10 +141,10 @@ const MeetingHalls = ({ slice }) => {
 
                     {/* Text */}
                     <div className="mt-4 flex flex-col justify-between min-h-[110px]">
-                      <h3 className="text-lg font-serif font-medium leading-snug">
+                      <h3 className="text-[20px] md:text-[26px] lg:text-[35px] font-serif font-medium leading-snug">
                         {item.card_title}
                       </h3>
-                      <p className="text-sm font-barlow leading-relaxed mt-2">
+                      <p className="text-sm md:text-[16px] lg:text-[19px] font-barlow leading-tight mt-2">
                         {item.card_description}
                       </p>
                       <div className="mt-4">
@@ -182,7 +182,7 @@ const MeetingHalls = ({ slice }) => {
             </div>
 
             {/* NO ANIMATION */}
-            <div className="hidden md:grid md:grid-cols-3 md:gap-6 items-start">
+            <div className="hidden xl:grid xl:grid-cols-3 md:gap-6 items-start">
               {slice.primary.rooms.map((item, index) => (
                 <div key={index} className="group flex flex-col">
                   <div className="relative aspect-square overflow-hidden">
@@ -216,7 +216,7 @@ const MeetingHalls = ({ slice }) => {
               ))}
             </div>
           </Bounded>
-          <div className="md:hidden pl-4 mt-10">
+          <div className="xl:hidden pl-4 mt-10">
             <Swiper spaceBetween={20} slidesPerView={1.2} grabCursor={true}>
               {slice.primary.rooms.map((item, index) => (
                 <SwiperSlide key={index}>
