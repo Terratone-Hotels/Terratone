@@ -30,7 +30,7 @@ const routes = [
   { type: "conference_room", path: "/meet/conference-room" },
   { type: "banquet_hall", path: "/meet/banquet-hall" },
   { type: "our_story", path: "/our-story" },
-  // { type: "page", path: "/:uid" },
+  { type: "page", path: "/:uid" },
 ];
 
 /**

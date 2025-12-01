@@ -5,7 +5,7 @@ import { PrismicNextImage } from "@prismicio/next";
 import Bounded from "@/components/Bounded";
 import CurtainRevealImage from "@/components/CurtainRevealImage";
 
-import gsap from "gsap";
+import {gsap} from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,27 +17,39 @@ gsap.registerPlugin(ScrollTrigger);
 const PictureSection = ({ slice }) => {
   /* 🌟 Global Parallax (–10% → +10%) */
   useEffect(() => {
-    const containers = gsap.utils.toArray(".parallax-container");
+  if (typeof window === "undefined") return;
 
-    containers.forEach((wrapper) => {
-      const img = wrapper.querySelector(".parallax-img");
+  let ctx;
 
-      gsap.fromTo(
-        img,
-        { y: "-10%" },
-        {
-          y: "10%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: wrapper,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.1,
-          },
-        }
-      );
+  requestAnimationFrame(() => {
+    ctx = gsap.context(() => {
+      const containers = gsap.utils.toArray(".parallax-container");
+
+      containers.forEach((wrapper) => {
+        const img = wrapper.querySelector(".parallax-img");
+        if (!img) return;
+
+        gsap.fromTo(
+          img,
+          { y: "-10%" },
+          {
+            y: "10%",
+            ease: "none",
+            scrollTrigger: {
+              trigger: wrapper,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.1,
+            },
+          }
+        );
+      });
     });
-  }, []);
+  });
+
+  return () => ctx?.revert();
+}, []);
+
 
   return (
     <>
