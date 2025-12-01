@@ -4,7 +4,7 @@ const ArrowIcon = ({
   className = "",
   width = "12",
   height = "10",
-  fill = "#121110",
+  fill = "currentColor",
   ...props
 }) => (
   <svg

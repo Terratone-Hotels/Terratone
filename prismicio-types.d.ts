@@ -1558,6 +1558,30 @@ export type OurStoryDocument<Lang extends string = string> =
   >;
 
 type PageDocumentDataSlicesSlice =
+  | RoomShowcaseSliceSlice
+  | ResonanceBlockSlice
+  | TaglineHeroSliceSlice
+  | ReversedDestinationHighlightsSlice
+  | PictureSectionSlice
+  | HeroForOthersSlice
+  | ScrollSectionSlice
+  | TipsExploreSlice
+  | MeetingHallsSlice
+  | PlacestoVisitSlice
+  | DestinationHighlightSlice
+  | DiscoverHeroSlice
+  | LocationAndContactsSlice
+  | IntroBlockSlice
+  | HeroIntroSliceSlice
+  | OurStoryIntroSlice
+  | FullImageSlice
+  | DiningCtaSlice
+  | AboutTheRoomSlice
+  | AmenitiesSlice
+  | CallToActionBannerSlice
+  | HorizontalPageSlice
+  | DestinationHighlightSliceSlice
+  | BanquetHallsSlice
   | TestimonialsSlice
   | OneWithSideWordsSlice
   | HeroSlice;
