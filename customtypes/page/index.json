@@ -1,0 +1,133 @@
+{
+  "format": "page",
+  "id": "page",
+  "label": "Page",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID"
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "room_showcase_slice": {
+              "type": "SharedSlice"
+            },
+            "resonance_block": {
+              "type": "SharedSlice"
+            },
+            "tagline_hero_slice": {
+              "type": "SharedSlice"
+            },
+            "reversed_destination_highlights": {
+              "type": "SharedSlice"
+            },
+            "picture_section": {
+              "type": "SharedSlice"
+            },
+            "hero_for_others": {
+              "type": "SharedSlice"
+            },
+            "scroll_section": {
+              "type": "SharedSlice"
+            },
+            "tips_explore": {
+              "type": "SharedSlice"
+            },
+            "meeting_halls": {
+              "type": "SharedSlice"
+            },
+            "placesto_visit": {
+              "type": "SharedSlice"
+            },
+            "destination_highlight": {
+              "type": "SharedSlice"
+            },
+            "discover_hero": {
+              "type": "SharedSlice"
+            },
+            "location_and_contacts": {
+              "type": "SharedSlice"
+            },
+            "intro_block": {
+              "type": "SharedSlice"
+            },
+            "hero_intro_slice": {
+              "type": "SharedSlice"
+            },
+            "our_story_intro": {
+              "type": "SharedSlice"
+            },
+            "full_image": {
+              "type": "SharedSlice"
+            },
+            "dining_cta": {
+              "type": "SharedSlice"
+            },
+            "about_the_room": {
+              "type": "SharedSlice"
+            },
+            "amenities": {
+              "type": "SharedSlice"
+            },
+            "call_to_action_banner": {
+              "type": "SharedSlice"
+            },
+            "horizontal_page": {
+              "type": "SharedSlice"
+            },
+            "destination_highlight_slice": {
+              "type": "SharedSlice"
+            },
+            "banquet_halls": {
+              "type": "SharedSlice"
+            },
+            "testimonials": {
+              "type": "SharedSlice"
+            },
+            "one_with_side_words": {
+              "type": "SharedSlice"
+            },
+            "hero": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    },
+    "SEO & Metadata": {
+      "meta_title": {
+        "config": {
+          "label": "Meta Title",
+          "placeholder": "A title of the page used for social media and search engines"
+        },
+        "type": "Text"
+      },
+      "meta_description": {
+        "config": {
+          "label": "Meta Description",
+          "placeholder": "A brief summary of the page"
+        },
+        "type": "Text"
+      },
+      "meta_image": {
+        "config": {
+          "constraint": {
+            "height": 1260,
+            "width": 2400
+          },
+          "label": "Meta Image",
+          "thumbnails": []
+        },
+        "type": "Image"
+      }
+    }
+  }
+}

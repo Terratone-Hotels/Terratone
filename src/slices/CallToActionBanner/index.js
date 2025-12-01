@@ -7,7 +7,7 @@ import CurtainRevealImage from "@/components/CurtainRevealImage";
 import RichTextRenderer from "@/components/RichTextRenderer";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
-import gsap from "gsap";
+import {gsap} from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,28 +15,38 @@ gsap.registerPlugin(ScrollTrigger);
 const CallToActionBanner = ({ slice }) => {
   /* ------------------ PARALLAX (–10% → +10%) ------------------ */
   useEffect(() => {
-    const wrappers = gsap.utils.toArray(".cta-parallax-container");
+  if (typeof window === "undefined") return;
 
-    wrappers.forEach((wrapper) => {
-      const img = wrapper.querySelector(".cta-parallax-img");
-      if (!img) return;
+  let ctx;
 
-      gsap.fromTo(
-        img,
-        { y: "-10%" },
-        {
-          y: "10%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: wrapper,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.1,
-          },
-        }
-      );
+  requestAnimationFrame(() => {
+    ctx = gsap.context(() => {
+      const wrappers = gsap.utils.toArray(".cta-parallax-container");
+
+      wrappers.forEach((wrapper) => {
+        const img = wrapper.querySelector(".cta-parallax-img");
+        if (!img) return;
+
+        gsap.fromTo(
+          img,
+          { y: "-10%" },
+          {
+            y: "10%",
+            ease: "none",
+            scrollTrigger: {
+              trigger: wrapper,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.1,
+            },
+          }
+        );
+      });
     });
-  }, []);
+  });
+
+  return () => ctx?.revert();
+}, []);
 
   return (
     <section

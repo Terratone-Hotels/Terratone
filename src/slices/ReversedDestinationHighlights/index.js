@@ -74,7 +74,7 @@ const ReversedDestinationHighlights = ({ slice }) => {
             </div>
 
             {/* Right Side Media */}
-            <div className="w-full lg:w-[50%]  ">
+            <div className="w-full md:w-[50%]  ">
               {/* RIGHT BIG BLOCK */}
               <div className="  md:h-[25rem] lg:h-[35rem] overflow-hidden">
                 {slice.primary.video_id ? (

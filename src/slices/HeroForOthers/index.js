@@ -370,8 +370,8 @@ const HeroForOthers = ({ slice }) => {
                     className=" hidden lg:inline-flex w-full items-center justify-center gap-2 bg-black text-white rounded-xs overflow-hidden cursor-pointer"
                   >
                     {/* Left section with padding */}
-                    <span className="flex items-center px-2 py-1 text-xs font-barlow uppercase tracking-wide">
-                      Check Availability
+                    <span className="flex items-center px-2 py-1 text-sm font-barlow uppercase tracking-wide">
+                      Enquire Now
                     </span>
                     {/* Right square arrow area */}
                     <span>
@@ -384,7 +384,7 @@ const HeroForOthers = ({ slice }) => {
                       onClick={handleCheckAvailability}
                       className="bg-black flex items-center justify-center gap-2 w-full uppercase font-barlow text-white text-xs px-6 py-1"
                     >
-                      Check Availability
+                      Enquire Now
                       <span>
                         <ArrowIcon fill="#ffff" />
                       </span>{" "}

@@ -1,3 +1,5 @@
+"use client";
+
 import Bounded from "@/components/Bounded";
 import Button from "@/components/Button";
 import { PrismicNextLink } from "@prismicio/next";

@@ -1,50 +1,63 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
 
 import Bounded from "@/components/Bounded";
 import VideoComponent from "@/components/VideoComponent";
 import { PrismicNextLink, PrismicNextImage } from "@prismicio/next";
 import Button from "@/components/Button";
 import RichTextRenderer from "@/components/RichTextRenderer";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const DestinationHighlight = ({ slice }) => {
   const sectionRef = useRef(null);
 
   // ⭐ PARALLAX EFFECT (40–50% travel)
-  useEffect(() => {
-    const containers = gsap.utils.toArray(".parallax-container");
+useEffect(() => {
+  if (typeof window === "undefined") return;
 
-    containers.forEach((container) => {
-      const img = container.querySelector(".parallax-img");
+  let ctx;
 
-      gsap.fromTo(
-        img,
-        { y: "-15%" },
-        {
-          y: "15%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: container,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.3,
-          },
-        }
-      );
-    });
+  // Run AFTER hydration
+  requestAnimationFrame(() => {
+    ctx = gsap.context(() => {
+      const containers = gsap.utils.toArray(".parallax-container");
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
-  }, []);
+      containers.forEach((container) => {
+        const img = container.querySelector(".parallax-img");
+        if (!img) return;
+
+        gsap.fromTo(
+          img,
+          { y: "-15%" },
+          {
+            y: "15%",
+            ease: "none",
+            scrollTrigger: {
+              trigger: container,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.3,
+            },
+          }
+        );
+      });
+    }, sectionRef);
+  });
+
+  return () => ctx?.revert();
+}, []);
+
 
   return (
     <>
       {/* DEFAULT */}
       {slice.variation === "default" && (
         <div
+        ref={sectionRef}
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
           className="flex flex-col md:flex-row md:justify-between gap-2 lg:gap-5 items-start px-[0.9375rem] md:px-6 mt-15 lg:mt-35"
@@ -73,7 +86,7 @@ const DestinationHighlight = ({ slice }) => {
           </div>
 
           {/* Right Side Media */}
-          <div className="w-full md:w-[55%]">
+          <div className="w-full md:w-[50%]">
             <div
               className="
                 w-full
