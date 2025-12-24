@@ -172,7 +172,7 @@ export default function OneWithSideWords({ slice }) {
 
       {/* =================== Description =================== */}
       <div className="mt-4 lg:mt-8 leading-tight font-barlow text-sm md:text-[18px] text-black text-center">
-        <RichTextRenderer field={slice.primary.description} />
+        <PrismicRichText field={slice.primary.description} />
       </div>
 
       {/* =================== Buttons =================== */}

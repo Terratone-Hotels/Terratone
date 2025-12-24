@@ -509,6 +509,7 @@ export interface DiscoverDocumentDataLeftHeadingsItem {
 }
 
 type DiscoverDocumentDataSlicesSlice =
+  | PlacesToVisitSlice
   | TipsExploreSlice
   | DiscoverHeroSlice
   | ScrollSectionSlice;
@@ -1492,6 +1493,110 @@ export type MeetingroomDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Content for Not Found documents
+ */
+interface NotFoundDocumentData {
+  /**
+   * 404 field in *Not Found*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: not_found.four_zero_four
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  four_zero_four: prismic.KeyTextField;
+
+  /**
+   * Text One field in *Not Found*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: not_found.text_one
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  text_one: prismic.KeyTextField;
+
+  /**
+   * Text Two field in *Not Found*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: not_found.text_two
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  text_two: prismic.KeyTextField;
+
+  /**
+   * Image One field in *Not Found*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: not_found.image_one
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_one: prismic.ImageField<never>;
+
+  /**
+   * Image Two field in *Not Found*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: not_found.image_two
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image_two: prismic.ImageField<never>;
+
+  /**
+   * Fallback Link field in *Not Found*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: not_found.fallback_link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  fallback_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Fallback Label field in *Not Found*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: not_found.fallback_label
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  fallback_label: prismic.KeyTextField;
+}
+
+/**
+ * Not Found document from Prismic
+ *
+ * - **API ID**: `not_found`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type NotFoundDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<NotFoundDocumentData>,
+    "not_found",
+    Lang
+  >;
+
 type OurStoryDocumentDataSlicesSlice = HorizontalPageSlice;
 
 /**
@@ -1567,7 +1672,6 @@ type PageDocumentDataSlicesSlice =
   | ScrollSectionSlice
   | TipsExploreSlice
   | MeetingHallsSlice
-  | PlacestoVisitSlice
   | DestinationHighlightSlice
   | DiscoverHeroSlice
   | LocationAndContactsSlice
@@ -1726,6 +1830,7 @@ export type AllDocumentTypes =
   | HomepageDocument
   | MeetDocument
   | MeetingroomDocument
+  | NotFoundDocument
   | OurStoryDocument
   | PageDocument
   | StaysDocument;
@@ -2466,16 +2571,6 @@ export interface DiscoverHeroSliceDefaultPrimary {
   image_top_left: prismic.ImageField<never>;
 
   /**
-   * Image top right field in *DiscoverHero → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: discover_hero.default.primary.image_top_right
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  image_top_right: prismic.ImageField<never>;
-
-  /**
    * Image bottom left field in *DiscoverHero → Default → Primary*
    *
    * - **Field Type**: Image
@@ -2506,16 +2601,6 @@ export interface DiscoverHeroSliceDefaultPrimary {
   image_top_center: prismic.ImageField<never>;
 
   /**
-   * Image bottom center field in *DiscoverHero → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: discover_hero.default.primary.image_bottom_center
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  image_bottom_center: prismic.ImageField<never>;
-
-  /**
    * Image left field in *DiscoverHero → Default → Primary*
    *
    * - **Field Type**: Image
@@ -2544,36 +2629,6 @@ export interface DiscoverHeroSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   heading: prismic.RichTextField;
-
-  /**
-   * Image Extra One field in *DiscoverHero → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: discover_hero.default.primary.image_extra_1
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  image_extra_1: prismic.ImageField<never>;
-
-  /**
-   * Image Extra 2 field in *DiscoverHero → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: discover_hero.default.primary.image_extra_2
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  image_extra_2: prismic.ImageField<never>;
-
-  /**
-   * Image Extra 3 field in *DiscoverHero → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: discover_hero.default.primary.image_extra_3
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  image_extra_3: prismic.ImageField<never>;
 }
 
 /**
@@ -4214,95 +4269,105 @@ export type PictureSectionSlice = prismic.SharedSlice<
 >;
 
 /**
- * Item in *PlacestoVisit → Default → Primary → StickyContentNavigator*
+ * Item in *PlacesToVisit → Default → Primary → Contents*
  */
-export interface PlacestoVisitSliceDefaultPrimaryStickycontentnavigatorItem {
+export interface PlacesToVisitSliceDefaultPrimaryContentsItem {
   /**
-   * Nav_Title field in *PlacestoVisit → Default → Primary → StickyContentNavigator*
+   * Tab_title field in *PlacesToVisit → Default → Primary → Contents*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: placesto_visit.default.primary.stickycontentnavigator[].title
+   * - **API ID Path**: places_to_visit.default.primary.contents[].tab_title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  tab_title: prismic.RichTextField;
+
+  /**
+   * Title field in *PlacesToVisit → Default → Primary → Contents*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: places_to_visit.default.primary.contents[].title
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   title: prismic.RichTextField;
 
   /**
-   * Content_ID field in *PlacestoVisit → Default → Primary → StickyContentNavigator*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: placesto_visit.default.primary.stickycontentnavigator[].content_id
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  content_id: prismic.KeyTextField;
-
-  /**
-   * Text_Content field in *PlacestoVisit → Default → Primary → StickyContentNavigator*
+   * Description field in *PlacesToVisit → Default → Primary → Contents*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: placesto_visit.default.primary.stickycontentnavigator[].text_content
+   * - **API ID Path**: places_to_visit.default.primary.contents[].description
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
-  text_content: prismic.RichTextField;
+  description: prismic.RichTextField;
 
   /**
-   * Image field in *PlacestoVisit → Default → Primary → StickyContentNavigator*
+   * Image field in *PlacesToVisit → Default → Primary → Contents*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: placesto_visit.default.primary.stickycontentnavigator[].image
+   * - **API ID Path**: places_to_visit.default.primary.contents[].image
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
+
+  /**
+   * Stamp field in *PlacesToVisit → Default → Primary → Contents*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: places_to_visit.default.primary.contents[].stamp
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  stamp: prismic.ImageField<never>;
 }
 
 /**
- * Primary content in *PlacestoVisit → Default → Primary*
+ * Primary content in *PlacesToVisit → Default → Primary*
  */
-export interface PlacestoVisitSliceDefaultPrimary {
+export interface PlacesToVisitSliceDefaultPrimary {
   /**
-   * StickyContentNavigator field in *PlacestoVisit → Default → Primary*
+   * Contents field in *PlacesToVisit → Default → Primary*
    *
    * - **Field Type**: Group
    * - **Placeholder**: *None*
-   * - **API ID Path**: placesto_visit.default.primary.stickycontentnavigator[]
+   * - **API ID Path**: places_to_visit.default.primary.contents[]
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
-  stickycontentnavigator: prismic.GroupField<
-    Simplify<PlacestoVisitSliceDefaultPrimaryStickycontentnavigatorItem>
+  contents: prismic.GroupField<
+    Simplify<PlacesToVisitSliceDefaultPrimaryContentsItem>
   >;
 }
 
 /**
- * Default variation for PlacestoVisit Slice
+ * Default variation for PlacesToVisit Slice
  *
  * - **API ID**: `default`
  * - **Description**: Default
  * - **Documentation**: https://prismic.io/docs/slices
  */
-export type PlacestoVisitSliceDefault = prismic.SharedSliceVariation<
+export type PlacesToVisitSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Simplify<PlacestoVisitSliceDefaultPrimary>,
+  Simplify<PlacesToVisitSliceDefaultPrimary>,
   never
 >;
 
 /**
- * Slice variation for *PlacestoVisit*
+ * Slice variation for *PlacesToVisit*
  */
-type PlacestoVisitSliceVariation = PlacestoVisitSliceDefault;
+type PlacesToVisitSliceVariation = PlacesToVisitSliceDefault;
 
 /**
- * PlacestoVisit Shared Slice
+ * PlacesToVisit Shared Slice
  *
- * - **API ID**: `placesto_visit`
- * - **Description**: PlacestoVisit
+ * - **API ID**: `places_to_visit`
+ * - **Description**: PlacesToVisit
  * - **Documentation**: https://prismic.io/docs/slices
  */
-export type PlacestoVisitSlice = prismic.SharedSlice<
-  "placesto_visit",
-  PlacestoVisitSliceVariation
+export type PlacesToVisitSlice = prismic.SharedSlice<
+  "places_to_visit",
+  PlacesToVisitSliceVariation
 >;
 
 /**
@@ -5705,6 +5770,8 @@ declare module "@prismicio/client" {
       MeetingroomDocument,
       MeetingroomDocumentData,
       MeetingroomDocumentDataSlicesSlice,
+      NotFoundDocument,
+      NotFoundDocumentData,
       OurStoryDocument,
       OurStoryDocumentData,
       OurStoryDocumentDataSlicesSlice,
@@ -5806,11 +5873,11 @@ declare module "@prismicio/client" {
       PictureSectionSliceDefault,
       PictureSectionSliceDoublePictures,
       PictureSectionSliceTrippleImage,
-      PlacestoVisitSlice,
-      PlacestoVisitSliceDefaultPrimaryStickycontentnavigatorItem,
-      PlacestoVisitSliceDefaultPrimary,
-      PlacestoVisitSliceVariation,
-      PlacestoVisitSliceDefault,
+      PlacesToVisitSlice,
+      PlacesToVisitSliceDefaultPrimaryContentsItem,
+      PlacesToVisitSliceDefaultPrimary,
+      PlacesToVisitSliceVariation,
+      PlacesToVisitSliceDefault,
       ResonanceBlockSlice,
       ResonanceBlockSliceDefaultPrimary,
       ResonanceBlockSliceRoomNarrativePrimary,

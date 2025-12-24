@@ -38,6 +38,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "places_to_visit": {
+              "type": "SharedSlice"
+            },
             "tips_explore": {
               "type": "SharedSlice"
             },

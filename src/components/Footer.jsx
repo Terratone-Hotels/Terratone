@@ -208,7 +208,7 @@ export default function Footer({ footerData }) {
               {/* RIGHT COLUMN */}
               <div className="md:w-[34%] flex flex-1 font-barlow ">
                 <div className="mt-4 w-full">
-                  <div className="lg:px-15">
+                  <div className="lg:px-16.5">
                     <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
                       <PrismicRichText field={data.address_heading} />
                     </div>
@@ -282,7 +282,7 @@ export default function Footer({ footerData }) {
 
             <div className="flex items-center font-barlow py-3">
               <div className="md:w-[28%] lg:w-[20%] flex items-center gap-3 text-[#A9A9A9]">
-                <RatingStars rating={data.rating} starClassName="w-6 h-6" />
+                <RatingStars rating={data.rating} starClassName="xl:w-6 xl:h-7 md:w-4 md:h-6 " />
                 <div className="flex items-center md:text-xs lg:text-sm gap-1 font-barlow mt-1">
                   <PrismicRichText field={data.review_count} />
                   <span className="text-[15px]">reviews</span>
@@ -491,7 +491,7 @@ export default function Footer({ footerData }) {
             <div className="flex flex-col gap-2">
               <div className="flex gap-5 text-xs">
                 <RatingStars rating={data.rating} starClassName="w-3 h-4" />
-                <div className="text-[#5B5B5B] mt-0.5 flex text-xs font-barlow">
+                <div className="text-[#5B5B5B] mt-0.5 flex text-xs gap-1 font-barlow">
                   <PrismicRichText field={data.review_count} />
                   <span> reviews</span>
                 </div>

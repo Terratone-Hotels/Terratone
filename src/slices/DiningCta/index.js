@@ -28,7 +28,7 @@ const DiningCta = ({ slice }) => {
         </div>
 
         <div className="w-full md:w-1/2 md:sticky md:top-10 flex flex-col">
-          <div className="font-serif font-medium capitalize text-[25px] md:text-[38px] lg:text-[42px] leading-6 lg:leading-8  items-start">
+          <div className="font-serif font-medium  text-[25px] md:text-[38px] lg:text-[42px] leading-6 lg:leading-8  items-start">
             <RichTextRenderer field={slice.primary.heading} />
           </div>
 

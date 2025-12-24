@@ -49,7 +49,7 @@ const TaglineHeroSlice = ({ slice }) => {
       tl.to(textBlocks, {
         opacity: 1,
         clipPath: "inset(0% 0% 0% 0%)",
-        stagger: 0.4,
+        stagger: 0.2,
         duration: 0.6,
         ease: "circ.out",
       });
@@ -60,7 +60,7 @@ const TaglineHeroSlice = ({ slice }) => {
         {
           opacity: 1,
           clipPath: "inset(0% 0% 0% 0%)",
-          duration: 0.7,
+          duration: 0.65,
           ease: "circ.out",
         },
         "-=0.1"

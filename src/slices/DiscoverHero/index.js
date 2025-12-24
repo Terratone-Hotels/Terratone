@@ -56,8 +56,8 @@ const DiscoverHero = ({ slice }) => {
 
       // --- INITIAL STATE ---
       gsap.set(allImages, { opacity: 0 });
-      if (textEl) gsap.set(textEl, { opacity: 1 }); // 🌙
-      if (letters.length > 0) gsap.set(letters, { color: "#bcbcbc" });
+      if (textEl) gsap.set(textEl, { opacity: 0 }); // 🌙
+      if (letters.length > 0) gsap.set(letters, { color: "transparent" });
 
       // --- Fade in sequence on load ---
       // Text fades in first
@@ -105,7 +105,7 @@ const DiscoverHero = ({ slice }) => {
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: "+=350%",
+          end: "+=250%",
           scrub: true,
           pin: true,
           // markers: true,
@@ -126,7 +126,7 @@ const DiscoverHero = ({ slice }) => {
           scrollTrigger: {
             trigger: container,
             start: "center+=45% bottom", // start as soon as hero hits top
-            end: "bottom+=250%", // finish quickly within first 10% of scroll
+            end: "bottom+=100%", // finish quickly within first 10% of scroll
             scrub: true, // tie to scroll progress (no snap)
             // markers:true,
           },
@@ -198,12 +198,12 @@ const DiscoverHero = ({ slice }) => {
       {/* 0. Top Left */}
       <div
         ref={imageRef}
-        className="border border-red-500 absolute top-[25%] left-[10%]  md:top-[15%] xl:top-[15%]  xl:left-[25%] w-30 h-20 md:w-62 md:h-40 z-10 opacity-0"
+        className="absolute top-[25%] left-[10%]  md:top-[15%] xl:top-[15%]  xl:left-[25%] w-30 h-20 md:w-62 md:h-40 z-10 opacity-0"
       >
         <PrismicNextImage
           field={slice.primary.image_top_left}
           className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
+          
         />
       </div>
 
@@ -227,7 +227,6 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_bottom_right}
           className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
@@ -239,19 +238,17 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_top_center}
           className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
       {/* 4. Center Left */}
       <div
         ref={imageRef4}
-        className="absolute top-[50%] left-[1%] xl:top-[45%] xl:left-[1%] w-18 h-15 md:w-45 md:h-35 xl:w-60 xl:h-54 z-20 opacity-0"
+        className="absolute top-[50%] left-[1%] xl:top-[45%] xl:left-[1%] w-18 h-15 md:w-35 md:h-25 xl:w-60 xl:h-54 z-20 opacity-0"
       >
         <PrismicNextImage
           field={slice.primary.image_left}
           className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
@@ -263,7 +260,6 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_bottom_left}
           className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
@@ -271,7 +267,7 @@ const DiscoverHero = ({ slice }) => {
       <div className="z-20 justify-self-center text-center max-w-[70%] xl:max-w-[60%] px-6">
         <div
           ref={textRef}
-          className="text-md md:text-xl xl:text-[26px] font-serif leading-tight tracking-tight "
+          className="text-md md:text-xl xl:text-[26px] font-serif leading-tight tracking-tight opacity-0 "
         >
           {slice.primary.heading?.[0]?.text ||
             "Nestled in Thevally, Kollam, Terratone Boutique Hotel puts you steps from tranquil backwaters, local markets, temples, and Kerala cuisine. Experience the perfect blend of tradition and modern energy—with easy access to key attractions, travel routes, and an authentic neighbourhood vibe for both business and leisure."}

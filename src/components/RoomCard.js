@@ -33,7 +33,7 @@ export default function RoomCard({
 
       const revealSettings = {
         opacity: 0,
-        clipPath: "inset(0 100% 0 0)", // hidden from right
+        clipPath: "inset(0 100% 0 0)", 
       };
 
       const revealTo = {
@@ -56,8 +56,6 @@ export default function RoomCard({
         .fromTo(titleRef.current, revealSettings, revealTo, "-=1.1")
         .fromTo(buttonRef.current, revealSettings, revealTo, "-=1.0")
         .fromTo(lineRef.current, revealSettings, revealTo, "-=0.9")
-
-        // DESCRIPTION LAST (no overlap)
         .fromTo(descRef.current, revealSettings, {
           ...revealTo,
           duration: 0.5,

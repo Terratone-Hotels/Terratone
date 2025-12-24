@@ -130,7 +130,7 @@ body {
   overflow: visible;
   margin-inline: auto;
   width: 10rem; /* example width; change as needed */
-  height: 2px; /* track thickness */
+  height: 5px; /* track thickness */
   background: #e6e6e6;
   border-radius: 9999px;
 }

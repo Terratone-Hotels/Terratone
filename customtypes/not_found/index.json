@@ -1,0 +1,66 @@
+{
+  "format": "custom",
+  "id": "not_found",
+  "label": "Not Found",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "four_zero_four": {
+        "type": "Text",
+        "config": {
+          "label": "404",
+          "placeholder": ""
+        }
+      },
+      "text_one": {
+        "type": "Text",
+        "config": {
+          "label": "Text One",
+          "placeholder": ""
+        }
+      },
+      "text_two": {
+        "type": "Text",
+        "config": {
+          "label": "Text Two",
+          "placeholder": ""
+        }
+      },
+      "image_one": {
+        "type": "Image",
+        "config": {
+          "label": "Image One",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "image_two": {
+        "type": "Image",
+        "config": {
+          "label": "Image Two",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "fallback_link": {
+        "type": "Link",
+        "config": {
+          "label": "Fallback Link",
+          "placeholder": "",
+          "select": null,
+          "allowTargetBlank": true,
+          "allowText": true,
+          "repeat": false
+        }
+      },
+      "fallback_label": {
+        "type": "Text",
+        "config": {
+          "label": "Fallback Label",
+          "placeholder": ""
+        }
+      }
+    }
+  }
+}
