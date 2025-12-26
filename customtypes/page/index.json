@@ -44,9 +44,6 @@
             "meeting_halls": {
               "type": "SharedSlice"
             },
-            "placesto_visit": {
-              "type": "SharedSlice"
-            },
             "destination_highlight": {
               "type": "SharedSlice"
             },

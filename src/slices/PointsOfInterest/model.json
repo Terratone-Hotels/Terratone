@@ -1,8 +1,8 @@
 {
-  "id": "placesto_visit",
+  "id": "points_of_interest",
   "type": "SharedSlice",
-  "name": "PlacestoVisit",
-  "description": "PlacestoVisit",
+  "name": "PointsOfInterest",
+  "description": "PointsOfInterest",
   "variations": [
     {
       "id": "default",
@@ -12,32 +12,34 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "stickycontentnavigator": {
+        "contents": {
           "type": "Group",
           "config": {
-            "label": "StickyContentNavigator",
+            "label": "Contents",
             "repeat": true,
             "fields": {
-              "title": {
+              "tab_title": {
                 "type": "StructuredText",
                 "config": {
-                  "label": "Nav_Title",
+                  "label": "Tab Title",
                   "placeholder": "",
                   "allowTargetBlank": true,
                   "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
                 }
               },
-              "content_id": {
-                "type": "Text",
-                "config": {
-                  "label": "Content_ID",
-                  "placeholder": ""
-                }
-              },
-              "text_content": {
+              "title": {
                 "type": "StructuredText",
                 "config": {
-                  "label": "Text_Content",
+                  "label": "Title",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+                }
+              },
+              "description": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Description",
                   "placeholder": "",
                   "allowTargetBlank": true,
                   "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
@@ -47,6 +49,14 @@
                 "type": "Image",
                 "config": {
                   "label": "Image",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              },
+              "stamp": {
+                "type": "Image",
+                "config": {
+                  "label": "Stamp",
                   "constraint": {},
                   "thumbnails": []
                 }

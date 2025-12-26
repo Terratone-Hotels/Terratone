@@ -38,6 +38,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "points_of_interest": {
+              "type": "SharedSlice"
+            },
             "tips_explore": {
               "type": "SharedSlice"
             },

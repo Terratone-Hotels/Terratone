@@ -87,7 +87,7 @@ export default function HotelTab({ data, setData, closeModal }) {
     <div className="space-y-6 text-sm">
       {/* ---------------- FULL NAME ---------------- */}
       <div className="mb-4">
-        <label className="block text-[14px] tracking-wider uppercase text-neutral-500 mb-1">
+        <label className="block text-[14px] tracking-wider font-barlow font-medium uppercase text-neutral-500 mb-1">
           Full Name *
         </label>
 
@@ -107,19 +107,19 @@ export default function HotelTab({ data, setData, closeModal }) {
               }
             }}
             placeholder="John Doe"
-            className="w-full bg-transparent outline-none text-[15px] text-neutral-900 placeholder:text-neutral-400"
+            className="w-full font-barlow bg-transparent outline-none text-[15px] text-neutral-900 placeholder:text-neutral-400"
           />
         </div>
       </div>
 
       {/* ---------------- PHONE NUMBER ---------------- */}
       <div className="mb-4">
-        <label className="block text-[14px] tracking-wider uppercase text-neutral-500 mb-1">
+        <label className="block text-[14px] font-barlow font-medium tracking-wider uppercase text-neutral-500 mb-1">
           Ph. No *
         </label>
 
         <div
-          className={`bg-[#F5F2EE] p-3 border 
+          className={`bg-[#F5F2EE] font-barlow p-3 border 
             ${data.phone ? "border-black" : "border-neutral-300"} 
             focus-within:border-black
           `}
@@ -134,7 +134,7 @@ export default function HotelTab({ data, setData, closeModal }) {
               }
             }}
             placeholder="+91 9213566646"
-            className="w-full bg-transparent outline-none text-[15px] text-neutral-900 placeholder:text-neutral-400"
+            className="w-full font-barlow bg-transparent outline-none text-[15px] text-neutral-900 placeholder:text-neutral-400"
           />
         </div>
       </div>
@@ -152,12 +152,12 @@ export default function HotelTab({ data, setData, closeModal }) {
           className="w-full flex justify-between items-center"
           type="button"
         >
-          <span className="uppercase tracking-wide text-neutral-800">
+          <span className="uppercase font-barlow font-medium tracking-wide text-neutral-800">
             {selectedProperty || "Choose a Room *"}
           </span>
 
           <span
-            className={`text-lg transition-transform duration-300 ${
+            className={`text-lg transition-transform  duration-300 ${
               openProperty ? "rotate-180" : ""
             }`}
           >
@@ -166,13 +166,13 @@ export default function HotelTab({ data, setData, closeModal }) {
         </button>
 
         {openProperty && (
-          <div className="mt-3 space-y-2">
+          <div className="mt-3 font-barlow font-medium space-y-2">
             {PROPERTY_LIST.map((prop) => (
               <div
                 key={prop}
                 className={`p-2 cursor-pointer ${
                   selectedProperty === prop
-                    ? "bg-neutral-800 text-white"
+                    ? "bg-neutral-800  text-white"
                     : "hover:bg-neutral-200"
                 }`}
                 onClick={() => {
@@ -191,15 +191,15 @@ export default function HotelTab({ data, setData, closeModal }) {
       {/* ---------------- DATE PICKER ---------------- */}
       <div className="border border-neutral-800">
         <div className="border-b border-neutral-800 p-4">
-          <p className="uppercase text-black">SELECT DATE</p>
+          <p className="uppercase font-barlow font-medium text-black">SELECT DATE</p>
           <div className="flex gap-2 mt-2 text-neutral-400 tracking-wide text-sm">
-            <span>
+            <span className="font-barlow">
               {checkIn
                 ? format(checkIn, "MMM dd, yy").toUpperCase()
                 : "(CHECK-IN "}
             </span>
             <span>/</span>
-            <span>
+            <span className="font-barlow">
               {checkOut
                 ? format(checkOut, "MMM dd, yy").toUpperCase()
                 : "CHECK-OUT)"}
@@ -228,8 +228,8 @@ export default function HotelTab({ data, setData, closeModal }) {
           </div>
         ) : (
           <div>
-            <p className="uppercase text-neutral-500">No room selected</p>
-            <p className="uppercase text-neutral-400 text-xs tracking-wide">
+            <p className="uppercase font-barlow font-medium text-neutral-500">No room selected</p>
+            <p className="uppercase font-barlow text-neutral-400 text-xs tracking-wide">
               (Check-in — Check-out)
             </p>
           </div>
@@ -237,7 +237,7 @@ export default function HotelTab({ data, setData, closeModal }) {
 
         {/* Adults */}
         <div className="flex justify-between items-center pt-2">
-          <span className="uppercase text-black">Adults</span>
+          <span className="uppercase font-barlow font-medium text-black">Adults</span>
 
           <div className="flex items-center gap-3">
             <button
@@ -246,12 +246,12 @@ export default function HotelTab({ data, setData, closeModal }) {
                 const newAdults = Math.max(1, adults - 1);
                 setData({ adults: newAdults });
               }}
-              className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
+              className="w-6 h-6 bg-[#EAE4DD] flex items-center font-medium justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
             >
               -
             </button>
 
-            <span className="w-6 text-center">
+            <span className="w-6  font-barlow font-medium text-center">
               {String(adults).padStart(2, "0")}
             </span>
 
@@ -261,7 +261,7 @@ export default function HotelTab({ data, setData, closeModal }) {
                 if (adults + children >= 3) return;
                 setData({ adults: adults + 1 });
               }}
-              className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
+              className="w-6 h-6 bg-[#EAE4DD] font-medium flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
             >
               +
             </button>
@@ -270,7 +270,7 @@ export default function HotelTab({ data, setData, closeModal }) {
 
         {/* Children */}
         <div className="flex justify-between items-center pt-2">
-          <span className="uppercase text-black">Children</span>
+          <span className="uppercase font-barlow font-medium text-black">Children</span>
 
           <div className="flex items-center gap-3">
             <button
@@ -279,12 +279,12 @@ export default function HotelTab({ data, setData, closeModal }) {
                 const newChildren = Math.max(0, children - 1);
                 setData({ children: newChildren });
               }}
-              className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
+              className="w-6 h-6 bg-[#EAE4DD] font-medium flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
             >
               -
             </button>
 
-            <span className="w-6 text-center">
+            <span className="w-6 font-barlow font-medium text-center">
               {String(children).padStart(2, "0")}
             </span>
 
@@ -294,7 +294,7 @@ export default function HotelTab({ data, setData, closeModal }) {
                 if (adults + children >= 3) return;
                 setData({ children: children + 1 });
               }}
-              className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
+              className="w-6 h-6 bg-[#EAE4DD] font-medium flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
             >
               +
             </button>
@@ -307,7 +307,7 @@ export default function HotelTab({ data, setData, closeModal }) {
         <button
           type="button"
           onClick={submit}
-          className="w-full flex items-baseline justify-center gap-2 bg-white text-black hover:text-white hover:bg-black  py-3 font-semibold text-sm tracking-wide uppercase cursor-pointer transition-all border border-black"
+          className="w-full font-barlow flex items-baseline justify-center gap-2 bg-white text-black hover:text-white hover:bg-black  py-3 font-semibold text-sm tracking-wide uppercase cursor-pointer transition-all border border-black"
         >
           Enquire Now <ArrowIcon/>
         </button>
