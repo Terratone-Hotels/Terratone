@@ -93,12 +93,12 @@ export default function EventTab({ data, setData }) {
 
   return (
     <div className="space-y-6 font-barlow">
-      <h4 className="text-lg font-medium mb-4">Event Enquiry</h4>
+      <h4 className="text-lg uppercase font-medium mb-4">Event Enquiry</h4>
 
       <div className="space-y-4 mt-6">
         {/* ---------------- FULL NAME ---------------- */}
         <div>
-          <label className="block text-[14px] tracking-wider uppercase text-neutral-500 mb-1">
+          <label className="block text-[14px] font-medium tracking-wider uppercase text-neutral-500 mb-1">
             Full Name *
           </label>
 
@@ -121,7 +121,7 @@ export default function EventTab({ data, setData }) {
 
         {/* ---------------- PHONE ---------------- */}
         <div>
-          <label className="block text-[14px] tracking-wider uppercase text-neutral-500 mb-1">
+          <label className="block text-[14px] font-medium tracking-wider uppercase text-neutral-500 mb-1">
             Phone Number *
           </label>
 
@@ -147,7 +147,7 @@ export default function EventTab({ data, setData }) {
 
         {/* ---------------- EMAIL ---------------- */}
         <div>
-          <label className="block text-[14px] tracking-wider uppercase text-neutral-500 mb-1">
+          <label className="block font-medium text-[14px] tracking-wider uppercase text-neutral-500 mb-1">
             Email Address *
           </label>
 
@@ -172,7 +172,7 @@ export default function EventTab({ data, setData }) {
 
         {/* EVENT TYPE */}
         <div>
-          <label className="block text-[14px] tracking-wider uppercase text-neutral-500 mb-1">
+          <label className="block font-medium text-[14px] tracking-wider uppercase text-neutral-500 mb-1">
             Type of Event *
           </label>
 
@@ -198,13 +198,13 @@ export default function EventTab({ data, setData }) {
           <button
             type="button"
             onClick={() => setOpenRoom(!openRoom)}
-            className="w-full bg-transparent text-sm text-black uppercase text-left"
+            className="w-full bg-transparent font-medium text-sm text-black uppercase text-left"
           >
             {selectedRoom || "TYPE OF ROOM NEEDED *"}
           </button>
 
           <span
-            className={`absolute right-3 top-1/2 -translate-y-1/2 text-neutral-700 transition-transform ${
+            className={`absolute select-none right-3 top-1/2 -translate-y-1/2 text-neutral-700 transition-transform ${
               openRoom ? "rotate-180" : ""
             }`}
           >
@@ -232,7 +232,7 @@ export default function EventTab({ data, setData }) {
         {/* ---------------- EVENT DATE (FULL CALENDAR) ---------------- */}
         <div className="border border-neutral-800">
           <div className="border-b border-neutral-800 p-4">
-            <p className="uppercase text-black">Select Event Date *</p>
+            <p className="uppercase font-medium text-black">Select Event Date *</p>
 
             <div className="flex gap-2 mt-2 text-neutral-400 tracking-wide text-sm">
               {date ? (
@@ -254,7 +254,7 @@ export default function EventTab({ data, setData }) {
 
         {/* ---------------- START TIME ---------------- */}
         <div className="border border-neutral-700 p-3">
-          <label className="block text-xs uppercase text-neutral-800 mb-1">
+          <label className="block text-xs uppercase font-medium text-neutral-800 mb-1">
             Start Time *
           </label>
 
@@ -321,7 +321,7 @@ export default function EventTab({ data, setData }) {
 
         {/* ---------------- END TIME ---------------- */}
         <div className="border border-neutral-700 p-3">
-          <label className="block text-xs uppercase text-neutral-800 mb-1">
+          <label className="block font-medium text-xs uppercase text-neutral-800 mb-1">
             End Time (Estimated) *
           </label>
 
@@ -385,7 +385,7 @@ export default function EventTab({ data, setData }) {
 
         {/* ---------------- NUMBER OF PEOPLE ---------------- */}
         {/* ---------------- NUMBER OF PEOPLE ---------------- */}
-        <div className="border border-neutral-700 p-4 space-y-4">
+        <div className="border font-medium border-neutral-700 p-4 space-y-4">
           <div className="flex justify-between items-center pt-2">
             <span className="uppercase text-black">Number of People *</span>
 
@@ -427,7 +427,7 @@ export default function EventTab({ data, setData }) {
 
         {/* ---------------- NOTES ---------------- */}
         <div className="border border-neutral-700 p-3">
-          <label className="block text-xs uppercase text-neutral-800 mb-2">
+          <label className="block font-medium text-xs uppercase text-neutral-800 mb-2">
             Additional Information
           </label>
           <textarea

@@ -48,12 +48,12 @@ export default function DiningTab({ data, setData }) {
 
   return (
     <div className="space-y-6 font-barlow">
-      <h4 className="text-lg font-medium mb-4">Reserve a table</h4>
+      <h4 className="text-lg uppercase  font-medium mb-4">Reserve a table</h4>
 
       <div className="space-y-4 mt-6">
         {/* ---------------- FULL NAME ---------------- */}
         <div className="mb-4">
-          <label className="block text-[14px] tracking-wider uppercase text-neutral-500 mb-1">
+          <label className="block text-[14px] tracking-wider uppercase font-medium text-neutral-500 mb-1">
             Full Name *
           </label>
 
@@ -79,7 +79,7 @@ export default function DiningTab({ data, setData }) {
 
         {/* ---------------- PHONE NUMBER ---------------- */}
         <div className="mb-4">
-          <label className="block text-[14px] tracking-wider uppercase text-neutral-500 mb-1">
+          <label className="block text-[14px] tracking-wider font-medium uppercase text-neutral-500 mb-1">
             Ph. No *
           </label>
 
@@ -106,7 +106,7 @@ export default function DiningTab({ data, setData }) {
         {/* ---------------- DATE PICKER ---------------- */}
         <div className="border border-neutral-800">
           <div className="border-b border-neutral-800 p-4">
-            <p className="uppercase text-black">Select Date</p>
+            <p className="uppercase font-medium text-black">Select Date</p>
 
             <div className="flex gap-2 mt-2 text-neutral-400 tracking-wide text-sm">
               {date ? (
@@ -128,7 +128,7 @@ export default function DiningTab({ data, setData }) {
 
         {/* ---------------- TIME PICKER ---------------- */}
         <div className="border border-neutral-700 p-3">
-          <label className="block text-xs uppercase text-neutral-800 mb-1">
+          <label className="block text-xs font-medium uppercase text-neutral-800 mb-1">
             Time *
           </label>
 
@@ -204,7 +204,7 @@ export default function DiningTab({ data, setData }) {
         {/* ---------------- NUMBER OF GUESTS ---------------- */}
         <div className="border border-neutral-700 p-4 space-y-4">
           <div className="flex justify-between items-center pt-2">
-            <span className="uppercase text-black">Guests</span>
+            <span className="uppercase font-medium text-black">Guests</span>
 
             <div className="flex items-center gap-3">
               {/* MINUS */}
@@ -216,13 +216,13 @@ export default function DiningTab({ data, setData }) {
                     guests: Math.max(1, prev.guests - 1),
                   }))
                 }
-                className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
+                className="w-6 h-6 font-medium bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
               >
                 -
               </button>
 
               {/* DISPLAY */}
-              <span className="w-6 text-center">
+              <span className="w-6 font-medium text-center">
                 {guests.toString().padStart(2, "0")}
               </span>
 
@@ -234,7 +234,7 @@ export default function DiningTab({ data, setData }) {
                     guests: prev.guests + 1,
                   }))
                 }
-                className="w-6 h-6 bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
+                className="w-6 h-6 font-medium bg-[#EAE4DD] flex items-center justify-center disabled:bg-neutral-200 disabled:text-neutral-500"
               >
                 +
               </button>

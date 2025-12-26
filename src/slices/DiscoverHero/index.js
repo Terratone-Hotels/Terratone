@@ -56,8 +56,8 @@ const DiscoverHero = ({ slice }) => {
 
       // --- INITIAL STATE ---
       gsap.set(allImages, { opacity: 0 });
-      if (textEl) gsap.set(textEl, { opacity: 1 }); // 🌙
-      if (letters.length > 0) gsap.set(letters, { color: "#bcbcbc" });
+      if (textEl) gsap.set(textEl, { opacity: 0 }); // 🌙
+      if (letters.length > 0) gsap.set(letters, { color: "transparent" });
 
       // --- Fade in sequence on load ---
       // Text fades in first
@@ -75,7 +75,7 @@ const DiscoverHero = ({ slice }) => {
         gsap.to(letters, {
           color: "#000",
           duration: 0.6,
-          stagger: 0.015,
+          stagger: 0.005,
           ease: "none",
           delay: 0.6, // starts right after text fade starts finishing
         });
@@ -105,7 +105,7 @@ const DiscoverHero = ({ slice }) => {
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: "+=350%",
+          end: "+=250%",
           scrub: true,
           pin: true,
           // markers: true,
@@ -126,7 +126,7 @@ const DiscoverHero = ({ slice }) => {
           scrollTrigger: {
             trigger: container,
             start: "center+=45% bottom", // start as soon as hero hits top
-            end: "bottom+=280%", // finish quickly within first 10% of scroll
+            end: "bottom+=100%", // finish quickly within first 10% of scroll
             scrub: true, // tie to scroll progress (no snap)
             // markers:true,
           },
@@ -136,7 +136,7 @@ const DiscoverHero = ({ slice }) => {
       // --- IMAGE ANIMATIONS (untouched) ---
       tl.to(
         imageRef.current,
-        { scale: 35, z: 200, x: -4500, y: -7000, ease: "power4.in" },
+        { scale: 25, z: 200, x: -6500, y: -7000, ease: "power4.in" },
         -0.2
       )
         .to(
@@ -146,22 +146,22 @@ const DiscoverHero = ({ slice }) => {
         )
         .to(
           imageRef2.current,
-          { scale: 12, z: 1000, x: 10000, y: 10000, ease: "power4.in" },
+          { scale: 12, z: 1000, x: 4000, y: 10000, ease: "power4.in" },
           "<"
         )
         .to(
           imageRef3.current,
-          { scale: 35, z: 1000, x: -9000, y: -14100, ease: "power4.in" },
+          { scale: 35, z: 1000, x: 6000, y: -14100, ease: "power4.in" },
           "<"
         )
         .to(
           imageRef4.current,
-          { scale: 9, z: 15000, x: -10500, y: -2000, ease: "power4.in" },
+          { scale: 25, z: 15000, x: -8500, y: 1000, ease: "power4.in" },
           "<"
         )
         .to(
           imageRef5.current,
-          { scale: 10, z: 1000, x: 2500, y: -20, ease: "power4.in" },
+          { scale: 10, z: 1000, x: -5500, y: 7220, ease: "power4.in" },
           "<"
         )
         .to(
@@ -198,128 +198,76 @@ const DiscoverHero = ({ slice }) => {
       {/* 0. Top Left */}
       <div
         ref={imageRef}
-        className="absolute top-[15%] md:top-[25%] left-[25%] w-10 h-8 md:w-32 md:h-20 z-10 opacity-0"
+        className="absolute top-[25%] left-[10%]  md:top-[15%] xl:top-[15%]  xl:left-[25%] w-30 h-20 md:w-62 md:h-40 z-10 opacity-0"
       >
         <PrismicNextImage
           field={slice.primary.image_top_left}
           className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
+          
         />
       </div>
 
       {/* 1. Top Right */}
       <div
         ref={imageRef1}
-        className="absolute top-[35%] right-[4%] w-16 h-14 md:w-25 md:h-21 lg:w-35 lg:h-20 xl:w-50 xl:h-32 z-20 opacity-0"
+        className="absolute top-[45%] right-[1%] lg:top-[40%] xl:top-[35%] xl:right-[4%] w-16 h-14 md:w-33 md:h-21 lg:w-45 lg:h-25 xl:w-60 xl:h-38 z-20 opacity-0"
       >
         <PrismicNextImage
           field={slice.primary.image_right}
           className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
+         
         />
       </div>
 
       {/* 2. Bottom Right */}
       <div
         ref={imageRef2}
-        className="absolute bottom-10 right-1/4 md:w-50 md:h-30 w-18 h-12 lg:w-80 lg:h-48 z-1 opacity-0"
+        className="absolute bottom-[27%] right-[10%] md:bottom-[12%] md:right-[5%] lg:bottom-[8%] lg:right-[8%] xl:bottom-10 xl:right-1/4 md:w-60 md:h-40 w-30 h-18 lg:w-80 lg:h-48 z-1 opacity-0"
       >
         <PrismicNextImage
           field={slice.primary.image_bottom_right}
           className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
       {/* 3. Center Top */}
       <div
         ref={imageRef3}
-        className="absolute top-[10%] left-1/3 -translate-x-1/2 xl:w-45 xl:h-45 md:h-25 md:w-25 h-15 w-15 z-1 opacity-0"
+        className="absolute top-[22%] right-[5%] md:top-[16%] md:right-[20%] xl:top-[10%] xl:right-[25%]  xl:w-65 xl:h-45 md:h-35 md:w-55 h-25 w-35 z-1 opacity-0"
       >
         <PrismicNextImage
           field={slice.primary.image_top_center}
           className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
       {/* 4. Center Left */}
       <div
         ref={imageRef4}
-        className="absolute top-1/3 left-0 -translate-y-1/2 w-10 h-15 md:w-20 md:h-28 xl:w-46 xl:h-54 z-20 opacity-0"
+        className="absolute top-[50%] left-[1%] xl:top-[45%] xl:left-[1%] w-18 h-15 md:w-35 md:h-25 xl:w-60 xl:h-54 z-20 opacity-0"
       >
         <PrismicNextImage
           field={slice.primary.image_left}
           className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
       {/* 5. Mid Right */}
       <div
         ref={imageRef5}
-        className="absolute bottom-[50%] md:bottom-[41%] right-[10%] w-10 h-10 md:w-15 md:h-15 z-10 opacity-0"
-      >
-        <PrismicNextImage
-          field={slice.primary.image_extra_1}
-          className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
-        />
-      </div>
-
-      {/* 6. Center */}
-      <div
-        ref={imageRef6}
-        className="absolute lg:top-1/2 top-[38%] left-[10%] -translate-x-1/2 -translate-y-1/2 w-14 h-10 lg:w-28 lg:h-20 z-40 opacity-0"
-      >
-        <PrismicNextImage
-          field={slice.primary.image_extra_3}
-          className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
-        />
-      </div>
-
-      {/* 7. Bottom Left */}
-      <div
-        ref={imageRef7}
-        className="absolute bottom-[4%] left-[14%] w-20 h-20 lg:w-35 lg:h-35 xl:h-45 xl:w-45 z-10 opacity-0"
+        className="absolute bottom-[28%] left-[15%] md:bottom-[10%] md:left-[20%] w-25 h-15 md:w-65 md:h-45 z-10 opacity-0"
       >
         <PrismicNextImage
           field={slice.primary.image_bottom_left}
           className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
-        />
-      </div>
-
-      {/* 8. Extra Top */}
-      <div
-        ref={imageRef8}
-        className="absolute top-20 right-1/4 lg:w-38 lg:h-26 w-24 h-15 z-20 opacity-0"
-      >
-        <PrismicNextImage
-          field={slice.primary.image_top_right}
-          className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
-        />
-      </div>
-
-      {/* 9. Extra Bottom Center */}
-      <div
-        ref={imageRef9}
-        className=" absolute bottom-[10%] left-[40%] md:left-1/4 w-7 h-7 md:h-15 md:w-15 lg:w-25 lg:h-25 z-10 opacity-0"
-      >
-        <PrismicNextImage
-          field={slice.primary.image_bottom_center}
-          className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100px, 200px"
         />
       </div>
 
       {/* TEXT */}
-      <div className="z-20 text-center max-w-[70%] xl:max-w-[50%] px-6">
+      <div className="z-20 justify-self-center text-center max-w-[70%] xl:max-w-[60%] px-6">
         <div
           ref={textRef}
-          className="text-md md:text-xl xl:text-[26px] font-serif leading-tight tracking-tight "
+          className="text-md md:text-xl xl:text-[26px] font-serif leading-tight tracking-tight opacity-0 "
         >
           {slice.primary.heading?.[0]?.text ||
             "Nestled in Thevally, Kollam, Terratone Boutique Hotel puts you steps from tranquil backwaters, local markets, temples, and Kerala cuisine. Experience the perfect blend of tradition and modern energy—with easy access to key attractions, travel routes, and an authentic neighbourhood vibe for both business and leisure."}
