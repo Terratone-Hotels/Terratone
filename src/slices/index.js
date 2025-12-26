@@ -24,7 +24,7 @@ export const components = {
   one_with_side_words: dynamic(() => import("./OneWithSideWords")),
   our_story_intro: dynamic(() => import("./StoryBlockA")),
   picture_section: dynamic(() => import("./PictureSection")),
-  places_to_visit: dynamic(() => import("./PlacesToVisit")),
+  points_of_interest: dynamic(() => import("./PointsOfInterest")),
   resonance_block: dynamic(() => import("./ResonanceBlock")),
   reversed_destination_highlights: dynamic(
     () => import("./ReversedDestinationHighlights"),

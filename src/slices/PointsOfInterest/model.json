@@ -1,8 +1,8 @@
 {
-  "id": "places_to_visit",
+  "id": "points_of_interest",
   "type": "SharedSlice",
-  "name": "PlacesToVisit",
-  "description": "PlacesToVisit",
+  "name": "PointsOfInterest",
+  "description": "PointsOfInterest",
   "variations": [
     {
       "id": "default",
@@ -21,7 +21,7 @@
               "tab_title": {
                 "type": "StructuredText",
                 "config": {
-                  "label": "Tab_title",
+                  "label": "Tab Title",
                   "placeholder": "",
                   "allowTargetBlank": true,
                   "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"

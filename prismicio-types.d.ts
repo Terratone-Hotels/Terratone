@@ -509,7 +509,7 @@ export interface DiscoverDocumentDataLeftHeadingsItem {
 }
 
 type DiscoverDocumentDataSlicesSlice =
-  | PlacesToVisitSlice
+  | PointsOfInterestSlice
   | TipsExploreSlice
   | DiscoverHeroSlice
   | ScrollSectionSlice;
@@ -4269,105 +4269,105 @@ export type PictureSectionSlice = prismic.SharedSlice<
 >;
 
 /**
- * Item in *PlacesToVisit → Default → Primary → Contents*
+ * Item in *PointsOfInterest → Default → Primary → Contents*
  */
-export interface PlacesToVisitSliceDefaultPrimaryContentsItem {
+export interface PointsOfInterestSliceDefaultPrimaryContentsItem {
   /**
-   * Tab_title field in *PlacesToVisit → Default → Primary → Contents*
+   * Tab Title field in *PointsOfInterest → Default → Primary → Contents*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: places_to_visit.default.primary.contents[].tab_title
+   * - **API ID Path**: points_of_interest.default.primary.contents[].tab_title
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   tab_title: prismic.RichTextField;
 
   /**
-   * Title field in *PlacesToVisit → Default → Primary → Contents*
+   * Title field in *PointsOfInterest → Default → Primary → Contents*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: places_to_visit.default.primary.contents[].title
+   * - **API ID Path**: points_of_interest.default.primary.contents[].title
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   title: prismic.RichTextField;
 
   /**
-   * Description field in *PlacesToVisit → Default → Primary → Contents*
+   * Description field in *PointsOfInterest → Default → Primary → Contents*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: places_to_visit.default.primary.contents[].description
+   * - **API ID Path**: points_of_interest.default.primary.contents[].description
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   description: prismic.RichTextField;
 
   /**
-   * Image field in *PlacesToVisit → Default → Primary → Contents*
+   * Image field in *PointsOfInterest → Default → Primary → Contents*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: places_to_visit.default.primary.contents[].image
+   * - **API ID Path**: points_of_interest.default.primary.contents[].image
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
 
   /**
-   * Stamp field in *PlacesToVisit → Default → Primary → Contents*
+   * Stamp field in *PointsOfInterest → Default → Primary → Contents*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: places_to_visit.default.primary.contents[].stamp
+   * - **API ID Path**: points_of_interest.default.primary.contents[].stamp
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   stamp: prismic.ImageField<never>;
 }
 
 /**
- * Primary content in *PlacesToVisit → Default → Primary*
+ * Primary content in *PointsOfInterest → Default → Primary*
  */
-export interface PlacesToVisitSliceDefaultPrimary {
+export interface PointsOfInterestSliceDefaultPrimary {
   /**
-   * Contents field in *PlacesToVisit → Default → Primary*
+   * Contents field in *PointsOfInterest → Default → Primary*
    *
    * - **Field Type**: Group
    * - **Placeholder**: *None*
-   * - **API ID Path**: places_to_visit.default.primary.contents[]
+   * - **API ID Path**: points_of_interest.default.primary.contents[]
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   contents: prismic.GroupField<
-    Simplify<PlacesToVisitSliceDefaultPrimaryContentsItem>
+    Simplify<PointsOfInterestSliceDefaultPrimaryContentsItem>
   >;
 }
 
 /**
- * Default variation for PlacesToVisit Slice
+ * Default variation for PointsOfInterest Slice
  *
  * - **API ID**: `default`
  * - **Description**: Default
  * - **Documentation**: https://prismic.io/docs/slices
  */
-export type PlacesToVisitSliceDefault = prismic.SharedSliceVariation<
+export type PointsOfInterestSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Simplify<PlacesToVisitSliceDefaultPrimary>,
+  Simplify<PointsOfInterestSliceDefaultPrimary>,
   never
 >;
 
 /**
- * Slice variation for *PlacesToVisit*
+ * Slice variation for *PointsOfInterest*
  */
-type PlacesToVisitSliceVariation = PlacesToVisitSliceDefault;
+type PointsOfInterestSliceVariation = PointsOfInterestSliceDefault;
 
 /**
- * PlacesToVisit Shared Slice
+ * PointsOfInterest Shared Slice
  *
- * - **API ID**: `places_to_visit`
- * - **Description**: PlacesToVisit
+ * - **API ID**: `points_of_interest`
+ * - **Description**: PointsOfInterest
  * - **Documentation**: https://prismic.io/docs/slices
  */
-export type PlacesToVisitSlice = prismic.SharedSlice<
-  "places_to_visit",
-  PlacesToVisitSliceVariation
+export type PointsOfInterestSlice = prismic.SharedSlice<
+  "points_of_interest",
+  PointsOfInterestSliceVariation
 >;
 
 /**
@@ -5873,11 +5873,11 @@ declare module "@prismicio/client" {
       PictureSectionSliceDefault,
       PictureSectionSliceDoublePictures,
       PictureSectionSliceTrippleImage,
-      PlacesToVisitSlice,
-      PlacesToVisitSliceDefaultPrimaryContentsItem,
-      PlacesToVisitSliceDefaultPrimary,
-      PlacesToVisitSliceVariation,
-      PlacesToVisitSliceDefault,
+      PointsOfInterestSlice,
+      PointsOfInterestSliceDefaultPrimaryContentsItem,
+      PointsOfInterestSliceDefaultPrimary,
+      PointsOfInterestSliceVariation,
+      PointsOfInterestSliceDefault,
       ResonanceBlockSlice,
       ResonanceBlockSliceDefaultPrimary,
       ResonanceBlockSliceRoomNarrativePrimary,
