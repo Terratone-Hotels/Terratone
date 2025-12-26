@@ -1,0 +1,54 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="stamp">
+      <!-- Base -->
+      <rect width="100" height="100" fill="white" />
+
+      <!-- Top edge -->
+      <g fill="black">
+        <circle cx="7" cy="0" r="2.6" />
+        <circle cx="21" cy="0" r="2.6" />
+        <circle cx="35" cy="0" r="2.6" />
+        <circle cx="49" cy="0" r="2.6" />
+        <circle cx="63" cy="0" r="2.6" />
+        <circle cx="77" cy="0" r="2.6" />
+        <circle cx="91" cy="0" r="2.6" />
+      </g>
+
+      <!-- Bottom edge -->
+      <g fill="black">
+        <circle cx="7" cy="100" r="2.6" />
+        <circle cx="21" cy="100" r="2.6" />
+        <circle cx="35" cy="100" r="2.6" />
+        <circle cx="49" cy="100" r="2.6" />
+        <circle cx="63" cy="100" r="2.6" />
+        <circle cx="77" cy="100" r="2.6" />
+        <circle cx="91" cy="100" r="2.6" />
+      </g>
+
+      <!-- Left edge -->
+      <g fill="black">
+        <circle cx="0" cy="7" r="2.6" />
+        <circle cx="0" cy="21" r="2.6" />
+        <circle cx="0" cy="35" r="2.6" />
+        <circle cx="0" cy="49" r="2.6" />
+        <circle cx="0" cy="63" r="2.6" />
+        <circle cx="0" cy="77" r="2.6" />
+        <circle cx="0" cy="91" r="2.6" />
+      </g>
+
+      <!-- Right edge -->
+      <g fill="black">
+        <circle cx="100" cy="7" r="2.6" />
+        <circle cx="100" cy="21" r="2.6" />
+        <circle cx="100" cy="35" r="2.6" />
+        <circle cx="100" cy="49" r="2.6" />
+        <circle cx="100" cy="63" r="2.6" />
+        <circle cx="100" cy="77" r="2.6" />
+        <circle cx="100" cy="91" r="2.6" />
+      </g>
+    </mask>
+  </defs>
+
+  <rect width="100" height="100" fill="white" mask="url(#stamp)" />
+</svg>

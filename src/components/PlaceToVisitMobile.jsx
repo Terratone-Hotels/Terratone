@@ -39,7 +39,7 @@ const MobilePlacesToVisit = ({ slice }) => {
   if (!items || items.length === 0) return null;
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col items-center justify-center  py-10 overflow-hidden">
       
       {/* 3. Updated Dynamic Background */}
       <div className="absolute inset-0 z-0 transition-opacity duration-700">
@@ -52,7 +52,7 @@ const MobilePlacesToVisit = ({ slice }) => {
       </div>
 
       {/* Slider Container */}
-      <div className="relative z-10 w-full max-w-[350px] overflow-hidden" ref={emblaRef}>
+      <div className="relative z-10 w-full max-w-[350px] " ref={emblaRef}>
         <div className="flex">
           {items.map((item, index) => (
             <div className="flex-[0_0_100%] min-w-0 px-2" key={index}>
@@ -61,8 +61,8 @@ const MobilePlacesToVisit = ({ slice }) => {
               <div className="bg-[#F2EFE9] rounded-2xl relative flex flex-col min-h-[500px]">
                 
                 {/* Overlapping Stamp */}
-                <div className="absolute -top-4 left-4 w-24 h-24 z-30 rotate-12">
-                  <PrismicNextImage field={item.stamp} className="w-full h-auto" />
+                <div className="absolute -top-13 left-0 w-28 h-32 z-30 rotate-10 ">
+                  <PrismicNextImage field={item.stamp} className="w-full object-cover h-auto stamp-edge" />
                 </div>
 
                 {/* Image Section */}
@@ -80,10 +80,10 @@ const MobilePlacesToVisit = ({ slice }) => {
                 {/* Content Section */}
                 <div className="flex-1 flex flex-col justify-between text-center px-5 pb-2">
                   <div>
-                    <h2 className="text-2xl font-serif font-medium italic mb-3 text-[#1a1a1a] leading-tight">
+                    <h2 className="text-4xl font-serif font-medium italic mb-3 text-black leading-tight">
                       <PrismicText field={item.title} />
                     </h2>
-                    <div className="text-gray-600 text-[13px] leading-relaxed font-barlow line-clamp-4">
+                    <div className="text-black text-[13px] leading-relaxed font-barlow line-clamp-4">
                       <PrismicRichText field={item.description} />
                     </div>
                   </div>

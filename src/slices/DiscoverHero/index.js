@@ -75,7 +75,7 @@ const DiscoverHero = ({ slice }) => {
         gsap.to(letters, {
           color: "#000",
           duration: 0.6,
-          stagger: 0.015,
+          stagger: 0.005,
           ease: "none",
           delay: 0.6, // starts right after text fade starts finishing
         });

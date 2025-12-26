@@ -58,11 +58,11 @@ const PlacesToVisit = ({ slice }) => {
                       marginLeft: index === 0 ? 0 : "-10px", // Maintains overlap
                       zIndex: isActive ? 50 : items.length - index,
                     }}
-                    className={`relative transition-all duration-700 ease-[0.25,0.1,0.25,1.0] rounded-t-2xl py-4 px-2 lg:px-4 xl:px-6 ${
+                    className={`relative transition-all duration-700 ease-[0.25,0.1,0.25,1.0] rounded-t-2xl py-4  ${
                       isActive
-                        ? "flex-[2_2_0%] bg-[#F2EFE9] text-black pb-5 -mb-px"
+                        ? "flex-[2_2_0%] bg-[#F2EFE9] text-black pb-5 text-[12px] xl:text-[16px]  -mb-px"
                         : /* flex-[2] allows the active tab to grow larger than the others during the transition */
-                          "flex-1 min-w-0 bg-[#EAE6DD] text-gray-500 hover:bg-[#E2DDD2]"
+                          "flex-1 min-w-0 bg-[#EAE6DD] text-[10px] xl:text-[13px] text-gray-500 hover:bg-[#E2DDD2]"
                     }`}
                   >
                     <div className="relative flex items-center justify-center h-4">
@@ -70,9 +70,10 @@ const PlacesToVisit = ({ slice }) => {
                         {isActive && (
                           <motion.span
                             key={`dot-${index}`}
-                            initial={{ opacity: 0, y: 10 }}
+                            initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 10 }}
+                            transition={{ duration: 0.5, ease: "easeOut" }}
                             className=" w-1.5 h-1.5 bg-black rounded-full shrink-0"
                           />
                         )}
@@ -86,7 +87,7 @@ const PlacesToVisit = ({ slice }) => {
                         }}
                         animate={{ opacity: 1, y: 0 }}
                         /* Added fixed pl-5 to both states so the text NEVER jumps horizontally */
-                        className="truncate whitespace-nowrap pl-5 font-barlow font-medium uppercase tracking-widest text-[10px] xl:text-[13px]"
+                        className="truncate whitespace-nowrap pl-5 font-barlow font-medium uppercase tracking-widest "
                       >
                         <PrismicText field={item.tab_title} />
                       </motion.div>
@@ -122,13 +123,13 @@ const PlacesToVisit = ({ slice }) => {
               </div>
 
               <div className="w-1/2 flex justify-around">
-                <div className="relative flex flex-col justify-between h-full py-4">
+                <div className="relative flex flex-col gap-4 h-full">
                   <div className="w-[95%]">
-                    <h2 className="italic lg:text-5xl xl:text-6xl font-serif xl:leading-16 text-[#1a1a1a]">
+                    <h2 className="italic lg:text-5xl xl:text-[80px] font-serif xl:leading-20 text-black">
                       <PrismicText field={currentItem.title} />
                     </h2>
                   </div>
-                  <div className="text-gray-600 w-[80%] lg:text-sm xl:text-[16px] xl:leading-6 font-barlow mt-4">
+                  <div className="text-black w-[80%] lg:text-sm xl:text-[16px] xl:leading-6 font-barlow mt-4">
                     <PrismicRichText field={currentItem.description} />
                   </div>
                 </div>
@@ -188,11 +189,11 @@ const PlacesToVisit = ({ slice }) => {
                   initial={{ opacity: 0, scale: 0.5, rotate: 0 }}
                   animate={{ opacity: 1, scale: 1, rotate: 12 }}
                   exit={{ opacity: 0, scale: 0.5 }}
-                  className="absolute top-1/2 right-9 -translate-y-1/2 w-24 xl:w-30 pointer-events-none drop-shadow-xl"
+                  className="absolute bottom-[18%] right-9 -translate-y-1/2 w-24 xl:w-30 pointer-events-none drop-shadow-xl"
                 >
                   <PrismicNextImage
                     field={currentItem.stamp}
-                    className="w-full h-auto"
+                    className="w-full h-34 stamp-edge"
                   />
                 </motion.div>
               </AnimatePresence>

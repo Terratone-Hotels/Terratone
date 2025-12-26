@@ -216,8 +216,20 @@ body.modal-open {
   left: 0;
   height: 1px;
   width: 100%;
-  background-color: #c7c7c7;
+  background-color: #c7c7c7; 
   transform-origin: left;
   transform: scaleX(0);
   pointer-events: none;
 }
+
+.stamp-edge {
+  -webkit-mask-image: url("/stamp.svg");
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+
+  mask-image: url("/stamp.svg");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+
+
