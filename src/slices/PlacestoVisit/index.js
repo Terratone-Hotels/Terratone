@@ -6,7 +6,7 @@ import { PrismicRichText, PrismicText } from "@prismicio/react";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
 import MobilePlacesToVisit from "@/components/PlaceToVisitMobile";
 
-const PlacesToVisit = ({ slice }) => {
+const PlacestoVisit = ({ slice }) => {
   const items = slice.primary.contents;
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -60,7 +60,7 @@ const PlacesToVisit = ({ slice }) => {
                     }}
                     className={`relative transition-all duration-700 ease-[0.25,0.1,0.25,1.0] rounded-t-2xl py-4  ${
                       isActive
-                        ? "flex-[2_2_0%] bg-[#F2EFE9] text-black pb-5 text-[12px] xl:text-[16px]  -mb-px"
+                        ? "flex-[2_2_0%] bg-[#F2EFE9] text-black pb-5 text-[12px] xl:text-[16px] -mb-px"
                         : /* flex-[2] allows the active tab to grow larger than the others during the transition */
                           "flex-1 min-w-0 bg-[#EAE6DD] text-[10px] xl:text-[13px] text-gray-500 hover:bg-[#E2DDD2]"
                     }`}
@@ -208,4 +208,4 @@ const PlacesToVisit = ({ slice }) => {
   );
 };
 
-export default PlacesToVisit;
+export default PlacestoVisit;
