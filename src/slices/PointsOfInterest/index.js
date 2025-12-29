@@ -21,57 +21,70 @@ const PointsOfInterest = ({ slice }) => {
   // The main container ref used for GSAP scoping
   const container = useRef(null);
 
-  if (!items || items.length === 0) return null;
-
   const currentItem = items[activeIndex];
 
   useGSAP(
     () => {
+      if (!items || items.length === 0) {
+        gsap.killTweensOf(container.current);
+        return;
+      }
       const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-      // 1. Background and Main Image - Reduced from 0.7 to 0.4s 🌙
+     
       gsap.fromTo(
         ".gsap-fade-element",
         { opacity: 0 },
         { opacity: 1, duration: 0.4, ease: "none" }
       );
 
-      // 2. The Stamp "Slam" - Reduced duration for a faster hit
-      gsap.fromTo(
-        ".gsap-stamp",
+    
+
+      tl.fromTo(
+        [".gsap-dot", ".gsap-active-text"],
+        { y: 20, opacity: 0 },
         {
-          opacity: 0,
-          scale: 0.8, // Subtle scale up instead of down
-          rotation: 0,
-        },
-        {
+          y: 0,
           opacity: 1,
-          scale: 1,
-          rotation: 12,
-          duration: 0.8,
-          ease: "back.out(1.2)", // This 'back' ease is the closest to a Framer Spring
+          duration: 0.4,
+          stagger: 0.05,
+          ease: "power2.out",
           delay: 0.1,
         }
       );
 
-      tl.fromTo([".gsap-dot", ".gsap-active-text"], 
-      { y: 20, opacity: 0 }, 
-      { y: 0, opacity: 1, duration: 0.4, stagger: 0.05, ease: "power2.out",delay:0.1  }
-    );
-
-      // 3. TEXT ANIMATIONS - Staggered and faster 🌙
+      
       tl.fromTo(
         ".gsap-title",
-        { y: 20, opacity: 0 },
+        { y: -20, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.4 }
-      ).fromTo(
-        ".gsap-description",
-        { y: 15, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.35 },
-        "-=0.25" // Tightened overlap 🌙
-      );
+      )
+        .fromTo(
+          ".gsap-description",
+          { y: 15, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.35 },
+          "-=0.25" 
+        )
+        .fromTo(
+          ".gsap-stamp",
+          {
+            opacity: 0,
+            scale: 0.8, 
+            rotation: 0,
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            rotation: 12,
+            duration: 0.8,
+            ease: "back.out(1.2)", 
+            
+          }
+        );
+
+      
     },
-    { dependencies: [activeIndex], scope: container }
+    { dependencies: [activeIndex], scope: container, revertOnUpdate: true }
   );
 
   return (
@@ -120,7 +133,9 @@ const PointsOfInterest = ({ slice }) => {
                       {isActive && (
                         <span className="w-1.5 h-1.5 bg-black rounded-full shrink-0 gsap-dot" />
                       )}
-                      <div className={`truncate whitespace-nowrap pl-2 font-barlow font-medium uppercase tracking-widest ${isActive ? "gsap-active-text" : ""}`}>
+                      <div
+                        className={`truncate whitespace-nowrap pl-2 font-barlow font-medium uppercase tracking-widest ${isActive ? "gsap-active-text" : ""}`}
+                      >
                         <PrismicText field={item.tab_title} />
                       </div>
                     </div>
