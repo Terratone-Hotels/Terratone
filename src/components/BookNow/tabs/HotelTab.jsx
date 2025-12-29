@@ -219,7 +219,7 @@ export default function HotelTab({ data, setData, closeModal }) {
       <div className="border border-neutral-600 p-4 space-y-4">
         {/* Heading */}
         {selectedProperty ? (
-          <div>
+          <div className="font-barlow font-medium">
             <p className="uppercase text-black">{selectedProperty}</p>
             <p className="uppercase text-black text-xs tracking-wide">
               ({checkIn ? format(checkIn, "MMM dd, yyyy") : "---"} —{" "}
