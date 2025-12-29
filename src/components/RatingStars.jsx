@@ -2,17 +2,18 @@
 
 export default function RatingStars({
   rating = 0,
-
   maxStars = 5,
   filledColor = "#1E1E1E",
   emptyColor = "#E0E0E0",
   className = "",
-  starClassName=""
+  starClassName = "",
 }) {
   const numericRating = parseFloat(rating);
   const safeRating = Math.min(numericRating || 0, maxStars);
   const fullStars = Math.floor(safeRating);
   const hasHalf = safeRating % 1 >= 0.5;
+  // Calculate how many empty stars are needed to reach maxStars
+  const emptyStars = maxStars - fullStars - (hasHalf ? 1 : 0);
 
   const StarSVG = (
     <svg
@@ -29,47 +30,37 @@ export default function RatingStars({
   );
 
   return (
-    <div className={`flex  gap-1 ${className}`}>
+    <div className={`flex items-center gap-1 ${className}`}>
       {/* Full stars */}
       {[...Array(fullStars)].map((_, i) => (
-        <span
-          key={`full-${i}`}
-       
-          style={{ color: filledColor }}
-        >
+        <span key={`full-${i}`} style={{ color: filledColor }}>
           {StarSVG}
         </span>
       ))}
 
       {/* Half star */}
       {hasHalf && (
-        <div
-          style={{
-            position: "relative",
-            width: actualSize,
-            height: actualSize,
-          }}
-        >
-          <div
-            style={{ color: emptyColor, position: "absolute", top: 0, left: 0 }}
-          >
+        <div className="relative inline-flex">
+          {/* Background Star (Empty Color) */}
+          <div style={{ color: emptyColor }}>
             {StarSVG}
           </div>
+          {/* Foreground Half-Star (Filled Color) */}
           <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "50%",
-              height: "100%",
-              overflow: "hidden",
-              color: filledColor,
-            }}
+            className="absolute top-0 left-0 overflow-hidden"
+            style={{ color: filledColor, width: "50%" }}
           >
             {StarSVG}
           </div>
         </div>
       )}
+
+      {/* Empty stars */}
+      {[...Array(Math.max(0, emptyStars))].map((_, i) => (
+        <span key={`empty-${i}`} style={{ color: emptyColor }}>
+          {StarSVG}
+        </span>
+      ))}
     </div>
   );
 }
