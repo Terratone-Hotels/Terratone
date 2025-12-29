@@ -31,14 +31,11 @@ const PointsOfInterest = ({ slice }) => {
       }
       const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-     
       gsap.fromTo(
         ".gsap-fade-element",
         { opacity: 0 },
         { opacity: 1, duration: 0.4, ease: "none" }
       );
-
-    
 
       tl.fromTo(
         [".gsap-dot", ".gsap-active-text"],
@@ -53,7 +50,6 @@ const PointsOfInterest = ({ slice }) => {
         }
       );
 
-      
       tl.fromTo(
         ".gsap-title",
         { y: -20, opacity: 0 },
@@ -63,13 +59,13 @@ const PointsOfInterest = ({ slice }) => {
           ".gsap-description",
           { y: 15, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.35 },
-          "-=0.25" 
+          "-=0.25"
         )
         .fromTo(
           ".gsap-stamp",
           {
             opacity: 0,
-            scale: 0.8, 
+            scale: 0.8,
             rotation: 0,
           },
           {
@@ -77,12 +73,9 @@ const PointsOfInterest = ({ slice }) => {
             scale: 1,
             rotation: 12,
             duration: 0.8,
-            ease: "back.out(1.2)", 
-            
+            ease: "back.out(1.2)",
           }
         );
-
-      
     },
     { dependencies: [activeIndex], scope: container, revertOnUpdate: true }
   );
@@ -96,15 +89,26 @@ const PointsOfInterest = ({ slice }) => {
       <div className="hidden lg:block px-5">
         <section className="relative overflow-hidden h-screen flex items-center justify-center">
           {/* 1. Background Image */}
-          <div className="absolute inset-0 z-0 ">
-            <div className="absolute inset-0">
-              <PrismicNextImage
-                field={currentItem.image}
-                fill
-                className="object-cover scale-110 blur-sm"
-                alt=""
-              />
-            </div>
+          <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+            {/* The Film Grain Overlay */}
+            <div
+              className="absolute inset-0 z-20 opacity-[0.15] pointer-events-none mix-blend-screen"
+              style={{
+                backgroundImage: `url('https://res.cloudinary.com/dn7no8pxh/image/upload/v1506356073/f3_g99y5e.png')`,
+              }}
+            />
+
+            {/* Color Tint & Vignette - Gives it that "developed" look */}
+            <div className="absolute inset-0 z-10 bg-orange-900/10 mix-blend-overlay" />
+            <div className="absolute inset-0 z-10 bg-[radial-gradient(circle,_transparent_40%,_black_90%)] opacity-60" />
+
+            {/* The Image with Film Processing Filters */}
+            <PrismicNextImage
+              field={currentItem.image}
+              fill
+              className="object-cover scale-110 brightness-75 contrast-[1.1] saturate-[0.8] sepia-[0.15] "
+              alt=""
+            />
           </div>
 
           <div className="relative z-10 w-[85%]">
@@ -125,7 +129,7 @@ const PointsOfInterest = ({ slice }) => {
                     }}
                     className={`relative rounded-t-2xl py-4  ${
                       isActive
-                        ? "flex-initial bg-[#F2EFE9] text-black pb-5 text-[12px] xl:text-[16px] px-4 -mb-px py-5 "
+                        ? "flex-initial bg-stone text-black pb-5 text-[12px] xl:text-[16px] px-4 -mb-px py-5 "
                         : "flex px-4 min-w-0 bg-[#EAE6DD] text-[10px] xl:text-[13px] text-gray-500 hover:bg-[#E2DDD2]"
                     }`}
                   >
@@ -145,7 +149,7 @@ const PointsOfInterest = ({ slice }) => {
             </div>
 
             {/* 3. Main Card */}
-            <div className="bg-[#F2EFE9] rounded-b-3xl pl-3 pb-5 pt-8 flex justify-around md:flex-row md:gap-5 relative overflow-hidden min-h-[500px] z-60">
+            <div className="bg-stone rounded-b-3xl pl-3 pb-5 pt-8 flex justify-around md:flex-row md:gap-5 relative overflow-hidden min-h-[500px] z-60">
               {/* Left Section: Image */}
               <div className="w-[45%] flex">
                 <div className="relative w-full aspect-[4/3] overflow-hidden shadow-lg rounded-[8px] gsap-fade-element">
@@ -163,9 +167,9 @@ const PointsOfInterest = ({ slice }) => {
               {/* Right Section: Content */}
               <div className="w-1/2 flex justify-around">
                 <div className="relative flex flex-col gap-4 h-full ">
-                  <div className="w-[95%]">
-                    <h2 className="italic lg:text-5xl xl:text-[80px] font-serif xl:leading-20 text-black gsap-title">
-                      <PrismicText field={currentItem.title} />
+                  <div className="w-full">
+                    <h2 className="lg:text-5xl xl:text-[80px] font-serif  text-black gsap-title">
+                      <PrismicRichText field={currentItem.title} />
                     </h2>
                   </div>
                   <div className="text-black w-[80%] lg:text-sm xl:text-[16px] xl:leading-6 font-barlow mt-4 gsap-description">
