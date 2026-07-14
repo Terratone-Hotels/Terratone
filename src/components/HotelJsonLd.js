@@ -30,6 +30,37 @@ function stripEmpty(value) {
 }
 
 /**
+ * Parse review count from footer text like "4.5/1287 reviews" or "1287 reviews".
+ * Never glue rating digits + count (that produced 451287 from "4.5/1287").
+ */
+function parseReviewCount(text) {
+  if (!text || typeof text !== "string") return undefined;
+  const t = text.trim();
+
+  // "4.5/1287" or "4.5 / 1,287 reviews"
+  const afterSlash = t.match(/\/\s*([\d,]+)/);
+  if (afterSlash) {
+    const n = Number(afterSlash[1].replace(/,/g, ""));
+    if (Number.isFinite(n) && n > 0) return n;
+  }
+
+  // "1287 reviews"
+  const withLabel = t.match(/([\d,]+)\s*reviews?/i);
+  if (withLabel) {
+    const n = Number(withLabel[1].replace(/,/g, ""));
+    if (Number.isFinite(n) && n > 0) return n;
+  }
+
+  // plain "1287"
+  if (/^[\d,]+$/.test(t)) {
+    const n = Number(t.replace(/,/g, ""));
+    if (Number.isFinite(n) && n > 0) return n;
+  }
+
+  return undefined;
+}
+
+/**
  * Sitewide Hotel entity for SEO + local discovery ("hotels in Kollam").
  * Not visible on the page — only in HTML source as JSON-LD.
  */
@@ -74,11 +105,12 @@ export default async function HotelJsonLd() {
       }
     }
 
+    // Star score from numeric rating field (e.g. 4.5 or 4.8)
     if (typeof data.rating === "number" && data.rating > 0) {
       ratingValue = data.rating;
     }
-    const countRaw = asText(data.review_count)?.replace(/[^\d]/g, "");
-    if (countRaw) reviewCount = Number(countRaw);
+    // Count only — supports Prismic text "4.5/1287 reviews"
+    reviewCount = parseReviewCount(asText(data.review_count) || "");
   } catch {
     // Still emit a valid Hotel entity with static Kollam facts
   }
