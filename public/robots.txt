@@ -1,10 +1,13 @@
-# Allow all search engines
+# TerraTone — crawl rules for search engines
+# Production domain: https://terratonehotels.com (not *.vercel.app)
+
 User-agent: *
-Disallow: /api/
-Disallow: /preview/
-Disallow: /_next/
-Disallow: /static/
 Allow: /
 
-# Point crawlers to sitemap
-Sitemap: https://terratone.vercel.app/sitemap.xml
+Disallow: /api/
+Disallow: /preview/
+Disallow: /slice-simulator
+Disallow: /_next/
+Disallow: /static/
+
+Sitemap: https://terratonehotels.com/sitemap.xml

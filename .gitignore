@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local planning / client docs (do not commit)
+plan.md
+TerraTone_Timeline_Client.pdf
+external_all.csv
+seo-work-log.md
