@@ -100,6 +100,8 @@ const Hero = ({ slice }) => {
       })
       .to(curtain, { yPercent: -100, duration: 1.1, ease: "expo.inOut" })
       .set(curtain, { display: "none" })
+      // Allow thumbs to mount after curtain (not in initial HTML for LCP)
+      .call(() => setIsLoadingComplete(true))
       .to(headingWrapper, {
         opacity: 1,
         y: 0,
@@ -121,7 +123,6 @@ const Hero = ({ slice }) => {
         "-=0.5"
       )
       .call(() => {
-        setIsLoadingComplete(true);
         hasAnimatedInitialHeading.current = true;
       });
 
@@ -281,10 +282,11 @@ const Hero = ({ slice }) => {
                 ) : (
                   <PrismicNextImage
                     field={item.image}
+                    // Real LCP = full-screen slide 0 (not thumbs)
                     priority={index === 0}
                     fetchPriority={index === 0 ? "high" : "auto"}
+                    loading={index === 0 ? "eager" : "lazy"}
                     alt={item.image?.alt?.trim() || `Hero slide ${index + 1}`}
-                    // Full-viewport hero — browser picks width from viewport (mobile ≠ 1920–3840)
                     sizes="100vw"
                     className="w-full h-dvh object-cover"
                   />
@@ -327,20 +329,33 @@ const Hero = ({ slice }) => {
                 {slides.map((item, index) => (
                   <SwiperSlide key={index} className="thumb !w-auto">
                     <div className="relative">
-                      <PrismicNextImage
-                        field={item.video ? item.thumbnail : item.image}
-                        alt={
-                          (item.video
-                            ? item.thumbnail?.alt
-                            : item.image?.alt
-                          )?.trim() || `Hero thumbnail ${index + 1}`
-                        }
-                        // Display ~64–72px; use ~2–3× for retina sharpness (still far below 1920 hero)
-                        sizes="160px"
-                        imgixParams={{ w: 240, q: 80, fit: "crop" }}
-                        className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer"
-                        onClick={() => onClickThumb(index)}
-                      />
+                      {/*
+                        Mount thumb images only AFTER curtain intro.
+                        Same photo as the full hero was winning LCP discovery
+                        (Lighthouse: thumb loading=lazy / no fetchpriority).
+                      */}
+                      {isLoadingComplete ? (
+                        <PrismicNextImage
+                          field={item.video ? item.thumbnail : item.image}
+                          alt={
+                            (item.video
+                              ? item.thumbnail?.alt
+                              : item.image?.alt
+                            )?.trim() || `Hero thumbnail ${index + 1}`
+                          }
+                          loading="lazy"
+                          fetchPriority="low"
+                          sizes="160px"
+                          imgixParams={{ w: 240, q: 80, fit: "crop" }}
+                          className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer"
+                          onClick={() => onClickThumb(index)}
+                        />
+                      ) : (
+                        <div
+                          className="w-16 h-18 md:w-18 md:h-20 bg-white/10"
+                          aria-hidden
+                        />
+                      )}
                       <svg
                         className="absolute inset-0 w-full h-full"
                         viewBox="0 0 100 100"
