@@ -63,7 +63,7 @@ const Hero = ({ slice }) => {
       {
         opacity: 1,
         clipPath: "inset(0% 0% 0% 0%)",
-        duration: 0.55,
+        duration: 0.65,
         ease: "power3.out",
       }
     );
@@ -84,6 +84,7 @@ const Hero = ({ slice }) => {
     animateHeadingIn();
     hasAnimatedInitialHeading.current = true;
 
+    // After H1 clip (~0.55s): thumbs one-by-one (does not affect LCP — thumb 0 already priority)
     const t = window.setTimeout(() => {
       if (thumbsIntroPlayed.current) return;
       thumbsIntroPlayed.current = true;
@@ -94,7 +95,6 @@ const Hero = ({ slice }) => {
       const thumbs = container?.querySelectorAll(".thumb");
       if (!container || !thumbs?.length) return;
 
-      // Container visible; each thumb enters one after another
       gsap.set(container, { opacity: 1, y: 0 });
       gsap.set(thumbs, { opacity: 0, y: 40 });
       gsap.to(thumbs, {
@@ -105,7 +105,7 @@ const Hero = ({ slice }) => {
         stagger: 0.2,
         overwrite: true,
       });
-    }, 500);
+    }, 480);
 
     return () => window.clearTimeout(t);
   }, [showHeading, animateHeadingIn]);
@@ -132,23 +132,23 @@ const Hero = ({ slice }) => {
     tl.to([left, right], {
       opacity: 1,
       xPercent: 0,
-      duration: 0.4,
+      duration: 0.25,
       ease: "power3.out",
-      stagger: 0.08,
+      stagger: 0.05,
     })
       .to([left, right], {
-        duration: 0.75,
+        duration: 0.45,
         ease: "power3.out",
         rotate: 25,
       })
       .to(curtain, {
         yPercent: -100,
-        duration: 1.1,
-        ease: "expo.inOut",
+        duration: 0.8,
+        ease: "power3.out",
       })
-      .set(curtain, { display: "none" })
-      // Only now create H1 in the DOM → then clip animation (not hidden for 3–4s first)
-      .call(() => setShowHeading(true));
+      // Start H1 just as wipe finishes — H1 not in DOM during logo/curtain (no LCP render delay)
+      .call(() => setShowHeading(true), null, "-=0.08")
+      .set(curtain, { display: "none" });
 
     return () => tl.kill();
   }, []);
