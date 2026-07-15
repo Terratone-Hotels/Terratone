@@ -25,8 +25,11 @@ const Hero = ({ slice }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
+  // Mount H1 only after curtain — keeps clip animation, cuts LCP render delay on hidden H1
+  const [showHeading, setShowHeading] = useState(false);
 
   const hasAnimatedInitialHeading = useRef(false);
+  const thumbsIntroPlayed = useRef(false);
 
   const curtainRef = useRef(null);
   const headingWrapperRef = useRef(null);
@@ -60,35 +63,72 @@ const Hero = ({ slice }) => {
       {
         opacity: 1,
         clipPath: "inset(0% 0% 0% 0%)",
-        // Faster clip reveal → less LCP "element render delay" on the H1
         duration: 0.55,
         ease: "power3.out",
       }
     );
   }, []);
 
-  // --- 2. Curtain Animation ---
+  // Keep thumbs fully hidden until after H1 (curtain lift was showing them too early)
+  useLayoutEffect(() => {
+    if (thumbsRef.current) {
+      gsap.set(thumbsRef.current, { opacity: 0, y: 40 });
+    }
+  }, []);
+
+  // After H1 mounts: same clip-in, then thumbs once (order: curtain → H1 → thumbs)
+  useLayoutEffect(() => {
+    if (!showHeading || !headingRef.current || !headingWrapperRef.current) return;
+
+    gsap.set(headingWrapperRef.current, { opacity: 1, y: 0 });
+    animateHeadingIn();
+    hasAnimatedInitialHeading.current = true;
+
+    const t = window.setTimeout(() => {
+      if (thumbsIntroPlayed.current) return;
+      thumbsIntroPlayed.current = true;
+
+      setIsLoadingComplete(true);
+
+      const container = thumbsRef.current;
+      const thumbs = container?.querySelectorAll(".thumb");
+      if (!container || !thumbs?.length) return;
+
+      // Container visible; each thumb enters one after another
+      gsap.set(container, { opacity: 1, y: 0 });
+      gsap.set(thumbs, { opacity: 0, y: 40 });
+      gsap.to(thumbs, {
+        opacity: 1,
+        y: 0,
+        duration: 0.45,
+        ease: "power3.out",
+        stagger: 0.2,
+        overwrite: true,
+      });
+    }, 500);
+
+    return () => window.clearTimeout(t);
+  }, [showHeading, animateHeadingIn]);
+
+  // --- 2. Curtain Animation (logo → wipe → then mount H1) ---
   useLayoutEffect(() => {
     const curtain = curtainRef.current;
     const left = logoLeftRef.current;
     const right = logoRightRef.current;
     const headingWrapper = headingWrapperRef.current;
-    const heading = headingRef.current;
 
-    if (!curtain || !left || !right || !headingWrapper || !heading) return;
+    if (!curtain || !left || !right || !headingWrapper) return;
 
     gsap.set(curtain, { yPercent: 0 });
-    gsap.set(heading, { opacity: 0, clipPath: "inset(100% 0% 0% 0%)" });
+    gsap.set(headingWrapper, { opacity: 0, y: 50 });
     gsap.set([left, right], {
       opacity: 0,
       xPercent: (i) => (i === 0 ? -400 : 400),
       rotate: 0,
     });
-    gsap.set(headingWrapper, { opacity: 0, y: 50 });
 
     const tl = gsap.timeline({ defaults: { ease: "power4.inOut" } });
 
-    // Same aesthetic beats (logo → tilt → curtain up → heading); slightly snappier for SI/LCP
     tl.to([left, right], {
       opacity: 1,
       xPercent: 0,
@@ -101,44 +141,17 @@ const Hero = ({ slice }) => {
         ease: "power3.out",
         rotate: 25,
       })
-      // Curtain kept for aesthetics; start H1 near end of wipe to cut LCP render delay
       .to(curtain, {
         yPercent: -100,
         duration: 1.1,
         ease: "expo.inOut",
       })
-      .to(
-        headingWrapper,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "power3.out",
-        },
-        "-=0.55"
-      )
-      .add(() => {
-        animateHeadingIn();
-      }, "-=0.45")
       .set(curtain, { display: "none" })
-      .call(() => setIsLoadingComplete(true))
-      .from(
-        thumbsRef.current?.querySelectorAll(".thumb"),
-        {
-          opacity: 0,
-          y: 40,
-          duration: 0.5,
-          ease: "power3.out",
-          stagger: 0.2,
-        },
-        "-=0.25"
-      )
-      .call(() => {
-        hasAnimatedInitialHeading.current = true;
-      });
+      // Only now create H1 in the DOM → then clip animation (not hidden for 3–4s first)
+      .call(() => setShowHeading(true));
 
     return () => tl.kill();
-  }, [animateHeadingIn]);
+  }, []);
 
   // --- 3. Swiper Logic ---
   const handleSwiper = useCallback(
@@ -311,20 +324,24 @@ const Hero = ({ slice }) => {
             style={{ pointerEvents: "none" }}
           >
             <div ref={headingWrapperRef} className="heading-wrapper w-full">
-              <div
-                ref={headingRef}
-                className="font-serif  leading-tight text-start sm:text-center w-full text-[24px] sm:text-[28px] lg:text-[32px] xl:text-[44px] text-white mb-4 opacity-0 [clip-path:inset(100%_0%_0%_0%)]"
-              >
-                {slides[activeIndex]?.headings && (
-                  <PrismicRichText field={slides[activeIndex].headings} />
-                )}
-              </div>
+              {showHeading ? (
+                <div
+                  ref={headingRef}
+                  className="font-serif leading-tight text-start sm:text-center w-full text-[24px] sm:text-[28px] lg:text-[32px] xl:text-[44px] text-white mb-4"
+                >
+                  {slides[activeIndex]?.headings && (
+                    <PrismicRichText field={slides[activeIndex].headings} />
+                  )}
+                </div>
+              ) : null}
             </div>
 
             <div
               ref={thumbsRef}
               className="md:w-full md:flex md:justify-center"
-              style={{ pointerEvents: isLoadingComplete ? "auto" : "none" }}
+              style={{
+                pointerEvents: isLoadingComplete ? "auto" : "none",
+              }}
             >
               <Swiper
                 onSwiper={setThumbsSwiper}
