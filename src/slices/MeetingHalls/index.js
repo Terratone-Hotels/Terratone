@@ -145,9 +145,9 @@ const MeetingHalls = ({ slice }) => {
 
                     {/* Text */}
                     <div className="mt-4 flex flex-col justify-between min-h-[110px]">
-                      <h3 className="text-[20px] md:text-[26px] lg:text-[35px] font-serif font-medium leading-snug">
+                      <p className="text-[20px] md:text-[26px] lg:text-[35px] font-serif font-medium leading-snug">
                         {item.card_title}
-                      </h3>
+                      </p>
                       <p className="text-sm md:text-[16px] lg:text-[19px] font-barlow leading-tight mt-2">
                         {item.card_description}
                       </p>
@@ -203,9 +203,9 @@ const MeetingHalls = ({ slice }) => {
                     <div className="font-barlow font-medium text-lg">
                       {item.serial_no}
                     </div>
-                    <h3 className="md:text-[24px] lg:text-[28px] font-medium font-serif">
+                    <p className="md:text-[24px] lg:text-[28px] font-medium font-serif">
                       {item.card_title}
-                    </h3>
+                    </p>
                     <p className="lg:text-[18px] font-barlow mt-2 leading-snug">
                       {item.card_description}
                     </p>
@@ -242,9 +242,9 @@ const MeetingHalls = ({ slice }) => {
                         {item.serial_no}
                       </div>
 
-                      <h3 className="text-lg font-serif font-medium leading-snug">
+                      <p className="text-lg font-serif font-medium leading-snug">
                         {item.card_title}
-                      </h3>
+                      </p>
 
                       <p className="text-sm font-barlow leading-relaxed mt-2">
                         {item.card_description}
