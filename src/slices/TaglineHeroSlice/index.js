@@ -96,6 +96,9 @@ const TaglineHeroSlice = ({ slice }) => {
               <PrismicNextImage
                 field={slice.primary.imgvidone}
                 alt={slice.primary.imgvidone.alt || ""}
+                // ~40px mobile / ~105px desktop — avoid full-res downloads
+                sizes="(max-width: 768px) 80px, 160px"
+                imgixParams={{ w: 240, q: 80, fit: "crop" }}
                 className="w-full h-full object-cover"
               />
             )}
@@ -122,6 +125,8 @@ const TaglineHeroSlice = ({ slice }) => {
               <PrismicNextImage
                 field={slice.primary.imgvidtwo}
                 alt={slice.primary.imgvidtwo.alt || ""}
+                sizes="(max-width: 768px) 80px, 160px"
+                imgixParams={{ w: 240, q: 80, fit: "crop" }}
                 className="w-full h-full object-cover"
               />
             )}
@@ -148,6 +153,9 @@ const TaglineHeroSlice = ({ slice }) => {
               <PrismicNextImage
                 field={slice.primary.imgvidthree}
                 alt={slice.primary.imgvidthree.alt || ""}
+                // Wider inline media (~86px mobile / ~230px desktop)
+                sizes="(max-width: 768px) 120px, 280px"
+                imgixParams={{ w: 320, q: 80, fit: "crop" }}
                 className="w-full h-full object-cover"
               />
             )}

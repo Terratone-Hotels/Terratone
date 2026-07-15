@@ -75,6 +75,9 @@ export default function RoomCard({
         <CurtainRevealImage
           field={image}
           className="w-full h-90 md:h-100 object-cover"
+          // Card ~full width mobile / ~360px desktop — not full hero resolution
+          sizes="(max-width: 768px) 100vw, 360px"
+          imgixParams={{ w: 800, q: 80 }}
         />
       </div>
 

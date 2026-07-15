@@ -94,6 +94,8 @@ const MeetingHalls = ({ slice }) => {
                     {/* Image */}
                     <PrismicNextImage
                       field={item.image}
+                      sizes="(max-width: 1279px) 85vw, 30vw"
+                      imgixParams={{ w: 900, q: 80 }}
                       className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
                     />
 
@@ -133,6 +135,8 @@ const MeetingHalls = ({ slice }) => {
 
                       <PrismicNextImage
                         field={item.image}
+                        sizes="(max-width: 1279px) 85vw, 30vw"
+                        imgixParams={{ w: 900, q: 80 }}
                         className="w-full h-full object-cover"
                       />
 
@@ -188,6 +192,8 @@ const MeetingHalls = ({ slice }) => {
                   <div className="relative aspect-square overflow-hidden">
                     <PrismicNextImage
                       field={item.image}
+                      sizes="(max-width: 1279px) 85vw, 30vw"
+                      imgixParams={{ w: 900, q: 80 }}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -224,6 +230,8 @@ const MeetingHalls = ({ slice }) => {
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <PrismicNextImage
                         field={item.image}
+                        sizes="(max-width: 1279px) 85vw, 30vw"
+                        imgixParams={{ w: 900, q: 80 }}
                         className="w-full h-full object-cover"
                       />
                     </div>

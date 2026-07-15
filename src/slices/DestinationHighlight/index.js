@@ -105,6 +105,8 @@ useEffect(() => {
                 <div className="parallax-container overflow-hidden h-full w-full">
                   <PrismicNextImage
                     field={slice.primary.image}
+                    sizes="(max-width: 1024px) 100vw, 60vw"
+                    imgixParams={{ w: 1600, q: 80 }}
                     className="parallax-img w-full h-full object-cover object-center"
                   />
                 </div>
@@ -142,6 +144,8 @@ useEffect(() => {
                 <div className="parallax-container overflow-hidden h-full w-full">
                   <PrismicNextImage
                     field={slice.primary.image}
+                    sizes="(max-width: 1024px) 100vw, 60vw"
+                    imgixParams={{ w: 1600, q: 80 }}
                     className="parallax-img w-full h-full object-cover object-center"
                   />
                 </div>

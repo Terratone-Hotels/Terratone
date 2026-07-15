@@ -281,7 +281,10 @@ const Hero = ({ slice }) => {
                   <PrismicNextImage
                     field={item.image}
                     priority={index === 0}
+                    fetchPriority={index === 0 ? "high" : "auto"}
                     alt={item.image?.alt?.trim() || `Hero slide ${index + 1}`}
+                    // Full-viewport hero — browser picks width from viewport (mobile ≠ 1920–3840)
+                    sizes="100vw"
                     className="w-full h-dvh object-cover"
                   />
                 )}
@@ -325,7 +328,15 @@ const Hero = ({ slice }) => {
                     <div className="relative">
                       <PrismicNextImage
                         field={item.video ? item.thumbnail : item.image}
-                        alt={`Thumb ${index}`}
+                        alt={
+                          (item.video
+                            ? item.thumbnail?.alt
+                            : item.image?.alt
+                          )?.trim() || `Hero thumbnail ${index + 1}`
+                        }
+                        // Display ~64–72px; use ~2–3× for retina sharpness (still far below 1920 hero)
+                        sizes="160px"
+                        imgixParams={{ w: 240, q: 80, fit: "crop" }}
                         className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer"
                         onClick={() => onClickThumb(index)}
                       />

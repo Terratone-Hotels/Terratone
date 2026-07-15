@@ -86,6 +86,8 @@ const ReversedDestinationHighlights = ({ slice }) => {
                   <div className="parallax-container overflow-hidden h-full w-full">
                     <PrismicNextImage
                       field={slice.primary.image}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      imgixParams={{ w: 1600, q: 80 }}
                       className="parallax-img w-full h-full object-cover object-center"
                     />
                   </div>
@@ -114,6 +116,8 @@ const ReversedDestinationHighlights = ({ slice }) => {
                 <div className="parallax-container overflow-hidden h-full w-full">
                   <PrismicNextImage
                     field={slice.primary.image}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    imgixParams={{ w: 1600, q: 80 }}
                     className="parallax-img w-full h-full object-cover object-center"
                   />
                 </div>
@@ -183,6 +187,8 @@ const ReversedDestinationHighlights = ({ slice }) => {
                 <div className="parallax-container overflow-hidden h-full w-full">
                   <PrismicNextImage
                     field={slice.primary.image}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    imgixParams={{ w: 1600, q: 80 }}
                     className="parallax-img w-full h-full object-cover object-center"
                   />
                 </div>

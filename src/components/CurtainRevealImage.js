@@ -5,11 +5,14 @@ import { PrismicNextImage } from "@prismicio/next";
 /**
  * CLEAN VERSION — NO ANIMATION
  * Only renders the Prismic image safely.
+ * Optional sizes / imgixParams so callers (e.g. RoomCard) can limit download size.
  */
 export default function CurtainRevealImage({
   field,
   alt = "Image",
   className = "",
+  sizes,
+  imgixParams,
 }) {
   return (
     <div
@@ -20,6 +23,8 @@ export default function CurtainRevealImage({
         <PrismicNextImage
           field={field}
           alt={alt}
+          sizes={sizes}
+          imgixParams={imgixParams}
           className="w-full h-full object-cover"
         />
       ) : (

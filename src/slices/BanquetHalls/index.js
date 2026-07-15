@@ -116,6 +116,8 @@ export default function BanquetHalls({ slice }) {
           <div ref={imageRef} className="w-full h-full">
             <PrismicNextImage
               field={slice.primary.banquet_image}
+              sizes="100vw"
+              imgixParams={{ w: 1920, q: 80 }}
               className="w-full h-full object-cover object-center will-change-transform"
             />
           </div>
