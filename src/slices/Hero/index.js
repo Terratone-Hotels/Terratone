@@ -69,7 +69,6 @@ const Hero = ({ slice }) => {
     );
   }, []);
 
-  // Keep thumbs fully hidden until after H1 (curtain lift was showing them too early)
   useLayoutEffect(() => {
     if (thumbsRef.current) {
       gsap.set(thumbsRef.current, { opacity: 0, y: 40 });
