@@ -111,9 +111,9 @@ const MeetingHalls = ({ slice }) => {
 
                   {/* Card Details */}
                   <div className="mt-6 flex flex-col justify-start text-left min-h-[120px] ">
-                    <h3 className="text-[28px] font-medium font-serif">
+                    <p className="text-[28px] font-medium font-serif">
                       {item.card_title}
-                    </h3>
+                    </p>
                     <p className="text-[14px] font-barlow mt-2 leading-tight">
                       {item.card_description}
                     </p>

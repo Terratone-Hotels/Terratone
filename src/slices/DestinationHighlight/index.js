@@ -16,48 +16,47 @@ const DestinationHighlight = ({ slice }) => {
   const sectionRef = useRef(null);
 
   // ⭐ PARALLAX EFFECT (40–50% travel)
-useEffect(() => {
-  if (typeof window === "undefined") return;
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-  let ctx;
+    let ctx;
 
-  // Run AFTER hydration
-  requestAnimationFrame(() => {
-    ctx = gsap.context(() => {
-      const containers = gsap.utils.toArray(".parallax-container");
+    // Run AFTER hydration
+    requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        const containers = gsap.utils.toArray(".parallax-container");
 
-      containers.forEach((container) => {
-        const img = container.querySelector(".parallax-img");
-        if (!img) return;
+        containers.forEach((container) => {
+          const img = container.querySelector(".parallax-img");
+          if (!img) return;
 
-        gsap.fromTo(
-          img,
-          { y: "-15%" },
-          {
-            y: "15%",
-            ease: "none",
-            scrollTrigger: {
-              trigger: container,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.3,
+          gsap.fromTo(
+            img,
+            { y: "-15%" },
+            {
+              y: "15%",
+              ease: "none",
+              scrollTrigger: {
+                trigger: container,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.3,
+              },
             },
-          }
-        );
-      });
-    }, sectionRef);
-  });
+          );
+        });
+      }, sectionRef);
+    });
 
-  return () => ctx?.revert();
-}, []);
-
+    return () => ctx?.revert();
+  }, []);
 
   return (
     <>
       {/* DEFAULT */}
       {slice.variation === "default" && (
         <div
-        ref={sectionRef}
+          ref={sectionRef}
           data-slice-type={slice.slice_type}
           data-slice-variation={slice.variation}
           className="flex flex-col md:flex-row md:justify-between gap-2 lg:gap-5 items-start px-[0.9375rem] md:px-6 mt-15 lg:mt-35"
@@ -76,13 +75,11 @@ useEffect(() => {
 
             <div>
               <Button className="font-barlowNormal px-2.5 py-1">
-                {slice.primary.button_text}
+                <PrismicNextLink field={slice.primary.explore_button}>
+                  {slice.primary.button_text}
+                </PrismicNextLink>
               </Button>
             </div>
-
-            {slice.primary.explore_button?.url && (
-              <PrismicNextLink field={slice.primary.explore_button} />
-            )}
           </div>
 
           {/* Right Side Media */}

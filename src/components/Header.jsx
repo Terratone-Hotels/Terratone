@@ -147,7 +147,7 @@ export default function HeaderClient({ headerData }) {
           headerEl.classList.add("mix-blend-difference");
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
 
     observer.observe(hero);
@@ -187,7 +187,11 @@ export default function HeaderClient({ headerData }) {
         className=" fixed top-0 bg-stone lg:bg-transparent  z-50 w-full flex flex-row items-center justify-between  lg:px-6 py-4 transition-transform duration-300 ease-in-out"
       >
         <div className={`   text-black lg:text-white`}>
-          <PrismicNextLink href={"/"} className="inline-block">
+          <PrismicNextLink
+            href={"/"}
+            className="inline-block"
+            aria-label="Terratone home"
+          >
             <TerratoneLogo className="scale-79 sm:scale-85 lg:scale-100" />
           </PrismicNextLink>
         </div>
