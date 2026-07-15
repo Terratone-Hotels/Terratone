@@ -69,7 +69,7 @@ export default async function RootLayout({ children }) {
           />
           <WebVitals />
           <Header />
-          {children}
+          <main id="main-content">{children}</main>
           <FooterServer />
         </LenisScrollProvider>
       </body>
