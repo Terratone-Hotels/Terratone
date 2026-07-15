@@ -306,7 +306,6 @@ const Hero = ({ slice }) => {
                 ) : (
                   <PrismicNextImage
                     field={item.image}
-                    // Full hero still sized for display; LCP priority is on first thumb (better SI/LCP)
                     loading={index === 0 ? "eager" : "lazy"}
                     fetchPriority="auto"
                     alt={item.image?.alt?.trim() || `Hero slide ${index + 1}`}

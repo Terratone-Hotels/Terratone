@@ -67,7 +67,7 @@ export default async function RootLayout({ children }) {
               },
             }}
           />
-          <WebVitals />
+          {/* <WebVitals /> */}
           <Header />
           <main id="main-content">{children}</main>
           <FooterServer />
