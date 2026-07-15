@@ -45,3 +45,7 @@ plan.md
 TerraTone_Timeline_Client.pdf
 external_all.csv
 seo-work-log.md
+
+# Local Lighthouse / audit outputs
+lighthouse-mobile.json
+lighthouse-*.json
