@@ -7,6 +7,7 @@ import React, {
   useState,
   useCallback,
 } from "react";
+import { asImageSrc } from "@prismicio/client";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,9 +20,13 @@ import { gsap } from "gsap";
 import VideoComponent from "@/components/VideoComponent";
 import Bounded from "@/components/Bounded";
 
+const THUMB_IMGIX = { w: 240, q: 80, fit: "crop" };
+
 const Hero = ({ slice }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  // When true, thumb <img> nodes mount (after intro starts — not in first paint for LCP)
+  const [thumbsReady, setThumbsReady] = useState(false);
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
 
   const hasAnimatedInitialHeading = useRef(false);
@@ -37,6 +42,17 @@ const Hero = ({ slice }) => {
   const headingTimelineRef = useRef(null);
 
   const slides = slice?.primary?.carousel || [];
+
+  // Warm cache for first thumb during logo/curtain so it appears instantly when shown
+  useEffect(() => {
+    const first = slides[0];
+    if (!first) return;
+    const field = first.video ? first.thumbnail : first.image;
+    const src = asImageSrc(field, THUMB_IMGIX);
+    if (!src || typeof window === "undefined") return;
+    const img = new window.Image();
+    img.src = src;
+  }, [slides]);
 
   // --- 1. Clean Animation Trigger ---
   const animateHeadingIn = useCallback(() => {
@@ -58,7 +74,8 @@ const Hero = ({ slice }) => {
       {
         opacity: 1,
         clipPath: "inset(0% 0% 0% 0%)",
-        duration: 1,
+        // Faster clip reveal → less LCP "element render delay" on the H1
+        duration: 0.55,
         ease: "power3.out",
       }
     );
@@ -98,29 +115,39 @@ const Hero = ({ slice }) => {
         ease: "power3.out",
         rotate: 25,
       })
-      .to(curtain, { yPercent: -100, duration: 1.1, ease: "expo.inOut" })
-      .set(curtain, { display: "none" })
-      // Allow thumbs to mount after curtain (not in initial HTML for LCP)
-      .call(() => setIsLoadingComplete(true))
-      .to(headingWrapper, {
-        opacity: 1,
-        y: 0,
-        duration: 0.85,
-        ease: "power3.out",
+      // Curtain kept for aesthetics; start H1 near end of wipe to cut LCP render delay
+      .to(curtain, {
+        yPercent: -100,
+        duration: 1.1,
+        ease: "expo.inOut",
+        // Mount thumbs when wipe starts so first thumb loads during the ~1.1s (not after)
+        onStart: () => setThumbsReady(true),
       })
+      .to(
+        headingWrapper,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+        "-=0.55"
+      )
       .add(() => {
         animateHeadingIn();
-      }, "-=0.8")
+      }, "-=0.45")
+      .set(curtain, { display: "none" })
+      .call(() => setIsLoadingComplete(true))
       .from(
         thumbsRef.current?.querySelectorAll(".thumb"),
         {
           opacity: 0,
           y: 40,
-          duration: 0.6,
+          duration: 0.5,
           ease: "power3.out",
-          stagger: 0.3,
+          stagger: 0.2,
         },
-        "-=0.5"
+        "-=0.25"
       )
       .call(() => {
         hasAnimatedInitialHeading.current = true;
@@ -330,11 +357,10 @@ const Hero = ({ slice }) => {
                   <SwiperSlide key={index} className="thumb !w-auto">
                     <div className="relative">
                       {/*
-                        Mount thumb images only AFTER curtain intro.
-                        Same photo as the full hero was winning LCP discovery
-                        (Lighthouse: thumb loading=lazy / no fetchpriority).
+                        Thumbs mount when curtain wipe starts (not on first paint).
+                        First thumb is preloaded + eager so it is ready when UI shows.
                       */}
-                      {isLoadingComplete ? (
+                      {thumbsReady ? (
                         <PrismicNextImage
                           field={item.video ? item.thumbnail : item.image}
                           alt={
@@ -343,10 +369,10 @@ const Hero = ({ slice }) => {
                               : item.image?.alt
                             )?.trim() || `Hero thumbnail ${index + 1}`
                           }
-                          loading="lazy"
+                          loading={index === 0 ? "eager" : "lazy"}
                           fetchPriority="low"
                           sizes="160px"
-                          imgixParams={{ w: 240, q: 80, fit: "crop" }}
+                          imgixParams={THUMB_IMGIX}
                           className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer"
                           onClick={() => onClickThumb(index)}
                         />
