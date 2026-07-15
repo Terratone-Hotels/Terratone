@@ -85,24 +85,25 @@ const Hero = ({ slice }) => {
 
     const tl = gsap.timeline({ defaults: { ease: "power4.inOut" } });
 
+    // Same aesthetic beats (logo → tilt → curtain up → heading); slightly snappier for SI/LCP
     tl.to([left, right], {
       opacity: 1,
       xPercent: 0,
-      duration: 0.5,
+      duration: 0.4,
       ease: "power3.out",
-      stagger: 0.1,
+      stagger: 0.08,
     })
       .to([left, right], {
-        duration: 1,
+        duration: 0.75,
         ease: "power3.out",
         rotate: 25,
       })
-      .to(curtain, { yPercent: -100, duration: 1.6, ease:"expo.inOut" })
+      .to(curtain, { yPercent: -100, duration: 1.1, ease: "expo.inOut" })
       .set(curtain, { display: "none" })
       .to(headingWrapper, {
         opacity: 1,
         y: 0,
-        duration: 1,
+        duration: 0.85,
         ease: "power3.out",
       })
       .add(() => {
