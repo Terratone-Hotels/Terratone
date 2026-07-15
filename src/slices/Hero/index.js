@@ -19,7 +19,7 @@ import { gsap } from "gsap";
 import VideoComponent from "@/components/VideoComponent";
 import Bounded from "@/components/Bounded";
 
-const THUMB_IMGIX = { w: 160, h: 180, q: 70, fit: "crop" };
+const THUMB_IMGIX = { w: 160, h: 180, q: 50, fit: "crop" };
 
 const Hero = ({ slice }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -73,6 +73,15 @@ const Hero = ({ slice }) => {
   useLayoutEffect(() => {
     if (thumbsRef.current) {
       gsap.set(thumbsRef.current, { opacity: 0, y: 40 });
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    if (headingRef.current) {
+      gsap.set(headingRef.current, {
+        opacity: 0,
+        clipPath: "inset(100% 0% 0% 0%)",
+      });
     }
   }, []);
 
@@ -326,16 +335,14 @@ const Hero = ({ slice }) => {
             style={{ pointerEvents: "none" }}
           >
             <div ref={headingWrapperRef} className="heading-wrapper w-full">
-              {showHeading ? (
-                <div
-                  ref={headingRef}
-                  className="font-serif leading-tight text-start sm:text-center w-full text-[24px] sm:text-[28px] lg:text-[32px] xl:text-[44px] text-white mb-4"
-                >
-                  {slides[activeIndex]?.headings && (
-                    <PrismicRichText field={slides[activeIndex].headings} />
-                  )}
-                </div>
-              ) : null}
+              <div
+                ref={headingRef}
+                className="font-serif leading-tight text-start sm:text-center w-full text-[24px] sm:text-[28px] lg:text-[32px] xl:text-[44px] text-white mb-4"
+              >
+                {slides[activeIndex]?.headings && (
+                  <PrismicRichText field={slides[activeIndex].headings} />
+                )}
+              </div>
             </div>
 
             <div
