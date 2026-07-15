@@ -37,7 +37,7 @@ const ReversedDestinationHighlights = ({ slice }) => {
             end: "bottom top",
             scrub: 1,
           },
-        }
+        },
       );
     });
 
@@ -87,7 +87,7 @@ const ReversedDestinationHighlights = ({ slice }) => {
                     <PrismicNextImage
                       field={slice.primary.image}
                       sizes="(max-width: 768px) 100vw, 50vw"
-                      imgixParams={{ w: 1600, q: 80 }}
+                      imgixParams={{ q: 70 }}
                       className="parallax-img w-full h-full object-cover object-center"
                     />
                   </div>

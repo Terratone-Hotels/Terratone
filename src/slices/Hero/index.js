@@ -19,7 +19,7 @@ import { gsap } from "gsap";
 import VideoComponent from "@/components/VideoComponent";
 import Bounded from "@/components/Bounded";
 
-const THUMB_IMGIX = { w: 240, q: 80, fit: "crop" };
+const THUMB_IMGIX = { w: 160, h: 180, q: 50, fit: "crop" };
 
 const Hero = ({ slice }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -65,7 +65,7 @@ const Hero = ({ slice }) => {
         clipPath: "inset(0% 0% 0% 0%)",
         duration: 0.65,
         ease: "power3.out",
-      }
+      },
     );
   }, []);
 
@@ -76,9 +76,19 @@ const Hero = ({ slice }) => {
     }
   }, []);
 
+  useLayoutEffect(() => {
+    if (headingRef.current) {
+      gsap.set(headingRef.current, {
+        opacity: 0,
+        clipPath: "inset(100% 0% 0% 0%)",
+      });
+    }
+  }, []);
+
   // After H1 mounts: same clip-in, then thumbs once (order: curtain → H1 → thumbs)
   useLayoutEffect(() => {
-    if (!showHeading || !headingRef.current || !headingWrapperRef.current) return;
+    if (!showHeading || !headingRef.current || !headingWrapperRef.current)
+      return;
 
     gsap.set(headingWrapperRef.current, { opacity: 1, y: 0 });
     animateHeadingIn();
@@ -210,7 +220,7 @@ const Hero = ({ slice }) => {
       swiper.on("slideChangeTransitionEnd", onSlideChangeTransitionEnd);
       swiper.on("touchStart", onTouchStart);
     },
-    [animateHeadingIn]
+    [animateHeadingIn],
   );
 
   // --- 4. Start Autoplay ONLY when Curtain is done ---
@@ -307,9 +317,11 @@ const Hero = ({ slice }) => {
                   <PrismicNextImage
                     field={item.image}
                     loading={index === 0 ? "eager" : "lazy"}
-                    fetchPriority="auto"
+                    priority={index === 0}
+                    fetchPriority={index === 0 ? "high" : "auto"}
                     alt={item.image?.alt?.trim() || `Hero slide ${index + 1}`}
                     sizes="100vw"
+                    imgixParams={{ q: 70 }}
                     className="w-full h-dvh object-cover"
                   />
                 )}
@@ -323,16 +335,14 @@ const Hero = ({ slice }) => {
             style={{ pointerEvents: "none" }}
           >
             <div ref={headingWrapperRef} className="heading-wrapper w-full">
-              {showHeading ? (
-                <div
-                  ref={headingRef}
-                  className="font-serif leading-tight text-start sm:text-center w-full text-[24px] sm:text-[28px] lg:text-[32px] xl:text-[44px] text-white mb-4"
-                >
-                  {slides[activeIndex]?.headings && (
-                    <PrismicRichText field={slides[activeIndex].headings} />
-                  )}
-                </div>
-              ) : null}
+              <div
+                ref={headingRef}
+                className="font-serif leading-tight text-start sm:text-center w-full text-[24px] sm:text-[28px] lg:text-[32px] xl:text-[44px] text-white mb-4"
+              >
+                {slides[activeIndex]?.headings && (
+                  <PrismicRichText field={slides[activeIndex].headings} />
+                )}
+              </div>
             </div>
 
             <div
