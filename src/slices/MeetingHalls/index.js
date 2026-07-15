@@ -230,8 +230,10 @@ const MeetingHalls = ({ slice }) => {
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <PrismicNextImage
                         field={item.image}
+                        priority={index === 0}
+                        fetchPriority={index === 0 ? "high" : "auto"}
                         sizes="(max-width: 1279px) 85vw, 30vw"
-                        imgixParams={{ w: 900, q: 80 }}
+                        imgixParams={{ q: 70 }}
                         className="w-full h-full object-cover"
                       />
                     </div>
