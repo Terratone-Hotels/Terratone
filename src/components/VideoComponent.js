@@ -31,7 +31,7 @@ export default function VideoComponent({
           io.disconnect();
         }
       },
-      { rootMargin: "200px 0px", threshold: 0.01 }
+      { rootMargin: "200px 0px", threshold: 0.01 },
     );
 
     io.observe(el);
@@ -60,9 +60,7 @@ export default function VideoComponent({
       {shouldLoad && srcWebm ? (
         <source src={srcWebm} type="video/webm" />
       ) : null}
-      {shouldLoad && srcMp4 ? (
-        <source src={srcMp4} type="video/mp4" />
-      ) : null}
+      {shouldLoad && srcMp4 ? <source src={srcMp4} type="video/mp4" /> : null}
       Your browser does not support the video tag.
     </video>
   );

@@ -2783,6 +2783,62 @@ export interface HeroSliceDefaultPrimaryCarouselItem {
 }
 
 /**
+ * Item in *Hero → SecondVariation → Primary → Carousel*
+ */
+export interface HeroSliceSecondVariationPrimaryCarouselItem {
+  /**
+   * Headings field in *Hero → SecondVariation → Primary → Carousel*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.secondVariation.primary.carousel[].headings
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  headings: prismic.RichTextField;
+
+  /**
+   * Image field in *Hero → SecondVariation → Primary → Carousel*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.secondVariation.primary.carousel[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * YouTube Video ID field in *Hero → SecondVariation → Primary → Carousel*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.secondVariation.primary.carousel[].youtube_video_id
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  youtube_video_id: prismic.KeyTextField;
+
+  /**
+   * Video  field in *Hero → SecondVariation → Primary → Carousel*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: hero.secondVariation.primary.carousel[].video
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  video: prismic.BooleanField;
+
+  /**
+   * thumbnail field in *Hero → SecondVariation → Primary → Carousel*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.secondVariation.primary.carousel[].thumbnail
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  thumbnail: prismic.ImageField<never>;
+}
+
+/**
  * Primary content in *Hero → Default → Primary*
  */
 export interface HeroSliceDefaultPrimary {
@@ -2811,9 +2867,39 @@ export type HeroSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *Hero → SecondVariation → Primary*
+ */
+export interface HeroSliceSecondVariationPrimary {
+  /**
+   * Carousel field in *Hero → SecondVariation → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.secondVariation.primary.carousel[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  carousel: prismic.GroupField<
+    Simplify<HeroSliceSecondVariationPrimaryCarouselItem>
+  >;
+}
+
+/**
+ * SecondVariation variation for Hero Slice
+ *
+ * - **API ID**: `secondVariation`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeroSliceSecondVariation = prismic.SharedSliceVariation<
+  "secondVariation",
+  Simplify<HeroSliceSecondVariationPrimary>,
+  never
+>;
+
+/**
  * Slice variation for *Hero*
  */
-type HeroSliceVariation = HeroSliceDefault;
+type HeroSliceVariation = HeroSliceDefault | HeroSliceSecondVariation;
 
 /**
  * Hero Shared Slice
@@ -5824,8 +5910,11 @@ declare module "@prismicio/client" {
       HeroSlice,
       HeroSliceDefaultPrimaryCarouselItem,
       HeroSliceDefaultPrimary,
+      HeroSliceSecondVariationPrimaryCarouselItem,
+      HeroSliceSecondVariationPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      HeroSliceSecondVariation,
       HeroForOthersSlice,
       HeroForOthersSliceDefaultPrimary,
       HeroForOthersSliceWithAvailabilityBarPrimary,

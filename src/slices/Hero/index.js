@@ -18,30 +18,43 @@ import { FreeMode, Navigation, Thumbs, Autoplay } from "swiper/modules";
 import { gsap } from "gsap";
 import VideoComponent from "@/components/VideoComponent";
 import Bounded from "@/components/Bounded";
+import { useLoader } from "@/context/LoaderContext";
+import HeroSecondVariation from "@/components/HeroSecondVariation";
 
 const THUMB_IMGIX = { w: 160, h: 180, q: 50, fit: "crop" };
+const LCP_BLOCKER_ID = "hero-default-lcp";
 
-const Hero = ({ slice }) => {
+const HeroDefault = ({ slice }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
-  // Mount H1 only after curtain — keeps clip animation, cuts LCP render delay on hidden H1
-  const [showHeading, setShowHeading] = useState(false);
+
+  const { addBlocker, removeBlocker, isRevealed } = useLoader();
+  const lcpBlockerCleared = useRef(false);
 
   const hasAnimatedInitialHeading = useRef(false);
   const thumbsIntroPlayed = useRef(false);
 
-  const curtainRef = useRef(null);
   const headingWrapperRef = useRef(null);
   const headingRef = useRef(null);
   const thumbsRef = useRef(null);
-  const logoLeftRef = useRef(null);
-  const logoRightRef = useRef(null);
   const progressBarsRef = useRef([]);
   const swiperRef = useRef(null);
   const headingTimelineRef = useRef(null);
 
   const slides = slice?.primary?.carousel || [];
+
+  // --- Register first slide's asset as a load-blocker for the global curtain ---
+  useEffect(() => {
+    addBlocker(LCP_BLOCKER_ID);
+    return () => removeBlocker(LCP_BLOCKER_ID);
+  }, [addBlocker, removeBlocker]);
+
+  const clearLcpBlocker = useCallback(() => {
+    if (lcpBlockerCleared.current) return;
+    lcpBlockerCleared.current = true;
+    removeBlocker(LCP_BLOCKER_ID);
+  }, [removeBlocker]);
 
   // --- 1. Clean Animation Trigger ---
   const animateHeadingIn = useCallback(() => {
@@ -82,11 +95,14 @@ const Hero = ({ slice }) => {
         clipPath: "inset(100% 0% 0% 0%)",
       });
     }
+    if (headingWrapperRef.current) {
+      gsap.set(headingWrapperRef.current, { opacity: 0, y: 50 });
+    }
   }, []);
 
-  // After H1 mounts: same clip-in, then thumbs once (order: curtain → H1 → thumbs)
+  // Reveal is gated on the global curtain now, not a local curtain timeline.
   useLayoutEffect(() => {
-    if (!showHeading || !headingRef.current || !headingWrapperRef.current)
+    if (!isRevealed || !headingRef.current || !headingWrapperRef.current)
       return;
 
     gsap.set(headingWrapperRef.current, { opacity: 1, y: 0 });
@@ -117,52 +133,9 @@ const Hero = ({ slice }) => {
     }, 480);
 
     return () => window.clearTimeout(t);
-  }, [showHeading, animateHeadingIn]);
+  }, [isRevealed, animateHeadingIn]);
 
-  // --- 2. Curtain Animation (logo → wipe → then mount H1) ---
-  useLayoutEffect(() => {
-    const curtain = curtainRef.current;
-    const left = logoLeftRef.current;
-    const right = logoRightRef.current;
-    const headingWrapper = headingWrapperRef.current;
-
-    if (!curtain || !left || !right || !headingWrapper) return;
-
-    gsap.set(curtain, { yPercent: 0 });
-    gsap.set(headingWrapper, { opacity: 0, y: 50 });
-    gsap.set([left, right], {
-      opacity: 0,
-      xPercent: (i) => (i === 0 ? -400 : 400),
-      rotate: 0,
-    });
-
-    const tl = gsap.timeline({ defaults: { ease: "power4.inOut" } });
-
-    tl.to([left, right], {
-      opacity: 1,
-      xPercent: 0,
-      duration: 0.25,
-      ease: "power3.out",
-      stagger: 0.05,
-    })
-      .to([left, right], {
-        duration: 0.45,
-        ease: "power3.out",
-        rotate: 25,
-      })
-      .to(curtain, {
-        yPercent: -100,
-        duration: 0.8,
-        ease: "power3.out",
-      })
-      // Start H1 just as wipe finishes — H1 not in DOM during logo/curtain (no LCP render delay)
-      .call(() => setShowHeading(true), null, "-=0.08")
-      .set(curtain, { display: "none" });
-
-    return () => tl.kill();
-  }, []);
-
-  // --- 3. Swiper Logic ---
+  // --- 2. Swiper Logic ---
   const handleSwiper = useCallback(
     (swiper) => {
       swiperRef.current = swiper;
@@ -222,7 +195,7 @@ const Hero = ({ slice }) => {
     [animateHeadingIn],
   );
 
-  // --- 4. Start Autoplay ONLY when Curtain is done ---
+  // --- 3. Start Autoplay ONLY when Curtain is done ---
   useEffect(() => {
     if (!isLoadingComplete) return;
 
@@ -266,24 +239,6 @@ const Hero = ({ slice }) => {
   return (
     <section data-hero-slice className="data-hero-slice">
       <Bounded full className="hero-section relative overflow-hidden">
-        {/* Curtain */}
-        <div
-          ref={curtainRef}
-          className="curtain fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black"
-        >
-          {/* Logo Animation Parts */}
-          <div className="flex items-center justify-center space-x-6">
-            <div
-              ref={logoLeftRef}
-              className="w-[10px] h-[60px] md:w-[14px] md:h-[80px] bg-white opacity-0"
-            />
-            <div
-              ref={logoRightRef}
-              className="w-[10px] h-[60px] md:w-[14px] md:h-[80px] bg-white opacity-0"
-            />
-          </div>
-        </div>
-
         {/* Main Slider */}
         <div className="relative z-10 origin-bottom">
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-9 pointer-events-none" />
@@ -311,6 +266,7 @@ const Hero = ({ slice }) => {
                   <VideoComponent
                     srcMp4={item.youtube_video_id}
                     className="w-full h-dvh object-cover"
+                    onLoadedData={index === 0 ? clearLcpBlocker : undefined}
                   />
                 ) : (
                   <PrismicNextImage
@@ -322,6 +278,7 @@ const Hero = ({ slice }) => {
                     sizes="100vw"
                     imgixParams={{ q: 70 }}
                     className="w-full h-dvh object-cover"
+                    onLoad={index === 0 ? clearLcpBlocker : undefined}
                   />
                 )}
               </SwiperSlide>
@@ -418,6 +375,13 @@ const Hero = ({ slice }) => {
       </Bounded>
     </section>
   );
+};
+
+const Hero = ({ slice }) => {
+  if (slice.variation === "secondVariation") {
+    return <HeroSecondVariation slice={slice} />;
+  }
+  return <HeroDefault slice={slice} />;
 };
 
 export default Hero;

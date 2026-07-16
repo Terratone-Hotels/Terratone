@@ -9,6 +9,7 @@ import WebVitals from "@/components/WebVitals";
 import SnowEasterEggClient from "@/components/SnowEasterEggClient";
 import HotelJsonLd from "@/components/HotelJsonLd";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { LoaderProvider } from "@/context/LoaderContext";
 
 const garamond = EB_Garamond({
   variable: "--font-eb-mono",
@@ -55,21 +56,23 @@ export default async function RootLayout({ children }) {
         {/* Hotel entity for search / local discovery — not visible in the UI */}
         <HotelJsonLd />
         <SnowEasterEggClient />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            duration: 3000,
+            style: {
+              background: "transparent",
+              padding: 0,
+              border: "none",
+            },
+          }}
+        />
+        {/* <WebVitals /> */}
         <LenisScrollProvider>
-          <Toaster
-            position="top-center"
-            toastOptions={{
-              duration: 3000,
-              style: {
-                background: "transparent",
-                padding: 0,
-                border: "none",
-              },
-            }}
-          />
-          {/* <WebVitals /> */}
           <Header />
-          <main id="main-content">{children}</main>
+          <LoaderProvider>
+            <main id="main-content">{children}</main>
+          </LoaderProvider>
           <FooterServer />
         </LenisScrollProvider>
       </body>

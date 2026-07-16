@@ -26,92 +26,91 @@ export default function OneWithSideWords({ slice }) {
 
     if (!leftCurtain || !rightCurtain) return;
 
-    // Initial curtain state
-    gsap.set(topSentenceRef.current, {
-      opacity: 0,
-      y: 20,
-    });
+    const ctx = gsap.context(() => {
+      // Initial curtain state
+      gsap.set(topSentenceRef.current, {
+        opacity: 0,
+        y: 20,
+      });
 
-    gsap.set([leftCurtain, rightCurtain], { scaleX: 1 });
+      gsap.set([leftCurtain, rightCurtain], { scaleX: 1 });
 
-    // ⭐ Initial SIDE TEXT states (THIS FIXES THE ISSUE)
-    gsap.set([leftTextRef.current, rightTextRef.current], {
-      opacity: 0,
-      y: 30,
-    });
+      // ⭐ Initial SIDE TEXT states (THIS FIXES THE ISSUE)
+      gsap.set([leftTextRef.current, rightTextRef.current], {
+        opacity: 0,
+        y: 30,
+      });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top bottom",
-        toggleActions: "play none none none",
-        once: true,
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          toggleActions: "play none none none",
+          once: true,
 
-        // markers: true,
-      },
-    });
+          // markers: true,
+        },
+      });
 
-    // Curtains start opening immediately
-    tl.to(
-      leftCurtain,
-      {
-        scaleX: 0,
-        transformOrigin: "left center",
-        duration: 2,
-        ease: "power3.inOut",
-      },
-      0
-    );
-    tl.to(
-      topSentenceRef.current,
-      {
-        opacity: 1,
-        y: 0,
-        duration: 2,
-        ease: "power3.inOut",
-      },
-      0
-    );
+      // Curtains start opening immediately
+      tl.to(
+        leftCurtain,
+        {
+          scaleX: 0,
+          transformOrigin: "left center",
+          duration: 2,
+          ease: "power3.inOut",
+        },
+        0,
+      );
+      tl.to(
+        topSentenceRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 2,
+          ease: "power3.inOut",
+        },
+        0,
+      );
 
-    tl.to(
-      rightCurtain,
-      {
-        scaleX: 0,
-        transformOrigin: "right center",
-        duration: 2,
-        ease: "power3.inOut",
-      },
-      0
-    );
+      tl.to(
+        rightCurtain,
+        {
+          scaleX: 0,
+          transformOrigin: "right center",
+          duration: 2,
+          ease: "power3.inOut",
+        },
+        0,
+      );
 
-    // Left text reveals
-    tl.to(
-      leftTextRef.current,
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-      },
-      0.5
-    );
+      // Left text reveals
+      tl.to(
+        leftTextRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        },
+        0.5,
+      );
 
-    // Right text reveals
-    tl.to(
-      rightTextRef.current,
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-      },
-      ">"
-    );
+      // Right text reveals
+      tl.to(
+        rightTextRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        },
+        ">",
+      );
+    }, sectionRef);
 
-    return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -132,7 +131,7 @@ export default function OneWithSideWords({ slice }) {
       {/* =================== Video + Side Words =================== */}
       <div className="flex justify-evenly  w-full h-auto mt-3 lg:mt-4 relative">
         {/* Left Word */}
-        <div className="relative flex-1 w-[20%] lg:w-auto flex items-center justify-center">
+        <div className=" flex-1 w-[20%] lg:w-auto flex items-center justify-center">
           <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium -rotate-90 lg:rotate-0 lg:text-right tracking-tight  ">
             <div ref={leftTextRef}>
               <PrismicRichText field={slice.primary.left_word} />
@@ -141,7 +140,7 @@ export default function OneWithSideWords({ slice }) {
         </div>
 
         {/* === Video with Horizontal Reveal === */}
-        <div className="relative flex-6 w-full md:w-[60%] aspect-[22/11] overflow-hidden">
+        <div className="relative flex-6 w-full md:w-[60%] aspect-video overflow-hidden">
           <VideoComponent
             srcMp4={slice.primary.video}
             className="w-full h-full object-cover"
@@ -152,16 +151,16 @@ export default function OneWithSideWords({ slice }) {
           {/* White Curtains (Left + Right) */}
           <div
             ref={leftCurtainRef}
-            className="absolute left-0 top-0 w-1/2 h-full bg-(--color-stone) z-[5] origin-center"
+            className="absolute left-0 top-0 w-1/2 h-full bg-(--color-stone) z-[5] "
           ></div>
           <div
             ref={rightCurtainRef}
-            className="absolute right-0 top-0 w-1/2 h-full bg-(--color-stone) z-[5] origin-center"
+            className="absolute right-0 top-0 w-1/2 h-full bg-(--color-stone) z-[5] "
           ></div>
         </div>
 
         {/* Right Word */}
-        <div className="relative flex-1 w-[20%] lg:w-auto flex items-center justify-center">
+        <div className=" flex-1 w-[20%] lg:w-auto flex items-center justify-center">
           <div className="text-[1.75rem] lg:text-[2.625rem] font-serif font-medium rotate-90 lg:rotate-0 ">
             <div ref={rightTextRef}>
               <PrismicRichText field={slice.primary.right_word} />
