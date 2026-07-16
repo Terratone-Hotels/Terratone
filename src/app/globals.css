@@ -50,6 +50,21 @@ body {
   transform-origin: center center;
 }
 
+@keyframes hero-progress-fill {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.hero-progress-fill {
+  animation-name: hero-progress-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
 /* Mask container for each line */
 .line-mask {
   display: block;
@@ -193,6 +208,7 @@ body.modal-open {
   }
 }
 
+
 .animate-enter {
   animation: toastEnter 0.25s ease-out;
 }
@@ -231,5 +247,3 @@ body.modal-open {
   mask-size: 100% 100%;
   mask-repeat: no-repeat;
 }
-
-

@@ -44,8 +44,8 @@ const MeetingHalls = ({ slice }) => {
       stagger: 1, // reveal one-by-one slowly
       scrollTrigger: {
         trigger: section,
-        start: " 10%", // starts when section enters viewport
-        end: "bottom bottom", // ends at mid-point
+        start: " 20%", // starts when section enters viewport
+        end: "bottom 90%", // ends at mid-point
         scrub: true, // tied to scroll
         // markers: true,
       },

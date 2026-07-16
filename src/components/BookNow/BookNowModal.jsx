@@ -39,10 +39,6 @@ export default function BookNowModal({
 
   const [activeTab, setActiveTab] = useState(initialTab);
 
-  // ---------------------------------------------------------
-  // ⭐ LIFTED STATE FOR ALL TABS
-  // ---------------------------------------------------------
-
   const hotelData = useHotelBooking((s) => s.data);
   const setHotelData = useHotelBooking((s) => s.setData);
 
@@ -68,10 +64,6 @@ export default function BookNowModal({
     notes: "",
   });
 
-  // ---------------------------------------------------------
-  // END LIFTED STATE
-  // ---------------------------------------------------------
-
   useEffect(() => {
     let root = document.getElementById("booknow-portal");
     if (!root) {
@@ -93,9 +85,7 @@ export default function BookNowModal({
       );
 
       stopScroll();
-
-      gsap.ticker.lagSmoothing(0);
-      gsap.ticker.remove(gsap.updateRoot);
+      gsap.globalTimeline.pause();
 
       setActiveTab(initialTab);
     } else {
@@ -105,9 +95,7 @@ export default function BookNowModal({
         setMounted(false);
 
         startScroll();
-
-        gsap.ticker.add(gsap.updateRoot);
-        gsap.ticker.lagSmoothing(500, 33);
+        gsap.globalTimeline.resume();
       }, ANIM);
     }
 
@@ -122,14 +110,12 @@ export default function BookNowModal({
       aria-modal="true"
       role="dialog"
     >
-      {/* BACKDROP */}
       <div
         onClick={onClose}
         className={`absolute inset-0 bg-black/70 transition-opacity duration-200
           ${animateIn ? "opacity-100" : "opacity-0"}`}
       />
 
-      {/* SIDEBAR MODAL */}
       <aside
         data-lenis-prevent
         onClick={(e) => e.stopPropagation()}
@@ -138,7 +124,6 @@ export default function BookNowModal({
           transition-transform duration-200 ease-out
           ${animateIn ? "translate-x-0" : "translate-x-full"}`}
       >
-        {/* HEADER */}
         <div className="flex font-serif items-center  justify-between px-6 py-4 mt-10">
           <h3 className="text-2xl lg:text-5xl ">Book</h3>
 
@@ -150,12 +135,10 @@ export default function BookNowModal({
           </button>
         </div>
 
-        {/* TABS HEADER */}
         <div className="px-6 py-5">
           <TabsHeader active={activeTab} setActive={setActiveTab} />
         </div>
 
-        {/* TAB CONTENT */}
         <div className="p-6 flex-1 overflow-y-auto" data-lenis-prevent>
           {activeTab === "hotel" && (
             <HotelTab

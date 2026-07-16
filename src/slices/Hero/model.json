@@ -64,6 +64,67 @@
         }
       },
       "items": {}
+    },
+    {
+      "id": "secondVariation",
+      "name": "SecondVariation",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "carousel": {
+          "type": "Group",
+          "config": {
+            "label": "Carousel",
+            "repeat": true,
+            "fields": {
+              "headings": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Headings",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+                }
+              },
+              "image": {
+                "type": "Image",
+                "config": {
+                  "label": "Image",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              },
+              "youtube_video_id": {
+                "type": "Text",
+                "config": {
+                  "label": "YouTube Video ID",
+                  "placeholder": ""
+                }
+              },
+              "video": {
+                "type": "Boolean",
+                "config": {
+                  "label": "Video ",
+                  "placeholder_false": "false",
+                  "placeholder_true": "true",
+                  "default_value": false
+                }
+              },
+              "thumbnail": {
+                "type": "Image",
+                "config": {
+                  "label": "thumbnail",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
     }
   ]
 }

@@ -2,6 +2,10 @@
 
 import { createContext, useContext, useEffect, useRef, useMemo } from "react";
 import Lenis from "lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const LenisContext = createContext(null);
 
@@ -9,27 +13,33 @@ export const useLenisControl = () => useContext(LenisContext);
 
 export default function LenisScrollProvider({ children }) {
   const lenisRef = useRef(null);
-  const rafRef = useRef(null);
 
   useEffect(() => {
+    // smoothTouch intentionally omitted — Lenis's own docs advise against it;
+    // it decouples scroll from the finger and reads as laggy, not smoother.
     const lenis = new Lenis({
-      duration: 1.2,
-      lerp: 0.08,
-      smoothTouch: true,
+      duration: 1,
+      // lerp: 0.08,
     });
 
     lenisRef.current = lenis;
 
-    // RAF loop
-    const raf = (time) => {
-      lenis.raf(time);
-      rafRef.current = requestAnimationFrame(raf);
+    // Let ScrollTrigger know the instant Lenis moves, so scroll-linked
+    // timelines never read a stale position relative to what's painted.
+    lenis.on("scroll", ScrollTrigger.update);
+
+    // Drive Lenis from GSAP's own ticker instead of a second, independent
+    // rAF loop — the two loops firing unordered within the same frame was
+    // the main source of the stutter on anything scroll-linked.
+    const update = (time) => {
+      lenis.raf(time * 1000);
     };
 
-    rafRef.current = requestAnimationFrame(raf);
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
-      cancelAnimationFrame(rafRef.current);
+      gsap.ticker.remove(update);
       lenis.destroy();
       lenisRef.current = null;
     };
@@ -42,7 +52,7 @@ export default function LenisScrollProvider({ children }) {
       startScroll: () => lenisRef.current?.start(),
       lenis: lenisRef.current,
     }),
-    []
+    [],
   );
 
   return (
