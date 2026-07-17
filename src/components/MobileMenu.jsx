@@ -52,7 +52,7 @@ export default function MobileMenu({
       {/* Wrapper to allow main nav to grow and push sublinks down */}
       <div className="">
         {/* Navigation Links */}
-        <nav className="flex flex-col items-start px-6 py-4 sm:px-10">
+        <nav className="flex flex-col h-full items-start px-6 py-4 sm:px-10">
           {navigation.map((item, index) => {
             return (
               <PrismicNextLink
@@ -70,37 +70,39 @@ export default function MobileMenu({
       </div>
 
       {/* SubLink (This will now be at the bottom) */}
-      <nav className="flex flex-col px-6 py-4 sm:px-10">
-        {sublink.map((item, index) => {
-          return (
-            <PrismicNextLink
-              key={index}
-              field={item.link}
-              onClick={closeMenu}
-              // Combine the existing styling with the new conditional classes
-              className={`font-barlowNormal uppercase text-base font-medium text-black hover:text-gray-600 transition-colors py-2 border-b border-gray-200 mb-2 w-full`}
-            >
-              {item.link_label}
-            </PrismicNextLink>
-          );
-        })}
+      <nav className="flex flex-col h-full justify-between px-6 py-4 sm:px-10">
+        <div className="flex flex-col">
+          {sublink.map((item, index) => {
+            return (
+              <PrismicNextLink
+                key={index}
+                field={item.link}
+                onClick={closeMenu}
+                // Combine the existing styling with the new conditional classes
+                className={`font-barlowNormal uppercase text-base font-medium text-black hover:text-gray-600 transition-colors py-2 border-b border-gray-200 mb-2 w-full`}
+              >
+                {item.link_label}
+              </PrismicNextLink>
+            );
+          })}
+        </div>
+        <div className="sm:px-10">
+          <button
+            onClick={onEnquireClick}
+            className="w-full font-barlowNormal uppercase  text-sm font-medium text-white flex items-center gap-0.5"
+          >
+            <div className="bg-[#222223] py-2 w-full text-lg rounded-sm">
+              <span>{enquireNow}</span>
+            </div>
+            <div className="bg-[#222223] px-2.5 self-stretch flex rounded-sm">
+              <span className="self-center">
+                <ArrowIcon className="w-4 h-4" />
+              </span>
+            </div>
+          </button>
+        </div>
       </nav>
       {/*  */}
-      <div className="mx-3 mb-3 sm:px-10 mt-auto">
-        <button
-          onClick={onEnquireClick}
-          className="w-full font-barlowNormal uppercase  text-sm font-medium text-white flex items-center gap-0.5"
-        >
-          <div className="bg-[#222223] py-2 w-full text-lg rounded-sm">
-            <span>{enquireNow}</span>
-          </div>
-          <div className="bg-[#222223] px-2.5 self-stretch flex rounded-sm">
-            <span className="self-center">
-              <ArrowIcon className="w-4 h-4" />
-            </span>
-          </div>
-        </button>
-      </div>
     </div>
   );
 }
