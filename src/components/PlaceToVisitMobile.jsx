@@ -31,7 +31,6 @@ const MobilePlacesToVisit = ({ slice }) => {
               field={item.image}
               fill
               className="object-cover scale-150 blur-xs"
-              alt=""
             />
           </div>
         ))}
@@ -48,7 +47,7 @@ const MobilePlacesToVisit = ({ slice }) => {
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
           breakpoints={{
             768: {
-              slidesPerView: 1.1, 
+              slidesPerView: 1.1,
               spaceBetween: 20,
               centeredSlides: true,
             },

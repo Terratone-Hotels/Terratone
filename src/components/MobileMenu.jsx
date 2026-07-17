@@ -70,7 +70,7 @@ export default function MobileMenu({
       </div>
 
       {/* SubLink (This will now be at the bottom) */}
-      <nav className="flex flex-col h-full justify-between px-6 py-4 sm:px-10">
+      <nav className="flex flex-col h-full justify-between px-6 pb-4 sm:px-10">
         <div className="flex flex-col">
           {sublink.map((item, index) => {
             return (

@@ -33,7 +33,7 @@ export default function RoomCard({
 
       const revealSettings = {
         opacity: 0,
-        clipPath: "inset(0 100% 0 0)", 
+        clipPath: "inset(0 100% 0 0)",
       };
 
       const revealTo = {
@@ -107,10 +107,7 @@ export default function RoomCard({
             ref={descRef}
             className={`font-barlow ${descriptionClassName} overflow-hidden`}
           >
-            <PrismicRichText
-              field={description}
-              className="m-0 font-barlow text-[12px] lg:text-[14px]"
-            />
+            <PrismicRichText field={description} />
           </div>
         )}
       </div>

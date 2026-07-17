@@ -34,7 +34,7 @@ const PointsOfInterest = ({ slice }) => {
       gsap.fromTo(
         ".gsap-fade-element",
         { opacity: 0 },
-        { opacity: 1, duration: 0.4, ease: "none" }
+        { opacity: 1, duration: 0.4, ease: "none" },
       );
 
       tl.fromTo(
@@ -47,19 +47,19 @@ const PointsOfInterest = ({ slice }) => {
           stagger: 0.05,
           ease: "power2.out",
           delay: 0.1,
-        }
+        },
       );
 
       tl.fromTo(
         ".gsap-title",
         { y: -20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.4 }
+        { y: 0, opacity: 1, duration: 0.4 },
       )
         .fromTo(
           ".gsap-description",
           { y: 15, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.35 },
-          "-=0.25"
+          "-=0.25",
         )
         .fromTo(
           ".gsap-stamp",
@@ -74,10 +74,10 @@ const PointsOfInterest = ({ slice }) => {
             rotation: 12,
             duration: 0.8,
             ease: "back.out(1.2)",
-          }
+          },
         );
     },
-    { dependencies: [activeIndex], scope: container, revertOnUpdate: true }
+    { dependencies: [activeIndex], scope: container, revertOnUpdate: true },
   );
 
   return (
@@ -107,7 +107,6 @@ const PointsOfInterest = ({ slice }) => {
               field={currentItem.image}
               fill
               className="object-cover scale-110 brightness-75 contrast-[1.1] saturate-[0.8] sepia-[0.15] "
-              alt=""
             />
           </div>
 
@@ -182,7 +181,7 @@ const PointsOfInterest = ({ slice }) => {
                   <button
                     onClick={() =>
                       setActiveIndex(
-                        (activeIndex - 1 + items.length) % items.length
+                        (activeIndex - 1 + items.length) % items.length,
                       )
                     }
                     className="p-2 hover:-translate-x-1 transition-transform"
