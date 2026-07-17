@@ -140,7 +140,7 @@ export default function OneWithSideWords({ slice }) {
         </div>
 
         {/* === Video with Horizontal Reveal === */}
-        <div className="relative flex-6 w-full md:w-[60%] aspect-video overflow-hidden">
+        <div className="relative flex-4 w-full md:w-[60%]  xl:h-170 aspect-video overflow-hidden">
           <VideoComponent
             srcMp4={slice.primary.video}
             className="w-full h-full object-cover"
