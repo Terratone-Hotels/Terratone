@@ -10,6 +10,8 @@ import BookNowModal from "./BookNow/BookNowModal";
 import { usePathname } from "next/navigation";
 import useBookNowModal from "../hooks/useBookNowModal";
 import gsap from "gsap";
+import FooterLink from "./FooterLink";
+import CtaButton from "./CtaButton";
 
 const HamburgerIcon = (props) => (
   <svg
@@ -71,6 +73,7 @@ export default function HeaderClient({ headerData }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const headerRef = useRef(null);
   const buttonRef = useRef(null);
+  const ctaBlendRef = useRef(null);
   const scrollTimeout = useRef(null);
   const [open, setOpen] = useState(false);
   const data = headerData;
@@ -102,12 +105,18 @@ export default function HeaderClient({ headerData }) {
 
       buttonRef.current.style.transform = "translateY(-260%)";
       headerEl.style.transform = "translateY(-260%)";
+      if (ctaBlendRef.current) {
+        ctaBlendRef.current.style.transform = "translateY(-260%)";
+      }
 
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
 
       scrollTimeout.current = setTimeout(() => {
         buttonRef.current.style.transform = "translateY(0%)";
         headerEl.style.transform = "translateY(0%)";
+        if (ctaBlendRef.current) {
+          ctaBlendRef.current.style.transform = "translateY(0%)";
+        }
       }, 150);
     };
 
@@ -119,10 +128,9 @@ export default function HeaderClient({ headerData }) {
     };
   }, []);
 
-  // 2) Hero intersection observer — runs on every route change
-  // 2) Hero intersection observer — DESKTOP ONLY
   useEffect(() => {
     const headerEl = headerRef.current;
+    const ctaEl = ctaBlendRef.current;
     if (!headerEl) return;
 
     // Only run blend-difference on desktop screens
@@ -130,11 +138,13 @@ export default function HeaderClient({ headerData }) {
     if (!mq.matches) {
       // Mobile/tablet → ensure blend is OFF
       headerEl.classList.remove("mix-blend-difference");
+      ctaEl?.classList.remove("mix-blend-difference");
       return;
     }
 
     // Desktop → blend ON by default
     headerEl.classList.add("mix-blend-difference");
+    ctaEl?.classList.add("mix-blend-difference");
 
     const hero = document.querySelector("[data-hero-slice]");
     if (!hero) return;
@@ -143,8 +153,10 @@ export default function HeaderClient({ headerData }) {
       ([entry]) => {
         if (entry.isIntersecting) {
           headerEl.classList.remove("mix-blend-difference");
+          ctaEl?.classList.remove("mix-blend-difference");
         } else {
           headerEl.classList.add("mix-blend-difference");
+          ctaEl?.classList.add("mix-blend-difference");
         }
       },
       { threshold: 0.3 },
@@ -154,6 +166,7 @@ export default function HeaderClient({ headerData }) {
 
     return () => observer.disconnect();
   }, [pathname]);
+
   useEffect(() => {
     const links = document.querySelectorAll(".nav-link");
 
@@ -181,7 +194,7 @@ export default function HeaderClient({ headerData }) {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative border">
       <header
         ref={headerRef}
         className=" fixed top-0 bg-stone lg:bg-transparent  z-50 w-full flex flex-row items-center justify-between  lg:px-6 py-4 transition-transform duration-300 ease-in-out"
@@ -197,7 +210,7 @@ export default function HeaderClient({ headerData }) {
         </div>
 
         {/* Middle: Desktop Navigation links */}
-        <div className="hidden lg:block absolute left-[36%]  xl:left-[43%]">
+        <div className="hidden lg:block absolute left-[36%] lg:left-[40%] xl:left-[42%]  2xl:left-[44%]">
           <ul className="flex flex-row  gap-6">
             {data.navigation.map((item, index) => (
               <li key={index}>
@@ -217,25 +230,44 @@ export default function HeaderClient({ headerData }) {
 
         {/* Right: Container for Desktop Button and Mobile Menu components */}
       </header>
+
+      {/* CtaButton — own fixed element so mix-blend-difference isn't trapped by buttonRef's transform */}
+      {data.nav_button_link && data.nav_buttonlink_text && (
+        <div
+          ref={ctaBlendRef}
+          className="hidden lg:block fixed right-5 top-4 z-50 text-white transition-transform duration-300 ease-in-out"
+        >
+          <CtaButton
+            arrowSpan="self-center"
+            arrowClassName="w-3! h-3!"
+            className="text-xs lg:text-sm "
+            onClick={() => setOpen(true)}
+          >
+            {data.nav_buttonlink_text}
+          </CtaButton>
+        </div>
+      )}
+
       {/* Desktop Button */}
       {data.nav_button_link && (
         <div
           ref={buttonRef}
-          className="flex justify-end bg-transparent cursor-pointer absolute fixed right-6 top-3 duration-300 z-50"
+          className="flex justify-end bg-transparent cursor-pointer fixed right-5 lg:right-36 top-[13px] duration-300 z-50"
         >
           <Button
             noBorder
-            field={data.nav_button_link}
             className={`
-  ${isMenuOpen ? "!bg-terra-pink" : "bg-black text-white md:text-black md:bg-white"}
-  font-barlowNormal text-xs px-2 py-1.5
-cursor-pointer`}
-            onClick={() => setOpen(true)}
+              ${isMenuOpen ? "!bg-terra-pink" : "bg-black text-white md:text-black md:bg-white"}
+              font-barlowNormal text-xs px-2 py-1.5
+              cursor-pointer`}
           >
-            {data.nav_buttonlink_text}
+            <PrismicNextLink field={data.nav_button_link}>
+              {data.nav_button_link.text}
+            </PrismicNextLink>
           </Button>
+
           <BookNowModal isOpen={open} onClose={() => setOpen(false)} />
-          {/* Mobile Toggle Button */}
+
           {/* Mobile Toggle Button */}
           <button
             onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -244,30 +276,29 @@ cursor-pointer`}
           >
             {/* Hamburger → X transition */}
             <span
-              className={`
-      absolute inset-0 flex items-center justify-center transition-all duration-300
-      ${isMenuOpen ? "opacity-0 rotate-45 scale-75" : "opacity-100 rotate-0 scale-100"}
-    `}
+              className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${isMenuOpen ? "opacity-0 rotate-45 scale-75" : "opacity-100 rotate-0 scale-100"}`}
             >
               <HamburgerIcon className="h-3 w-8 text-black lg:text-white" />
             </span>
 
             <span
-              className={`
-      absolute inset-0 flex items-center justify-center transition-all duration-300
-      ${isMenuOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-45 scale-75"}
-    `}
+              className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${isMenuOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-45 scale-75"}`}
             >
               <XMarkIcon className="h-4 w-8 text-black" />
             </span>
           </button>
         </div>
       )}
+
       <MobileMenu
         navigation={data.navigation}
         sublink={data.mobile_sub_links}
+        enquireNow={data.nav_buttonlink_text}
         isOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
+        onEnquireClick={() => {
+          setOpen(true);
+        }}
         className="z-60"
       />
     </div>

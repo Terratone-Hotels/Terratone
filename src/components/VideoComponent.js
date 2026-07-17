@@ -55,7 +55,7 @@ export default function VideoComponent({
       playsInline
       autoPlay={shouldLoad}
       preload={shouldLoad ? "auto" : preload}
-      className={className || "hero-video"}
+      className={className}
     >
       {shouldLoad && srcWebm ? (
         <source src={srcWebm} type="video/webm" />

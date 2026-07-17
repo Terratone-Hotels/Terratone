@@ -33,6 +33,7 @@ export default function BookNowModal({
   const [mounted, setMounted] = useState(false);
   const [animateIn, setAnimateIn] = useState(false);
   const closeTimer = useRef(null);
+  const asideRef = useRef(null);
 
   const { stopScroll, startScroll } = useLenisControl();
   const ANIM = 250;
@@ -78,35 +79,71 @@ export default function BookNowModal({
     if (!portalReady) return;
 
     if (isOpen) {
+      // Clear any pending close-timeout from a rapid reopen
+      if (closeTimer.current) {
+        clearTimeout(closeTimer.current);
+        closeTimer.current = null;
+      }
+
+      // ✅ Prevent page shift: measure the scrollbar width before locking scroll,
+      // then compensate with padding so content doesn't jump sideways.
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+      document.body.style.overflow = "hidden";
+
       setMounted(true);
-
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => setAnimateIn(true))
-      );
-
+      setActiveTab(initialTab);
       stopScroll();
       gsap.globalTimeline.pause();
 
-      setActiveTab(initialTab);
+      // ✅ Force a synchronous reflow so the browser commits the
+      // "translate-x-full" starting position before flipping to animated-in.
+      // This replaces the double-rAF trick, which browsers can coalesce
+      // into a single frame (causing the occasional "snap" instead of slide).
+      requestAnimationFrame(() => {
+        if (asideRef.current) {
+          // eslint-disable-next-line no-unused-expressions
+          asideRef.current.offsetHeight; // force reflow
+        }
+        setAnimateIn(true);
+      });
     } else {
       setAnimateIn(false);
 
       closeTimer.current = setTimeout(() => {
         setMounted(false);
 
+        // ✅ Restore page scroll + remove compensation padding
+        document.body.style.overflow = "";
+        document.body.style.paddingRight = "";
+
         startScroll();
         gsap.globalTimeline.resume();
       }, ANIM);
     }
 
-    return () => clearTimeout(closeTimer.current);
+    return () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+    };
   }, [isOpen, portalReady, initialTab, stopScroll, startScroll]);
+
+  // ✅ Safety net: always restore body styles if this component unmounts
+  // while still "open" (e.g. parent removes it without isOpen going false first).
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    };
+  }, []);
 
   if (!portalReady || !mounted) return null;
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex justify-end"
+      className="fixed inset-0 z-70 flex justify-end"
       aria-modal="true"
       role="dialog"
     >
@@ -117,6 +154,7 @@ export default function BookNowModal({
       />
 
       <aside
+        ref={asideRef}
         data-lenis-prevent
         onClick={(e) => e.stopPropagation()}
         className={`relative z-10 h-full w-[100vw] md:w-[420px] bg-stone text-black shadow-xl

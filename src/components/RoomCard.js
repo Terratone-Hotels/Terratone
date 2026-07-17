@@ -29,7 +29,7 @@ export default function RoomCard({
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const DURATION = 1.3;
+      const DURATION = 1;
 
       const revealSettings = {
         opacity: 0,

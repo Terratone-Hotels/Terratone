@@ -274,7 +274,6 @@ const HeroDefault = ({ slice }) => {
                     loading={index === 0 ? "eager" : "lazy"}
                     priority={index === 0}
                     fetchPriority={index === 0 ? "high" : "auto"}
-                    alt={item.image?.alt?.trim() || `Hero slide ${index + 1}`}
                     sizes="100vw"
                     imgixParams={{ q: 70 }}
                     className="w-full h-dvh object-cover"
@@ -327,12 +326,6 @@ const HeroDefault = ({ slice }) => {
                       */}
                       <PrismicNextImage
                         field={item.video ? item.thumbnail : item.image}
-                        alt={
-                          (item.video
-                            ? item.thumbnail?.alt
-                            : item.image?.alt
-                          )?.trim() || `Hero thumbnail ${index + 1}`
-                        }
                         priority={index === 0}
                         fetchPriority={index === 0 ? "high" : "low"}
                         loading={index === 0 ? "eager" : "lazy"}
