@@ -194,7 +194,7 @@ export default function HeaderClient({ headerData }) {
   }, []);
 
   return (
-    <div className="relative border">
+    <div className="relative">
       <header
         ref={headerRef}
         className=" fixed top-0 bg-stone lg:bg-transparent  z-50 w-full flex flex-row items-center justify-between  lg:px-6 py-4 transition-transform duration-300 ease-in-out"
