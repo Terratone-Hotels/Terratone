@@ -19,8 +19,10 @@ const THUMB_IMGIX = { w: 160, h: 180, q: 50, fit: "crop" };
 const LCP_BLOCKER_ID = "hero-default-lcp";
 
 /**
- * Mobile LCP: only the mobile image is priority (not desktop twin).
- * Avoids two full-viewport downloads fighting the LCP window.
+ * Prefer IMAGE as LCP on mobile:
+ * - One priority mobile <img> only (not desktop twin)
+ * - Full-viewport, eager, high fetchPriority
+ * - Video slides kept for non-LCP paths only (your first slide is image)
  */
 function HeroSlideMedia({ item, priority, onLoaded }) {
   if (item.video) {
@@ -35,22 +37,27 @@ function HeroSlideMedia({ item, priority, onLoaded }) {
 
   return (
     <>
+      {/* LCP candidate — mobile full-bleed image */}
       <PrismicNextImage
         field={item.image}
         loading={priority ? "eager" : "lazy"}
         priority={!!priority}
         fetchPriority={priority ? "high" : "auto"}
         sizes="100vw"
-        imgixParams={{ w: 900, q: 50, auto: "format,compress", fit: "max" }}
+        imgixParams={
+          priority
+            ? { w: 1080, q: 55, auto: "format,compress", fit: "max" }
+            : { w: 900, q: 50, auto: "format,compress", fit: "max" }
+        }
         className="w-full h-dvh object-cover md:hidden"
         onLoad={onLoaded}
       />
-      {/* Desktop only — never priority (mobile LH must not download this eagerly) */}
+      {/* Desktop — separate, not priority (avoids double download on mobile LH) */}
       <PrismicNextImage
         field={item.image}
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
         priority={false}
-        fetchPriority="auto"
+        fetchPriority={priority ? "high" : "auto"}
         sizes="100vw"
         imgixParams={{ q: 70, auto: "format,compress" }}
         className="w-full h-dvh object-cover hidden md:block"
@@ -66,6 +73,8 @@ const HeroDefault = ({ slice }) => {
   const [mountCarousel, setMountCarousel] = useState(false);
   const [swiperAPI, setSwiperAPI] = useState(null);
   const [carouselReady, setCarouselReady] = useState(false);
+  /** Mobile: hero image loaded → safe to reveal h1 (image should already be LCP). */
+  const [heroImageReady, setHeroImageReady] = useState(false);
 
   const { addBlocker, removeBlocker, isRevealed } = useLoader();
   const lcpBlockerCleared = useRef(false);
@@ -93,9 +102,18 @@ const HeroDefault = ({ slice }) => {
     if (lcpBlockerCleared.current) return;
     lcpBlockerCleared.current = true;
     removeBlocker(LCP_BLOCKER_ID);
+    // Image painted → allow h1 clip (mobile LCP should already be the image)
+    setHeroImageReady(true);
   }, [removeBlocker]);
 
-  // Clip-path wipe — mobile + desktop (shorter on mobile for main-thread)
+  // If onLoad never fires, don't leave h1 stuck forever
+  useEffect(() => {
+    if (!shouldSkipCurtain()) return;
+    const t = window.setTimeout(() => setHeroImageReady(true), 2800);
+    return () => window.clearTimeout(t);
+  }, []);
+
+  // Clip-path wipe — mobile + desktop (shorter on mobile)
   const animateHeadingIn = useCallback(() => {
     if (!headingRef.current) return;
 
@@ -124,11 +142,10 @@ const HeroDefault = ({ slice }) => {
     );
   }, []);
 
-  // Desktop only: pre-hide for curtain + clip. Mobile must NOT hide h1 before
-  // first paint — that made LCP = delayed text (~1s+ render delay).
+  // Keep h1 hidden until we intentionally reveal it.
+  // Mobile: stays hidden until hero IMAGE has loaded → image wins LCP.
+  // Desktop: hidden until curtain, then clip.
   useLayoutEffect(() => {
-    if (shouldSkipCurtain()) return;
-
     if (thumbsRef.current) {
       gsap.set(thumbsRef.current, { opacity: 0, y: 40 });
     }
@@ -139,73 +156,23 @@ const HeroDefault = ({ slice }) => {
       });
     }
     if (headingWrapperRef.current) {
-      gsap.set(headingWrapperRef.current, { opacity: 0, y: 50 });
+      if (shouldSkipCurtain()) {
+        gsap.set(headingWrapperRef.current, { opacity: 1, y: 0 });
+      } else {
+        gsap.set(headingWrapperRef.current, { opacity: 0, y: 50 });
+      }
     }
   }, []);
 
-  // After reveal (instant on mobile / after curtain on desktop)
+  // Desktop after curtain
   useLayoutEffect(() => {
+    if (shouldSkipCurtain()) return;
     if (!isRevealed || !headingRef.current || !headingWrapperRef.current)
       return;
 
-    const mobile = shouldSkipCurtain();
-
     gsap.set(headingWrapperRef.current, { opacity: 1, y: 0 });
-    hasAnimatedInitialHeading.current = true;
-
-    if (mobile) {
-      // Let the browser paint visible h1 first (LCP), then play clip for polish.
-      const raf1 = requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          animateHeadingIn();
-        });
-      });
-
-      const startMount = () => setMountCarousel(true);
-      let idleId;
-      if (typeof window.requestIdleCallback === "function") {
-        idleId = window.requestIdleCallback(startMount, { timeout: 2000 });
-      } else {
-        idleId = window.setTimeout(startMount, 800);
-      }
-
-      const thumbsTimer = window.setTimeout(() => {
-        if (thumbsIntroPlayed.current) return;
-        thumbsIntroPlayed.current = true;
-        setIsLoadingComplete(true);
-
-        const container = thumbsRef.current;
-        const thumbs = container?.querySelectorAll(".thumb");
-        if (!container || !thumbs?.length) return;
-
-        gsap.set(container, { opacity: 1, y: 0 });
-        gsap.set(thumbs, { opacity: 0, y: 24 });
-        gsap.to(thumbs, {
-          opacity: 1,
-          y: 0,
-          duration: 0.3,
-          ease: "power3.out",
-          stagger: 0.08,
-          overwrite: true,
-        });
-      }, 320);
-
-      return () => {
-        cancelAnimationFrame(raf1);
-        if (typeof window.cancelIdleCallback === "function") {
-          try {
-            window.cancelIdleCallback(idleId);
-          } catch {
-            /* ignore */
-          }
-        }
-        window.clearTimeout(idleId);
-        window.clearTimeout(thumbsTimer);
-      };
-    }
-
-    // Desktop: clip immediately after curtain
     animateHeadingIn();
+    hasAnimatedInitialHeading.current = true;
 
     const startMount = () => setMountCarousel(true);
     let idleId;
@@ -248,6 +215,58 @@ const HeroDefault = ({ slice }) => {
       window.clearTimeout(thumbsTimer);
     };
   }, [isRevealed, animateHeadingIn]);
+
+  // Mobile: wait for IMAGE load, then h1 clip (so LCP is the photo, not the text)
+  useLayoutEffect(() => {
+    if (!shouldSkipCurtain()) return;
+    if (!isRevealed || !heroImageReady) return;
+    if (hasAnimatedInitialHeading.current) return;
+    if (!headingRef.current) return;
+
+    hasAnimatedInitialHeading.current = true;
+    animateHeadingIn();
+
+    const startMount = () => setMountCarousel(true);
+    let idleId;
+    if (typeof window.requestIdleCallback === "function") {
+      idleId = window.requestIdleCallback(startMount, { timeout: 2000 });
+    } else {
+      idleId = window.setTimeout(startMount, 800);
+    }
+
+    const thumbsTimer = window.setTimeout(() => {
+      if (thumbsIntroPlayed.current) return;
+      thumbsIntroPlayed.current = true;
+      setIsLoadingComplete(true);
+
+      const container = thumbsRef.current;
+      const thumbs = container?.querySelectorAll(".thumb");
+      if (!container || !thumbs?.length) return;
+
+      gsap.set(container, { opacity: 1, y: 0 });
+      gsap.set(thumbs, { opacity: 0, y: 24 });
+      gsap.to(thumbs, {
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+        ease: "power3.out",
+        stagger: 0.08,
+        overwrite: true,
+      });
+    }, 320);
+
+    return () => {
+      if (typeof window.cancelIdleCallback === "function") {
+        try {
+          window.cancelIdleCallback(idleId);
+        } catch {
+          /* ignore */
+        }
+      }
+      window.clearTimeout(idleId);
+      window.clearTimeout(thumbsTimer);
+    };
+  }, [isRevealed, heroImageReady, animateHeadingIn]);
 
   useEffect(() => {
     if (!mountCarousel) return;
@@ -399,7 +418,8 @@ const HeroDefault = ({ slice }) => {
               >
                 {slides.map((item, index) => (
                   <SwiperSlide key={index}>
-                    <HeroSlideMedia item={item} priority={index === 0} />
+                    {/* No priority here — LCP image is only the static first paint layer */}
+                    <HeroSlideMedia item={item} priority={false} />
                   </SwiperSlide>
                 ))}
               </Swiper>
