@@ -419,7 +419,7 @@ const HeroDefault = ({ slice }) => {
               </Swiper>
             </div>
           )}
-          // this is a commnet for repushing
+
           {/* <div
             className="absolute bottom-0 w-full flex flex-col sm:items-center z-20 pb-6 md:pb-10 px-[22px]"
             style={{ pointerEvents: "none" }}
@@ -438,7 +438,7 @@ const HeroDefault = ({ slice }) => {
                 )}
               </div>
             </div>
-            // this is a commnet for repushing
+
             <div
               ref={thumbsRef}
               className="self-start md:self-center w-full md:flex md:justify-center overflow-x-auto max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
