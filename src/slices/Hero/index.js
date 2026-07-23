@@ -375,15 +375,15 @@ const HeroDefault = ({ slice }) => {
               </div>
             </div>
 
-            {/* Flex thumbs — not a second Swiper */}
+            {/* Flex thumbs — left on mobile, centered from md up */}
             <div
               ref={thumbsRef}
-              className="md:w-full md:flex md:justify-center overflow-x-auto max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="self-start md:self-center w-full md:flex md:justify-center overflow-x-auto max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               style={{
                 pointerEvents: isLoadingComplete ? "auto" : "none",
               }}
             >
-              <div className="flex gap-5 w-max mx-auto px-1">
+              <div className="flex gap-5 w-max justify-start md:mx-auto">
                 {slides.map((item, index) => (
                   <button
                     type="button"
