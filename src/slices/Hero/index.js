@@ -9,12 +9,6 @@ import React, {
 } from "react";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
-import { FreeMode, Navigation, Thumbs, Autoplay } from "swiper/modules";
 import { gsap } from "gsap";
 import VideoComponent from "@/components/VideoComponent";
 import Bounded from "@/components/Bounded";
@@ -24,10 +18,53 @@ import HeroSecondVariation from "@/components/HeroSecondVariation";
 const THUMB_IMGIX = { w: 160, h: 180, q: 50, fit: "crop" };
 const LCP_BLOCKER_ID = "hero-default-lcp";
 
+/** First-slide / slide media without Swiper — keeps LCP cheap before carousel mounts. */
+function HeroSlideMedia({ item, priority, onLoaded }) {
+  if (item.video) {
+    return (
+      <VideoComponent
+        srcMp4={item.youtube_video_id}
+        className="w-full h-dvh object-cover"
+        onLoadedData={onLoaded}
+      />
+    );
+  }
+
+  return (
+    <>
+      <PrismicNextImage
+        field={item.image}
+        loading={priority ? "eager" : "lazy"}
+        priority={!!priority}
+        fetchPriority={priority ? "high" : "auto"}
+        sizes="100vw"
+        imgixParams={{ q: 45, auto: "format,compress" }}
+        className="w-full h-dvh object-cover md:hidden"
+        onLoad={onLoaded}
+      />
+      <PrismicNextImage
+        field={item.image}
+        loading={priority ? "eager" : "lazy"}
+        priority={!!priority}
+        fetchPriority={priority ? "high" : "auto"}
+        sizes="100vw"
+        imgixParams={{ q: 70 }}
+        className="w-full h-dvh object-cover hidden md:block"
+        onLoad={onLoaded}
+      />
+    </>
+  );
+}
+
 const HeroDefault = ({ slice }) => {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
+  /** After curtain: allow Swiper chunk to load + mount */
+  const [mountCarousel, setMountCarousel] = useState(false);
+  /** Dynamically loaded Swiper API (not on critical path before curtain) */
+  const [swiperAPI, setSwiperAPI] = useState(null);
+  /** Hide static LCP only once main Swiper instance is ready */
+  const [carouselReady, setCarouselReady] = useState(false);
 
   const { addBlocker, removeBlocker, isRevealed } = useLoader();
   const lcpBlockerCleared = useRef(false);
@@ -100,7 +137,7 @@ const HeroDefault = ({ slice }) => {
     }
   }, []);
 
-  // Reveal is gated on the global curtain now, not a local curtain timeline.
+  // Curtain done → heading in, then schedule Swiper mount (after paint / idle).
   useLayoutEffect(() => {
     if (!isRevealed || !headingRef.current || !headingWrapperRef.current)
       return;
@@ -109,11 +146,18 @@ const HeroDefault = ({ slice }) => {
     animateHeadingIn();
     hasAnimatedInitialHeading.current = true;
 
-    // After H1 clip (~0.55s): thumbs one-by-one (does not affect LCP — thumb 0 already priority)
-    const t = window.setTimeout(() => {
+    const startMount = () => setMountCarousel(true);
+    let idleId;
+    if (typeof window.requestIdleCallback === "function") {
+      idleId = window.requestIdleCallback(startMount, { timeout: 600 });
+    } else {
+      idleId = window.setTimeout(startMount, 50);
+    }
+
+    // Flex thumbs live in the DOM immediately — intro does not need Swiper.
+    const thumbsTimer = window.setTimeout(() => {
       if (thumbsIntroPlayed.current) return;
       thumbsIntroPlayed.current = true;
-
       setIsLoadingComplete(true);
 
       const container = thumbsRef.current;
@@ -132,23 +176,57 @@ const HeroDefault = ({ slice }) => {
       });
     }, 480);
 
-    return () => window.clearTimeout(t);
+    return () => {
+      if (typeof window.cancelIdleCallback === "function") {
+        try {
+          window.cancelIdleCallback(idleId);
+        } catch {
+          /* ignore */
+        }
+      }
+      window.clearTimeout(idleId);
+      window.clearTimeout(thumbsTimer);
+    };
   }, [isRevealed, animateHeadingIn]);
 
-  // --- 2. Swiper Logic ---
+  // Load Swiper only when mountCarousel is true (not during curtain / early TBT window).
+  useEffect(() => {
+    if (!mountCarousel) return;
+    let cancelled = false;
+
+    (async () => {
+      // One Swiper only — Autoplay is the sole module (no FreeMode / Thumbs / Navigation).
+      const [{ Swiper, SwiperSlide }, modules] = await Promise.all([
+        import("swiper/react"),
+        import("swiper/modules"),
+        import("swiper/css"),
+      ]);
+      if (cancelled) return;
+      setSwiperAPI({
+        Swiper,
+        SwiperSlide,
+        Autoplay: modules.Autoplay,
+      });
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [mountCarousel]);
+
+  // --- 2. Main Swiper Logic ---
   const handleSwiper = useCallback(
     (swiper) => {
       swiperRef.current = swiper;
+      setCarouselReady(true);
 
-      const resetBars = (activeIndex) => {
+      // Progress rings: plain DOM only (autoplayTimeLeft fires often —
+      // GSAP here was a main-thread / TBT cost).
+      const resetBars = (idx) => {
         progressBarsRef.current.forEach((bar, i) => {
           if (!bar) return;
-          gsap.killTweensOf(bar);
-          gsap.set(bar, {
-            opacity: i === activeIndex ? 1 : 0.2,
-            strokeDashoffset: 1,
-            overwrite: true,
-          });
+          bar.style.opacity = i === idx ? "1" : "0.2";
+          bar.style.strokeDashoffset = "1";
         });
       };
 
@@ -158,12 +236,7 @@ const HeroDefault = ({ slice }) => {
         const activeBar = progressBarsRef.current[s.realIndex];
         if (!activeBar) return;
 
-        gsap.to(activeBar, {
-          strokeDashoffset: progress,
-          ease: "none",
-          duration: 0.1,
-          overwrite: "auto",
-        });
+        activeBar.style.strokeDashoffset = String(progress);
       };
 
       const onSlideChangeTransitionStart = () => {
@@ -182,122 +255,109 @@ const HeroDefault = ({ slice }) => {
         }
       };
 
-      const onTouchStart = () => {
-        const activeBar = progressBarsRef.current[swiper.realIndex];
-        if (activeBar) gsap.killTweensOf(activeBar);
-      };
-
       swiper.on("autoplayTimeLeft", autoplayTimeLeftHandler);
       swiper.on("slideChangeTransitionStart", onSlideChangeTransitionStart);
       swiper.on("slideChangeTransitionEnd", onSlideChangeTransitionEnd);
-      swiper.on("touchStart", onTouchStart);
     },
     [animateHeadingIn],
   );
 
-  // --- 3. Start Autoplay ONLY when Curtain is done ---
+  // --- 3. Start Autoplay ONLY when thumbs intro is done AND swiper exists ---
   useEffect(() => {
-    if (!isLoadingComplete) return;
+    if (!isLoadingComplete || !carouselReady) return;
 
     const swiper = swiperRef.current;
     if (!swiper) return;
 
     const firstBar = progressBarsRef.current[swiper.realIndex];
 
-    // 1. Ensure the bar is clean and ready
     if (firstBar) {
-      gsap.killTweensOf(firstBar); // Kill any background animation
-      gsap.set(firstBar, { opacity: 1, strokeDashoffset: 1 });
+      firstBar.style.opacity = "1";
+      firstBar.style.strokeDashoffset = "1";
     }
 
     setActiveIndex(swiper.realIndex);
 
-    // 2. Start autoplay explicitly now
     if (swiper.autoplay) {
-      swiper.autoplay.stop(); // Safety stop to reset internal timer
+      swiper.autoplay.stop();
       swiper.autoplay.start();
     }
-  }, [isLoadingComplete]);
+  }, [isLoadingComplete, carouselReady]);
 
-  // Thumb click
+  // Flex thumb click → drive the single main Swiper
   const onClickThumb = (index) => {
     if (!isLoadingComplete) return;
-    const swiper = swiperRef.current;
-    if (!swiper) return;
 
     if (headingRef.current) {
       gsap.killTweensOf(headingRef.current);
       gsap.set(headingRef.current, { opacity: 0 });
     }
 
-    if (swiper.slideToLoop) swiper.slideToLoop(index);
-    else swiper.slideTo(index);
+    const swiper = swiperRef.current;
+    if (swiper) {
+      if (swiper.slideToLoop) swiper.slideToLoop(index);
+      else swiper.slideTo(index);
+      return;
+    }
+
+    // Swiper not ready yet — still update heading/index for UX
+    setActiveIndex(index);
+    progressBarsRef.current.forEach((bar, i) => {
+      if (!bar) return;
+      bar.style.opacity = i === index ? "1" : "0.2";
+      bar.style.strokeDashoffset = "1";
+    });
+    animateHeadingIn();
   };
 
   if (!slides.length) return null;
 
+  const first = slides[0];
+  const { Swiper, SwiperSlide, Autoplay } = swiperAPI || {};
+
   return (
     <section data-hero-slice className="data-hero-slice">
       <Bounded full className="hero-section relative overflow-hidden">
-        {/* Main Slider */}
         <div className="relative z-10 origin-bottom">
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-9 pointer-events-none" />
 
-          <Swiper
-            loop
-            spaceBetween={0}
-            navigation={false}
-            thumbs={{ swiper: thumbsSwiper }}
-            modules={[FreeMode, Navigation, Thumbs, Autoplay]}
-            onSwiper={handleSwiper}
-            effect="fade"
-            speed={200}
-            // --- CRITICAL FIX: Enabled MUST be false here ---
-            autoplay={{
-              delay: 5000,
-              enabled: false, // <--- Prevents auto-start behind curtain
-              disableOnInteraction: false,
-              pauseOnMouseEnter: false,
-            }}
+          {/* Static LCP slide until Swiper is ready */}
+          <div
+            className={`relative w-full h-dvh ${carouselReady ? "invisible" : ""}`}
+            aria-hidden={carouselReady}
           >
-            {slides.map((item, index) => (
-              <SwiperSlide key={index}>
-                {item.video ? (
-                  <VideoComponent
-                    srcMp4={item.youtube_video_id}
-                    className="w-full h-dvh object-cover"
-                    onLoadedData={index === 0 ? clearLcpBlocker : undefined}
-                  />
-                ) : (
-                  <>
-                    {/* Mobile: smaller, more compressed */}
-                    <PrismicNextImage
-                      field={item.image}
-                      loading={index === 0 ? "eager" : "lazy"}
-                      priority={index === 0}
-                      fetchPriority={index === 0 ? "high" : "auto"}
-                      sizes="100vw"
-                      imgixParams={{ q: 45, auto: "format,compress" }}
-                      className="w-full h-dvh object-cover md:hidden"
-                      onLoad={index === 0 ? clearLcpBlocker : undefined}
-                    />
+            <HeroSlideMedia
+              item={first}
+              priority
+              onLoaded={clearLcpBlocker}
+            />
+          </div>
 
-                    {/* Desktop: unchanged quality */}
-                    <PrismicNextImage
-                      field={item.image}
-                      loading={index === 0 ? "eager" : "lazy"}
-                      priority={index === 0}
-                      fetchPriority={index === 0 ? "high" : "auto"}
-                      sizes="100vw"
-                      imgixParams={{ q: 70 }}
-                      className="w-full h-dvh object-cover hidden md:block"
-                      onLoad={index === 0 ? clearLcpBlocker : undefined}
-                    />
-                  </>
-                )}
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {/* Single main Swiper — only after curtain + dynamic import */}
+          {swiperAPI && (
+            <div className="absolute inset-0">
+              <Swiper
+                loop
+                spaceBetween={0}
+                modules={[Autoplay]}
+                onSwiper={handleSwiper}
+                speed={200}
+                autoplay={{
+                  delay: 5000,
+                  enabled: false,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: false,
+                }}
+                className="h-full"
+              >
+                {slides.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <HeroSlideMedia item={item} priority={index === 0} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          )}
 
           {/* Bottom Content */}
           <div
@@ -315,68 +375,62 @@ const HeroDefault = ({ slice }) => {
               </div>
             </div>
 
+            {/* Flex thumbs — not a second Swiper */}
             <div
               ref={thumbsRef}
-              className="md:w-full md:flex md:justify-center"
+              className="md:w-full md:flex md:justify-center overflow-x-auto max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               style={{
                 pointerEvents: isLoadingComplete ? "auto" : "none",
               }}
             >
-              <Swiper
-                onSwiper={setThumbsSwiper}
-                loop
-                spaceBetween={20}
-                slidesPerView="auto"
-                freeMode
-                watchSlidesProgress
-                modules={[FreeMode, Navigation, Thumbs]}
-                className="!w-auto"
-              >
+              <div className="flex gap-5 w-max mx-auto px-1">
                 {slides.map((item, index) => (
-                  <SwiperSlide key={index} className="thumb !w-auto">
-                    <div className="relative">
-                      {/*
-                        First thumb is intentional LCP candidate (Lighthouse ~1.9s).
-                        Discoverable immediately: priority + fetchPriority high, not lazy.
-                      */}
-                      <PrismicNextImage
-                        field={item.video ? item.thumbnail : item.image}
-                        priority={index === 0}
-                        fetchPriority={index === 0 ? "high" : "low"}
-                        loading={index === 0 ? "eager" : "lazy"}
-                        sizes="160px"
-                        imgixParams={THUMB_IMGIX}
-                        className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer"
-                        onClick={() => onClickThumb(index)}
+                  <button
+                    type="button"
+                    key={index}
+                    className="thumb relative shrink-0 p-0 border-0 bg-transparent"
+                    onClick={() => onClickThumb(index)}
+                    aria-label={`Show slide ${index + 1}`}
+                    aria-current={index === activeIndex ? "true" : undefined}
+                  >
+                    <PrismicNextImage
+                      field={item.video ? item.thumbnail : item.image}
+                      priority={index === 0}
+                      fetchPriority={index === 0 ? "high" : "low"}
+                      loading={index === 0 ? "eager" : "lazy"}
+                      sizes="160px"
+                      imgixParams={THUMB_IMGIX}
+                      className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer pointer-events-none"
+                    />
+                    <svg
+                      className="absolute inset-0 w-full h-full pointer-events-none"
+                      viewBox="0 0 100 100"
+                      preserveAspectRatio="none"
+                      style={{ transform: "scaleX(1) rotate(360deg)" }}
+                      aria-hidden
+                    >
+                      <rect
+                        transform="rotate(-90 50 50)"
+                        ref={(el) => {
+                          progressBarsRef.current[index] = el;
+                        }}
+                        pathLength="1"
+                        className="fill-transparent stroke-white stroke-[3]"
+                        style={{
+                          strokeDasharray: 1,
+                          strokeDashoffset: 1,
+                          opacity: index === activeIndex ? 1 : 0.2,
+                        }}
+                        x="1.5"
+                        y="1.5"
+                        width="97"
+                        height="97"
+                        rx="0"
                       />
-                      <svg
-                        className="absolute inset-0 w-full h-full"
-                        viewBox="0 0 100 100"
-                        preserveAspectRatio="none"
-                        style={{ transform: "scaleX(1) rotate(360deg)" }}
-                      >
-                        <rect
-                          transform="rotate(-90 50 50)"
-                          ref={(el) => (progressBarsRef.current[index] = el)}
-                          pathLength="1"
-                          className={`fill-transparent stroke-white stroke-[3] transition-opacity duration-300 ${
-                            index === activeIndex ? "opacity-100" : "opacity-20"
-                          }`}
-                          style={{
-                            strokeDasharray: 1,
-                            strokeDashoffset: 1,
-                          }}
-                          x="1.5"
-                          y="1.5"
-                          width="97"
-                          height="97"
-                          rx="0"
-                        />
-                      </svg>
-                    </div>
-                  </SwiperSlide>
+                    </svg>
+                  </button>
                 ))}
-              </Swiper>
+              </div>
             </div>
           </div>
         </div>
