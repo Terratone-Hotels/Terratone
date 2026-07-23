@@ -1,17 +1,22 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import { PrismicNextLink } from "@prismicio/next";
 import TerratoneLogo from "./terratoneLogo";
 import Bounded from "./Bounded";
 import MobileMenu from "./MobileMenu";
 import Button from "@/components/Button";
-import BookNowModal from "./BookNow/BookNowModal";
 import { usePathname } from "next/navigation";
 import useBookNowModal from "../hooks/useBookNowModal";
 import gsap from "gsap";
 import FooterLink from "./FooterLink";
 import CtaButton from "./CtaButton";
+
+// Booking modal + tabs/calendar only load on first open (off homepage critical path).
+const BookNowModal = dynamic(() => import("./BookNow/BookNowModal"), {
+  ssr: false,
+});
 
 const HamburgerIcon = (props) => (
   <svg
@@ -76,18 +81,26 @@ export default function HeaderClient({ headerData }) {
   const ctaBlendRef = useRef(null);
   const scrollTimeout = useRef(null);
   const [open, setOpen] = useState(false);
+  /** Mount modal chunk only after first open. */
+  const [modalMounted, setModalMounted] = useState(false);
   const data = headerData;
   const pathname = usePathname();
   const openGlobal = useBookNowModal((s) => s.openGlobal);
   const closeGlobal = useBookNowModal((s) => s.closeFromOutside);
+
+  const openModal = () => {
+    setModalMounted(true);
+    setOpen(true);
+  };
 
   // Style to hide elements when the menu is open on mobile
   const hideOnMobileOpen = isMenuOpen ? "invisible lg:visible" : "";
 
   useEffect(() => {
     if (openGlobal) {
-      setOpen(true); // Open your modal
-      closeGlobal(); // Reset global state
+      setModalMounted(true);
+      setOpen(true);
+      closeGlobal();
     }
   }, [openGlobal, closeGlobal]);
 
@@ -241,7 +254,7 @@ export default function HeaderClient({ headerData }) {
             arrowSpan="self-center"
             arrowClassName="w-3! h-3!"
             className="text-xs lg:text-sm "
-            onClick={() => setOpen(true)}
+            onClick={openModal}
           >
             {data.nav_buttonlink_text}
           </CtaButton>
@@ -266,7 +279,9 @@ export default function HeaderClient({ headerData }) {
             </PrismicNextLink>
           </Button>
 
-          <BookNowModal isOpen={open} onClose={() => setOpen(false)} />
+          {modalMounted && (
+            <BookNowModal isOpen={open} onClose={() => setOpen(false)} />
+          )}
 
           {/* Mobile Toggle Button */}
           <button
@@ -296,9 +311,7 @@ export default function HeaderClient({ headerData }) {
         enquireNow={data.nav_buttonlink_text}
         isOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
-        onEnquireClick={() => {
-          setOpen(true);
-        }}
+        onEnquireClick={openModal}
         className="z-60"
       />
     </div>

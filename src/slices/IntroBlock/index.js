@@ -1,12 +1,8 @@
 "use client";
 
-import Bounded from "@/components/Bounded";
 import Button from "@/components/Button";
-import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
 import RichTextRenderer from "@/components/RichTextRenderer";
-import GuitarStrings from "@/components/GuitarStrings";
-import SplitButton from "@/components/SplitButton";
 
 /**
  * @typedef {import("@prismicio/client").Content.IntroBlockSlice} IntroBlockSlice

@@ -1,116 +1,109 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import * as Tone from "tone";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const NOTES = ["E2", "A2", "D3", "G3", "B3", "E4"];
+
+/**
+ * Guitar pluck UI.
+ * Tone.js is loaded only on first interaction (dynamic import) so the
+ * large tone chunk is not part of the GuitarStrings module graph at parse time.
+ */
 export default function GuitarStringsPhysics() {
   const containerRef = useRef(null);
   const linesRef = useRef([]);
   const samplerRef = useRef(null);
-  const audioStartedRef = useRef(false);
+  const initPromiseRef = useRef(null);
   const prevMouseY = useRef(null);
 
-  const notes = ["E2", "A2", "D3", "G3", "B3", "E4"]; // standard tuning
+  // Load Tone + sampler once — never via top-level import.
+  const initializeSampler = useCallback(async () => {
+    if (samplerRef.current) return samplerRef.current;
+    if (initPromiseRef.current) return initPromiseRef.current;
 
-  // 🔓 Unlock audio on first user gesture
-  useEffect(() => {
-    const unlockAudio = async () => {
-      try {
-        await Tone.start();
-        console.log("🔓 Tone.js unlocked");
-        window.removeEventListener("mousedown", unlockAudio);
-        window.removeEventListener("touchstart", unlockAudio);
-      } catch (e) {
-        console.warn("Tone unlock failed:", e);
-      }
-    };
+    initPromiseRef.current = (async () => {
+      const ToneMod = await import("tone");
+      const T = ToneMod.default?.Sampler ? ToneMod.default : ToneMod;
 
-    window.addEventListener("mousedown", unlockAudio);
-    window.addEventListener("touchstart", unlockAudio);
+      await T.start();
 
-    return () => {
-      window.removeEventListener("mousedown", unlockAudio);
-      window.removeEventListener("touchstart", unlockAudio);
-    };
-  }, []);
+      const sampler = new T.Sampler({
+        urls: {
+          E2: "E2.wav",
+          A2: "A2.wav",
+          D3: "D3.wav",
+          G3: "G3.wav",
+          B3: "B3.wav",
+          E4: "E4.wav",
+        },
+        baseUrl: "/samples/guitar/",
+      }).toDestination();
 
-  // 🎵 Initialize Sampler
-  const initializeSampler = async () => {
-    if (audioStartedRef.current) return;
-    await Tone.start();
-
-    const sampler = new Tone.Sampler({
-      urls: {
-        E2: "E2.wav",
-        A2: "A2.wav",
-        D3: "D3.wav",
-        G3: "G3.wav",
-        B3: "B3.wav",
-        E4: "E4.wav",
-      },
-      baseUrl: "/samples/guitar/",
-      onload: () => console.log("🎸 Sampler loaded"),
-    }).toDestination();
-
-    samplerRef.current = sampler;
-    audioStartedRef.current = true;
-  };
-
-  // 🎸 Play string (vibration animation included)
-  const handlePlayString = async (index) => {
-    if (!audioStartedRef.current) await initializeSampler();
-    if (!samplerRef.current) return;
-
-    const note = notes[index];
-    const velocity = 0.4 + Math.random() * 0.6;
-    samplerRef.current.triggerAttackRelease(note, "1n", undefined, velocity);
-
-    const line = linesRef.current[index].querySelector(".string-color-fill");
-    if (!line) return;
-
-    gsap.killTweensOf(line);
-    gsap.set(line, { y: 0, filter: "blur(0px)" });
-
-    const tl = gsap.timeline();
-    tl.to(line, { y: -3, duration: 0.05, ease: "power1.out" })
-      .to(line, {
-        y: 3,
-        duration: 0.05,
-        ease: "power1.inOut",
-        yoyo: true,
-        repeat: 2,
-      })
-      .to(line, { y: 0, duration: 0.12, ease: "elastic.out(1,0.3)" });
-  };
-
-  // 📥 Preload audio when near viewport
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          initializeSampler();
-          observer.disconnect();
+      await new Promise((resolve) => {
+        if (sampler.loaded) {
+          resolve();
+          return;
         }
-      },
-      { rootMargin: "200px" }
-    );
+        const prev = sampler.onload;
+        sampler.onload = () => {
+          if (typeof prev === "function") prev();
+          resolve();
+        };
+        // Safety if onload never fires
+        setTimeout(resolve, 4000);
+      });
 
-    if (containerRef.current) observer.observe(containerRef.current);
-    return () => observer.disconnect();
+      samplerRef.current = sampler;
+      return sampler;
+    })().catch((e) => {
+      initPromiseRef.current = null;
+      console.warn("Guitar sampler init failed:", e);
+      return null;
+    });
+
+    return initPromiseRef.current;
   }, []);
 
-  // 🖱️ Mouse / touch pluck detection
+  const handlePlayString = useCallback(
+    async (index) => {
+      const sampler = await initializeSampler();
+      if (!sampler) return;
+
+      const note = NOTES[index];
+      const velocity = 0.4 + Math.random() * 0.6;
+      sampler.triggerAttackRelease(note, "1n", undefined, velocity);
+
+      const line = linesRef.current[index]?.querySelector(".string-color-fill");
+      if (!line) return;
+
+      gsap.killTweensOf(line);
+      gsap.set(line, { y: 0, filter: "blur(0px)" });
+
+      gsap
+        .timeline()
+        .to(line, { y: -3, duration: 0.05, ease: "power1.out" })
+        .to(line, {
+          y: 3,
+          duration: 0.05,
+          ease: "power1.inOut",
+          yoyo: true,
+          repeat: 2,
+        })
+        .to(line, { y: 0, duration: 0.12, ease: "elastic.out(1,0.3)" });
+    },
+    [initializeSampler],
+  );
+
+  // Pluck detection — first audio need triggers dynamic Tone import
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const handleMouseMove = async (e) => {
-      if (!audioStartedRef.current) await initializeSampler();
-
+    const handleMouseMove = (e) => {
       const rect = container.getBoundingClientRect();
       const y = e.clientY - rect.top;
 
@@ -122,12 +115,17 @@ export default function GuitarStringsPhysics() {
       const direction = y > prevMouseY.current ? "down" : "up";
 
       linesRef.current.forEach((line, i) => {
+        if (!line) return;
         const lineRect = line.getBoundingClientRect();
         const stringY = lineRect.top - rect.top;
 
         const crossed =
-          (prevMouseY.current < stringY && y >= stringY && direction === "down") ||
-          (prevMouseY.current > stringY && y <= stringY && direction === "up");
+          (prevMouseY.current < stringY &&
+            y >= stringY &&
+            direction === "down") ||
+          (prevMouseY.current > stringY &&
+            y <= stringY &&
+            direction === "up");
 
         if (crossed) handlePlayString(i);
       });
@@ -135,18 +133,20 @@ export default function GuitarStringsPhysics() {
       prevMouseY.current = y;
     };
 
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("touchmove", (e) => {
+    const onTouchMove = (e) => {
       if (e.touches?.[0]) handleMouseMove(e.touches[0]);
-    });
+    };
+
+    container.addEventListener("mousemove", handleMouseMove);
+    container.addEventListener("touchmove", onTouchMove, { passive: true });
 
     return () => {
       container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("touchmove", handleMouseMove);
+      container.removeEventListener("touchmove", onTouchMove);
     };
-  }, []);
+  }, [handlePlayString]);
 
-  // ✨ Intro Animation (Words → Pause → Strings)
+  // Visual intro only — no Tone
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.set(".string-color-fill", {
@@ -165,7 +165,6 @@ export default function GuitarStringsPhysics() {
         defaults: { ease: "power3.out" },
       });
 
-      // Words fade in
       tl.to(".string-text", {
         opacity: 1,
         y: 0,
@@ -173,10 +172,8 @@ export default function GuitarStringsPhysics() {
         stagger: 0.25,
       });
 
-      // Pause before strings appear
       tl.to({}, { duration: 0.4 });
 
-      // Strings fill left→right
       tl.to(".string-color-fill", {
         scaleX: 1,
         duration: 0.6,
@@ -191,18 +188,23 @@ export default function GuitarStringsPhysics() {
     <div
       ref={containerRef}
       className="flex flex-col items-center justify-center py-10 bg-stone w-full"
-      onMouseDown={initializeSampler}
-      onTouchStart={initializeSampler}
+      onMouseDown={() => {
+        initializeSampler();
+      }}
+      onTouchStart={() => {
+        initializeSampler();
+      }}
     >
       <div className="flex flex-col items-center w-full max-w-2xl select-none">
-        {notes.map((note, i) => (
+        {NOTES.map((note, i) => (
           <div
             key={note}
-            ref={(el) => (linesRef.current[i] = el)}
+            ref={(el) => {
+              linesRef.current[i] = el;
+            }}
             className="w-full h-[1px] md:h-[2px] my-4 md:my-6 rounded-full relative"
           >
-            {/* Fill bar for animation + vibration */}
-            <div className="string-color-fill w-full h-full rounded-full absolute top-0 left-0"></div>
+            <div className="string-color-fill w-full h-full rounded-full absolute top-0 left-0" />
 
             {i === 1 && (
               <span className="string-text absolute -top-[22px] md:-top-[2.5rem] left-0 bg-stone pr-3 font-serif text-2xl md:text-5xl">
