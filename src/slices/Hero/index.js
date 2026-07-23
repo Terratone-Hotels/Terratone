@@ -269,16 +269,31 @@ const HeroDefault = ({ slice }) => {
                     onLoadedData={index === 0 ? clearLcpBlocker : undefined}
                   />
                 ) : (
-                  <PrismicNextImage
-                    field={item.image}
-                    loading={index === 0 ? "eager" : "lazy"}
-                    priority={index === 0}
-                    fetchPriority={index === 0 ? "high" : "auto"}
-                    sizes="100vw"
-                    imgixParams={{ q: 70 }}
-                    className="w-full h-dvh object-cover"
-                    onLoad={index === 0 ? clearLcpBlocker : undefined}
-                  />
+                  <>
+                    {/* Mobile: smaller, more compressed */}
+                    <PrismicNextImage
+                      field={item.image}
+                      loading={index === 0 ? "eager" : "lazy"}
+                      priority={index === 0}
+                      fetchPriority={index === 0 ? "high" : "auto"}
+                      sizes="100vw"
+                      imgixParams={{ q: 45, auto: "format,compress" }}
+                      className="w-full h-dvh object-cover md:hidden"
+                      onLoad={index === 0 ? clearLcpBlocker : undefined}
+                    />
+
+                    {/* Desktop: unchanged quality */}
+                    <PrismicNextImage
+                      field={item.image}
+                      loading={index === 0 ? "eager" : "lazy"}
+                      priority={index === 0}
+                      fetchPriority={index === 0 ? "high" : "auto"}
+                      sizes="100vw"
+                      imgixParams={{ q: 70 }}
+                      className="w-full h-dvh object-cover hidden md:block"
+                      onLoad={index === 0 ? clearLcpBlocker : undefined}
+                    />
+                  </>
                 )}
               </SwiperSlide>
             ))}

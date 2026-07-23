@@ -35,12 +35,12 @@ const MeetingHalls = ({ slice }) => {
     if (!cards.length || !section) return;
 
     // Start cards lower
-    gsap.set(cards, { y: 650 });
+    gsap.set(cards, { y: 650, force3D: true, willChange: "transform" });
 
     gsap.to(cards, {
       y: 0,
       duration: 8, // smoother + slower
-      ease: "circ.out",
+      // ease: "circ.out",
       stagger: 1, // reveal one-by-one slowly
       scrollTrigger: {
         trigger: section,

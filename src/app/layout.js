@@ -48,6 +48,13 @@ export const viewport = {
 export default async function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="preconnect"
+          href="https://images.prismic.io"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body
         className={`${garamond.variable} ${barlow.variable} ${barlowNormal.variable}  antialiased`}
       >

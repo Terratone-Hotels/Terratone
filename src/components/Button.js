@@ -100,7 +100,7 @@ export default function Button({
         !noBorder && "border border-black",
         "grid-cols-[auto_auto]"
       )}
-      style={{ alignItems: "stretch" }} // so grid items stretch height-wise
+      style={{ alignItems: "stretch" }}
     >
       {/* Text span */}
       <span
