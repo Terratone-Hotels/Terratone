@@ -8,19 +8,16 @@ import {
   useRef,
   useState,
 } from "react";
-// Static import — dynamic/ssr:false caused a frame (or more) with no curtain = hero flash.
 import PageLoader from "./PageLoader";
 
 const LoaderContext = createContext(null);
 
-// Time to let child effects register a blocker before we assume there are none.
 const GRACE_WINDOW_MS = 150;
-// One stuck asset must never hang the whole site.
 const SAFETY_TIMEOUT_MS = 4000;
 
 /**
- * Mobile / touch / reduced-motion: no curtain (LCP / SI).
- * Desktop: branded wipe from the very first paint (no hero flash).
+ * Mobile / touch / reduced-motion: no curtain.
+ * Desktop: branded wipe from first paint.
  */
 export function shouldSkipCurtain() {
   if (typeof window === "undefined") return false;
@@ -39,8 +36,8 @@ export function LoaderProvider({ children }) {
 
   const [shouldWipe, setShouldWipe] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
-  // TRUE on first render so desktop never paints hero without a black cover.
-  // Mobile clears this in useLayoutEffect before the browser paints.
+  // Desktop first paint needs curtain in the tree; CSS hides it on mobile
+  // so SSR never paints a black screen under 768px.
   const [showCurtain, setShowCurtain] = useState(true);
 
   const attemptWipe = useCallback(() => {
@@ -72,7 +69,6 @@ export function LoaderProvider({ children }) {
       return;
     }
 
-    // Desktop: curtain already on screen from first render — start wipe timers only.
     graceTimerRef.current = setTimeout(attemptWipe, GRACE_WINDOW_MS);
     safetyTimerRef.current = setTimeout(() => {
       hasWipedRef.current = true;
@@ -87,7 +83,6 @@ export function LoaderProvider({ children }) {
 
   const handleRevealed = useCallback(() => {
     setIsRevealed(true);
-    // Unmount after wipe so we don't leave a display:none layer forever
     setShowCurtain(false);
   }, []);
 

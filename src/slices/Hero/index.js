@@ -18,7 +18,10 @@ import HeroSecondVariation from "@/components/HeroSecondVariation";
 const THUMB_IMGIX = { w: 160, h: 180, q: 50, fit: "crop" };
 const LCP_BLOCKER_ID = "hero-default-lcp";
 
-/** First-slide / slide media without Swiper — keeps LCP cheap before carousel mounts. */
+/**
+ * Mobile LCP: only the mobile image is priority (not desktop twin).
+ * Avoids two full-viewport downloads fighting the LCP window.
+ */
 function HeroSlideMedia({ item, priority, onLoaded }) {
   if (item.video) {
     return (
@@ -38,19 +41,20 @@ function HeroSlideMedia({ item, priority, onLoaded }) {
         priority={!!priority}
         fetchPriority={priority ? "high" : "auto"}
         sizes="100vw"
-        imgixParams={{ q: 45, auto: "format,compress" }}
+        imgixParams={{ w: 900, q: 50, auto: "format,compress", fit: "max" }}
         className="w-full h-dvh object-cover md:hidden"
         onLoad={onLoaded}
       />
+      {/* Desktop only — never priority (mobile LH must not download this eagerly) */}
       <PrismicNextImage
         field={item.image}
-        loading={priority ? "eager" : "lazy"}
-        priority={!!priority}
-        fetchPriority={priority ? "high" : "auto"}
+        loading="lazy"
+        priority={false}
+        fetchPriority="auto"
         sizes="100vw"
-        imgixParams={{ q: 70 }}
+        imgixParams={{ q: 70, auto: "format,compress" }}
         className="w-full h-dvh object-cover hidden md:block"
-        onLoad={onLoaded}
+        onLoad={priority ? onLoaded : undefined}
       />
     </>
   );
@@ -120,8 +124,11 @@ const HeroDefault = ({ slice }) => {
     );
   }, []);
 
-  // Initial hidden state (both mobile + desktop) so clip-path can play
+  // Desktop only: pre-hide for curtain + clip. Mobile must NOT hide h1 before
+  // first paint — that made LCP = delayed text (~1s+ render delay).
   useLayoutEffect(() => {
+    if (shouldSkipCurtain()) return;
+
     if (thumbsRef.current) {
       gsap.set(thumbsRef.current, { opacity: 0, y: 40 });
     }
@@ -144,22 +151,70 @@ const HeroDefault = ({ slice }) => {
     const mobile = shouldSkipCurtain();
 
     gsap.set(headingWrapperRef.current, { opacity: 1, y: 0 });
-    animateHeadingIn();
     hasAnimatedInitialHeading.current = true;
 
-    // Defer Swiper: longer on mobile so TBT window is past first paint/LCP
+    if (mobile) {
+      // Let the browser paint visible h1 first (LCP), then play clip for polish.
+      const raf1 = requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          animateHeadingIn();
+        });
+      });
+
+      const startMount = () => setMountCarousel(true);
+      let idleId;
+      if (typeof window.requestIdleCallback === "function") {
+        idleId = window.requestIdleCallback(startMount, { timeout: 2000 });
+      } else {
+        idleId = window.setTimeout(startMount, 800);
+      }
+
+      const thumbsTimer = window.setTimeout(() => {
+        if (thumbsIntroPlayed.current) return;
+        thumbsIntroPlayed.current = true;
+        setIsLoadingComplete(true);
+
+        const container = thumbsRef.current;
+        const thumbs = container?.querySelectorAll(".thumb");
+        if (!container || !thumbs?.length) return;
+
+        gsap.set(container, { opacity: 1, y: 0 });
+        gsap.set(thumbs, { opacity: 0, y: 24 });
+        gsap.to(thumbs, {
+          opacity: 1,
+          y: 0,
+          duration: 0.3,
+          ease: "power3.out",
+          stagger: 0.08,
+          overwrite: true,
+        });
+      }, 320);
+
+      return () => {
+        cancelAnimationFrame(raf1);
+        if (typeof window.cancelIdleCallback === "function") {
+          try {
+            window.cancelIdleCallback(idleId);
+          } catch {
+            /* ignore */
+          }
+        }
+        window.clearTimeout(idleId);
+        window.clearTimeout(thumbsTimer);
+      };
+    }
+
+    // Desktop: clip immediately after curtain
+    animateHeadingIn();
+
     const startMount = () => setMountCarousel(true);
     let idleId;
     if (typeof window.requestIdleCallback === "function") {
-      idleId = window.requestIdleCallback(startMount, {
-        timeout: mobile ? 2000 : 600,
-      });
+      idleId = window.requestIdleCallback(startMount, { timeout: 600 });
     } else {
-      idleId = window.setTimeout(startMount, mobile ? 800 : 50);
+      idleId = window.setTimeout(startMount, 50);
     }
 
-    // Thumbs: CSS-ish via short gsap stagger after heading (mobile slightly faster)
-    const thumbsDelay = mobile ? 320 : 480;
     const thumbsTimer = window.setTimeout(() => {
       if (thumbsIntroPlayed.current) return;
       thumbsIntroPlayed.current = true;
@@ -174,12 +229,12 @@ const HeroDefault = ({ slice }) => {
       gsap.to(thumbs, {
         opacity: 1,
         y: 0,
-        duration: mobile ? 0.3 : 0.45,
+        duration: 0.45,
         ease: "power3.out",
-        stagger: mobile ? 0.08 : 0.2,
+        stagger: 0.2,
         overwrite: true,
       });
-    }, thumbsDelay);
+    }, 480);
 
     return () => {
       if (typeof window.cancelIdleCallback === "function") {
