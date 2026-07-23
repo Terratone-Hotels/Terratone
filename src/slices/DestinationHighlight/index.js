@@ -40,7 +40,7 @@ const DestinationHighlight = ({ slice }) => {
                 trigger: container,
                 start: "top bottom",
                 end: "bottom top",
-                scrub: 1.3,
+                scrub: true,
               },
             },
           );
