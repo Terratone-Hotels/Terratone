@@ -8,7 +8,8 @@ import {
   useRef,
   useState,
 } from "react";
-import dynamic from "next/dynamic";
+// Static import — dynamic/ssr:false caused a frame (or more) with no curtain = hero flash.
+import PageLoader from "./PageLoader";
 
 const LoaderContext = createContext(null);
 
@@ -17,12 +18,9 @@ const GRACE_WINDOW_MS = 150;
 // One stuck asset must never hang the whole site.
 const SAFETY_TIMEOUT_MS = 4000;
 
-// Curtain JS (GSAP PageLoader) only on desktop — not in the mobile parse path.
-const PageLoader = dynamic(() => import("./PageLoader"), { ssr: false });
-
 /**
- * Mobile / touch / reduced-motion: no curtain (best LCP / Speed Index).
- * Desktop: branded wipe.
+ * Mobile / touch / reduced-motion: no curtain (LCP / SI).
+ * Desktop: branded wipe from the very first paint (no hero flash).
  */
 export function shouldSkipCurtain() {
   if (typeof window === "undefined") return false;
@@ -41,8 +39,9 @@ export function LoaderProvider({ children }) {
 
   const [shouldWipe, setShouldWipe] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
-  // null = undecided | false = mobile skip | true = desktop curtain
-  const [showCurtain, setShowCurtain] = useState(null);
+  // TRUE on first render so desktop never paints hero without a black cover.
+  // Mobile clears this in useLayoutEffect before the browser paints.
+  const [showCurtain, setShowCurtain] = useState(true);
 
   const attemptWipe = useCallback(() => {
     if (hasWipedRef.current) return;
@@ -73,8 +72,7 @@ export function LoaderProvider({ children }) {
       return;
     }
 
-    setShowCurtain(true);
-
+    // Desktop: curtain already on screen from first render — start wipe timers only.
     graceTimerRef.current = setTimeout(attemptWipe, GRACE_WINDOW_MS);
     safetyTimerRef.current = setTimeout(() => {
       hasWipedRef.current = true;
@@ -87,11 +85,15 @@ export function LoaderProvider({ children }) {
     };
   }, [attemptWipe]);
 
-  const handleRevealed = useCallback(() => setIsRevealed(true), []);
+  const handleRevealed = useCallback(() => {
+    setIsRevealed(true);
+    // Unmount after wipe so we don't leave a display:none layer forever
+    setShowCurtain(false);
+  }, []);
 
   return (
     <LoaderContext.Provider value={{ addBlocker, removeBlocker, isRevealed }}>
-      {showCurtain === true && (
+      {showCurtain && (
         <PageLoader shouldWipe={shouldWipe} onRevealed={handleRevealed} />
       )}
       {children}

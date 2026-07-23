@@ -1,8 +1,5 @@
 "use client";
 
-import { useRef } from "react";
-import { useEasterEggStore } from "@/store/easterEggStore";
-
 export default function RatingStars({
   rating = 0,
   maxStars = 5,
@@ -17,31 +14,12 @@ export default function RatingStars({
   const hasHalf = safeRating % 1 >= 0.5;
   const emptyStars = maxStars - fullStars - (hasHalf ? 1 : 0);
 
-  const clickCount = useRef(0);
-  const resetTimer = useRef(null);
-  const triggerSnow = useEasterEggStore((s) => s.triggerSnow);
-
-  const handleStarClick = () => {
-    clickCount.current += 1;
-
-    clearTimeout(resetTimer.current);
-    resetTimer.current = setTimeout(() => {
-      clickCount.current = 0;
-    }, 1200);
-
-    if (clickCount.current === 5) {
-      triggerSnow();
-      clickCount.current = 0;
-    }
-  };
-
   const StarSVG = (
     <svg
       className={`${starClassName} `}
       viewBox="0 0 22 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ pointerEvents: "none" }}
     >
       <path
         d="M8.7255 1.38797C9.32681 -0.462659 11.945 -0.462657 12.5463 1.38798L13.68 4.87725C13.9489 5.70488 14.7202 6.26522 15.5904 6.26522H19.2592C21.2051 6.26522 22.0141 8.75523 20.4399 9.89899L17.4718 12.0555C16.7677 12.567 16.4731 13.4736 16.7421 14.3013L17.8758 17.7905C18.4771 19.6412 16.359 21.1801 14.7847 20.0363L11.8166 17.8798C11.1125 17.3683 10.1592 17.3683 9.4552 17.8798L6.48705 20.0363C4.91281 21.1801 2.79468 19.6412 3.39599 17.7905L4.52972 14.3013C4.79863 13.4736 4.50404 12.567 3.80002 12.0555L0.831864 9.89899C-0.742378 8.75523 0.0666764 6.26522 2.01255 6.26522H5.68139C6.55161 6.26522 7.32286 5.70488 7.59177 4.87725L8.7255 1.38797Z"
@@ -50,25 +28,16 @@ export default function RatingStars({
     </svg>
   );
 
-  const ClickableStar = ({ color, children }) => (
-    <div onClick={handleStarClick} className="select-none" style={{ color }}>
-      {children}
-    </div>
-  );
-
   return (
     <div className={`flex items-center gap-1 ${className}`}>
       {[...Array(fullStars)].map((_, i) => (
-        <ClickableStar key={`full-${i}`} color={filledColor}>
+        <div key={`full-${i}`} style={{ color: filledColor }}>
           {StarSVG}
-        </ClickableStar>
+        </div>
       ))}
 
       {hasHalf && (
-        <div
-          className="relative inline-flex cursor-pointer"
-          onClick={handleStarClick}
-        >
+        <div className="relative inline-flex">
           <div style={{ color: emptyColor }}>{StarSVG}</div>
           <div
             className="absolute top-0 left-0 overflow-hidden"
@@ -80,9 +49,9 @@ export default function RatingStars({
       )}
 
       {[...Array(emptyStars)].map((_, i) => (
-        <ClickableStar key={`empty-${i}`} color={emptyColor}>
+        <div key={`empty-${i}`} style={{ color: emptyColor }}>
           {StarSVG}
-        </ClickableStar>
+        </div>
       ))}
     </div>
   );

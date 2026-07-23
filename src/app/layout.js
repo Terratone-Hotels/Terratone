@@ -7,7 +7,6 @@ import { Toaster } from "react-hot-toast";
 import HotelJsonLd from "@/components/HotelJsonLd";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { LoaderProvider } from "@/context/LoaderContext";
-import SnowEasterEggLazy from "@/components/SnowEasterEggLazy";
 
 // Lean font set — fewer files = faster text paint / better SI on mobile.
 const garamond = EB_Garamond({
@@ -59,7 +58,6 @@ export default async function RootLayout({ children }) {
       >
         <GoogleAnalytics />
         <HotelJsonLd />
-        <SnowEasterEggLazy />
         <Toaster
           position="top-center"
           toastOptions={{
