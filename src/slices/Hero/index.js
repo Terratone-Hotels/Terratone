@@ -393,11 +393,7 @@ const HeroDefault = ({ slice }) => {
             className={`relative w-full h-dvh ${carouselReady ? "invisible" : ""}`}
             aria-hidden={carouselReady}
           >
-            <HeroSlideMedia
-              item={first}
-              priority
-              onLoaded={clearLcpBlocker}
-            />
+            <HeroSlideMedia item={first} priority onLoaded={clearLcpBlocker} />
           </div>
 
           {swiperAPI && (
