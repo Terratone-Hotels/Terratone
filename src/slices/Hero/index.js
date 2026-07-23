@@ -347,7 +347,7 @@ const HeroDefault = ({ slice }) => {
     }
 
     setActiveIndex(swiper.realIndex);
-
+    //comment 1
     if (swiper.autoplay) {
       swiper.autoplay.stop();
       swiper.autoplay.start();
@@ -388,14 +388,12 @@ const HeroDefault = ({ slice }) => {
       <Bounded full className="hero-section relative overflow-hidden">
         <div className="relative z-10 origin-bottom">
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-9 pointer-events-none" />
-
           <div
             className={`relative w-full h-dvh ${carouselReady ? "invisible" : ""}`}
             aria-hidden={carouselReady}
           >
             <HeroSlideMedia item={first} priority onLoaded={clearLcpBlocker} />
           </div>
-
           {swiperAPI && (
             <div className="absolute inset-0">
               <Swiper
@@ -421,7 +419,11 @@ const HeroDefault = ({ slice }) => {
               </Swiper>
             </div>
           )}
-
+          // this is a commnet for repushing
+          {/* <div
+            className="absolute bottom-0 w-full flex flex-col sm:items-center z-20 pb-6 md:pb-10 px-[22px]"
+            style={{ pointerEvents: "none" }}
+          > */}
           <div
             className="absolute bottom-0 w-full flex flex-col sm:items-center z-20 pb-6 md:pb-10 px-[22px]"
             style={{ pointerEvents: "none" }}
@@ -436,7 +438,7 @@ const HeroDefault = ({ slice }) => {
                 )}
               </div>
             </div>
-
+            // this is a commnet for repushing
             <div
               ref={thumbsRef}
               className="self-start md:self-center w-full md:flex md:justify-center overflow-x-auto max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
