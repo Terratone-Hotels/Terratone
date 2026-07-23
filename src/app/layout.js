@@ -1,36 +1,36 @@
 import { EB_Garamond, Barlow_Semi_Condensed, Barlow } from "next/font/google";
 import "./globals.css";
-import SmoothScrollWrapper from "../components/SmoothScrollWrapper";
 import Header from "@/components/HeaderWrapper";
 import FooterServer from "@/components/FooterServer";
 import LenisScrollProvider from "@/components/LenisScrollContext";
 import { Toaster } from "react-hot-toast";
-import WebVitals from "@/components/WebVitals";
-import SnowEasterEggClient from "@/components/SnowEasterEggClient";
 import HotelJsonLd from "@/components/HotelJsonLd";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { LoaderProvider } from "@/context/LoaderContext";
+import SnowEasterEggLazy from "@/components/SnowEasterEggLazy";
 
+// Lean font set — fewer files = faster text paint / better SI on mobile.
 const garamond = EB_Garamond({
   variable: "--font-eb-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"], // <-- include italic
+  weight: ["400", "600", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
 const barlow = Barlow_Semi_Condensed({
   variable: "--font-barlow",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"], // <-- include italic
+  weight: ["400", "600", "700"],
+  style: ["normal"],
   display: "swap",
 });
+
 const barlowNormal = Barlow({
   variable: "--font-barlowNormal",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"], // <-- include italic
+  weight: ["400", "500", "700"],
+  style: ["normal"],
   display: "swap",
 });
 
@@ -42,7 +42,6 @@ export const metadata = {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  // maximumScale: 1,
 };
 
 export default async function RootLayout({ children }) {
@@ -56,13 +55,11 @@ export default async function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`${garamond.variable} ${barlow.variable} ${barlowNormal.variable}  antialiased`}
+        className={`${garamond.variable} ${barlow.variable} ${barlowNormal.variable} antialiased`}
       >
-        {/* GA4 Google tag — requires NEXT_PUBLIC_GA_MEASUREMENT_ID */}
         <GoogleAnalytics />
-        {/* Hotel entity for search / local discovery — not visible in the UI */}
         <HotelJsonLd />
-        <SnowEasterEggClient />
+        <SnowEasterEggLazy />
         <Toaster
           position="top-center"
           toastOptions={{
@@ -74,7 +71,6 @@ export default async function RootLayout({ children }) {
             },
           }}
         />
-        {/* <WebVitals /> */}
         <LenisScrollProvider>
           <Header />
           <LoaderProvider>

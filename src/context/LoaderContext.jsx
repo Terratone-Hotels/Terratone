@@ -4,11 +4,11 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
-import PageLoader from "./PageLoader";
+import dynamic from "next/dynamic";
 
 const LoaderContext = createContext(null);
 
@@ -16,6 +16,22 @@ const LoaderContext = createContext(null);
 const GRACE_WINDOW_MS = 150;
 // One stuck asset must never hang the whole site.
 const SAFETY_TIMEOUT_MS = 4000;
+
+// Curtain JS (GSAP PageLoader) only on desktop — not in the mobile parse path.
+const PageLoader = dynamic(() => import("./PageLoader"), { ssr: false });
+
+/**
+ * Mobile / touch / reduced-motion: no curtain (best LCP / Speed Index).
+ * Desktop: branded wipe.
+ */
+export function shouldSkipCurtain() {
+  if (typeof window === "undefined") return false;
+  const coarse = window.matchMedia("(pointer: coarse)").matches;
+  const narrow = window.matchMedia("(max-width: 768px)").matches;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
+    .matches;
+  return coarse || narrow || reduceMotion;
+}
 
 export function LoaderProvider({ children }) {
   const blockersRef = useRef(new Set());
@@ -25,6 +41,8 @@ export function LoaderProvider({ children }) {
 
   const [shouldWipe, setShouldWipe] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
+  // null = undecided | false = mobile skip | true = desktop curtain
+  const [showCurtain, setShowCurtain] = useState(null);
 
   const attemptWipe = useCallback(() => {
     if (hasWipedRef.current) return;
@@ -35,7 +53,6 @@ export function LoaderProvider({ children }) {
   }, []);
 
   const addBlocker = useCallback((id) => {
-    // Too late to block — curtain has already committed to wiping.
     if (hasWipedRef.current) return;
     blockersRef.current.add(id);
   }, []);
@@ -48,7 +65,16 @@ export function LoaderProvider({ children }) {
     [attemptWipe],
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (shouldSkipCurtain()) {
+      hasWipedRef.current = true;
+      setShowCurtain(false);
+      setIsRevealed(true);
+      return;
+    }
+
+    setShowCurtain(true);
+
     graceTimerRef.current = setTimeout(attemptWipe, GRACE_WINDOW_MS);
     safetyTimerRef.current = setTimeout(() => {
       hasWipedRef.current = true;
@@ -65,7 +91,9 @@ export function LoaderProvider({ children }) {
 
   return (
     <LoaderContext.Provider value={{ addBlocker, removeBlocker, isRevealed }}>
-      <PageLoader shouldWipe={shouldWipe} onRevealed={handleRevealed} />
+      {showCurtain === true && (
+        <PageLoader shouldWipe={shouldWipe} onRevealed={handleRevealed} />
+      )}
       {children}
     </LoaderContext.Provider>
   );

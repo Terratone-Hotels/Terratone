@@ -12,7 +12,7 @@ import { PrismicRichText } from "@prismicio/react";
 import { gsap } from "gsap";
 import VideoComponent from "@/components/VideoComponent";
 import Bounded from "@/components/Bounded";
-import { useLoader } from "@/context/LoaderContext";
+import { useLoader, shouldSkipCurtain } from "@/context/LoaderContext";
 import HeroSecondVariation from "@/components/HeroSecondVariation";
 
 const THUMB_IMGIX = { w: 160, h: 180, q: 50, fit: "crop" };
@@ -59,18 +59,18 @@ function HeroSlideMedia({ item, priority, onLoaded }) {
 const HeroDefault = ({ slice }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
-  /** After curtain: allow Swiper chunk to load + mount */
   const [mountCarousel, setMountCarousel] = useState(false);
-  /** Dynamically loaded Swiper API (not on critical path before curtain) */
   const [swiperAPI, setSwiperAPI] = useState(null);
-  /** Hide static LCP only once main Swiper instance is ready */
   const [carouselReady, setCarouselReady] = useState(false);
+  /** Mobile perf path: no hide-heading / no GSAP intro (best LCP). */
+  const [mobilePerf, setMobilePerf] = useState(false);
 
   const { addBlocker, removeBlocker, isRevealed } = useLoader();
   const lcpBlockerCleared = useRef(false);
 
   const hasAnimatedInitialHeading = useRef(false);
   const thumbsIntroPlayed = useRef(false);
+  const mobileBooted = useRef(false);
 
   const headingWrapperRef = useRef(null);
   const headingRef = useRef(null);
@@ -81,7 +81,6 @@ const HeroDefault = ({ slice }) => {
 
   const slides = slice?.primary?.carousel || [];
 
-  // --- Register first slide's asset as a load-blocker for the global curtain ---
   useEffect(() => {
     addBlocker(LCP_BLOCKER_ID);
     return () => removeBlocker(LCP_BLOCKER_ID);
@@ -93,9 +92,16 @@ const HeroDefault = ({ slice }) => {
     removeBlocker(LCP_BLOCKER_ID);
   }, [removeBlocker]);
 
-  // --- 1. Clean Animation Trigger ---
   const animateHeadingIn = useCallback(() => {
     if (!headingRef.current) return;
+
+    // Mobile: instant text swap — no clip animation (keeps LCP / main thread clean)
+    if (shouldSkipCurtain()) {
+      gsap.killTweensOf(headingRef.current);
+      headingRef.current.style.opacity = "1";
+      headingRef.current.style.clipPath = "none";
+      return;
+    }
 
     gsap.killTweensOf(headingRef.current);
 
@@ -119,13 +125,59 @@ const HeroDefault = ({ slice }) => {
     );
   }, []);
 
+  // ——— MOBILE BEST PATH: visible h1 + image immediately; defer Swiper ———
   useLayoutEffect(() => {
+    if (!shouldSkipCurtain()) return;
+    if (mobileBooted.current) return;
+    mobileBooted.current = true;
+
+    setMobilePerf(true);
+    setIsLoadingComplete(true);
+    thumbsIntroPlayed.current = true;
+    hasAnimatedInitialHeading.current = true;
+
+    // Ensure nothing is hidden for LCP
+    if (headingRef.current) {
+      headingRef.current.style.opacity = "1";
+      headingRef.current.style.clipPath = "none";
+    }
+    if (headingWrapperRef.current) {
+      headingWrapperRef.current.style.opacity = "1";
+      headingWrapperRef.current.style.transform = "none";
+    }
+    if (thumbsRef.current) {
+      thumbsRef.current.style.opacity = "1";
+      thumbsRef.current.style.transform = "none";
+    }
+
+    // Swiper well after first paint — TBT / script eval
+    const startMount = () => setMountCarousel(true);
+    let idleId;
+    if (typeof window.requestIdleCallback === "function") {
+      idleId = window.requestIdleCallback(startMount, { timeout: 2500 });
+    } else {
+      idleId = window.setTimeout(startMount, 1200);
+    }
+
+    return () => {
+      if (typeof window.cancelIdleCallback === "function") {
+        try {
+          window.cancelIdleCallback(idleId);
+        } catch {
+          /* ignore */
+        }
+      }
+      window.clearTimeout(idleId);
+    };
+  }, []);
+
+  // ——— DESKTOP: hide until curtain, then GSAP intro ———
+  useLayoutEffect(() => {
+    if (shouldSkipCurtain()) return;
+
     if (thumbsRef.current) {
       gsap.set(thumbsRef.current, { opacity: 0, y: 40 });
     }
-  }, []);
-
-  useLayoutEffect(() => {
     if (headingRef.current) {
       gsap.set(headingRef.current, {
         opacity: 0,
@@ -137,8 +189,8 @@ const HeroDefault = ({ slice }) => {
     }
   }, []);
 
-  // Curtain done → heading in, then schedule Swiper mount (after paint / idle).
   useLayoutEffect(() => {
+    if (shouldSkipCurtain()) return;
     if (!isRevealed || !headingRef.current || !headingWrapperRef.current)
       return;
 
@@ -154,7 +206,6 @@ const HeroDefault = ({ slice }) => {
       idleId = window.setTimeout(startMount, 50);
     }
 
-    // Flex thumbs live in the DOM immediately — intro does not need Swiper.
     const thumbsTimer = window.setTimeout(() => {
       if (thumbsIntroPlayed.current) return;
       thumbsIntroPlayed.current = true;
@@ -189,13 +240,11 @@ const HeroDefault = ({ slice }) => {
     };
   }, [isRevealed, animateHeadingIn]);
 
-  // Load Swiper only when mountCarousel is true (not during curtain / early TBT window).
   useEffect(() => {
     if (!mountCarousel) return;
     let cancelled = false;
 
     (async () => {
-      // One Swiper only — Autoplay is the sole module (no FreeMode / Thumbs / Navigation).
       const [{ Swiper, SwiperSlide }, modules] = await Promise.all([
         import("swiper/react"),
         import("swiper/modules"),
@@ -214,14 +263,11 @@ const HeroDefault = ({ slice }) => {
     };
   }, [mountCarousel]);
 
-  // --- 2. Main Swiper Logic ---
   const handleSwiper = useCallback(
     (swiper) => {
       swiperRef.current = swiper;
       setCarouselReady(true);
 
-      // Progress rings: plain DOM only (autoplayTimeLeft fires often —
-      // GSAP here was a main-thread / TBT cost).
       const resetBars = (idx) => {
         progressBarsRef.current.forEach((bar, i) => {
           if (!bar) return;
@@ -243,7 +289,7 @@ const HeroDefault = ({ slice }) => {
         setActiveIndex(swiper.realIndex);
         resetBars(swiper.realIndex);
 
-        if (headingRef.current) {
+        if (headingRef.current && !shouldSkipCurtain()) {
           gsap.killTweensOf(headingRef.current);
           gsap.set(headingRef.current, { opacity: 0 });
         }
@@ -262,7 +308,6 @@ const HeroDefault = ({ slice }) => {
     [animateHeadingIn],
   );
 
-  // --- 3. Start Autoplay ONLY when thumbs intro is done AND swiper exists ---
   useEffect(() => {
     if (!isLoadingComplete || !carouselReady) return;
 
@@ -284,11 +329,10 @@ const HeroDefault = ({ slice }) => {
     }
   }, [isLoadingComplete, carouselReady]);
 
-  // Flex thumb click → drive the single main Swiper
   const onClickThumb = (index) => {
     if (!isLoadingComplete) return;
 
-    if (headingRef.current) {
+    if (headingRef.current && !shouldSkipCurtain()) {
       gsap.killTweensOf(headingRef.current);
       gsap.set(headingRef.current, { opacity: 0 });
     }
@@ -300,7 +344,6 @@ const HeroDefault = ({ slice }) => {
       return;
     }
 
-    // Swiper not ready yet — still update heading/index for UX
     setActiveIndex(index);
     progressBarsRef.current.forEach((bar, i) => {
       if (!bar) return;
@@ -333,7 +376,6 @@ const HeroDefault = ({ slice }) => {
             />
           </div>
 
-          {/* Single main Swiper — only after curtain + dynamic import */}
           {swiperAPI && (
             <div className="absolute inset-0">
               <Swiper
@@ -359,15 +401,27 @@ const HeroDefault = ({ slice }) => {
             </div>
           )}
 
-          {/* Bottom Content */}
           <div
             className="absolute bottom-0 w-full flex flex-col sm:items-center z-20 pb-6 md:pb-10 px-[22px]"
             style={{ pointerEvents: "none" }}
           >
-            <div ref={headingWrapperRef} className="heading-wrapper w-full">
+            {/*
+              Mobile: heading must stay paint-visible from first frame (LCP).
+              Desktop: GSAP still hides/reveals after curtain.
+            */}
+            <div
+              ref={headingWrapperRef}
+              className="heading-wrapper w-full"
+              style={mobilePerf ? { opacity: 1, transform: "none" } : undefined}
+            >
               <div
                 ref={headingRef}
                 className="font-serif leading-tight text-start sm:text-center w-full text-[24px] sm:text-[28px] lg:text-[32px] xl:text-[44px] text-white mb-4"
+                style={
+                  mobilePerf
+                    ? { opacity: 1, clipPath: "none" }
+                    : undefined
+                }
               >
                 {slides[activeIndex]?.headings && (
                   <PrismicRichText field={slides[activeIndex].headings} />
@@ -375,12 +429,12 @@ const HeroDefault = ({ slice }) => {
               </div>
             </div>
 
-            {/* Flex thumbs — left on mobile, centered from md up */}
             <div
               ref={thumbsRef}
               className="self-start md:self-center w-full md:flex md:justify-center overflow-x-auto max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               style={{
                 pointerEvents: isLoadingComplete ? "auto" : "none",
+                ...(mobilePerf ? { opacity: 1, transform: "none" } : {}),
               }}
             >
               <div className="flex gap-5 w-max justify-start md:mx-auto">
@@ -393,11 +447,12 @@ const HeroDefault = ({ slice }) => {
                     aria-label={`Show slide ${index + 1}`}
                     aria-current={index === activeIndex ? "true" : undefined}
                   >
+                    {/* No priority on thumbs — don't compete with hero LCP image */}
                     <PrismicNextImage
                       field={item.video ? item.thumbnail : item.image}
-                      priority={index === 0}
-                      fetchPriority={index === 0 ? "high" : "low"}
-                      loading={index === 0 ? "eager" : "lazy"}
+                      priority={false}
+                      fetchPriority="low"
+                      loading="lazy"
                       sizes="160px"
                       imgixParams={THUMB_IMGIX}
                       className="w-16 h-18 md:w-18 md:h-20 object-cover cursor-pointer pointer-events-none"
