@@ -20,6 +20,8 @@ import RichTextRenderer from "@/components/RichTextRenderer";
 const ReversedDestinationHighlights = ({ slice }) => {
   // ⭐ PARALLAX EFFECT (40–50% cinematic)
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const containers = gsap.utils.toArray(".parallax-container");
 
     containers.forEach((container) => {
@@ -35,7 +37,7 @@ const ReversedDestinationHighlights = ({ slice }) => {
             trigger: container,
             start: "top bottom",
             end: "bottom top",
-            scrub: true,
+            scrub: 1,
           },
         },
       );
@@ -87,7 +89,7 @@ const ReversedDestinationHighlights = ({ slice }) => {
                     <PrismicNextImage
                       field={slice.primary.image}
                       sizes="(max-width: 768px) 100vw, 50vw"
-                      imgixParams={{ q: 70 }}
+                      imgixParams={{ w: 1200, q: 70 }}
                       className="parallax-img w-full h-full object-cover object-center"
                     />
                   </div>

@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import HotelJsonLd from "@/components/HotelJsonLd";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { LoaderProvider } from "@/context/LoaderContext";
+import ScrollTriggerRefresher from "@/components/ScrollTriggerRefresher";
 
 // Lean font set — fewer files = faster text paint / better SI on mobile.
 const garamond = EB_Garamond({
@@ -75,6 +76,7 @@ export default async function RootLayout({ children }) {
             <main id="main-content">{children}</main>
           </LoaderProvider>
           <FooterServer />
+          <ScrollTriggerRefresher />
         </LenisScrollProvider>
       </body>
     </html>

@@ -17,7 +17,7 @@ const DestinationHighlight = ({ slice }) => {
 
   // ⭐ PARALLAX EFFECT (40–50% travel)
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let ctx;
 
@@ -40,7 +40,7 @@ const DestinationHighlight = ({ slice }) => {
                 trigger: container,
                 start: "top bottom",
                 end: "bottom top",
-                scrub: true,
+                scrub: 1,
               },
             },
           );
