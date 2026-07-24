@@ -46,7 +46,7 @@ const MeetingHalls = ({ slice }) => {
         trigger: section,
         start: " 20%", // starts when section enters viewport
         end: "bottom 90%", // ends at mid-point
-        scrub: true, // tied to scroll
+        scrub: 1, // tied to scroll
         // markers: true,
       },
     });
