@@ -107,33 +107,32 @@ export default function HeaderClient({ headerData }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    // Only run scroll animation on desktop screens (lg: 1024px+)
     const mq = window.matchMedia("(min-width: 1024px)");
-    if (!mq.matches) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!mq.matches) return; // <-- Mobile/tablet: STOP here
 
     const headerEl = headerRef.current;
-    if (!headerEl) return;
-
-    const targets = [headerEl, buttonRef.current, ctaBlendRef.current].filter(
-      Boolean,
-    );
-    const hide = targets.map((el) =>
-      gsap.quickTo(el, "yPercent", { duration: 0.25, ease: "power2.out" }),
-    );
-    const show = hide;
 
     const handleScroll = () => {
-      hide.forEach((fn) => fn(-260));
+      if (!headerEl || !buttonRef.current) return;
+
+      buttonRef.current.style.transform = "translateY(-260%)";
+      headerEl.style.transform = "translateY(-260%)";
+      if (ctaBlendRef.current) {
+        ctaBlendRef.current.style.transform = "translateY(-260%)";
+      }
+
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+
       scrollTimeout.current = setTimeout(() => {
-        show.forEach((fn) => fn(0));
+        buttonRef.current.style.transform = "translateY(0%)";
+        headerEl.style.transform = "translateY(0%)";
+        if (ctaBlendRef.current) {
+          ctaBlendRef.current.style.transform = "translateY(0%)";
+        }
       }, 150);
     };
 
-    // Lenis fires its own "scroll" event on the lenis instance, not window,
-    // but window scroll still fires natively even with Lenis active —
-    // this listener is fine to keep on window since it's a UI-affordance
-    // (hide-on-scroll header), not scroll-position-dependent animation math.
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
