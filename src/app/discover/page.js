@@ -9,13 +9,6 @@ export default async function Page() {
   const client = createClient();
   const page = await client.getSingle("discover").catch(() => notFound());
 
-  // Debug check — helps verify Prismic structure
-
-  /**
-   * We pass page.data to the SliceZone in case
-   * some slices need access to global/static zone data
-   * (like pin_section_heading or left_headings)
-   */
   return (
     <div className="">
       <SliceZone

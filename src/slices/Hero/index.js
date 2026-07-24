@@ -52,16 +52,16 @@ function HeroSlideMedia({ item, priority, onLoaded }) {
         className="w-full h-dvh object-cover md:hidden"
         onLoad={onLoaded}
       />
-      {/* Desktop — separate, not priority (avoids double download on mobile LH) */}
+      {/* Desktop — always lazy on initial mount; browsers don't skip
+          fetching eager/priority images just because they're display:none */}
       <PrismicNextImage
         field={item.image}
-        loading={priority ? "eager" : "lazy"}
+        loading="lazy"
         priority={false}
-        fetchPriority={priority ? "high" : "auto"}
+        fetchPriority="auto"
         sizes="100vw"
         imgixParams={{ q: 70, auto: "format,compress" }}
         className="w-full h-dvh object-cover hidden md:block"
-        onLoad={priority ? onLoaded : undefined}
       />
     </>
   );
@@ -412,8 +412,11 @@ const HeroDefault = ({ slice }) => {
               >
                 {slides.map((item, index) => (
                   <SwiperSlide key={index}>
-                    {/* No priority here — LCP image is only the static first paint layer */}
-                    <HeroSlideMedia item={item} priority={false} />
+                    {/* Slide 0 reuses the exact same imgix URL as the static
+                        LCP layer so the browser serves it from cache instead
+                        of fetching a different-quality duplicate (was causing
+                        a visible flash on carousel mount). */}
+                    <HeroSlideMedia item={item} priority={index === 0} />
                   </SwiperSlide>
                 ))}
               </Swiper>

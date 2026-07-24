@@ -28,19 +28,38 @@ export default function RoomCard({
   const lineRef = useRef(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
     const ctx = gsap.context(() => {
-      const DURATION = 1;
+      if (prefersReducedMotion) {
+        gsap.set(
+          [
+            imageRef.current,
+            titleRef.current,
+            buttonRef.current,
+            lineRef.current,
+            descRef.current,
+          ],
+          { opacity: 1, clipPath: "inset(0 0% 0 0)" },
+        );
+        return;
+      }
+
+      const DURATION = 1.6;
 
       const revealSettings = {
         opacity: 0,
-        clipPath: "inset(0 100% 0 0)", 
+        clipPath: "inset(0 100% 0 0)",
+        ease: "power3.inOut",
       };
 
       const revealTo = {
         opacity: 1,
         clipPath: "inset(0 0% 0 0)",
         duration: DURATION,
-        ease: "circ.out",
+        ease: "power3.inOut",
       };
 
       const tl = gsap.timeline({
@@ -52,14 +71,13 @@ export default function RoomCard({
       });
 
       // IMAGE → TITLE → BUTTON → LINE (grouped animations)
-      tl.fromTo(imageRef.current, revealSettings, revealTo)
-        .fromTo(titleRef.current, revealSettings, revealTo, "-=1.1")
-        .fromTo(buttonRef.current, revealSettings, revealTo, "-=1.0")
-        .fromTo(lineRef.current, revealSettings, revealTo, "-=0.9")
-        .fromTo(descRef.current, revealSettings, {
-          ...revealTo,
-          duration: 0.5,
-        });
+      const textReveal = { ...revealTo, duration: 1.3, ease: "power3.inOut" };
+
+      tl.fromTo(imageRef.current, revealSettings, revealTo, 0)
+        .fromTo(titleRef.current, revealSettings, textReveal, 0)
+        .fromTo(lineRef.current, revealSettings, textReveal, ">")
+        .fromTo(descRef.current, revealSettings, textReveal, "<")
+        .fromTo(buttonRef.current, revealSettings, textReveal, "<");
     }, cardRef);
 
     return () => ctx.revert();
@@ -84,12 +102,12 @@ export default function RoomCard({
       {/* Title + Button */}
       <div className="flex flex-row w-full items-baseline justify-between mt-4">
         <div ref={titleRef} className={`${titleClassName} overflow-hidden`}>
-          <RichTextRenderer field={title} />
+          <PrismicRichText field={title} />
         </div>
 
         <div ref={buttonRef} className="overflow-hidden">
-          <Button className={`px-2 py-1 ${buttonClassNames}`}>
-            <PrismicNextLink field={bookingLink}>{linkText}</PrismicNextLink>
+          <Button className="py-1 px-2" field={bookingLink}>
+            {linkText}
           </Button>
         </div>
       </div>

@@ -93,7 +93,7 @@ const DiscoverHero = ({ slice }) => {
           clipPath: "inset(0% 0% 0% 0%)", // fully revealed
           duration: 0.9,
           ease: "circ.out",
-        }
+        },
       );
 
       // --- Scroll 3D setup ---
@@ -105,7 +105,7 @@ const DiscoverHero = ({ slice }) => {
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: "+=250%",
+          end: "+=150%",
           scrub: true,
           pin: true,
           // markers: true,
@@ -125,9 +125,9 @@ const DiscoverHero = ({ slice }) => {
           },
           scrollTrigger: {
             trigger: container,
-            start: "center+=45% bottom", // start as soon as hero hits top
-            end: "bottom+=100%", // finish quickly within first 10% of scroll
-            scrub: true, // tie to scroll progress (no snap)
+            start: "center+=45% bottom", 
+            end: "bottom+=40%", 
+            scrub: true, 
             // markers:true,
           },
         });
@@ -137,52 +137,52 @@ const DiscoverHero = ({ slice }) => {
       tl.to(
         imageRef.current,
         { scale: 25, z: 200, x: -6500, y: -7000, ease: "power4.in" },
-        -0.2
+        -0.2,
       )
         .to(
           imageRef1.current,
           { scale: 26, z: 1300, x: 8500, y: -1000, ease: "power4.in" },
-          "<"
+          "<",
         )
         .to(
           imageRef2.current,
           { scale: 12, z: 1000, x: 4000, y: 10000, ease: "power4.in" },
-          "<"
+          "<",
         )
         .to(
           imageRef3.current,
           { scale: 35, z: 1000, x: 6000, y: -14100, ease: "power4.in" },
-          "<"
+          "<",
         )
         .to(
           imageRef4.current,
           { scale: 25, z: 15000, x: -8500, y: 1000, ease: "power4.in" },
-          "<"
+          "<",
         )
         .to(
           imageRef5.current,
           { scale: 10, z: 1000, x: -5500, y: 7220, ease: "power4.in" },
-          "<"
+          "<",
         )
         .to(
           imageRef6.current,
           { scale: 11, z: 13000, x: -6500, y: -500, ease: "power4.in" },
-          "<"
+          "<",
         )
         .to(
           imageRef7.current,
           { scale: 6.5, z: 9500, x: -3500, y: 2500, ease: "power4.in" },
-          "<"
+          "<",
         )
         .to(
           imageRef8.current,
           { scale: 18, z: 10500, x: 1400, y: -2500, ease: "power4.in" },
-          "<"
+          "<",
         )
         .to(
           imageRef9.current,
           { scale: 18, z: 10500, x: -10000, y: 7000, ease: "power4.in" },
-          "<"
+          "<",
         );
     }, container);
 
@@ -203,7 +203,6 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_top_left}
           className="w-full h-full object-cover"
-          
         />
       </div>
 
@@ -215,7 +214,6 @@ const DiscoverHero = ({ slice }) => {
         <PrismicNextImage
           field={slice.primary.image_right}
           className="w-full h-full object-cover"
-         
         />
       </div>
 
