@@ -3,7 +3,7 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import clsx from "clsx";
-
+import { PrismicNextLink } from "@prismicio/next";
 const ArrowIcon = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -21,9 +21,10 @@ export default function Button({
   showArrow = true,
   noBorder = false,
   onClick,
-  buttonClass
+  buttonClass,
+  field,
 }) {
-  // ✅ Create refs for the elements we need to animate
+  const label = children ?? field?.text;
   const buttonRef = useRef(null);
   const textSpanRef = useRef(null);
   const arrowSpanRef = useRef(null);
@@ -47,7 +48,7 @@ export default function Button({
             duration: 0.3,
             ease: "power2.out",
           },
-          "<"
+          "<",
         )
         .to(
           buttonRef.current,
@@ -56,7 +57,7 @@ export default function Button({
             duration: 0.3,
             ease: "power2.out",
           },
-          "<"
+          "<",
         );
 
       const button = buttonRef.current;
@@ -91,14 +92,19 @@ export default function Button({
     return () => ctx.revert();
   }, []);
 
+  const Comp = field ? PrismicNextLink : "button";
+  const compProps = field
+    ? { field, ref: buttonRef }
+    : { ref: buttonRef, onClick, type: "button" };
+
   return (
-    <button
-      ref={buttonRef}
-      onClick={onClick}
+    <Comp
+      {...compProps}
       className={clsx(
-        "group cursor-pointer inline-grid font-medium uppercase",buttonClass,
+        "group cursor-pointer inline-grid font-medium uppercase",
+        buttonClass,
         !noBorder && "border border-black",
-        "grid-cols-[auto_auto]"
+        "grid-cols-[auto_auto]",
       )}
       style={{ alignItems: "stretch" }}
     >
@@ -107,10 +113,10 @@ export default function Button({
         ref={textSpanRef}
         className={clsx(
           "flex items-center justify-center font-barlowNormal text-xs lg:text-sm text-black",
-          className
+          className,
         )}
       >
-        {children}
+        {label}
       </span>
 
       {/* Arrow span */}
@@ -118,11 +124,11 @@ export default function Button({
         ref={arrowSpanRef}
         className={clsx(
           "flex justify-center items-center text-black",
-          className
+          className,
         )}
       >
         {showArrow && <ArrowIcon className="w-[0.688rem] h-full" />}
       </span>
-    </button>
+    </Comp>
   );
 }

@@ -14,8 +14,9 @@ function shouldSkipLenis() {
   if (typeof window === "undefined") return true;
   const coarse = window.matchMedia("(pointer: coarse)").matches;
   const narrow = window.matchMedia("(max-width: 768px)").matches;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
-    .matches;
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
   return coarse || narrow || reduceMotion;
 }
 
@@ -82,6 +83,8 @@ export default function LenisScrollProvider({ children }) {
 
       gsap.ticker.add(update);
       gsap.ticker.lagSmoothing(0);
+
+      // requestAnimationFrame(() => ScrollTrigger.refresh());
 
       cleanup = () => {
         gsap.ticker.remove(update);

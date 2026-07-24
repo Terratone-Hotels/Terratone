@@ -18,15 +18,15 @@ export default function Footer({ footerData }) {
 
   const footerRef = useRef(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       const footer = footerRef.current;
 
       const horizontalLines = footer.querySelectorAll(
-        ".footer-line-horizontal"
+        ".footer-line-horizontal",
       );
       const verticalLines = footer.querySelectorAll(".footer-line-vertical");
-      const logo = footer.querySelector(".footer-logo"); // <- add this class to FooterLogo wrapper
+      const logo = footer.querySelector(".footer-logo");
 
       // INITIAL STATES
       gsap.set(horizontalLines, { width: 0 });
@@ -36,19 +36,20 @@ export default function Footer({ footerData }) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: footer,
-          start: "top 85%", // adjust if needed
+          start: "top 85%",
+          // markers: true,
         },
       });
 
-      // 1️⃣ HORIZONTAL LINES (start first, together)
+      // 1️⃣ HORIZONTAL LINES
       tl.to(horizontalLines, {
         width: "100%",
         duration: 2,
         ease: "power4.out",
-        stagger: 0, // all together
+        stagger: 0,
       });
 
-      // 2️⃣ VERTICAL LINES (start halfway through horizontals)
+      // 2️⃣ VERTICAL LINES
       tl.to(
         verticalLines,
         {
@@ -56,10 +57,10 @@ export default function Footer({ footerData }) {
           duration: 1.2,
           ease: "power2.out",
         },
-        "-=1.2" // halfway overlap
+        "-=1.2",
       );
 
-      // 3️⃣ LOGO (fade in, synced with vertical lines)
+      // 3️⃣ LOGO
       tl.to(
         logo,
         {
@@ -68,35 +69,59 @@ export default function Footer({ footerData }) {
           duration: 1.2,
           ease: "power2.out",
         },
-        "-=1.2"
+        "-=1.2",
       );
+
+      // 4️⃣ MOBILE LINES — merged in from the old second useLayoutEffect
+      const mobileLines = footer.querySelectorAll(
+        ".footer-line, .footer-line-top",
+      );
+      if (mobileLines.length) {
+        gsap.set(mobileLines, { scaleX: 0 });
+        tl.to(
+          mobileLines,
+          {
+            scaleX: 1,
+            duration: 0.8,
+            ease: "power2.out",
+            stagger: 0.15,
+          },
+          0,
+        );
+      }
     }, footerRef);
 
-    return () => ctx.revert();
+    const id = requestAnimationFrame(() => ScrollTrigger.refresh());
+
+    return () => {
+      cancelAnimationFrame(id);
+      ctx.revert();
+    };
   }, []);
 
-  useLayoutEffect(() => {
-    const footer = footerRef.current;
-    if (!footer) return;
+  // useLayoutEffect(() => {
+  //   const footer = footerRef.current;
+  //   if (!footer) return;
 
-    const lines = footer.querySelectorAll(".footer-line, .footer-line-top");
-    if (!lines.length) return;
+  //   const lines = footer.querySelectorAll(".footer-line, .footer-line-top");
+  //   if (!lines.length) return;
 
-    gsap.fromTo(
-      lines,
-      { scaleX: 0 },
-      {
-        scaleX: 1,
-        duration: 0.8,
-        ease: "power2.out",
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: footer,
-          start: "top 90%",
-        },
-      }
-    );
-  }, []);
+  //   gsap.fromTo(
+  //     lines,
+  //     { scaleX: 0 },
+  //     {
+  //       scaleX: 1,
+  //       duration: 0.8,
+  //       ease: "power2.out",
+  //       stagger: 0.15,
+  //       scrollTrigger: {
+  //         trigger: footer,
+  //         start: "top 90%",
+  //         markers: true,
+  //       },
+  //     },
+  //   );
+  // }, []);
 
   return (
     <section className="px-[0.9375rem] md:px-6 mt-15 lg:mt-20">
@@ -282,7 +307,10 @@ export default function Footer({ footerData }) {
 
             <div className="flex items-center font-barlow py-3">
               <div className="md:w-[28%] lg:w-[20%] flex items-center gap-3 text-[#A9A9A9]">
-                <RatingStars rating={data.rating} starClassName="xl:w-6 xl:h-7 md:w-4 md:h-6 " />
+                <RatingStars
+                  rating={data.rating}
+                  starClassName="xl:w-6 xl:h-7 md:w-4 md:h-6 "
+                />
                 <div className="flex items-center md:text-xs lg:text-sm gap-1 font-barlow mt-1">
                   <PrismicRichText field={data.review_count} />
                   <span className="text-[15px]">reviews</span>
@@ -505,7 +533,6 @@ export default function Footer({ footerData }) {
                     </PrismicNextLink>
                   </div>
                 ))}
-             
               </div>
             </div>
             <div className="flex flex-col text-start  text-xs">
@@ -516,7 +543,6 @@ export default function Footer({ footerData }) {
                   </PrismicNextLink>
                 </div>
               ))}
-              
             </div>
             <div className="footer-line" /> {/* line */}
           </div>

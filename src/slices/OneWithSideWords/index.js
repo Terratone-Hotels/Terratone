@@ -48,9 +48,6 @@ export default function OneWithSideWords({ slice }) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          // Was "top bottom" — fired as soon as the section edged the viewport,
-          // often while still scrolling (extra main-thread during load/scroll).
-          // Wait until the block is actually near view.
           start: "top 80%",
           toggleActions: "play none none none",
           once: true,
