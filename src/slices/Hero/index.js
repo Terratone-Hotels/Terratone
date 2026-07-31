@@ -389,7 +389,7 @@ const HeroDefault = ({ slice }) => {
         <div className="relative z-10 origin-bottom">
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-9 pointer-events-none" />
           <div
-            className={`relative w-screen h-screen ${carouselReady ? "invisible" : ""}`}
+            className={`relative w-screen h-dvh lg:h-screen ${carouselReady ? "invisible" : ""}`}
             aria-hidden={carouselReady}
           >
             <HeroSlideMedia item={first} priority onLoaded={clearLcpBlocker} />
