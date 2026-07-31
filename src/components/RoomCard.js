@@ -154,7 +154,6 @@ export default function RoomCard({
           >
             <PrismicRichText
               field={description}
-              className="m-0 font-barlow text-[12px] lg:text-[14px]"
             />
             <div
               ref={descCurtainRef}

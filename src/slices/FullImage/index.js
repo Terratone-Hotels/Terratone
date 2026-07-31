@@ -95,7 +95,6 @@ export default function FullImage({ slice }) {
         {slice.primary.image && (
           <PrismicNextImage
             field={slice.primary.image}
-            alt=""
             fill
             className="object-cover brightness-95"
             priority
