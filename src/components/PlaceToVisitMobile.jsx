@@ -31,7 +31,6 @@ const MobilePlacesToVisit = ({ slice }) => {
               field={item.image}
               fill
               className="object-cover scale-150 blur-xs"
-              alt=""
             />
           </div>
         ))}

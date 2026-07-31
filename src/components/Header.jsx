@@ -12,6 +12,7 @@ import useBookNowModal from "../hooks/useBookNowModal";
 import gsap from "gsap";
 import FooterLink from "./FooterLink";
 import CtaButton from "./CtaButton";
+import { useLenisControl } from "./LenisScrollContext";
 
 // Booking modal + tabs/calendar only load on first open (off homepage critical path).
 const BookNowModal = dynamic(() => import("./BookNow/BookNowModal"), {
@@ -141,44 +142,45 @@ export default function HeaderClient({ headerData }) {
     };
   }, []);
 
+  const lenisCtx = useLenisControl();
+
   useEffect(() => {
     const headerEl = headerRef.current;
     const ctaEl = ctaBlendRef.current;
     if (!headerEl) return;
 
-    // Only run blend-difference on desktop screens
     const mq = window.matchMedia("(min-width: 1024px)");
     if (!mq.matches) {
-      // Mobile/tablet → ensure blend is OFF
       headerEl.classList.remove("mix-blend-difference");
       ctaEl?.classList.remove("mix-blend-difference");
       return;
     }
 
-    // Desktop → blend ON by default
-    headerEl.classList.add("mix-blend-difference");
-    ctaEl?.classList.add("mix-blend-difference");
+    const THRESHOLD = 80; // px scrolled before switching to blend mode
 
-    const hero = document.querySelector("[data-hero-slice]");
-    if (!hero) return;
+    let blended = false;
+    const check = (scrollY) => {
+      const y = scrollY ?? window.scrollY;
+      const shouldBlend = y > THRESHOLD;
+      if (shouldBlend === blended) return;
+      blended = shouldBlend;
+      headerEl.classList.toggle("mix-blend-difference", blended);
+      ctaEl?.classList.toggle("mix-blend-difference", blended);
+    };
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          headerEl.classList.remove("mix-blend-difference");
-          ctaEl?.classList.remove("mix-blend-difference");
-        } else {
-          headerEl.classList.add("mix-blend-difference");
-          ctaEl?.classList.add("mix-blend-difference");
-        }
-      },
-      { threshold: 0.3 },
-    );
+    check();
 
-    observer.observe(hero);
+    const lenis = lenisCtx?.lenis;
+    if (lenis) {
+      const onScroll = ({ scroll }) => check(scroll);
+      lenis.on("scroll", onScroll);
+      return () => lenis.off("scroll", onScroll);
+    }
 
-    return () => observer.disconnect();
-  }, [pathname]);
+    const onScroll = () => check();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [pathname, lenisCtx]);
 
   useEffect(() => {
     const links = document.querySelectorAll(".nav-link");
@@ -248,7 +250,7 @@ export default function HeaderClient({ headerData }) {
       {data.nav_button_link && data.nav_buttonlink_text && (
         <div
           ref={ctaBlendRef}
-          className="hidden lg:block fixed right-5 top-4 z-50 text-white transition-transform duration-300 ease-in-out"
+          className="hidden lg:block fixed right-5 top-4 z-50 text-white transition-transform duration-280 "
         >
           <CtaButton
             arrowSpan="self-center"

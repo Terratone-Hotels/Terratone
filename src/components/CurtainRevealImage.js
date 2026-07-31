@@ -22,7 +22,6 @@ export default function CurtainRevealImage({
       {field ? (
         <PrismicNextImage
           field={field}
-          alt={alt}
           sizes={sizes}
           imgixParams={imgixParams}
           className="w-full h-full object-cover"

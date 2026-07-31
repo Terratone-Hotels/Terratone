@@ -152,7 +152,7 @@ export default function OneWithSideWords({ slice }) {
 
           <div
             ref={leftCurtainRef}
-            className="absolute left-0 top-0 w-1/2 h-full bg-(--color-stone) z-[5]"
+            className="absolute  left-0 top-0 w-1/2 h-full bg-(--color-stone) z-[5]"
           />
           <div
             ref={rightCurtainRef}

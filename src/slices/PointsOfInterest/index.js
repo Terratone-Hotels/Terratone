@@ -107,7 +107,6 @@ const PointsOfInterest = ({ slice }) => {
               field={currentItem.image}
               fill
               className="object-cover scale-110 brightness-75 contrast-[1.1] saturate-[0.8] sepia-[0.15] "
-              alt=""
             />
           </div>
 

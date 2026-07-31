@@ -384,12 +384,12 @@ const HeroDefault = ({ slice }) => {
   const { Swiper, SwiperSlide, Autoplay } = swiperAPI || {};
 
   return (
-    <section data-hero-slice className="data-hero-slice">
-      <Bounded full className="hero-section relative overflow-hidden">
+    <section  className=" ">
+      <section className="hero-section relative overflow-hidden">
         <div className="relative z-10 origin-bottom">
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-9 pointer-events-none" />
           <div
-            className={`relative w-full h-dvh ${carouselReady ? "invisible" : ""}`}
+            className={`relative w-screen h-screen ${carouselReady ? "invisible" : ""}`}
             aria-hidden={carouselReady}
           >
             <HeroSlideMedia item={first} priority onLoaded={clearLcpBlocker} />
@@ -500,7 +500,7 @@ const HeroDefault = ({ slice }) => {
             </div>
           </div>
         </div>
-      </Bounded>
+      </section>
     </section>
   );
 };
