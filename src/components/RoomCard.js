@@ -67,7 +67,7 @@ export default function RoomCard({
         buttonRef.current,
         descRef.current,
       ].filter(Boolean);
-      gsap.set(content, { opacity: 0 });
+      gsap.set(content, { opacity: 1 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -134,7 +134,7 @@ export default function RoomCard({
           </Button>
           <div
             ref={buttonCurtainRef}
-            className="absolute inset-0 bg-[#f4f1ed]"
+            className="absolute -inset-px bg-[#f4f1ed]"
           />
         </div>
       </div>
