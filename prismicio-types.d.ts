@@ -1013,6 +1013,56 @@ interface FooterSettingsDocumentData {
   direction_text: prismic.KeyTextField;
 
   /**
+   * Address Two Heading field in *Footer Settings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.address_two_heading
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  address_two_heading: prismic.RichTextField;
+
+  /**
+   * Address Two field in *Footer Settings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.address_two
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  address_two: prismic.RichTextField;
+
+  /**
+   * Address Two Direction field in *Footer Settings*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.address_two_direction
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  address_two_direction: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Address Two Link Text field in *Footer Settings*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.address_two_link_text
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  address_two_link_text: prismic.KeyTextField;
+
+  /**
    * Heading for Directions field in *Footer Settings*
    *
    * - **Field Type**: Rich Text

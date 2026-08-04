@@ -123,6 +123,19 @@ export default function Footer({ footerData }) {
   //   );
   // }, []);
 
+  const richTextComponents = {
+    hyperlink: ({ node, children }) => (
+      <a
+        href={node.data.url}
+        target={node.data.target}
+        rel={node.data.target ? "noreferrer" : undefined}
+        className="relative text-black lg:text-[#8E8E8E] lg:hover:text-black underline underline-offset-2 lg:no-underline lg:after:absolute lg:after:left-0 lg:after:bottom-[-1px] lg:after:w-0 lg:after:h-[1px] lg:after:bg-current lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full"
+      >
+        {children}
+      </a>
+    ),
+  };
+
   return (
     <section className="px-[0.9375rem] md:px-6 mt-15 lg:mt-20">
       <footer ref={footerRef} className="w-full pb-2 lg:mb-15">
@@ -158,15 +171,15 @@ export default function Footer({ footerData }) {
               </div>
 
               {/* MIDDLE COLUMN (WITH VERTICAL LINES) */}
-              <div className="relative md:w-[33%] flex flex-col  font-barlow lg:w-[30%]">
+              <div className="relative md:w-[33%] flex flex-col  font-barlow lg:w-[40%] xl:w-[30%]">
                 {/* VERTICAL LINE 1 */}
                 <div className="footer-line-vertical footer-vert-1 absolute top-0 left-0 w-[1px] h-full bg-[#C7C7C7]" />
 
                 {/* VERTICAL LINE 2 */}
                 <div className="footer-line-vertical footer-vert-2 absolute top-0 right-0 w-[1px] h-full bg-[#C7C7C7]" />
 
-                <div className="flex flex-row gap-10 h-[50%] mt-4 ">
-                  <div className="flex flex-col  pl-15">
+                <div className="flex flex-row lg:gap-15 xl:gap-10 h-[50%] mt-4 ">
+                  <div className="flex flex-col lg:pl-7 xl:pl-15">
                     <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
                       <FooterLink
                         field={data.page_link_1}
@@ -189,7 +202,7 @@ export default function Footer({ footerData }) {
                     ))}
                   </div>
 
-                  <div className="flex flex-col  px-10">
+                  <div className="flex flex-col  xl:px-10">
                     <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
                       <FooterLink
                         field={data.page_link_2}
@@ -213,8 +226,8 @@ export default function Footer({ footerData }) {
                   </div>
                 </div>
 
-                <div className=" flex flex-row ">
-                  <div className="flex flex-col px-15 font-barlow uppercase tracking-[0.2rem] font-medium text-sm ">
+                <div className=" flex  flex-row ">
+                  <div className="flex flex-col lg:pl-7 xl:px-15 font-barlow uppercase tracking-[0.2rem] font-medium text-sm ">
                     {data.page_links.map((item, index) => (
                       <div key={index}>
                         <FooterLink
@@ -231,23 +244,52 @@ export default function Footer({ footerData }) {
               </div>
 
               {/* RIGHT COLUMN */}
-              <div className="md:w-[34%] flex flex-1 font-barlow ">
+              <div className=" flex font-barlow ">
                 <div className="mt-4 w-full">
-                  <div className="lg:px-16.5">
-                    <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
-                      <PrismicRichText field={data.address_heading} />
-                    </div>
-                    <div className="text-sm text-black font-medium leading-3.5 mb-1 lg:w-[45%]">
-                      <PrismicRichText field={data.address} />
-                    </div>
-                    <div className="text-sm text-[#8E8E8E] font-medium mt-3">
-                      <FooterLink
-                        field={data.direction}
-                        arrowSpan={"self-center"}
-                        arrowClassName={"w-[0.8em]"}
-                      >
-                        {data.direction_text}
-                      </FooterLink>
+                  <div className="lg:pl-7 xl:px-16.5 ">
+                    {/* Addresses */}
+                    <div className=" flex w-full">
+                      {/* Hotel Address */}
+                      <div className="lg:w-[50%]">
+                        <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
+                          <PrismicRichText field={data.address_heading} />
+                        </div>
+                        <div className="text-sm text-black font-medium leading-3.5 mb-1 lg:w-[60%] ">
+                          <PrismicRichText field={data.address} />
+                        </div>
+                        <div className="text-sm text-[#8E8E8E] font-medium mt-3">
+                          <FooterLink
+                            field={data.direction}
+                            arrowSpan={"self-center"}
+                            arrowClassName={"w-[0.8em]"}
+                          >
+                            {data.direction_text}
+                          </FooterLink>
+                        </div>
+                      </div>
+                      {/* Tone Table */}
+                      <div className="lg:w-[50%] ">
+                        <div className="uppercase tracking-[0.2rem] font-medium text-sm mb-1.5">
+                          <PrismicRichText field={data.address_two_heading} />
+                        </div>
+                        {data.address_two && (
+                          <div className="text-sm text-black font-medium leading-3.5 mb-1 lg:w-[60%] ">
+                            <PrismicRichText
+                              field={data.address_two}
+                              components={richTextComponents}
+                            />
+                          </div>
+                        )}
+                        <div className="text-sm text-[#8E8E8E] font-medium mt-3">
+                          <FooterLink
+                            field={data.address_two_direction}
+                            arrowSpan={"self-center"}
+                            arrowClassName={"w-[0.8em]"}
+                          >
+                            {data.address_two_link_text}
+                          </FooterLink>
+                        </div>
+                      </div>
                     </div>
 
                     <div className="flex flex-col gap-1.5 mt-8">
@@ -448,27 +490,46 @@ export default function Footer({ footerData }) {
           </div>
 
           {/* Third Row */}
-          <div className="flex flex-row relative px-2 py-6">
+          <div className="flex flex-col relative px-2 py-6">
             <div className="footer-line" /> {/* line */}
-            <div className="w-[50%] flex-4 sm:w-[40%]">
-              <div className="font-medium uppercase text-xs tracking-widest mb-1.5">
-                <PrismicRichText field={data.address_heading} />
+            <div className="flex w-full">
+              <div className="flex-4">
+                <div className="font-medium uppercase text-xs tracking-widest mb-1.5">
+                  <PrismicRichText field={data.address_heading} />
+                </div>
+                <div className="font-medium text-xs text-[#8E8E8E] w-[45%] ">
+                  <PrismicRichText field={data.address} />
+                </div>
+                <div className="font-medium text-sm underline underline-offset-2 text-black mt-2">
+                  <PrismicNextLink field={data.direction}>
+                    {data.direction_text}
+                  </PrismicNextLink>
+                </div>
               </div>
-              <div className="font-medium text-xs text-[#8E8E8E] w-[50%]">
-                <PrismicRichText field={data.address} />
-              </div>
-              <div className="font-medium text-sm underline underline-offset-2 text-black mt-2">
-                <PrismicNextLink field={data.direction}>
-                  {data.direction_text}
-                </PrismicNextLink>
+              {/* Tone Table */}
+              <div className="flex-3">
+                <div className="font-medium uppercase text-xs tracking-widest mb-1.5">
+                  <PrismicRichText field={data.address_two_heading} />
+                </div>
+                <div className="font-medium text-xs text-[#8E8E8E] w-[55%] ">
+                  <PrismicRichText
+                    field={data.address_two}
+                    components={richTextComponents}
+                  />
+                </div>
+                <div className="font-medium text-sm underline underline-offset-2 text-black mt-2">
+                  <PrismicNextLink field={data.address_two_direction}>
+                    {data.address_two_link_text}
+                  </PrismicNextLink>
+                </div>
               </div>
             </div>
-            <div className="flex flex-3 flex-col">
+            {/* Distance to nearest */}
+            <div className="flex mt-6  flex-col">
               <div className="text-xs tracking-widest uppercase mb-1.5 font-medium">
                 <PrismicRichText field={data.heading_for_directions} />
               </div>
-
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-row gap-3">
                 {data.directions.map((item, index) => (
                   <div key={index} className="flex text-start gap-0.5">
                     <span className="text-xs text-[#8E8E8E] font-medium">

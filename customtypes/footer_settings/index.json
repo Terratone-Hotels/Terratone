@@ -195,6 +195,42 @@
           "placeholder": ""
         }
       },
+      "address_two_heading": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Address Two Heading",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "address_two": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Address Two",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "address_two_direction": {
+        "type": "Link",
+        "config": {
+          "label": "Address Two Direction",
+          "placeholder": "",
+          "select": null,
+          "allowTargetBlank": true,
+          "allowText": true,
+          "repeat": false
+        }
+      },
+      "address_two_link_text": {
+        "type": "Text",
+        "config": {
+          "label": "Address Two Link Text",
+          "placeholder": ""
+        }
+      },
       "heading_for_directions": {
         "type": "StructuredText",
         "config": {
