@@ -508,7 +508,7 @@ export default function Footer({ footerData }) {
               </div>
               {/* Tone Table */}
               <div className="flex-3">
-                <div className="font-medium uppercase text-xs tracking-widest mb-1.5">
+                <div className="font-medium uppercase text-xs tracking-widest mb-1.5 max-w-30 md:max-w-full">
                   <PrismicRichText field={data.address_two_heading} />
                 </div>
                 <div className="font-medium text-xs text-[#8E8E8E] w-[55%] ">
