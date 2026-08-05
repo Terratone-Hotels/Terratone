@@ -74,10 +74,11 @@ const DestinationHighlight = ({ slice }) => {
             />
 
             <div>
-              <Button className="font-barlowNormal px-2.5 py-1">
-                <PrismicNextLink field={slice.primary.explore_button}>
-                  {slice.primary.button_text}
-                </PrismicNextLink>
+              <Button
+                field={slice.primary.explore_button}
+                className="font-barlowNormal px-2.5 py-1"
+              >
+                {slice.primary.button_text}
               </Button>
             </div>
           </div>

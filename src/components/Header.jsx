@@ -271,15 +271,12 @@ export default function HeaderClient({ headerData }) {
         >
           <Button
             noBorder
+            field={data.nav_button_link}
             className={`
               ${isMenuOpen ? "!bg-terra-pink" : "bg-black text-white md:text-black md:bg-white"}
               font-barlowNormal text-xs px-2 py-1.5
               cursor-pointer`}
-          >
-            <PrismicNextLink field={data.nav_button_link}>
-              {data.nav_button_link.text}
-            </PrismicNextLink>
-          </Button>
+          ></Button>
 
           {modalMounted && (
             <BookNowModal isOpen={open} onClose={() => setOpen(false)} />
