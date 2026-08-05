@@ -174,8 +174,8 @@ export default function OneWithSideWords({ slice }) {
       </div>
 
       <div className="mt-4 lg:mt-4 flex justify-center items-center gap-2">
-        <Button className="font-barlow px-2.5 py-1 tracking-wide">
-          <PrismicNextLink field={slice.primary.cta_button} />
+        <Button field={slice.primary.cta_button} className="font-barlow px-2.5 py-1 tracking-wide">
+         
         </Button>
       </div>
     </section>

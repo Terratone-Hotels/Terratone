@@ -233,6 +233,15 @@
 						}
 					}
 				]
+			},
+			"cta_link": {
+				"__TYPE__": "LinkContent",
+				"key": "9eac78fb-6209-41cf-8a62-2b898ec5a01a",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://slicemachine.dev",
+					"text": "atmosphere"
+				}
 			}
 		},
 		"items": []

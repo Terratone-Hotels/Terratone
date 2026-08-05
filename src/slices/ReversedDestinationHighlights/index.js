@@ -67,10 +67,11 @@ const ReversedDestinationHighlights = ({ slice }) => {
               />
 
               <div>
-                <Button className="px-2.5 py-1">
-                  <PrismicNextLink field={slice.primary.button_link}>
-                    {slice.primary.button_text}
-                  </PrismicNextLink>
+                <Button
+                  field={slice.primary.button_link}
+                  className="px-2.5 py-1"
+                >
+                  {slice.primary.button_text}
                 </Button>
               </div>
             </div>

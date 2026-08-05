@@ -101,10 +101,11 @@ const MeetingHalls = ({ slice }) => {
 
                     {/* Hover Button */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
-                      <Button className="bg-white px-2 py-1 text-sm font-barlowNormal">
-                        <PrismicNextLink field={item.room_link}>
-                          {item.button_text}
-                        </PrismicNextLink>
+                      <Button
+                        field={item.room_link}
+                        className="bg-white px-2 py-1 text-sm font-barlowNormal"
+                      >
+                        {item.button_text}
                       </Button>
                     </div>
                   </div>

@@ -76,7 +76,7 @@ export default function BanquetHalls({ slice }) {
       imageWrapper,
       // ✅ MODIFIED: Changed borderRadius to "0px" for sharp corners
       { scale: 1, borderRadius: "0px", ease: "power2.out" },
-      "<"
+      "<",
     )
       // Animate the inner image (parallax effect)
       .to(image, { scale: 1, ease: "power2.out" }, "<")
@@ -90,7 +90,7 @@ export default function BanquetHalls({ slice }) {
           stagger: 0.1, // Add a 0.1s delay between each element's animation
           ease: "power2.out",
         },
-        "<" // Start this animation at the same time as the image animations
+        "<", // Start this animation at the same time as the image animations
       );
 
     // Cleanup function
@@ -147,10 +147,11 @@ export default function BanquetHalls({ slice }) {
 
             {/* Button */}
             <div ref={buttonRef} className="inline-block">
-              <Button className="bg-white px-2.5 py-1">
-                <PrismicNextLink field={slice.primary.button_link}>
-                  {slice.primary.button_text}
-                </PrismicNextLink>
+              <Button
+                field={slice.primary.button_link}
+                className="bg-white px-2.5 py-1"
+              >
+                {slice.primary.button_text}
               </Button>
             </div>
           </div>
