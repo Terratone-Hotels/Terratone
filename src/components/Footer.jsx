@@ -285,7 +285,7 @@ export default function Footer({ footerData }) {
                             </div>
                           )}
                           {data.address_two && (
-                            <div className="text-sm text-black font-medium leading-4 mb-1  xl:w-[80%]  ">
+                            <div className="text-sm text-black font-medium leading-4 mb-1  xl:w-[85%]  ">
                               <PrismicRichText
                                 field={data.address_two}
                                 components={richTextComponents}
