@@ -302,6 +302,32 @@ export default function Footer({ footerData }) {
                             </FooterLink>
                           </div>
                         </div>
+                        <div className=" ">
+                          {data.address_two_heading && (
+                            <div className="uppercase tracking-[0.2rem] font-medium text-sm">
+                              <PrismicRichText
+                                field={data.address_two_heading}
+                              />
+                            </div>
+                          )}
+                          {data.address_three && (
+                            <div className="text-sm text-black font-medium leading-4 mb-1  xl:w-[80%]  ">
+                              <PrismicRichText
+                                field={data.address_three}
+                                components={richTextComponents}
+                              />
+                            </div>
+                          )}
+                          <div className="text-sm text-[#8E8E8E] font-medium mt-3">
+                            <FooterLink
+                              field={data.address_three_direction}
+                              arrowSpan={"self-center"}
+                              arrowClassName={"w-[0.8em]"}
+                            >
+                              {data.address_three_link_text}
+                            </FooterLink>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -509,7 +535,7 @@ export default function Footer({ footerData }) {
               <div className="font-medium uppercase text-xs tracking-widest mb-1.5">
                 <PrismicRichText field={data.address_heading} />
               </div>
-              <div className="flex">
+              <div className="flex flex-wrap">
                 {/* Hotel */}
                 <div className="flex-4">
                   <div className="font-medium text-xs text-[#8E8E8E] max-w-23 md:max-w-50  ">
@@ -540,6 +566,24 @@ export default function Footer({ footerData }) {
                   <div className="font-medium text-sm underline underline-offset-2 text-black mt-2">
                     <PrismicNextLink field={data.address_two_direction}>
                       {data.address_two_link_text}
+                    </PrismicNextLink>
+                  </div>
+                </div>
+                <div className="w-full mt-6">
+                  {data.address_two_heading && (
+                    <div className="font-medium uppercase text-xs tracking-widest  max-w-30 md:max-w-full">
+                      <PrismicRichText field={data.address_two_heading} />
+                    </div>
+                  )}
+                  <div className="font-medium text-xs text-[#8E8E8E] max-w-23 md:max-w-50  ">
+                    <PrismicRichText
+                      field={data.address_three}
+                      components={richTextComponents}
+                    />
+                  </div>
+                  <div className="font-medium text-sm underline underline-offset-2 text-black mt-2">
+                    <PrismicNextLink field={data.address_three_direction}>
+                      {data.address_three_link_text}
                     </PrismicNextLink>
                   </div>
                 </div>

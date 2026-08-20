@@ -231,6 +231,33 @@
           "placeholder": ""
         }
       },
+      "address_three": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Address three",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "address_three_direction": {
+        "type": "Link",
+        "config": {
+          "label": "Address Three Direction",
+          "placeholder": "",
+          "select": null,
+          "allowTargetBlank": true,
+          "allowText": true,
+          "repeat": false
+        }
+      },
+      "address_three_link_text": {
+        "type": "Text",
+        "config": {
+          "label": "Address Three Link Text",
+          "placeholder": ""
+        }
+      },
       "heading_for_directions": {
         "type": "StructuredText",
         "config": {

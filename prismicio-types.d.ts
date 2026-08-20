@@ -1063,6 +1063,45 @@ interface FooterSettingsDocumentData {
   address_two_link_text: prismic.KeyTextField;
 
   /**
+   * Address three field in *Footer Settings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.address_three
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  address_three: prismic.RichTextField;
+
+  /**
+   * Address Three Direction field in *Footer Settings*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.address_three_direction
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  address_three_direction: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Address Three Link Text field in *Footer Settings*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer_settings.address_three_link_text
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  address_three_link_text: prismic.KeyTextField;
+
+  /**
    * Heading for Directions field in *Footer Settings*
    *
    * - **Field Type**: Rich Text
