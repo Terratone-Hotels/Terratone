@@ -1,16 +1,7 @@
 import { Resend } from "resend";
+import { escape } from "@/lib/html";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-// --------- Helper to prevent HTML injection ----------
-function escape(str = "") {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
 
 export async function POST(req) {
   try {
@@ -133,7 +124,7 @@ export async function POST(req) {
     await resend.emails.send({
       from: "Terratone Bookings <marketing@terratonehotels.com>",
       to: "bookings@terratonehotels.com",
-      subject: `New Table Reservation: ${formattedDate} @ ${data.time}`,
+      subject: `New Table Reservation: ${formattedDate} @ ${String(data.time).replace(/[\r\n]+/g, " ")}`,
       html,
     });
 

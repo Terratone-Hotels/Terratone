@@ -99,29 +99,6 @@ export default function Footer({ footerData }) {
     };
   }, []);
 
-  // useLayoutEffect(() => {
-  //   const footer = footerRef.current;
-  //   if (!footer) return;
-
-  //   const lines = footer.querySelectorAll(".footer-line, .footer-line-top");
-  //   if (!lines.length) return;
-
-  //   gsap.fromTo(
-  //     lines,
-  //     { scaleX: 0 },
-  //     {
-  //       scaleX: 1,
-  //       duration: 0.8,
-  //       ease: "power2.out",
-  //       stagger: 0.15,
-  //       scrollTrigger: {
-  //         trigger: footer,
-  //         start: "top 90%",
-  //         markers: true,
-  //       },
-  //     },
-  //   );
-  // }, []);
 
   const richTextComponents = {
     hyperlink: ({ node, children }) => (

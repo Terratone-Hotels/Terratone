@@ -6,6 +6,7 @@ import TerratoneToast from "@/components/TerratoneToast";
 import Calendar from "./Calendar";
 import { format } from "date-fns";
 import ArrowIcon from "@/components/ArrowIcon";
+import CounterInput from "../CounterInput";
 
 export default function EventTab({ data, setData }) {
   const {
@@ -405,9 +406,12 @@ export default function EventTab({ data, setData }) {
               </button>
 
               {/* Display */}
-              <span className="w-6 text-center">
-                {String(Number(people)).padStart(2, "0")}
-              </span>
+              <CounterInput
+                value={Number(people) || 0}
+                min={1}
+                onCommit={(n) => setData((prev) => ({ ...prev, people: n }))}
+                className="w-10"
+              />
 
               {/* Plus */}
               <button

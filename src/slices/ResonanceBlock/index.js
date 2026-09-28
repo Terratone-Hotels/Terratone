@@ -27,10 +27,10 @@ const ResonanceBlock = ({ slice }) => {
           data-slice-variation={slice.variation}
           className="px-[0.9375rem] md:px-6 mt-15 lg:mt-30"
         >
-          <div className="">
+          <div >
             <PrismicNextImage
               field={slice.primary.horizontal_image}
-              className="h-[15.625rem] object-cover lg:h-[33.938rem]"
+              className="h-[15.625rem] object-cover w-full lg:h-[33.938rem]"
             />
           </div>
           <div className="-mt-45 md:-mt-55 lg:-mt-110 flex flex-col items-center  top-0 ">

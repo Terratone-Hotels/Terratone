@@ -4,6 +4,7 @@ import TerratoneToast from "@/components/TerratoneToast";
 import Calendar from "./Calendar";
 import { format } from "date-fns";
 import ArrowIcon from "@/components/ArrowIcon";
+import CounterInput from "../CounterInput";
 
 export default function DiningTab({ data, setData }) {
   const { fullName, phone, date, guests } = data;
@@ -222,9 +223,12 @@ export default function DiningTab({ data, setData }) {
               </button>
 
               {/* DISPLAY */}
-              <span className="w-6 font-medium text-center">
-                {guests.toString().padStart(2, "0")}
-              </span>
+              <CounterInput
+                value={guests}
+                min={1}
+                onCommit={(n) => setData((prev) => ({ ...prev, guests: n }))}
+                className="w-10 font-medium"
+              />
 
               {/* PLUS */}
               <button

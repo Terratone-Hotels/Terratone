@@ -8,6 +8,7 @@ import TerratoneToast from "@/components/TerratoneToast";
 import useBookNowModal from "@/hooks/useBookNowModal";
 import { useHotelBooking } from "@/store/useHotelBooking";
 import ArrowIcon from "@/components/ArrowIcon";
+import CounterInput from "../CounterInput";
 
 export default function HotelTab({ data, setData, closeModal }) {
   const {
@@ -142,7 +143,7 @@ export default function HotelTab({ data, setData, closeModal }) {
       {/* ---------------- PROPERTY SELECTOR ---------------- */}
       <div
         className={`
-          p-4 bg-[#F5F2EE] border 
+          relative p-4 bg-[#F5F2EE] border
           ${openProperty || selectedProperty ? "border-black" : "border-neutral-300"}
           transition-colors
         `}
@@ -166,7 +167,7 @@ export default function HotelTab({ data, setData, closeModal }) {
         </button>
 
         {openProperty && (
-          <div className="mt-3 font-barlow font-medium space-y-2">
+          <div className="absolute left-0 top-full mt-2 w-full max-h-60 overflow-y-auto font-barlow font-medium space-y-2 bg-[#F5F2EE] border border-black p-2 z-20 shadow-lg">
             {PROPERTY_LIST.map((prop) => (
               <div
                 key={prop}
@@ -251,9 +252,13 @@ export default function HotelTab({ data, setData, closeModal }) {
               -
             </button>
 
-            <span className="w-6  font-barlow font-medium text-center">
-              {String(adults).padStart(2, "0")}
-            </span>
+            <CounterInput
+              value={adults}
+              min={1}
+              max={3 - children}
+              onCommit={(n) => setData({ adults: n })}
+              className="w-10 font-barlow font-medium"
+            />
 
             <button
               disabled={adults + children >= 3}
@@ -284,9 +289,13 @@ export default function HotelTab({ data, setData, closeModal }) {
               -
             </button>
 
-            <span className="w-6 font-barlow font-medium text-center">
-              {String(children).padStart(2, "0")}
-            </span>
+            <CounterInput
+              value={children}
+              min={0}
+              max={3 - adults}
+              onCommit={(n) => setData({ children: n })}
+              className="w-10 font-barlow font-medium"
+            />
 
             <button
               disabled={adults + children >= 3}

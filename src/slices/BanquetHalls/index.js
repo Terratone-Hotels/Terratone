@@ -10,7 +10,6 @@ import Button from "@/components/Button";
 import RichTextRenderer from "@/components/RichTextRenderer";
 import { PrismicNextLink } from "@prismicio/next";
 
-// Register the GSAP plugin here, once, at the top level of the file.
 gsap.registerPlugin(ScrollTrigger);
 
 /**
@@ -19,12 +18,10 @@ gsap.registerPlugin(ScrollTrigger);
  * @type {import("react").FC<BanquetHallsProps>}
  */
 export default function BanquetHalls({ slice }) {
-  // Create refs for ALL elements we need to animate
   const containerRef = useRef(null);
   const imageWrapperRef = useRef(null);
   const imageRef = useRef(null);
 
-  // --- MODIFICATION 1: Create individual refs for content elements ---
   const headingRef = useRef(null);
   const descriptionRef = useRef(null);
   const buttonRef = useRef(null);
@@ -34,12 +31,10 @@ export default function BanquetHalls({ slice }) {
     const imageWrapper = imageWrapperRef.current;
     const image = imageRef.current;
 
-    // Get individual content elements from their refs
     const heading = headingRef.current;
     const description = descriptionRef.current;
     const button = buttonRef.current;
 
-    // Guard clause to ensure all elements are mounted
     if (
       !container ||
       !imageWrapper ||
@@ -50,7 +45,6 @@ export default function BanquetHalls({ slice }) {
     )
       return;
 
-    // Set the initial state for the image animations
     gsap.set(imageWrapper, {
       scale: 0.5,
 
@@ -58,8 +52,6 @@ export default function BanquetHalls({ slice }) {
     });
     gsap.set(image, { scale: 1.5 });
 
-    // --- MODIFICATION 2: Set initial state for EACH content element ---
-    // We group them in an array to set them all at once.
     gsap.set([heading, description, button], { scale: 0.9, y: 40, opacity: 0 });
 
     const tl = gsap.timeline({
@@ -71,29 +63,28 @@ export default function BanquetHalls({ slice }) {
       },
     });
 
-    // Animate the image wrapper (scale and border radius)
     tl.to(
       imageWrapper,
-      // ✅ MODIFIED: Changed borderRadius to "0px" for sharp corners
+
       { scale: 1, borderRadius: "0px", ease: "power2.out" },
       "<",
     )
-      // Animate the inner image (parallax effect)
+
       .to(image, { scale: 1, ease: "power2.out" }, "<")
-      // Animate the content elements IN SEQUENCE
+
       .to(
-        [heading, description, button], // Target all three elements
+        [heading, description, button],
         {
           scale: 1,
           y: 0,
           opacity: 1,
-          stagger: 0.1, // Add a 0.1s delay between each element's animation
+          stagger: 0.1,
           ease: "power2.out",
         },
-        "<", // Start this animation at the same time as the image animations
+        "<",
       );
 
-    // Cleanup function
+   
     return () => {
       tl.kill();
     };

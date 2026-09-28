@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { escape } from "@/lib/html";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -94,15 +95,15 @@ export async function POST(req) {
     <table style="width:100%; font-size:15px; line-height:1.7;">
       <tr>
         <td style="color:#c6bdb5; width:150px;">Name</td>
-        <td style="color:black;">${fullName}</td>
+        <td style="color:black;">${escape(fullName)}</td>
       </tr>
       <tr>
         <td style="color:#c6bdb5;">Email</td>
-        <td style="color:black;">${email}</td>
+        <td style="color:black;">${escape(email)}</td>
       </tr>
       <tr>
         <td style="color:#c6bdb5;">Phone</td>
-        <td style="color:black;">${phone}</td>
+        <td style="color:black;">${escape(phone)}</td>
       </tr>
     </table>
 
@@ -116,12 +117,12 @@ export async function POST(req) {
     <table style="width:100%; font-size:15px; line-height:1.7;">
       <tr>
         <td style="color:#c6bdb5; width:150px;">Event Type</td>
-        <td style="color:black;">${eventType}</td>
+        <td style="color:black;">${escape(eventType)}</td>
       </tr>
 
       <tr>
         <td style="color:#c6bdb5;">Room</td>
-        <td style="color:black;">${selectedRoom}</td>
+        <td style="color:black;">${escape(selectedRoom)}</td>
       </tr>
 
       <tr>
@@ -142,17 +143,17 @@ export async function POST(req) {
 
       <tr>
         <td style="color:#c6bdb5;">Starts</td>
-        <td style="color:black;">${startTime}</td>
+        <td style="color:black;">${escape(startTime)}</td>
       </tr>
 
       <tr>
         <td style="color:#c6bdb5;">Ends</td>
-        <td style="color:black;">${endTime}</td>
+        <td style="color:black;">${escape(endTime)}</td>
       </tr>
 
       <tr>
         <td style="color:#c6bdb5;">People</td>
-        <td style="color:black;">${people}</td>
+        <td style="color:black;">${escape(people)}</td>
       </tr>
     </table>
 
@@ -162,7 +163,7 @@ export async function POST(req) {
         ? `
       <div style="margin-top:20px;">
           <p style="color:#96703b; margin:0 0 6px; font-weight:600;">Notes:</p>
-          <p style="margin:0; color:black; white-space:pre-line;">${notes}</p>
+          <p style="margin:0; color:black; white-space:pre-line;">${escape(notes)}</p>
         </div>`
         : ""
     }

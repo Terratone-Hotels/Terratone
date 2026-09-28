@@ -16,10 +16,9 @@ const components = {
 };
 
 export default function FullImage({ slice }) {
-  // CORRECT: useRef<HTMLDivElement>(null)
-  const sectionRef = useRef < HTMLDivElement > null;
-  const imageWrapperRef = useRef < HTMLDivElement > null;
-  const stepsRef = useRef < HTMLDivElement > null;
+  const sectionRef = useRef(null);
+  const imageWrapperRef = useRef(null);
+  const stepsRef = useRef(null);
 
   const widthScreens = slice.primary.duration_screens || 4;
   const totalWidth = `${widthScreens * 100}vw`;
