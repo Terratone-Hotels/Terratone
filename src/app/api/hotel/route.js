@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { escape } from "@/lib/html";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const roomStyles = {
@@ -110,7 +111,7 @@ export async function POST(req) {
       NAME :
     </td>
     <td style="font-size:16px; color:#333; white-space:nowrap; font-family:'EB Garamond', Georgia, serif;">
-      ${fullName}
+      ${escape(fullName)}
     </td>
   </tr>
 </table>
@@ -121,7 +122,7 @@ export async function POST(req) {
       PHONE :
     </td>
     <td style="font-size:16px; color:#333; white-space:nowrap; font-family:'EB Garamond', Georgia, serif;">
-      ${phone}
+      ${escape(phone)}
     </td>
   </tr>
 </table>
@@ -157,7 +158,7 @@ export async function POST(req) {
                   padding:5px 12px;
                   border:1px solid #d2c3c2;
                   white-space:nowrap;
-                "> ${room.property}</span> `;
+                "> ${escape(room.property)}</span> `;
             })
             .join("")}
         </div>

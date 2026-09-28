@@ -99,29 +99,6 @@ export default function Footer({ footerData }) {
     };
   }, []);
 
-  // useLayoutEffect(() => {
-  //   const footer = footerRef.current;
-  //   if (!footer) return;
-
-  //   const lines = footer.querySelectorAll(".footer-line, .footer-line-top");
-  //   if (!lines.length) return;
-
-  //   gsap.fromTo(
-  //     lines,
-  //     { scaleX: 0 },
-  //     {
-  //       scaleX: 1,
-  //       duration: 0.8,
-  //       ease: "power2.out",
-  //       stagger: 0.15,
-  //       scrollTrigger: {
-  //         trigger: footer,
-  //         start: "top 90%",
-  //         markers: true,
-  //       },
-  //     },
-  //   );
-  // }, []);
 
   const richTextComponents = {
     hyperlink: ({ node, children }) => (
@@ -151,7 +128,7 @@ export default function Footer({ footerData }) {
             {/* FIRST ROW CONTENT */}
             <div className="flex md:justify-between lg:justify-normal ">
               {/* LEFT COLUMN */}
-              <div className="md:w-[28%] lg:w-[20%]">
+              <div className="md:w-[28%]  lg:w-[20%]">
                 <div className=" mt-2 mb-12">
                   {data.footer_links.map((item, index) => (
                     <div
@@ -171,7 +148,7 @@ export default function Footer({ footerData }) {
               </div>
 
               {/* MIDDLE COLUMN (WITH VERTICAL LINES) */}
-              <div className="relative md:w-[33%] flex flex-col  font-barlow lg:w-[40%] xl:w-[30%]">
+              <div className="relative md:w-[33%] flex flex-col  font-barlow lg:w-[40%] xl:w-[40%] 2xl:w-[30%]">
                 {/* VERTICAL LINE 1 */}
                 <div className="footer-line-vertical footer-vert-1 absolute top-0 left-0 w-[1px] h-full bg-[#C7C7C7]" />
 
@@ -246,7 +223,7 @@ export default function Footer({ footerData }) {
               {/* RIGHT COLUMN */}
               <div className=" flex font-barlow ">
                 <div className="mt-4 w-full">
-                  <div className="lg:pl-7 xl:px-16.5 ">
+                  <div className="lg:pl-7 xl:pl-16.5 ">
                     {/* Addresses */}
                     <div className=" flex flex-col w-full">
                       {/* L O C A T I O N */}
@@ -256,10 +233,10 @@ export default function Footer({ footerData }) {
                       </div>
 
                       {/* Hotel and ToneTable container */}
-                      <div className="flex gap-10">
+                      <div className="flex gap-10 ">
                         {/* Hotel */}
                         <div className="">
-                          <div className="text-sm text-black font-medium leading-4 mb-1  xl:w-[80%] ">
+                          <div className="text-sm text-black font-medium leading-4 mb-1  xl:w-[90%] ">
                             <PrismicRichText
                               field={data.address}
                               components={richTextComponents}
@@ -276,7 +253,7 @@ export default function Footer({ footerData }) {
                           </div>
                         </div>
                         {/* Tone Table */}
-                        <div className=" ">
+                        <div className="  ">
                           {data.address_two_heading && (
                             <div className="uppercase tracking-[0.2rem] font-medium text-sm">
                               <PrismicRichText
@@ -285,7 +262,7 @@ export default function Footer({ footerData }) {
                             </div>
                           )}
                           {data.address_two && (
-                            <div className="text-sm text-black font-medium leading-4 mb-1  xl:w-[85%]  ">
+                            <div className="text-sm text-black font-medium leading-4 mb-1  xl:w-[95%]  ">
                               <PrismicRichText
                                 field={data.address_two}
                                 components={richTextComponents}
@@ -311,7 +288,7 @@ export default function Footer({ footerData }) {
                             </div>
                           )}
                           {data.address_three && (
-                            <div className="text-sm text-black font-medium leading-4 mb-1  xl:w-[80%]  ">
+                            <div className="text-sm text-black font-medium leading-4 mb-1  xl:w-[90%]  ">
                               <PrismicRichText
                                 field={data.address_three}
                                 components={richTextComponents}
@@ -538,7 +515,7 @@ export default function Footer({ footerData }) {
               <div className="flex flex-wrap">
                 {/* Hotel */}
                 <div className="flex-4">
-                  <div className="font-medium text-xs text-[#8E8E8E] max-w-23 md:max-w-50  ">
+                  <div className="font-medium text-xs text-black max-w-23 md:max-w-50  ">
                     <PrismicRichText
                       field={data.address}
                       components={richTextComponents}
@@ -557,7 +534,7 @@ export default function Footer({ footerData }) {
                       <PrismicRichText field={data.address_two_heading} />
                     </div>
                   )}
-                  <div className="font-medium text-xs text-[#8E8E8E] max-w-23 md:max-w-50  ">
+                  <div className="font-medium text-xs text-black max-w-25 md:max-w-50  ">
                     <PrismicRichText
                       field={data.address_two}
                       components={richTextComponents}
@@ -575,7 +552,7 @@ export default function Footer({ footerData }) {
                       <PrismicRichText field={data.address_two_heading} />
                     </div>
                   )}
-                  <div className="font-medium text-xs text-[#8E8E8E] max-w-23 md:max-w-50  ">
+                  <div className="font-medium text-xs text-black max-w-23 md:max-w-50  ">
                     <PrismicRichText
                       field={data.address_three}
                       components={richTextComponents}

@@ -184,6 +184,7 @@ export default function HeaderClient({ headerData }) {
 
   useEffect(() => {
     const links = document.querySelectorAll(".nav-link");
+    const cleanups = [];
 
     links.forEach((link) => {
       const underline = link.querySelector(".nav-underline");
@@ -195,16 +196,21 @@ export default function HeaderClient({ headerData }) {
         ease: "power3.out",
       });
 
-      link.addEventListener("mouseenter", () => tl.play());
-      link.addEventListener("mouseleave", () => tl.reverse());
+      const onEnter = () => tl.play();
+      const onLeave = () => tl.reverse();
+
+      link.addEventListener("mouseenter", onEnter);
+      link.addEventListener("mouseleave", onLeave);
+
+      cleanups.push(() => {
+        link.removeEventListener("mouseenter", onEnter);
+        link.removeEventListener("mouseleave", onLeave);
+        tl.kill();
+      });
     });
 
     return () => {
-      links.forEach((link) => {
-        const underline = link.querySelector(".nav-underline");
-        link.removeEventListener("mouseenter", () => tl.play());
-        link.removeEventListener("mouseleave", () => tl.reverse());
-      });
+      cleanups.forEach((cleanup) => cleanup());
     };
   }, []);
 
