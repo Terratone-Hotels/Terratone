@@ -51,10 +51,8 @@ const IntroBlock = ({ slice }) => {
               <RichTextRenderer field={slice.primary.description} />
             </div>
             <div className="flex flex-row items-center justify-center gap-5">
-              <Button className="px-2.5 py-1">
-                <PrismicNextLink field={slice.primary.button_link}>
-                  {slice.primary.button_text}
-                </PrismicNextLink>
+              <Button field={slice.primary.button_link} className="px-2.5 py-1">
+                {slice.primary.button_text}
               </Button>
               {isFilled.link(slice.primary.whatsapp_link) && (
                 <WhatsappButton
