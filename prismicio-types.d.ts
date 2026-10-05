@@ -3650,9 +3650,91 @@ export type IntroBlockSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *IntroBlock → WithWhatsappButton → Primary*
+ */
+export interface IntroBlockSliceWithWhatsappButtonPrimary {
+  /**
+   * Heading field in *IntroBlock → WithWhatsappButton → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.withWhatsappButton.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *IntroBlock → WithWhatsappButton → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.withWhatsappButton.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Button Link field in *IntroBlock → WithWhatsappButton → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.withWhatsappButton.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Button Text field in *IntroBlock → WithWhatsappButton → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.withWhatsappButton.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  button_text: prismic.KeyTextField;
+
+  /**
+   * WhatsApp Link field in *IntroBlock → WithWhatsappButton → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: intro_block.withWhatsappButton.primary.whatsapp_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  whatsapp_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+}
+
+/**
+ * WithWhatsappButton variation for IntroBlock Slice
+ *
+ * - **API ID**: `withWhatsappButton`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type IntroBlockSliceWithWhatsappButton = prismic.SharedSliceVariation<
+  "withWhatsappButton",
+  Simplify<IntroBlockSliceWithWhatsappButtonPrimary>,
+  never
+>;
+
+/**
  * Slice variation for *IntroBlock*
  */
-type IntroBlockSliceVariation = IntroBlockSliceDefault;
+type IntroBlockSliceVariation =
+  | IntroBlockSliceDefault
+  | IntroBlockSliceWithWhatsappButton;
 
 /**
  * IntroBlock Shared Slice
@@ -6036,8 +6118,10 @@ declare module "@prismicio/client" {
       HorizontalPageSliceDefault,
       IntroBlockSlice,
       IntroBlockSliceDefaultPrimary,
+      IntroBlockSliceWithWhatsappButtonPrimary,
       IntroBlockSliceVariation,
       IntroBlockSliceDefault,
+      IntroBlockSliceWithWhatsappButton,
       LocationAndContactsSlice,
       LocationAndContactsSliceDefaultPrimaryDistancesItem,
       LocationAndContactsSliceDefaultPrimary,

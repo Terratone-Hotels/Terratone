@@ -173,21 +173,10 @@ const MeetingHalls = ({ slice }) => {
       {/* WITH NUMBERS VARIATION — NO ANIMATION */}
       {/* ======================================================================= */}
       {slice.variation === "withNumbers" && (
-        <div>
-          <Bounded ref={sectionRef}>
-            <div className="max-w-3xl mx-auto text-center px-4">
-              <RichTextRenderer
-                field={slice.primary.heading}
-                className="text-[1.75rem] md:text-5xl font-serif font-medium mb-2 lg:mb-8"
-              />
-              <RichTextRenderer
-                field={slice.primary.description}
-                className="leading-tight font-barlow text-[0.875rem] md:text-[1.125rem]"
-              />
-            </div>
-
+        <div className="">
+          <section  className="px-[0.9375rem] md:px-6 mt-15 lg:mt-30" ref={sectionRef}>
             {/* NO ANIMATION */}
-            <div className="hidden xl:grid xl:grid-cols-3 md:gap-6 items-start">
+            <div className="hidden lg:grid lg:grid-cols-3 md:gap-6 items-start">
               {slice.primary.rooms.map((item, index) => (
                 <div key={index} className="group flex flex-col">
                   <div className="relative aspect-square overflow-hidden">
@@ -222,8 +211,8 @@ const MeetingHalls = ({ slice }) => {
                 </div>
               ))}
             </div>
-          </Bounded>
-          <div className="xl:hidden pl-4 mt-10">
+          </section>
+          <div className="lg:hidden pl-4 mt-10">
             <Swiper spaceBetween={20} slidesPerView={1.2} grabCursor={true}>
               {slice.primary.rooms.map((item, index) => (
                 <SwiperSlide key={index}>
@@ -249,7 +238,7 @@ const MeetingHalls = ({ slice }) => {
                         {item.card_title}
                       </p>
 
-                      <p className="text-sm font-barlow leading-relaxed mt-2">
+                      <p className="text-sm font-barlow leading-snug mt-2">
                         {item.card_description}
                       </p>
 

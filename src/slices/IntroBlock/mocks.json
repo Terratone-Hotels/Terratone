@@ -41,5 +41,62 @@
 			}
 		},
 		"items": []
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "withWhatsappButton",
+		"primary": {
+			"heading": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Dolor exercitation esse exercitation duis enim irure et duis dolore eiusmod eu."
+						}
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Incididunt laborum elit minim aliqua qui nisi irure mollit id. Ullamco aliqua occaecat mollit minim tempor officia ut."
+						}
+					}
+				]
+			},
+			"button_link": {
+				"key": "34afacd3-4f02-484a-bfe7-a68a3e5ba08d",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://prismic.io",
+					"text": "bet"
+				}
+			},
+			"button_text": {
+				"__TYPE__": "FieldContent",
+				"value": "size",
+				"type": "Text"
+			},
+			"whatsapp_link": {
+				"__TYPE__": "LinkContent",
+				"key": "ae016654-9d3f-491e-ae47-e6ba5e4b8bde",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "http://twitter.com",
+					"text": "prepare"
+				}
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
 	}
 ]
