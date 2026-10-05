@@ -174,7 +174,7 @@ const MeetingHalls = ({ slice }) => {
       {/* ======================================================================= */}
       {slice.variation === "withNumbers" && (
         <div className="">
-          <section  className="px-[0.9375rem] md:px-6 mt-15 lg:mt-30" ref={sectionRef}>
+          <section  className="px-[0.9375rem] md:px-6 mt-15 lg:mt-30 xl:mt-50 2xl:mt-55" ref={sectionRef}>
             {/* NO ANIMATION */}
             <div className="hidden lg:grid lg:grid-cols-3 md:gap-6 items-start">
               {slice.primary.rooms.map((item, index) => (
